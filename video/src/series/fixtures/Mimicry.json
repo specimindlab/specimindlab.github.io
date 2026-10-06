@@ -1,0 +1,94 @@
+{
+  "id": "E020",
+  "code": "M01",
+  "composition": "Mimicry",
+  "series": "Mimicry",
+  "mode": "Live specimen",
+  "disclosure": "Unpaid",
+  "tool": "Photoroom",
+  "genus": "Product photo AI",
+  "cta": {
+    "yt": "Notes at specimindlab.github.io/M01",
+    "ig": "Comment A or B before you rewatch.",
+    "x": "Notes at specimindlab.github.io/M01"
+  },
+  "a": {
+    "kind": "image",
+    "src": "@/test/mug-photo.svg"
+  },
+  "b": {
+    "kind": "image",
+    "src": "@/test/mug-mesh.svg"
+  },
+  "ai": "B",
+  "flaw": {
+    "x": 0.6,
+    "y": 0.35,
+    "w": 0.35,
+    "h": 0.35
+  },
+  "beats": [
+    {
+      "type": "split",
+      "seconds": 12,
+      "lines": [
+        "One is Photoroom.",
+        "One is a camera."
+      ]
+    },
+    {
+      "type": "details",
+      "seconds": 10,
+      "lines": [
+        "Look closer.",
+        "Same spot, both."
+      ],
+      "crops": [
+        {
+          "a": {
+            "x": 0.5,
+            "y": 0.3,
+            "w": 0.4,
+            "h": 0.4
+          },
+          "b": {
+            "x": 0.6,
+            "y": 0.3,
+            "w": 0.4,
+            "h": 0.4
+          }
+        },
+        {
+          "a": {
+            "x": 0.2,
+            "y": 0.3,
+            "w": 0.4,
+            "h": 0.4
+          },
+          "b": {
+            "x": 0.2,
+            "y": 0.2,
+            "w": 0.4,
+            "h": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "type": "countdown",
+      "seconds": 3
+    },
+    {
+      "type": "reveal",
+      "seconds": 6,
+      "lines": [
+        "B was the AI.",
+        "The handle told."
+      ]
+    },
+    {
+      "type": "cta",
+      "seconds": 4
+    }
+  ]
+}

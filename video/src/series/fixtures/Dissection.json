@@ -1,0 +1,113 @@
+{
+  "id": "E030",
+  "code": "D01",
+  "composition": "Dissection",
+  "series": "Dissection",
+  "mode": "Live specimen",
+  "disclosure": "Unpaid",
+  "tool": "Photo to printed mug",
+  "genus": "3-tool workflow",
+  "cta": {
+    "yt": "Notes at specimindlab.github.io/D01",
+    "ig": "Comment D01 for the link.",
+    "x": "Notes at specimindlab.github.io/D01"
+  },
+  "stages": [
+    {
+      "tool": "Photoroom",
+      "media": {
+        "kind": "image",
+        "src": "@/test/mug-photo.svg"
+      },
+      "seconds": 9,
+      "cost": "0"
+    },
+    {
+      "tool": "Tripo",
+      "media": {
+        "kind": "image",
+        "src": "@/test/mug-mesh.svg"
+      },
+      "seconds": 38,
+      "cost": "0"
+    },
+    {
+      "tool": "Bambu Studio",
+      "media": {
+        "kind": "glb",
+        "src": "@/test/mug.glb",
+        "clay": false
+      },
+      "seconds": 105,
+      "cost": "0"
+    }
+  ],
+  "beats": [
+    {
+      "type": "output",
+      "seconds": 3,
+      "lines": [
+        "A printable mug,",
+        "from one photo."
+      ],
+      "media": {
+        "kind": "glb",
+        "src": "@/test/mug.glb",
+        "clay": false
+      }
+    },
+    {
+      "type": "tray",
+      "seconds": 3,
+      "lines": [
+        "Three tools.",
+        "One chain."
+      ]
+    },
+    {
+      "type": "observation",
+      "seconds": 7,
+      "lines": [
+        "Cut out",
+        "the background."
+      ]
+    },
+    {
+      "type": "observation",
+      "seconds": 8,
+      "lines": [
+        "Photo to mesh",
+        "in 38 seconds."
+      ]
+    },
+    {
+      "type": "observation",
+      "seconds": 7,
+      "lines": [
+        "Sliced for",
+        "the printer."
+      ]
+    },
+    {
+      "type": "flaw",
+      "seconds": 4,
+      "lines": [
+        "Weakest link:",
+        "the fused handle."
+      ],
+      "stage": 1,
+      "region": {
+        "x": 0.55,
+        "y": 0.3,
+        "w": 0.4,
+        "h": 0.4
+      }
+    },
+    {
+      "type": "verdict",
+      "seconds": 6,
+      "verdict": "Captured",
+      "total_cost": "0"
+    }
+  ]
+}

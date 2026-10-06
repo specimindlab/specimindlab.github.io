@@ -3,6 +3,8 @@ import { CalculateMetadataFunction, Composition } from "remotion";
 import { FPS, HEIGHT, WIDTH } from "./brand";
 import { PipelineCheck } from "./PipelineCheck";
 import { EpisodeProps, episodeProps, totalFrames } from "./schema";
+import { SeriesCompositions } from "./series";
+import { SCENE, SCENE_COUNT, SystemTest, systemTestSchema } from "./test/SystemTest";
 
 // Every episode composition takes { script, platform } and derives its length from the beats.
 const fromScript: CalculateMetadataFunction<EpisodeProps> = ({ props }) => ({
@@ -43,8 +45,19 @@ export const RemotionRoot: React.FC = () => {
         width={WIDTH}
         height={HEIGHT}
       />
-      {/* Series compositions (FieldSpecimen, FreeRange, RareSighting, Plate, FieldSketch,
-          Mimicry, Dissection, Drawer, ExtinctionWatch) are registered here by prompt S2. */}
+      <Composition
+        id="SystemTest"
+        component={SystemTest}
+        schema={systemTestSchema}
+        defaultProps={{ guides: false }}
+        durationInFrames={SCENE * SCENE_COUNT}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      {/* FieldSpecimen, FreeRange, RareSighting, Plate, FieldSketch, Mimicry, Dissection, Drawer,
+          ExtinctionWatch: one per series, see src/series/index.tsx and data/series.md. */}
+      <SeriesCompositions />
     </>
   );
 };

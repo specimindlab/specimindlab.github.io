@@ -1,5 +1,6 @@
-# Python tools used by scripts/ (sound synthesis, calendar, auto-capture). Pinned exactly.
+# Python tools used by scripts/ (sound synthesis, calendar, auto-capture, font metrics). Pinned exactly.
 numpy==2.5.3
 scipy==1.18.1
 openpyxl==3.1.5
 gradio_client==2.7.2
+fonttools==4.66.1

@@ -1,0 +1,93 @@
+{
+  "id": "E011",
+  "code": "012",
+  "composition": "FieldSketch",
+  "series": "Field Sketch",
+  "mode": "Field sketch",
+  "disclosure": "Unpaid",
+  "tool": "Fixture Pro",
+  "genus": "Video generator",
+  "cta": {
+    "yt": "Notes at specimindlab.github.io/012",
+    "ig": "Comment 012 for the link.",
+    "x": "Notes at specimindlab.github.io/012"
+  },
+  "beats": [
+    {
+      "type": "sketch",
+      "seconds": 6,
+      "lines": [
+        "Redrawn from",
+        "the public docs."
+      ],
+      "inputs": [
+        "Photo",
+        "Text prompt"
+      ],
+      "process": "Image to video",
+      "outputs": [
+        "10 s clip",
+        "Sound"
+      ]
+    },
+    {
+      "type": "notes",
+      "seconds": 10,
+      "lines": [
+        "What it eats,",
+        "what it costs."
+      ],
+      "rows": [
+        {
+          "key": "Habitat",
+          "value": "Web app"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Image, text"
+        },
+        {
+          "key": "Plans",
+          "value": "Not published"
+        }
+      ]
+    },
+    {
+      "type": "price-math",
+      "seconds": 10,
+      "lines": [
+        "The cheapest way",
+        "in, worked out."
+      ],
+      "rows": [
+        {
+          "key": "Paid from",
+          "value": "Not published"
+        },
+        {
+          "key": "Buys",
+          "value": "Not published"
+        }
+      ],
+      "result": {
+        "key": "Per clip",
+        "value": "Unknown"
+      }
+    },
+    {
+      "type": "flaw",
+      "seconds": 5,
+      "lines": [
+        "The documented",
+        "catch, in writing."
+      ],
+      "text": "No free tier",
+      "source": "example.com/pricing",
+      "flaw_source": "research"
+    },
+    {
+      "type": "verdict",
+      "seconds": 5
+    }
+  ]
+}

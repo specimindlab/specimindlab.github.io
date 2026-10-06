@@ -2,6 +2,13 @@
 
 A captions-only YouTube Shorts / Instagram Reels / X channel that tests new AI tools. Repo map: `brand/` brand kit · `data/` calendar, series, schedule, batch state, batches · `prompts/` prompt pack and playbooks · `video/` Remotion project · `scripts/` pipeline · `site/` catalog hub · `episodes/` one folder per episode.
 
+## Video system
+- `video/src/system/`: the design-system components (Paper, SpecimenLabel, FitStack, Plate, Turntable, ScaleBar, Card, InkMark, Stamp, Drawer, Triptych, SplitAB, Tray, CreditCounter, ExtinctLabel, Sketch). Series are built only from these.
+- `video/src/series/`: one composition per series; script.json shapes and beat orders in `video/src/series/README.md`. Fixtures there are design placeholders, never research.
+- Text is measured only below `<FontGate/>` (series bodies go through `framed()`); never measure in an outer component.
+- QA: `scripts/render_system_test.sh`, `scripts/render_series_test.sh`, then `scripts/check_safe_zones.py <stills>`. Look at the stills before committing.
+- After changing the font or caption axes: `python3 scripts/font_metrics.py`.
+
 ## Cloud rules
 - You run in Claude Code on the web. Commit and push to main after each finished unit of work (one episode, one fix). Never rely on anything that is not in the repo.
 - Keep progress in data/batch-state.json; on start, read it and resume.

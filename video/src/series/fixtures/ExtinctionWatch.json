@@ -1,0 +1,87 @@
+{
+  "id": "E050",
+  "code": "X01",
+  "composition": "ExtinctionWatch",
+  "series": "Extinction Watch",
+  "mode": "Field sketch",
+  "disclosure": "Unpaid",
+  "tool": "Fixture Studio",
+  "genus": "Video generator",
+  "cta": {
+    "yt": "Notes at specimindlab.github.io/X01",
+    "ig": "Comment X01 for the link.",
+    "x": "Notes at specimindlab.github.io/X01"
+  },
+  "extinct_name": "Fixture Studio",
+  "extinct_note": "Shut down 30 Sep 2026",
+  "pick": 0,
+  "successors": [
+    {
+      "tool": "Successor One",
+      "free_tier": "66 credits a day",
+      "line": "Closest match for short clips"
+    },
+    {
+      "tool": "Successor Two",
+      "free_tier": "Free, 720p",
+      "line": "Open weights, runs locally"
+    },
+    {
+      "tool": "Successor Three",
+      "free_tier": "Not published",
+      "line": "Waitlist only"
+    }
+  ],
+  "beats": [
+    {
+      "type": "extinct",
+      "seconds": 4,
+      "lines": [
+        "Gone on 30 Sep.",
+        "Files deleted."
+      ]
+    },
+    {
+      "type": "timeline",
+      "seconds": 8,
+      "lines": [
+        "Two years,",
+        "start to finish."
+      ],
+      "rows": [
+        {
+          "key": "Mar 2024",
+          "value": "Launched"
+        },
+        {
+          "key": "Jun 2026",
+          "value": "Free tier cut"
+        },
+        {
+          "key": "30 Sep 2026",
+          "value": "Shut down"
+        }
+      ]
+    },
+    {
+      "type": "successors",
+      "seconds": 16,
+      "lines": [
+        "Three replacements,",
+        "all free to try."
+      ]
+    },
+    {
+      "type": "flaw",
+      "seconds": 3,
+      "lines": [
+        "The shared catch."
+      ],
+      "text": "Watermark on free clips"
+    },
+    {
+      "type": "verdict",
+      "seconds": 5
+    }
+  ]
+}

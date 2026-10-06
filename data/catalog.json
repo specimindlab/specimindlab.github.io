@@ -1,0 +1,4 @@
+{
+  "note": "The permanent SPECIMIND catalog. One entry per published specimen; codes are never renumbered or reused. Filled from each episode's facts.json after its video is published (prompt B). The Drawer component and the site read this file, so it must only contain real, published specimens.",
+  "specimens": []
+}

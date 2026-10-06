@@ -35,3 +35,19 @@ export const TYPE = {
 
 export const variation = (t: { wdth: number; wght: number }) =>
   `'wdth' ${t.wdth}, 'wght' ${t.wght}`;
+
+// Values derived from the brand templates (brand/templates/*.svg), not new colours.
+export const DERIVED = {
+  rule: "#B9BEAE", // card row rules (storyboard-4)
+  inset: "#E9ECE2", // input inset on the observation plate (storyboard-3)
+  clay: "#C9CEC0", // neutral clay for 3D geometry (storyboard mug body)
+  cell: "rgba(242, 243, 236, 0.55)", // drawer cell fill (vector-drawer)
+  cellStroke: "rgba(21, 22, 18, 0.25)",
+} as const;
+
+// Vertical layout bands shared by every series (inside SAFE).
+export const BANDS = {
+  headerBottom: 400, // pinned label + text column end here (pin tail at ~380)
+  captionBottom: SAFE.bottom - 2, // lowest descender; 2 px keeps antialiasing off the 1440 line
+  gap: 40, // breathing room between the content block and the caption
+} as const;
