@@ -11,7 +11,7 @@ copy of `Drawer` that reads `fixtures/catalog.fixture.json`; the real `Drawer` a
 
 Common fields (every series): `id` (E###), `code`, `composition`, `series`, `mode`
 ("Live specimen" | "Field sketch"), `disclosure` ("Affiliate" | "Unpaid"), `tool`, `genus`, `bed`
-(optional staticFile path), `cta: { yt, ig, x }` (the last beat's caption; "\n" forces a line break),
+(`"sfx/bed-<1-6>.wav"`, a different bed from the previous upload; the motif is added on the last beat automatically), `cta: { yt, ig, x }` (the last beat's caption; "\n" forces a line break),
 `beats[]`. Every caption line carries 2-6 words, 1-3 lines per beat.
 
 Media (`media`): `{ kind: "image" | "video" | "glb", src, fit?, clay?, start_at?, sound?, crop? }`.

@@ -8,6 +8,7 @@ A captions-only YouTube Shorts / Instagram Reels / X channel that tests new AI t
 - Text is measured only below `<FontGate/>` (series bodies go through `framed()`); never measure in an outer component.
 - QA: `scripts/render_system_test.sh`, `scripts/render_series_test.sh`, then `scripts/check_safe_zones.py <stills>`. Look at the stills before committing.
 - After changing the font or caption axes: `python3 scripts/font_metrics.py`.
+- Sound: `python3 scripts/make_sfx.py` generates every WAV in `video/public/sfx` with its level baked in (bed -24 LUFS, effects ~8 dB above, motif just under); components never set a volume. `script.bed` is `sfx/bed-<1-6>.wav`, never the same bed as the previous upload. The motif plays only on the end card (`<Soundtrack/>`). Check levels with `scripts/render_sound_test.sh` (background). Never bake a commercial track into a file (on Instagram the human may add an in-app track at low volume).
 
 ## Cloud rules
 - You run in Claude Code on the web. Commit and push to main after each finished unit of work (one episode, one fix). Never rely on anything that is not in the repo.

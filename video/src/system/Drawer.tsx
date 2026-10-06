@@ -140,7 +140,7 @@ export const Drawer: React.FC<DrawerProps> = ({
           />
         );
       })}
-      {sfx ? <Sfx name="drawer" at={start} volume={0.55} /> : null}
+      {sfx ? <Sfx name="drawer" at={start} /> : null}
       {sfx ? <Sfx name="pin-tick" at={drop + PIN.drop} /> : null}
     </div>
   );

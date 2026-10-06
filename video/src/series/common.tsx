@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Audio, Sequence, staticFile } from "remotion";
+import { AbsoluteFill, Sequence } from "remotion";
 import { z } from "zod";
 import { BANDS, FPS, SAFE } from "../brand";
 import {
@@ -9,6 +9,7 @@ import {
   FontGate,
   layoutStack,
   Paper,
+  Soundtrack,
   SpecimenLabel,
   StackLayout,
 } from "../system";
@@ -154,11 +155,13 @@ type HeaderScript = {
   disclosure: "Affiliate" | "Unpaid";
   mode: "Live specimen" | "Field sketch";
   bed?: string;
+  beats: { seconds: number }[];
 };
 
 /**
  * Paper, the pinned label (code, tool, genus, disclosure, mode: on screen for the whole video),
- * episode asset resolution and the ambient bed. Beats render as children.
+ * episode asset resolution, the ambient bed and the motif on the end card (the last beat).
+ * Beats render as children.
  */
 export const SeriesFrame: React.FC<{ script: HeaderScript; modeEmphasis?: boolean; children: React.ReactNode }> = ({
   script,
@@ -168,7 +171,7 @@ export const SeriesFrame: React.FC<{ script: HeaderScript; modeEmphasis?: boolea
   <FontGate>
     <EpisodeAssets id={script.id}>
       <Paper seed={script.id} />
-      {script.bed ? <Audio src={staticFile(script.bed)} volume={0.35} loop /> : null}
+      <Soundtrack bed={script.bed} endCardFrom={totalFramesOf(script.beats.slice(0, -1))} />
       {children}
       <SpecimenLabel
         code={script.code}

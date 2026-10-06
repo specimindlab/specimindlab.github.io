@@ -4,6 +4,7 @@ import { FPS, HEIGHT, WIDTH } from "./brand";
 import { PipelineCheck } from "./PipelineCheck";
 import { EpisodeProps, episodeProps, totalFrames } from "./schema";
 import { SeriesCompositions } from "./series";
+import { SOUND_TEST_SECONDS, SoundTest, soundTestSchema } from "./test/SoundTest";
 import { SCENE, SCENE_COUNT, SystemTest, systemTestSchema } from "./test/SystemTest";
 
 // Every episode composition takes { script, platform } and derives its length from the beats.
@@ -51,6 +52,16 @@ export const RemotionRoot: React.FC = () => {
         schema={systemTestSchema}
         defaultProps={{ guides: false }}
         durationInFrames={SCENE * SCENE_COUNT}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Composition
+        id="SoundTest"
+        component={SoundTest}
+        schema={soundTestSchema}
+        defaultProps={{ bed: "sfx/bed-1.wav" }}
+        durationInFrames={SOUND_TEST_SECONDS * FPS}
         fps={FPS}
         width={WIDTH}
         height={HEIGHT}

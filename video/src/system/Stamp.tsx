@@ -72,7 +72,7 @@ export const Stamp: React.FC<StampProps> = ({ word, x, y, width = 620, start = 0
           </text>
         </g>
       </svg>
-      <Sfx name="stamp" at={start + LAND} volume={0.75} />
+      <Sfx name="stamp" at={start + LAND} />
     </>
   );
 };

@@ -131,7 +131,7 @@ export const InkMark: React.FC<InkMarkProps> = (props) => {
           );
         })}
       </svg>
-      {sfx ? <Sfx name="pen" at={start} volume={0.5} /> : null}
+      {sfx ? <Sfx name="pen" at={start} /> : null}
     </>
   );
 };

@@ -127,7 +127,7 @@ export const Card: React.FC<CardProps> = (props) => {
         </g>
       </svg>
       {mark ? <InkMark shape="ellipse" target={cardValueBox(l, mark.row)} start={mark.start} seed={mark.seed ?? title} pad={14} /> : null}
-      {sfx ? <Sfx name="paper" at={start} volume={0.5} /> : null}
+      {sfx ? <Sfx name="paper" at={start} /> : null}
     </>
   );
 };
