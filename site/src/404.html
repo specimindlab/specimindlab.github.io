@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPECIMIND · a field guide to new AI tools</title>
+<meta name="description" content="SPECIMIND tests new AI tools, one real attempt at a time, and pins every result in a public catalog.">
+<link rel="icon" href="/logo-mark.svg" type="image/svg+xml">
+<style>
+  @font-face { font-family: "Anybody"; src: url("/fonts/Anybody-VF.ttf") format("truetype"); font-weight: 100 900; font-stretch: 50% 150%; font-display: swap; }
+  :root { --herbarium: #D8DCCD; --ink: #151612; --red: #C4122F; --label: #F2F3EC; --steel: #8C938D; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--herbarium); color: var(--ink); }
+  body { font-family: "Anybody", system-ui, sans-serif; font-variation-settings: 'wdth' 90, 'wght' 500; line-height: 1.45;
+         min-height: 100vh; display: grid; place-items: center; padding: 32px 16px; }
+  main { width: min(640px, 100%); }
+  .label { display: inline-block; background: var(--red); color: var(--label); padding: 10px 22px; outline: 2px solid var(--label);
+           outline-offset: -8px; font-variation-settings: 'wdth' 140, 'wght' 900; font-size: 44px; transform: rotate(-3deg); }
+  h1 { font-variation-settings: 'wdth' 150, 'wght' 900; font-weight: normal; font-size: clamp(44px, 12vw, 88px); line-height: .95; margin: 28px 0 6px; letter-spacing: .01em; }
+  .sub { font-size: 22px; margin: 0 0 28px; }
+  .card { background: var(--label); border: 2px solid var(--ink); padding: 20px 24px; }
+  .row { display: flex; gap: 16px; border-bottom: 1px solid var(--steel); padding: 8px 0; }
+  .row:last-child { border-bottom: 0; }
+  .k { color: var(--steel); min-width: 120px; font-variation-settings: 'wdth' 85, 'wght' 700; font-size: 14px; padding-top: 3px; }
+  .v { font-variation-settings: 'wdth' 90, 'wght' 750; }
+  a { color: var(--red); text-underline-offset: 3px; }
+  a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<main>
+  <span class="label" aria-hidden="true">Nº</span>
+  <h1>SPECIMIND</h1>
+  <p class="sub">A field guide to new AI tools.</p>
+  <div class="card">
+    <div class="row"><span class="k">Status</span><span class="v">The drawer opens on 19 October 2026.</span></div>
+    <div class="row"><span class="k">Method</span><span class="v">One real test per tool. One attempt. One honest flaw, circled.</span></div>
+    <div class="row"><span class="k">Find a specimen</span><span class="v">Type its number after the slash: specimindlab.github.io/001</span></div>
+    <div class="row"><span class="k">Follow</span><span class="v">@specimindlab on YouTube, Instagram and X</span></div>
+  </div>
+</main>
+</body>
+</html>

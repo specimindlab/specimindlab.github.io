@@ -1,0 +1,70 @@
+name: Render previews
+
+# Fallback for sessions that cannot render stills locally. Renders the review stills
+# (frame 0, every beat boundary + 1 s, 25/50/75 %, last frame) and pushes them to the
+# branch previews/<run-id>. Fetch with:
+#   git fetch origin previews/<run-id> && git checkout FETCH_HEAD -- episodes/<id>-<slug>/qa/stills
+
+on:
+  workflow_dispatch:
+    inputs:
+      episodes:
+        description: "Episode ids separated by spaces or commas, e.g. E001 E002"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  stills:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: video/package-lock.json
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: npm ci
+        working-directory: video
+        run: npm ci --no-audit --no-fund
+
+      - name: Cache Remotion browser
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cache/remotion
+            video/node_modules/.remotion
+          key: remotion-${{ runner.os }}-${{ hashFiles('video/package-lock.json') }}
+
+      - name: Remotion browser
+        working-directory: video
+        run: npx --no-install remotion browser ensure
+
+      - name: Render stills
+        env:
+          EPISODES: ${{ github.event.inputs.episodes }}
+        run: bash scripts/render_previews.sh $(echo "$EPISODES" | tr ',' ' ')
+
+      - name: Push to previews/${{ github.run_id }}
+        env:
+          EPISODES: ${{ github.event.inputs.episodes }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "previews/$GITHUB_RUN_ID"
+          git add -f episodes/*/qa/stills
+          git commit -m "Preview stills for $EPISODES (run $GITHUB_RUN_ID)"
+          git push origin "previews/$GITHUB_RUN_ID"
+          echo "Stills pushed to branch previews/$GITHUB_RUN_ID" >> "$GITHUB_STEP_SUMMARY"

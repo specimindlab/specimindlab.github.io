@@ -1,0 +1,19 @@
+{
+  "batch": "batch-smoke",
+  "created": "2026-10-06",
+  "episodes": [
+    {
+      "id": "E000",
+      "post_at": "2026-10-19 06:30 IST",
+      "youtube": {
+        "title": "Pipeline: one spec, three platforms | Specimen Nº000",
+        "description": "Pipeline check. Not for posting.",
+        "hashtags": ["#specimindlab"],
+        "related_video": "",
+        "altered_content": false
+      },
+      "instagram": { "caption": "Pipeline check.", "comment_code": "000", "auto_dm": "Here is the link: https://specimindlab.github.io/000" },
+      "x": { "post": "Pipeline check.", "first_reply": "https://specimindlab.github.io/000 (Unpaid)" }
+    }
+  ]
+}

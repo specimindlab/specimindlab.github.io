@@ -1,0 +1,36 @@
+{
+  "id": "E001",
+  "slug": "tripo",
+  "code": "001",
+  "series": "Field Specimen",
+  "series_code": "FS",
+  "composition": "FieldSpecimen",
+  "mode": "Live specimen",
+  "tools": [
+    "Tripo"
+  ],
+  "tools_raw": "Tripo",
+  "pillar": "3D",
+  "phase": "1 Collect",
+  "day": 1,
+  "date": "2026-10-19",
+  "weekday": "Mon",
+  "slot": "A",
+  "post_time_ist": "06:30",
+  "draft_hook": "This mug was a phone photo 40 seconds ago.",
+  "the_test": "One phone photo of a real mug to a textured 3D model, one try",
+  "free_path": "Free: 200 credits/mo, models public + non-commercial",
+  "free_path_note": "From the calendar; re-verify in research.md before filming.",
+  "affiliate_status": "Confirmed program",
+  "on_screen_label": "Affiliate",
+  "disclosure": "Affiliate",
+  "youtube_title_draft": "Tripo: This mug was a phone photo 40 seconds ago | Specimen Nº001",
+  "hashtags": [
+    "#3dmodeling",
+    "#ai3d",
+    "#3dprinting",
+    "#specimindlab"
+  ],
+  "hub_url": "https://specimindlab.github.io/001",
+  "capture": "pending"
+}

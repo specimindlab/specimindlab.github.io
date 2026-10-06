@@ -1,0 +1,35 @@
+{
+  "name": "specimind-video",
+  "version": "1.0.0",
+  "description": "SPECIMIND video system (Remotion)",
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "lint": "eslint src && tsc"
+  },
+  "repository": {},
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@react-three/drei": "10.7.9",
+    "@react-three/fiber": "9.8.1",
+    "@remotion/cli": "4.0.533",
+    "@remotion/layout-utils": "4.0.533",
+    "@remotion/media-utils": "4.0.533",
+    "@remotion/three": "4.0.533",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "remotion": "4.0.533",
+    "three": "0.186.1",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.533",
+    "@types/react": "19.2.18",
+    "@types/three": "0.186.0",
+    "@types/web": "0.0.166",
+    "eslint": "9.39.5",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  }
+}

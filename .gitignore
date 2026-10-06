@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Finished videos never enter git history: GitHub Releases hold them.
+*.zip
+/posting/
+/episodes/*/render/
+/video/out/
+/video/build/
+/scripts/fixtures/episodes/*/render/
+/scripts/fixtures/episodes/*/cover.png
+/scripts/fixtures/episodes/*/qa/
+
+# Build output
+/site/_site/
+
+# Local noise
+.DS_Store
+__pycache__/
+*.pyc
+.env

@@ -1,0 +1,10 @@
+{
+  "batch": null,
+  "status": "idle",
+  "started": null,
+  "updated": "2026-10-06",
+  "episodes": [],
+  "render_runs": [],
+  "release": null,
+  "notes": "No batch in progress. Prompt B creates batch-<YYYY-MM-DD> here and updates it after every finished episode. Episode entry: {id, folder, mode, step: research|ingest|script|review|meta|ready, verdict, commit}."
+}

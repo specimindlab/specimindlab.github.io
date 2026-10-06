@@ -1,0 +1,23 @@
+{
+  "id": "E000",
+  "code": "000",
+  "composition": "PipelineCheck",
+  "series": "Pipeline check",
+  "mode": "Live specimen",
+  "disclosure": "Unpaid",
+  "tool": "Pipeline",
+  "genus": "Render check",
+  "bed": "_smoke/bed.wav",
+  "beats": [
+    { "type": "output", "seconds": 4, "lines": ["Pipeline check."] },
+    { "type": "conditions", "seconds": 8, "lines": ["One spec.", "Three platforms."] },
+    { "type": "observation", "seconds": 12, "lines": ["Loudness -14 LUFS."] },
+    { "type": "verdict", "seconds": 6, "lines": ["Verified."] },
+    { "type": "cta", "seconds": 4 }
+  ],
+  "cta": {
+    "yt": "specimindlab.github.io/000",
+    "ig": "Comment 000",
+    "x": "specimindlab.github.io/000"
+  }
+}

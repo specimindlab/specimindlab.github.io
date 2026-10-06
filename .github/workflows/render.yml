@@ -1,0 +1,101 @@
+name: Render batch
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/batches/*.json"
+  workflow_dispatch:
+    inputs:
+      batch:
+        description: "Batch name (data/batches/<batch>.json), e.g. batch-2026-10-19"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: render-${{ github.event.inputs.batch || github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Which batches?
+        id: which
+        env:
+          EVENT: ${{ github.event_name }}
+          INPUT_BATCH: ${{ github.event.inputs.batch }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            b="$(basename "$INPUT_BATCH" .json)"
+            case "$b" in *[!A-Za-z0-9._-]*|"") echo "::error::invalid batch name"; exit 1;; esac
+            echo "batches=$b" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          before="$BEFORE"
+          if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "$before" 2>/dev/null; then
+            files=$(git diff --name-only --diff-filter=AM HEAD~1 HEAD -- 'data/batches/*.json')
+          else
+            files=$(git diff --name-only --diff-filter=AM "$before" "$GITHUB_SHA" -- 'data/batches/*.json')
+          fi
+          names=$(for f in $files; do basename "$f" .json; done | tr '\n' ' ')
+          echo "Batches to render: ${names:-none}"
+          echo "batches=$names" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v7
+        if: steps.which.outputs.batches != ''
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: video/package-lock.json
+
+      - uses: actions/setup-python@v7
+        if: steps.which.outputs.batches != ''
+        with:
+          python-version: "3.12"
+
+      - name: Install ffmpeg
+        if: steps.which.outputs.batches != ''
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg zip
+
+      - name: npm ci
+        if: steps.which.outputs.batches != ''
+        working-directory: video
+        run: npm ci --no-audit --no-fund
+
+      - name: Cache Remotion browser
+        if: steps.which.outputs.batches != ''
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cache/remotion
+            video/node_modules/.remotion
+          key: remotion-${{ runner.os }}-${{ hashFiles('video/package-lock.json') }}
+
+      - name: Remotion browser
+        if: steps.which.outputs.batches != ''
+        working-directory: video
+        run: npx --no-install remotion browser ensure
+
+      - name: Render, verify and publish
+        if: steps.which.outputs.batches != ''
+        env:
+          BATCHES: ${{ steps.which.outputs.batches }}
+        run: |
+          set -e
+          for b in $BATCHES; do
+            echo "::group::Batch $b"
+            bash scripts/render_batch.sh "$b"
+            echo "::endgroup::"
+          done
