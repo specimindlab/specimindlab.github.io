@@ -331,7 +331,7 @@ youtube.md — title (tool name first, under 60 characters, states what happened
 instagram.md — caption (first line = same keyword line), conditions, "Comment {code} and we'll DM you the link", disclosure, 3–5 hashtags, alt text, the exact auto-DM text for the comment-automation tool with {code} filled in, and a suggested Trial Reel alternative hook.
 x.md — post text (≤ 200 characters, tool name + one opinion), first-reply text with the hub link + disclosure.
 
-Also update data/catalog.json and commit; pages.yml publishes specimindlab.github.io/{code} so it is live before the video is posted.
+Also update data/catalog.json (`node scripts/catalog_sync.mjs {E###}`, then `node site/build.mjs` to validate) and commit; pages.yml publishes specimindlab.github.io/{code} so it is live before the video is posted. After posting, the human pastes the YouTube/Instagram/X URLs into `links` and any affiliate link into `affiliate_url`.
 ```
 
 ---

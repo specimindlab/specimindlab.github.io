@@ -1,4 +1,46 @@
 {
-  "note": "The permanent SPECIMIND catalog. One entry per published specimen; codes are never renumbered or reused. Filled from each episode's facts.json after its video is published (prompt B). The Drawer component and the site read this file, so it must only contain real, published specimens.",
-  "specimens": []
+  "note": "The permanent SPECIMIND catalog. One entry per published specimen; codes are never renumbered or reused. Filled from each episode's brief.json + facts.json + script.json by `node scripts/catalog_sync.mjs E###` (Playbook P, last step); the human then pastes links and affiliate_url. The Drawer component and the site (site/build.mjs) read this file, so it must only contain real specimens. The site build validates it and fails on a bad edit.",
+  "fields": {
+    "specimens[]": {
+      "code": "'001'. Three digits, permanent.",
+      "episode": "'E001'. Used for the affiliate sub-ID p-{platform}-e001.",
+      "tool": "Tool name.",
+      "genus": "'3D generator'.",
+      "pillar": "'3D' | 'Video' | 'Image' | 'Audio' | 'Work' | 'Build' ... (the calendar's Pillar).",
+      "series": "Series name.",
+      "mode": "'Live specimen' | 'Field sketch'.",
+      "verdict": "'Captured' | 'Released' | 'Watch' (Watch only in Field sketch mode).",
+      "verdict_reason": "One sentence: why this verdict.",
+      "hook_lines": "The first caption, one string per line (the page fits each line edge to edge).",
+      "flaw": "Max 5 words ('Thin parts fuse'): the Weakness row.",
+      "flaw_caption": "The caption after 'Honest flaw:' ('the handle fused.').",
+      "flaw_source": "'observed' | 'research'.",
+      "flaw_at": "Timestamp in the recording, optional.",
+      "free_tier": "Free-tier limit, from research.md, or 'Not published'.",
+      "paid_from": "Cheapest paid plan with currency and period, or 'Not published'.",
+      "tested_on": "YYYY-MM-DD.",
+      "posted_on": "YYYY-MM-DD the video posts (planned, then actual).",
+      "updated_on": "YYYY-MM-DD, set by catalog_sync on re-sync.",
+      "seconds_to_result": "Measured seconds, Live only.",
+      "conditions": "[{key, value}] Collection conditions card (Input, Plan, Attempts, Retries, Edited ...).",
+      "field_notes": "[{key, value}] Field notes card; the 'Weakness' row is circled in red ink.",
+      "homepage": "https URL of the tool (the 'Try' button when there is no affiliate_url).",
+      "sources": "[{url, label, accessed}] from research.md.",
+      "cover": "Repo path of the episode cover PNG; copied to /<code>/cover.png.",
+      "links": "{youtube, instagram, x}: post URLs, filled by the human after posting. A YouTube URL turns on the embedded Short.",
+      "affiliate_url": "Empty until the human pastes the tracking link. Requires disclosure 'Affiliate'. Gets rel='sponsored noopener'.",
+      "affiliate_subid_param": "Optional. Sub-ID query parameter for this link's network; auto-detected for impact.com (subId1), PartnerStack (sid), FirstPromoter (fp_sid), CJ (sid), ShareASale (afftrack), Awin (clickref), Rakuten (u1). '' = the network has no sub-IDs.",
+      "disclosure": "'Affiliate' | 'Unpaid'.",
+      "corrections": "[{date, text}] Dated errata, shown on the page. Never renumber; correct."
+    },
+    "groups[]": {
+      "code": "'P01' | 'D01' | 'M01' | 'W01' | 'X01'.",
+      "kind": "'Plate' | 'Dissection' | 'Mimicry' | 'Drawer' | 'Extinction Watch' (must match the code letter).",
+      "title": "'Tripo vs Meshy vs Hunyuan3D'.",
+      "members": "[{code?, tool?, rank?, note?, verdict?}]: the specimens involved; code links to its page.",
+      "episode, pillar, tested_on, posted_on, hook_lines, flaw, verdict?, links, disclosure, cover, corrections": "As for specimens."
+    }
+  },
+  "specimens": [],
+  "groups": []
 }

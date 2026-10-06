@@ -10,6 +10,13 @@ A captions-only YouTube Shorts / Instagram Reels / X channel that tests new AI t
 - After changing the font or caption axes: `python3 scripts/font_metrics.py`.
 - Sound: `python3 scripts/make_sfx.py` generates every WAV in `video/public/sfx` with its level baked in (bed -24 LUFS, effects ~8 dB above, motif just under); components never set a volume. `script.bed` is `sfx/bed-<1-6>.wav`, never the same bed as the previous upload. The motif plays only on the end card (`<Soundtrack/>`). Check levels with `scripts/render_sound_test.sh` (background). Never bake a commercial track into a file (on Instagram the human may add an in-app track at low volume).
 
+## Catalog site
+- `site/build.mjs` (no dependencies) builds the hub from `data/catalog.json` into `site/_site`; pages.yml deploys it on every push to main touching site/, data/, brand/ or episode facts/covers. Field definitions are in catalog.json `fields`.
+- After an episode is ready (Playbook P): `node scripts/catalog_sync.mjs E###` then `node site/build.mjs`. Sync never overwrites links, affiliate_url or corrections, and refuses to renumber.
+- Test layouts only with `node site/build.mjs --catalog site/fixtures/catalog.fixture.json --out <scratch>`; never deploy the fixture.
+- Quality floor: 360 px phone, visible focus, Lighthouse performance and accessibility >= 95, no cookies, no third-party scripts (the YouTube player loads only on click). Text is ink, or red only on archival label or at large sizes (contrast).
+- Font: `brand/reference/Anybody-VF-latin.woff2` from `python3 scripts/make_web_font.py`.
+
 ## Cloud rules
 - You run in Claude Code on the web. Commit and push to main after each finished unit of work (one episode, one fix). Never rely on anything that is not in the repo.
 - Keep progress in data/batch-state.json; on start, read it and resume.

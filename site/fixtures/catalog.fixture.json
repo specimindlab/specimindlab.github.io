@@ -1,0 +1,1208 @@
+{
+  "fixture": true,
+  "note": "DESIGN FIXTURE for site/build.mjs --catalog. Placeholder values, not research. Never deploy; data/catalog.json is the only real catalog.",
+  "specimens": [
+    {
+      "code": "001",
+      "episode": "E001",
+      "tool": "Tripo",
+      "genus": "3D generator",
+      "pillar": "3D",
+      "series": "Field Specimen",
+      "mode": "Live specimen",
+      "verdict": "Captured",
+      "verdict_reason": "Usable mesh on the first try; the fused handle needs one fix in Blender.",
+      "hook_lines": [
+        "This mug was",
+        "a phone photo",
+        "40 seconds ago."
+      ],
+      "flaw": "Thin parts fuse",
+      "flaw_caption": "the handle fused.",
+      "flaw_source": "observed",
+      "free_tier": "200 credits a month",
+      "paid_from": "$15.90 a month",
+      "tested_on": "2026-10-19",
+      "posted_on": "2026-10-19",
+      "seconds_to_result": 38,
+      "conditions": [
+        {
+          "key": "Input",
+          "value": "1 phone photo"
+        },
+        {
+          "key": "Plan",
+          "value": "Free tier"
+        },
+        {
+          "key": "Attempts",
+          "value": "1"
+        },
+        {
+          "key": "Retries",
+          "value": "0"
+        },
+        {
+          "key": "Edited",
+          "value": "No"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "38 s"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Browser"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Photo, text, sketch"
+        },
+        {
+          "key": "Free tier",
+          "value": "200 credits a month"
+        },
+        {
+          "key": "Paid from",
+          "value": "$15.90 a month"
+        },
+        {
+          "key": "Best for",
+          "value": "Toys, props, prints"
+        },
+        {
+          "key": "Weakness",
+          "value": "Thin parts fuse"
+        }
+      ],
+      "homepage": "https://example.com/",
+      "sources": [
+        {
+          "label": "Tripo pricing (fixture)",
+          "url": "https://example.com/pricing",
+          "accessed": "2026-10-19"
+        }
+      ],
+      "links": {
+        "youtube": "https://youtube.com/shorts/aBcDeFgHiJk",
+        "instagram": "",
+        "x": ""
+      },
+      "affiliate_url": "https://example.sjv.io/c/111/222/333",
+      "disclosure": "Affiliate",
+      "cover": "brand/templates/shorts-cover-template.png"
+    },
+    {
+      "code": "002",
+      "episode": "E002",
+      "tool": "Hunyuan3D",
+      "genus": "3D generator",
+      "pillar": "3D",
+      "series": "Free Range",
+      "mode": "Live specimen",
+      "verdict": "Captured",
+      "verdict_reason": "",
+      "hook_lines": [
+        "20 lamps a day.",
+        "Free."
+      ],
+      "flaw": "Thin arm melts",
+      "flaw_caption": "the arm melted.",
+      "flaw_source": "observed",
+      "free_tier": "~20 generations a day",
+      "paid_from": "Not published",
+      "tested_on": "2026-10-19",
+      "posted_on": "2026-10-19",
+      "seconds_to_result": 51,
+      "conditions": [
+        {
+          "key": "Input",
+          "value": "1 phone photo"
+        },
+        {
+          "key": "Plan",
+          "value": "Free tier"
+        },
+        {
+          "key": "Attempts",
+          "value": "1"
+        },
+        {
+          "key": "Retries",
+          "value": "0"
+        },
+        {
+          "key": "Edited",
+          "value": "No"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "51 s"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Browser"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Photo, text"
+        },
+        {
+          "key": "Free tier",
+          "value": "~20 generations a day"
+        },
+        {
+          "key": "Paid from",
+          "value": "Not published"
+        },
+        {
+          "key": "Best for",
+          "value": "Quick drafts"
+        },
+        {
+          "key": "Weakness",
+          "value": "Thin arm melts"
+        }
+      ],
+      "homepage": "https://example.com/",
+      "sources": [
+        {
+          "label": "Hunyuan3D pricing (fixture)",
+          "url": "https://example.com/pricing",
+          "accessed": "2026-10-19"
+        }
+      ],
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "affiliate_url": "",
+      "disclosure": "Unpaid",
+      "cover": "brand/templates/shorts-cover-template.png"
+    },
+    {
+      "code": "003",
+      "episode": "E003",
+      "tool": "TRELLIS 2",
+      "genus": "3D generator",
+      "pillar": "3D",
+      "series": "Rare Sighting",
+      "mode": "Live specimen",
+      "verdict": "Captured",
+      "verdict_reason": "",
+      "hook_lines": [
+        "A creature in 3D,",
+        "free in a tab."
+      ],
+      "flaw": "Back is guessed",
+      "flaw_caption": "it guessed the back.",
+      "flaw_source": "observed",
+      "free_tier": "Free demo",
+      "paid_from": "Open weights",
+      "tested_on": "2026-10-20",
+      "posted_on": "2026-10-20",
+      "seconds_to_result": 64,
+      "conditions": [
+        {
+          "key": "Input",
+          "value": "1 phone photo"
+        },
+        {
+          "key": "Plan",
+          "value": "Free tier"
+        },
+        {
+          "key": "Attempts",
+          "value": "1"
+        },
+        {
+          "key": "Retries",
+          "value": "0"
+        },
+        {
+          "key": "Edited",
+          "value": "No"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "64 s"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Browser"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Photo, text"
+        },
+        {
+          "key": "Free tier",
+          "value": "Free demo"
+        },
+        {
+          "key": "Paid from",
+          "value": "Open weights"
+        },
+        {
+          "key": "Best for",
+          "value": "Quick drafts"
+        },
+        {
+          "key": "Weakness",
+          "value": "Back is guessed"
+        }
+      ],
+      "homepage": "https://example.com/",
+      "sources": [
+        {
+          "label": "TRELLIS 2 pricing (fixture)",
+          "url": "https://example.com/pricing",
+          "accessed": "2026-10-20"
+        }
+      ],
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "affiliate_url": "",
+      "disclosure": "Unpaid",
+      "cover": "brand/templates/shorts-cover-template.png"
+    },
+    {
+      "code": "004",
+      "episode": "E004",
+      "tool": "Kling 3.0",
+      "genus": "Video generator",
+      "pillar": "Video",
+      "series": "Field Specimen",
+      "mode": "Live specimen",
+      "verdict": "Released",
+      "verdict_reason": "The motion broke physics in the one attempt we allow.",
+      "hook_lines": [
+        "Day one:",
+        "66 credits,",
+        "one shaky cup."
+      ],
+      "flaw": "Steam loops backwards",
+      "flaw_caption": "the steam ran backwards.",
+      "flaw_source": "observed",
+      "free_tier": "66 credits a day",
+      "paid_from": "$6.99 a month",
+      "tested_on": "2026-10-20",
+      "posted_on": "2026-10-20",
+      "seconds_to_result": 212,
+      "conditions": [
+        {
+          "key": "Input",
+          "value": "1 phone photo"
+        },
+        {
+          "key": "Plan",
+          "value": "Free tier"
+        },
+        {
+          "key": "Attempts",
+          "value": "1"
+        },
+        {
+          "key": "Retries",
+          "value": "0"
+        },
+        {
+          "key": "Edited",
+          "value": "No"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "212 s"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Browser"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Photo, text"
+        },
+        {
+          "key": "Free tier",
+          "value": "66 credits a day"
+        },
+        {
+          "key": "Paid from",
+          "value": "$6.99 a month"
+        },
+        {
+          "key": "Best for",
+          "value": "Quick drafts"
+        },
+        {
+          "key": "Weakness",
+          "value": "Steam loops backwards"
+        }
+      ],
+      "homepage": "https://example.com/",
+      "sources": [
+        {
+          "label": "Kling 3.0 pricing (fixture)",
+          "url": "https://example.com/pricing",
+          "accessed": "2026-10-20"
+        }
+      ],
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "affiliate_url": "",
+      "disclosure": "Affiliate",
+      "cover": "brand/templates/shorts-cover-template.png"
+    },
+    {
+      "code": "006",
+      "episode": "E006",
+      "tool": "Midjourney",
+      "genus": "Image generator",
+      "pillar": "Image",
+      "series": "Field Sketch",
+      "mode": "Field sketch",
+      "verdict": "Watch",
+      "verdict_reason": "",
+      "hook_lines": [
+        "No free tier.",
+        "Here's the map."
+      ],
+      "flaw": "No free trial",
+      "flaw_caption": "no way to try it free.",
+      "flaw_source": "research",
+      "free_tier": "None",
+      "paid_from": "$10 a month",
+      "tested_on": "2026-10-21",
+      "posted_on": "2026-10-21",
+      "conditions": [],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Browser"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Photo, text"
+        },
+        {
+          "key": "Free tier",
+          "value": "None"
+        },
+        {
+          "key": "Paid from",
+          "value": "$10 a month"
+        },
+        {
+          "key": "Best for",
+          "value": "Quick drafts"
+        },
+        {
+          "key": "Weakness",
+          "value": "No free trial"
+        }
+      ],
+      "homepage": "https://example.com/",
+      "sources": [
+        {
+          "label": "Midjourney pricing (fixture)",
+          "url": "https://example.com/pricing",
+          "accessed": "2026-10-21"
+        }
+      ],
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "affiliate_url": "",
+      "disclosure": "Unpaid",
+      "cover": ""
+    },
+    {
+      "code": "007",
+      "episode": "E007",
+      "tool": "ElevenLabs",
+      "genus": "Sound generator",
+      "pillar": "Audio",
+      "series": "Field Specimen",
+      "mode": "Live specimen",
+      "verdict": "Captured",
+      "verdict_reason": "",
+      "hook_lines": [
+        "A drawer slam",
+        "from one sentence."
+      ],
+      "flaw": "Tail clips early",
+      "flaw_caption": "the tail clipped.",
+      "flaw_source": "observed",
+      "free_tier": "Monthly characters",
+      "paid_from": "$5 a month",
+      "tested_on": "2026-10-22",
+      "posted_on": "2026-10-22",
+      "seconds_to_result": 9,
+      "conditions": [
+        {
+          "key": "Input",
+          "value": "1 phone photo"
+        },
+        {
+          "key": "Plan",
+          "value": "Free tier"
+        },
+        {
+          "key": "Attempts",
+          "value": "1"
+        },
+        {
+          "key": "Retries",
+          "value": "0"
+        },
+        {
+          "key": "Edited",
+          "value": "No"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "9 s"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Browser"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Photo, text"
+        },
+        {
+          "key": "Free tier",
+          "value": "Monthly characters"
+        },
+        {
+          "key": "Paid from",
+          "value": "$5 a month"
+        },
+        {
+          "key": "Best for",
+          "value": "Quick drafts"
+        },
+        {
+          "key": "Weakness",
+          "value": "Tail clips early"
+        }
+      ],
+      "homepage": "https://example.com/",
+      "sources": [
+        {
+          "label": "ElevenLabs pricing (fixture)",
+          "url": "https://example.com/pricing",
+          "accessed": "2026-10-22"
+        }
+      ],
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "affiliate_url": "",
+      "disclosure": "Affiliate",
+      "cover": "brand/templates/shorts-cover-template.png"
+    },
+    {
+      "code": "008",
+      "episode": "E015",
+      "tool": "Photoroom",
+      "genus": "Photo editor",
+      "pillar": "Image",
+      "series": "Field Specimen",
+      "mode": "Live specimen",
+      "verdict": "Captured",
+      "verdict_reason": "",
+      "hook_lines": [
+        "Bedroom table,",
+        "studio shot,",
+        "11 seconds."
+      ],
+      "flaw": "Shadow floats",
+      "flaw_caption": "the shadow floats.",
+      "flaw_source": "observed",
+      "free_tier": "Free tier",
+      "paid_from": "$12.99 a month",
+      "tested_on": "2026-10-26",
+      "posted_on": "2026-10-26",
+      "seconds_to_result": 11,
+      "conditions": [
+        {
+          "key": "Input",
+          "value": "1 phone photo"
+        },
+        {
+          "key": "Plan",
+          "value": "Free tier"
+        },
+        {
+          "key": "Attempts",
+          "value": "1"
+        },
+        {
+          "key": "Retries",
+          "value": "0"
+        },
+        {
+          "key": "Edited",
+          "value": "No"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "11 s"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Browser"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Photo, text"
+        },
+        {
+          "key": "Free tier",
+          "value": "Free tier"
+        },
+        {
+          "key": "Paid from",
+          "value": "$12.99 a month"
+        },
+        {
+          "key": "Best for",
+          "value": "Quick drafts"
+        },
+        {
+          "key": "Weakness",
+          "value": "Shadow floats"
+        }
+      ],
+      "homepage": "https://example.com/",
+      "sources": [
+        {
+          "label": "Photoroom pricing (fixture)",
+          "url": "https://example.com/pricing",
+          "accessed": "2026-10-26"
+        }
+      ],
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "affiliate_url": "",
+      "disclosure": "Unpaid",
+      "cover": "brand/templates/shorts-cover-template.png"
+    },
+    {
+      "code": "009",
+      "episode": "E010",
+      "tool": "Hitem3D",
+      "genus": "3D generator",
+      "pillar": "3D",
+      "series": "Rare Sighting",
+      "mode": "Field sketch",
+      "verdict": "Watch",
+      "verdict_reason": "",
+      "hook_lines": [
+        "Built for",
+        "3D printers."
+      ],
+      "flaw": "Queue time unknown",
+      "flaw_caption": "queue time is unpublished.",
+      "flaw_source": "research",
+      "free_tier": "Not published",
+      "paid_from": "Not published",
+      "tested_on": "2026-10-23",
+      "posted_on": "2026-10-23",
+      "conditions": [],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Browser"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Photo, text"
+        },
+        {
+          "key": "Free tier",
+          "value": "Not published"
+        },
+        {
+          "key": "Paid from",
+          "value": "Not published"
+        },
+        {
+          "key": "Best for",
+          "value": "Quick drafts"
+        },
+        {
+          "key": "Weakness",
+          "value": "Queue time unknown"
+        }
+      ],
+      "homepage": "https://example.com/",
+      "sources": [
+        {
+          "label": "Hitem3D pricing (fixture)",
+          "url": "https://example.com/pricing",
+          "accessed": "2026-10-23"
+        }
+      ],
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "affiliate_url": "",
+      "disclosure": "Unpaid",
+      "cover": ""
+    },
+    {
+      "code": "010",
+      "episode": "E011",
+      "tool": "Gamma",
+      "genus": "Slide maker",
+      "pillar": "Work",
+      "series": "Field Specimen",
+      "mode": "Live specimen",
+      "verdict": "Captured",
+      "verdict_reason": "",
+      "hook_lines": [
+        "10 slides,",
+        "one sentence,",
+        "4 fixes."
+      ],
+      "flaw": "Stock images repeat",
+      "flaw_caption": "two slides share a photo.",
+      "flaw_source": "observed",
+      "free_tier": "Free credits",
+      "paid_from": "$8 a month",
+      "tested_on": "2026-10-24",
+      "posted_on": "2026-10-24",
+      "seconds_to_result": 46,
+      "conditions": [
+        {
+          "key": "Input",
+          "value": "1 phone photo"
+        },
+        {
+          "key": "Plan",
+          "value": "Free tier"
+        },
+        {
+          "key": "Attempts",
+          "value": "1"
+        },
+        {
+          "key": "Retries",
+          "value": "0"
+        },
+        {
+          "key": "Edited",
+          "value": "No"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "46 s"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Browser"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Photo, text"
+        },
+        {
+          "key": "Free tier",
+          "value": "Free credits"
+        },
+        {
+          "key": "Paid from",
+          "value": "$8 a month"
+        },
+        {
+          "key": "Best for",
+          "value": "Quick drafts"
+        },
+        {
+          "key": "Weakness",
+          "value": "Stock images repeat"
+        }
+      ],
+      "homepage": "https://example.com/",
+      "sources": [
+        {
+          "label": "Gamma pricing (fixture)",
+          "url": "https://example.com/pricing",
+          "accessed": "2026-10-24"
+        }
+      ],
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "affiliate_url": "",
+      "disclosure": "Unpaid",
+      "cover": "brand/templates/shorts-cover-template.png"
+    },
+    {
+      "code": "011",
+      "episode": "E012",
+      "tool": "Gemini image",
+      "genus": "Photo editor",
+      "pillar": "Image",
+      "series": "Free Range",
+      "mode": "Live specimen",
+      "verdict": "Captured",
+      "verdict_reason": "",
+      "hook_lines": [
+        "Typed:",
+        "remove him.",
+        "Gone."
+      ],
+      "flaw": "Sand texture smears",
+      "flaw_caption": "the sand smeared.",
+      "flaw_source": "observed",
+      "free_tier": "Free in the app",
+      "paid_from": "Not published",
+      "tested_on": "2026-10-24",
+      "posted_on": "2026-10-24",
+      "seconds_to_result": 14,
+      "conditions": [
+        {
+          "key": "Input",
+          "value": "1 phone photo"
+        },
+        {
+          "key": "Plan",
+          "value": "Free tier"
+        },
+        {
+          "key": "Attempts",
+          "value": "1"
+        },
+        {
+          "key": "Retries",
+          "value": "0"
+        },
+        {
+          "key": "Edited",
+          "value": "No"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "14 s"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Browser"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Photo, text"
+        },
+        {
+          "key": "Free tier",
+          "value": "Free in the app"
+        },
+        {
+          "key": "Paid from",
+          "value": "Not published"
+        },
+        {
+          "key": "Best for",
+          "value": "Quick drafts"
+        },
+        {
+          "key": "Weakness",
+          "value": "Sand texture smears"
+        }
+      ],
+      "homepage": "https://example.com/",
+      "sources": [
+        {
+          "label": "Gemini image pricing (fixture)",
+          "url": "https://example.com/pricing",
+          "accessed": "2026-10-24"
+        }
+      ],
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "affiliate_url": "",
+      "disclosure": "Unpaid",
+      "cover": "brand/templates/shorts-cover-template.png"
+    },
+    {
+      "code": "012",
+      "episode": "E016",
+      "tool": "NotebookLM",
+      "genus": "Study tool",
+      "pillar": "Work",
+      "series": "Free Range",
+      "mode": "Live specimen",
+      "verdict": "Captured",
+      "verdict_reason": "",
+      "hook_lines": [
+        "A chapter became",
+        "a podcast."
+      ],
+      "flaw": "One wrong date",
+      "flaw_caption": "it got a date wrong.",
+      "flaw_source": "observed",
+      "free_tier": "Free",
+      "paid_from": "Not published",
+      "tested_on": "2026-10-26",
+      "posted_on": "2026-10-26",
+      "seconds_to_result": 310,
+      "conditions": [
+        {
+          "key": "Input",
+          "value": "1 phone photo"
+        },
+        {
+          "key": "Plan",
+          "value": "Free tier"
+        },
+        {
+          "key": "Attempts",
+          "value": "1"
+        },
+        {
+          "key": "Retries",
+          "value": "0"
+        },
+        {
+          "key": "Edited",
+          "value": "No"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "310 s"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Browser"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Photo, text"
+        },
+        {
+          "key": "Free tier",
+          "value": "Free"
+        },
+        {
+          "key": "Paid from",
+          "value": "Not published"
+        },
+        {
+          "key": "Best for",
+          "value": "Quick drafts"
+        },
+        {
+          "key": "Weakness",
+          "value": "One wrong date"
+        }
+      ],
+      "homepage": "https://example.com/",
+      "sources": [
+        {
+          "label": "NotebookLM pricing (fixture)",
+          "url": "https://example.com/pricing",
+          "accessed": "2026-10-26"
+        }
+      ],
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "affiliate_url": "",
+      "disclosure": "Unpaid",
+      "cover": "brand/templates/shorts-cover-template.png"
+    },
+    {
+      "code": "014",
+      "episode": "E018",
+      "tool": "Lovable",
+      "genus": "App builder",
+      "pillar": "Build",
+      "series": "Field Specimen",
+      "mode": "Live specimen",
+      "verdict": "Released",
+      "verdict_reason": "",
+      "hook_lines": [
+        "One paragraph.",
+        "2 of 3",
+        "features ran."
+      ],
+      "flaw": "Streaks never save",
+      "flaw_caption": "streaks never saved.",
+      "flaw_source": "observed",
+      "free_tier": "Free daily credits",
+      "paid_from": "$25 a month",
+      "tested_on": "2026-10-27",
+      "posted_on": "2026-10-27",
+      "seconds_to_result": 95,
+      "conditions": [
+        {
+          "key": "Input",
+          "value": "1 phone photo"
+        },
+        {
+          "key": "Plan",
+          "value": "Free tier"
+        },
+        {
+          "key": "Attempts",
+          "value": "1"
+        },
+        {
+          "key": "Retries",
+          "value": "0"
+        },
+        {
+          "key": "Edited",
+          "value": "No"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "95 s"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Browser"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Photo, text"
+        },
+        {
+          "key": "Free tier",
+          "value": "Free daily credits"
+        },
+        {
+          "key": "Paid from",
+          "value": "$25 a month"
+        },
+        {
+          "key": "Best for",
+          "value": "Quick drafts"
+        },
+        {
+          "key": "Weakness",
+          "value": "Streaks never save"
+        }
+      ],
+      "homepage": "https://example.com/",
+      "sources": [
+        {
+          "label": "Lovable pricing (fixture)",
+          "url": "https://example.com/pricing",
+          "accessed": "2026-10-27"
+        }
+      ],
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "affiliate_url": "",
+      "disclosure": "Unpaid",
+      "cover": "brand/templates/shorts-cover-template.png"
+    }
+  ],
+  "groups": [
+    {
+      "code": "P01",
+      "episode": "E005",
+      "kind": "Plate",
+      "title": "Tripo vs Meshy vs Hunyuan3D",
+      "pillar": "3D",
+      "tested_on": "2026-10-21",
+      "posted_on": "2026-10-21",
+      "hook_lines": [
+        "Same owl.",
+        "Three tools."
+      ],
+      "members": [
+        {
+          "code": "001",
+          "tool": "Tripo",
+          "rank": 1,
+          "note": "Beak fused",
+          "verdict": "Captured"
+        },
+        {
+          "tool": "Meshy",
+          "rank": 2,
+          "note": "Texture blurred"
+        },
+        {
+          "code": "002",
+          "tool": "Hunyuan3D",
+          "rank": 3,
+          "note": "Feet missing"
+        }
+      ],
+      "flaw": "Every tool guessed the back",
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "disclosure": "Affiliate",
+      "cover": "brand/templates/shorts-cover-template.png"
+    },
+    {
+      "code": "D01",
+      "episode": "E009",
+      "kind": "Dissection",
+      "title": "Phone photo to an animated 3D character",
+      "pillar": "3D",
+      "tested_on": "2026-10-23",
+      "posted_on": "2026-10-23",
+      "hook_lines": [
+        "Photo to walk cycle,",
+        "free, 3 tools."
+      ],
+      "members": [
+        {
+          "code": "001",
+          "tool": "Tripo",
+          "rank": 1,
+          "note": "Mesh, 41 s"
+        },
+        {
+          "tool": "Mixamo",
+          "rank": 2,
+          "note": "Auto-rig, 70 s"
+        },
+        {
+          "tool": "Blender",
+          "rank": 3,
+          "note": "Walk cycle, 5 min"
+        }
+      ],
+      "flaw": "Rig bends the knees backwards",
+      "verdict": "Captured",
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "disclosure": "Unpaid"
+    },
+    {
+      "code": "M01",
+      "episode": "E008",
+      "kind": "Mimicry",
+      "title": "A product photo: real or Photoroom?",
+      "pillar": "Image",
+      "tested_on": "2026-10-22",
+      "posted_on": "2026-10-22",
+      "hook_lines": [
+        "One is AI.",
+        "One is a camera."
+      ],
+      "members": [
+        {
+          "code": "008",
+          "tool": "Photoroom",
+          "note": "Side B was AI"
+        }
+      ],
+      "flaw": "The shadow gave it away",
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "disclosure": "Unpaid"
+    },
+    {
+      "code": "W01",
+      "episode": "E013",
+      "kind": "Drawer",
+      "title": "Week 1",
+      "pillar": "All",
+      "tested_on": "2026-10-25",
+      "posted_on": "2026-10-25",
+      "hook_lines": [
+        "Week 1."
+      ],
+      "members": [
+        {
+          "code": "001"
+        },
+        {
+          "code": "002"
+        },
+        {
+          "code": "003"
+        },
+        {
+          "code": "004"
+        },
+        {
+          "code": "006"
+        },
+        {
+          "code": "007"
+        },
+        {
+          "code": "009"
+        },
+        {
+          "code": "010"
+        },
+        {
+          "code": "011"
+        }
+      ],
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "disclosure": "Unpaid"
+    }
+  ]
+}
