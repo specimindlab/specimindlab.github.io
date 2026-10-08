@@ -142,6 +142,12 @@ if gh release view "$BATCH" >/dev/null 2>&1; then
   echo "Release $BATCH exists; replacing its assets and notes"
   gh release upload "$BATCH" "${assets[@]}" --clobber && gh release edit "$BATCH" --notes-file "$notes" \
     || { echo "::error file=$BATCH_FILE::updating Release $BATCH failed"; exit 1; }
+  # A re-render replaces the batch: drop assets this render did not produce (e.g. the old
+  # per-platform <id>-yt/-ig/-x.mp4 files), so the Release only holds what POSTING.md describes.
+  keep=" $(for a in "${assets[@]}"; do printf '%s ' "$(basename "$a")"; done)"
+  gh release view "$BATCH" --json assets --jq '.assets[].name' | while read -r name; do
+    case "$keep" in *" $name "*) ;; *) echo "removing stale asset $name"; gh release delete-asset "$BATCH" "$name" -y || true ;; esac
+  done
 else
   gh release create "$BATCH" "${assets[@]}" --title "SPECIMIND $BATCH" --notes-file "$notes" \
     --target "${GITHUB_SHA:-$(git rev-parse HEAD)}" \
