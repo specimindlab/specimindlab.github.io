@@ -1,31 +1,39 @@
 1
-00:00:00,000 --> 00:00:03,500
-Three lamps cost
-55 free seconds.
+00:00:00,000 --> 00:00:02,000
+This lamp
+shattered.
+Free 3D AI, no login.
 
 2
-00:00:03,500 --> 00:00:10,000
-Chrome lamp first.
+00:00:02,000 --> 00:00:05,000
+Specimen one: chrome.
+Confidence: high.
 
 3
-00:00:10,000 --> 00:00:16,500
-Grey arm lamp next.
+00:00:05,000 --> 00:00:08,000
+Six pieces.
+Zero lamp.
 
 4
-00:00:16,500 --> 00:00:22,500
-Orange lamp came clean.
+00:00:08,000 --> 00:00:10,500
+Grey lamp. Kept
+the table too.
 
 5
-00:00:22,500 --> 00:00:30,500
-About six lamps
-a day, untextured.
+00:00:10,500 --> 00:00:13,000
+Orange lamp: flawless.
+Total show-off.
 
 6
-00:00:30,500 --> 00:00:34,500
-Honest flaw: chrome
-lamp shattered.
+00:00:13,000 --> 00:00:16,500
+120 free seconds:
+about six lamps a day.
 
 7
-00:00:34,500 --> 00:00:38,500
-Notes at
+00:00:16,500 --> 00:00:19,500
+SPECIMIND Score.
+
+8
+00:00:19,500 --> 00:00:24,000
+Every score:
 specimindlab.github.io/002

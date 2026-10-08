@@ -4,23 +4,25 @@
 #   scripts/render_batch.sh <batch>            # data/batches/<batch>.json
 #   scripts/render_batch.sh path/to/batch.json
 #
-# For each episode in the batch: renders <id>-yt.mp4, <id>-ig.mp4 and <id>-x.mp4 with one
-# delivery spec (1080x1920, constant 30 fps, H.264 High, CRF 18, yuv420p, BT.709,
-# AAC-LC 48 kHz stereo 192 kbps, +faststart). Only the CTA beat differs per platform.
+# For each episode in the batch: renders ONE master <id>.mp4 for YouTube Shorts, Instagram Reels and
+# X alike (all three play 1080x1920 9:16 full screen; X has no 4:5 video format) with one delivery
+# spec (1080x1920, constant 30 fps, H.264 High, CRF 18, yuv420p, BT.709, AAC-LC 48 kHz stereo
+# 192 kbps, +faststart). The CTA is platform-neutral (the hub URL). ONLY_PLATFORMS="yt ig x" brings
+# back per-platform files (<id>-<p>.mp4) if a script ever needs different CTAs.
 # Then: scripts/loudness.sh (-14 LUFS, <= -1 dBTP), scripts/verify_delivery.py, posting/<batch>/,
 # specimind-<batch>.zip and the GitHub Release <batch>.
 #
 # Environment:
 #   EPISODES_DIR   where episode folders live (default: episodes; the smoke test uses fixtures)
 #   NO_RELEASE=1   build posting/ and the zip but do not create a Release
-#   ONLY_PLATFORMS space-separated subset of "yt ig x" (default: all three)
+#   ONLY_PLATFORMS "master" (default: one <id>.mp4 for every platform) or a subset of "yt ig x"
 #   GH_TOKEN       required for the Release (GITHUB_TOKEN inside Actions)
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 EPISODES_DIR="${EPISODES_DIR:-episodes}"
-PLATFORMS="${ONLY_PLATFORMS:-yt ig x}"
+PLATFORMS="${ONLY_PLATFORMS:-master}"
 FAILED=0
 
 annotate() { # annotate <repo-path> <message>
@@ -63,6 +65,10 @@ rm -rf "$STAGE" && mkdir -p "$STAGE"
 for id in $IDS; do
   dir="${FOLDER[$id]}"
   mkdir -p "$STAGE/$id"
+  # Episode music is composed from the script (scripts/make_music.py), never committed.
+  if grep -q '"music"' "$dir/script.json"; then
+    python3 scripts/make_music.py "$dir/script.json" || annotate "$dir/script.json" "$id: make_music.py failed"
+  fi
   # Everything the composition may reference via staticFile("episodes/<id>/..."), minus review output.
   (cd "$dir" && find . -path ./qa -prune -o -path ./render -prune -o -path ./meta -prune -o -type f -print0) \
     | (cd "$dir" && xargs -0 -r cp --parents -t "$ROOT/$STAGE/$id")
@@ -81,9 +87,10 @@ for id in $IDS; do
   mkdir -p "$out"
   for p in $PLATFORMS; do
     props="$out/props-$p.json"
+    pl="$p"; [ "$p" = "master" ] && pl="yt"
     python3 -c "import json,sys;json.dump({'script':json.load(open(sys.argv[1])),'platform':sys.argv[2]},open(sys.argv[3],'w'))" \
-      "$script" "$p" "$props"
-    file="$out/$id-$p.mp4"
+      "$script" "$pl" "$props"
+    file="$out/$id-$p.mp4"; [ "$p" = "master" ] && file="$out/$id.mp4"
     echo "Rendering $file ($comp, $p)"
     if ! (cd video && npx --no-install remotion render build "$comp" "$ROOT/$file" \
           --props="$ROOT/$props" \

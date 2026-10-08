@@ -52,6 +52,22 @@
       "used_after": 2
     },
     {
+      "type": "flaw",
+      "seconds": 4,
+      "lines": [
+        "The thin arm",
+        "snapped off."
+      ],
+      "result_index": 1,
+      "region": {
+        "x": 0.55,
+        "y": 0.3,
+        "w": 0.4,
+        "h": 0.4
+      },
+      "note": "Arm snapped"
+    },
+    {
       "type": "observation",
       "seconds": 6,
       "lines": [
@@ -85,22 +101,6 @@
         "key": "Per model",
         "value": "0 spent"
       }
-    },
-    {
-      "type": "flaw",
-      "seconds": 4,
-      "lines": [
-        "The thin arm",
-        "snapped off."
-      ],
-      "result_index": 1,
-      "region": {
-        "x": 0.55,
-        "y": 0.3,
-        "w": 0.4,
-        "h": 0.4
-      },
-      "note": "Arm snapped"
     },
     {
       "type": "verdict",

@@ -1,9 +1,9 @@
 import React from "react";
-import { useCurrentFrame } from "remotion";
+import { Easing, interpolate, useCurrentFrame } from "remotion";
 import { BANDS, COLORS, CONTENT_WIDTH, FONT_FAMILY, SAFE, TYPE, variation } from "../brand";
 import metrics from "./caption-metrics.json";
 import { measureEm } from "./measure";
-import { LINE_CUT } from "./motion";
+import { LINE_CUT, POP } from "./motion";
 
 // The signature caption stack: every line is fitted so its INK spans exactly `width`, short lines
 // huge, long lines condensed. Widths are measured in the DOM with the caption axes (wdth 60,
@@ -93,6 +93,8 @@ export type FitStackProps = StackOptions & {
   start?: number;
   color?: string;
   layout?: StackLayout;
+  /** Each line lands with a 4-frame scale pop (1.06 -> 1) on its cut. */
+  pop?: boolean;
 };
 
 export const FitStack: React.FC<FitStackProps> = ({
@@ -103,6 +105,7 @@ export const FitStack: React.FC<FitStackProps> = ({
   start = 0,
   color = COLORS.ink,
   layout,
+  pop = false,
   ...opts
 }) => {
   const frame = useCurrentFrame();
@@ -114,12 +117,16 @@ export const FitStack: React.FC<FitStackProps> = ({
       height={Math.max(1, l.height)}
       style={{ position: "absolute", left: x, top, overflow: "visible" }}
     >
-      {l.lines.map((line, i) =>
-        frame >= start + i * LINE_CUT ? (
+      {l.lines.map((line, i) => {
+        const at = start + i * LINE_CUT;
+        if (frame < at) return null;
+        const k = pop ? interpolate(frame - at, [0, POP], [1.06, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) }) : 1;
+        return (
           <text
             key={i}
             x={line.x}
             y={line.baseline}
+            transform={k !== 1 ? `translate(${line.x} ${line.baseline}) scale(${k}) translate(${-line.x} ${-line.baseline})` : undefined}
             fill={color}
             fontFamily={FONT_FAMILY}
             fontSize={line.fontSize}
@@ -127,8 +134,8 @@ export const FitStack: React.FC<FitStackProps> = ({
           >
             {line.text}
           </text>
-        ) : null,
-      )}
+        );
+      })}
     </svg>
   );
 };

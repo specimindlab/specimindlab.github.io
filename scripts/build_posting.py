@@ -62,12 +62,20 @@ def main():
         series = script.get("series", "")
         dest = out / f"{n:02d}-{src.name}"
         dest.mkdir()
+        # One master <id>.mp4 serves all three platforms (render_batch.sh default); per-platform
+        # <id>-<p>.mp4 files win if a batch was rendered with ONLY_PLATFORMS="yt ig x".
         files = {}
+        master = src / "render" / f"{eid}.mp4"
+        if master.exists():
+            shutil.copy2(master, dest / master.name)
         for p in ("yt", "ig", "x"):
             f = src / "render" / f"{eid}-{p}.mp4"
             if f.exists():
                 shutil.copy2(f, dest / f.name)
                 files[p] = f"{dest.name}/{f.name}"
+            else:
+                files[p] = f"{dest.name}/{eid}.mp4"
+        vid = {p: files[p].split("/")[-1] for p in files}
         for f in ("cover.png", f"{eid}.srt"):
             if (src / f).exists():
                 shutil.copy2(src / f, dest / f)
@@ -98,7 +106,7 @@ def main():
             f"**Disclosure:** {script.get('disclosure', '')} · **Folder:** `{dest.name}/` · **Hub:** {hub}",
             "",
             "### YouTube Shorts",
-            f"- [ ] Upload `{eid}-yt.mp4`; custom thumbnail `cover.png`; subtitles `{eid}.srt` (English)",
+            f"- [ ] Upload `{vid['yt']}`; custom thumbnail `cover.png`; subtitles `{eid}.srt` (English)",
             f"- [ ] Title: {g(yt, 'title')}",
             f"- [ ] Hashtags: {tags}",
             *([f"- [ ] Tags: {', '.join(g(yt, 'tags', default=[]))}"] if g(yt, "tags", default=[]) else []),
@@ -114,7 +122,7 @@ def main():
             "</details>",
             "",
             "### Instagram Reels",
-            f"- [ ] Upload `{eid}-ig.mp4`; cover `cover.png`",
+            f"- [ ] Upload `{vid['ig']}`; cover `cover.png`",
             f"- [ ] Comment-automation keyword: **{g(ig, 'comment_code') or code}**",
             "",
             "<details><summary>Caption</summary>",
@@ -132,7 +140,7 @@ def main():
             "</details>",
             "",
             "### X",
-            f"- [ ] Upload `{eid}-x.mp4` with the post below, then reply to it with the first reply.",
+            f"- [ ] Upload `{vid['x']}` with the post below, then reply to it with the first reply.",
             "",
             "```",
             g(x, "post"),
@@ -149,8 +157,8 @@ def main():
     head = [
         f"# SPECIMIND {name}: posting guide",
         "",
-        f"{len(rows)} episode{'s' if len(rows) != 1 else ''}. Download `specimind-{name}.zip` from the Release `{name}` (or each MP4 on its own from the same Release) and unzip it; each folder holds the three "
-        "platform files (`-yt`, `-ig`, `-x`), `cover.png`, the `.srt` captions and `meta/`. Every MP4 is 1080×1920, 30 fps, "
+        f"{len(rows)} episode{'s' if len(rows) != 1 else ''}. Download `specimind-{name}.zip` from the Release `{name}` (or each MP4 on its own from the same Release) and unzip it; each folder holds one master "
+        "video `<id>.mp4` (the same file goes to YouTube, Instagram and X), `cover.png`, the `.srt` captions and `meta/`. Every MP4 is 1080×1920, 30 fps, "
         "H.264, -14 LUFS, and was verified automatically before this Release was created.",
         "",
         "Schedule YouTube in YouTube Studio and Instagram in Meta Business Suite (both free). Post X by hand if scheduling is "

@@ -7,43 +7,92 @@
   "disclosure": "Unpaid",
   "tool": "Hunyuan3D",
   "genus": "3D generator",
-  "bed": "sfx/bed-2.wav",
+  "groove": 1,
+  "music": "music.wav",
   "cta": {
-    "yt": "Notes at specimindlab.github.io/002",
-    "ig": "Comment 002 for the link.",
-    "x": "Notes at specimindlab.github.io/002"
+    "yt": "Every score: specimindlab.github.io/002",
+    "ig": "Every score: specimindlab.github.io/002",
+    "x": "Every score: specimindlab.github.io/002"
+  },
+  "cover": {
+    "before": {
+      "kind": "image",
+      "src": "raw/input/lamp-1-chrome.jpg"
+    },
+    "media": {
+      "kind": "glb",
+      "src": "raw/auto/lamp-1-chrome-out0.glb",
+      "clay": true
+    },
+    "lines": [
+      "Free AI 3D:",
+      "this lamp shattered."
+    ],
+    "angle": -20
   },
   "beats": [
     {
       "type": "counter",
-      "seconds": 3.5,
+      "seconds": 2,
       "lines": [
-        "Three lamps cost",
-        "55 free seconds."
+        "This lamp",
+        "shattered.",
+        "Free 3D AI, no login."
       ],
-      "total": 120,
-      "unit": "GPU seconds",
-      "period": "a day, logged out"
-    },
-    {
-      "type": "observation",
-      "seconds": 6.5,
-      "lines": [
-        "Chrome lamp first."
-      ],
-      "result": {
+      "media": {
         "kind": "glb",
         "src": "raw/auto/lamp-1-chrome-out0.glb",
         "clay": true
+      },
+      "total": 120,
+      "unit": "GPU seconds",
+      "period": "a day, logged out",
+      "before": {
+        "kind": "image",
+        "src": "raw/input/lamp-1-chrome.jpg"
+      }
+    },
+    {
+      "type": "observation",
+      "seconds": 3,
+      "lines": [
+        "Specimen one: chrome.",
+        "Confidence: high."
+      ],
+      "result": {
+        "kind": "image",
+        "src": "raw/input/lamp-1-chrome.jpg"
       },
       "seconds_to_result": 21,
       "used_after": 19
     },
     {
-      "type": "observation",
-      "seconds": 6.5,
+      "type": "flaw",
+      "seconds": 3,
       "lines": [
-        "Grey arm lamp next."
+        "Six pieces.",
+        "Zero lamp."
+      ],
+      "result_index": 0,
+      "result": {
+        "kind": "glb",
+        "src": "raw/auto/lamp-1-chrome-out0.glb",
+        "clay": true
+      },
+      "region": {
+        "x": 0.06,
+        "y": 0.1,
+        "w": 0.88,
+        "h": 0.8
+      },
+      "note": "Chrome confused it"
+    },
+    {
+      "type": "observation",
+      "seconds": 2.5,
+      "lines": [
+        "Grey lamp. Kept",
+        "the table too."
       ],
       "result": {
         "kind": "glb",
@@ -55,9 +104,10 @@
     },
     {
       "type": "observation",
-      "seconds": 6,
+      "seconds": 2.5,
       "lines": [
-        "Orange lamp came clean."
+        "Orange lamp: flawless.",
+        "Total show-off."
       ],
       "result": {
         "kind": "glb",
@@ -69,14 +119,14 @@
     },
     {
       "type": "price-math",
-      "seconds": 8,
+      "seconds": 3.5,
       "lines": [
-        "About six lamps",
-        "a day, untextured."
+        "120 free seconds:",
+        "about six lamps a day."
       ],
       "rows": [
         {
-          "key": "Free, logged out",
+          "key": "Logged out",
           "value": "120 GPU s a day"
         },
         {
@@ -84,8 +134,8 @@
           "value": "About 18 GPU s"
         },
         {
-          "key": "Textured model",
-          "value": "Refused logged out"
+          "key": "Textures",
+          "value": "Locked without login"
         },
         {
           "key": "Paid from",
@@ -98,38 +148,41 @@
       }
     },
     {
-      "type": "flaw",
-      "seconds": 4,
+      "type": "score",
+      "seconds": 3,
       "lines": [
-        "Honest flaw: chrome",
-        "lamp shattered."
+        "SPECIMIND Score."
       ],
-      "result_index": 0,
-      "region": {
-        "x": 0.08,
-        "y": 0.12,
-        "w": 0.84,
-        "h": 0.76
-      },
-      "note": "6 loose pieces"
+      "total": 71,
+      "parts": [
+        {
+          "key": "Result",
+          "value": 28,
+          "max": 50
+        },
+        {
+          "key": "Speed",
+          "value": 15,
+          "max": 15
+        },
+        {
+          "key": "Free tier",
+          "value": 18,
+          "max": 25
+        },
+        {
+          "key": "Price",
+          "value": 10,
+          "max": 10
+        }
+      ]
     },
     {
       "type": "verdict",
-      "seconds": 4,
-      "verdict": "Captured"
+      "seconds": 4.5,
+      "verdict": "Captured",
+      "use_for": "Matte props, fast",
+      "skip_if": "It's shiny or chrome"
     }
-  ],
-  "cover": {
-    "media": {
-      "kind": "glb",
-      "src": "raw/auto/lamp-3-orange-out0.glb",
-      "clay": true
-    },
-    "lines": [
-      "Three desk lamps,",
-      "55 free seconds,",
-      "one shattered."
-    ],
-    "angle": -40
-  }
+  ]
 }

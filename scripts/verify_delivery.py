@@ -26,7 +26,7 @@ SPEC = {
     "aprofile": "LC",
     "rate": 48000,
     "channels": 2,
-    "min_s": 28.0,
+    "min_s": 18.0,
     "max_s": 40.0,
     "max_mb": 100.0,
     "lufs": -14.0,
@@ -95,7 +95,7 @@ def check(path):
         want(a.get("channels") == SPEC["channels"], f"{name}: {a.get('channels')} audio channels, want 2")
 
     dur = float(info["format"].get("duration", 0))
-    want(SPEC["min_s"] <= dur <= SPEC["max_s"], f"{name}: duration {dur:.2f} s, want 28-40 s")
+    want(SPEC["min_s"] <= dur <= SPEC["max_s"], f"{name}: duration {dur:.2f} s, want 18-40 s")
     mb = os.path.getsize(path) / 1e6
     want(mb < SPEC["max_mb"], f"{name}: {mb:.1f} MB, want under 100 MB")
 

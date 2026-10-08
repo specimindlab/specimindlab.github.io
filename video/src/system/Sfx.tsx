@@ -1,5 +1,6 @@
 import React from "react";
 import { Audio, getStaticFiles, interpolate, Sequence, staticFile, useVideoConfig } from "remotion";
+import { useAsset } from "./assets";
 
 export type SfxName = "pin-tick" | "paper" | "pen" | "stamp" | "drawer" | "ui-click" | "motif";
 
@@ -40,11 +41,17 @@ export const motifAt = (endCardFrom: number, total: number) => {
 };
 
 /**
- * The ambient bed (whole video) and the SPECIMIND motif (end card only, the one place it plays).
- * The bed ducks 6 dB under the motif and fades over the last 6 frames.
+ * The episode soundtrack. With `music` (scripts/make_music.py: a 120 bpm track composed to this
+ * edit, ending on the SPECIMIND hook) it plays that, with a 6-frame fade at the cut. Without it,
+ * the old ambient bed plays, ducking 6 dB under the motif on the end card.
  */
-export const Soundtrack: React.FC<{ bed?: string; endCardFrom: number }> = ({ bed, endCardFrom }) => {
+export const Soundtrack: React.FC<{ bed?: string; music?: string; endCardFrom: number }> = ({ bed, music, endCardFrom }) => {
   const { durationInFrames: total } = useVideoConfig();
+  const asset = useAsset();
+  if (music) {
+    const out = (f: number) => interpolate(f, [total - OUT_FADE, total - 1], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    return <Audio src={asset(music)} volume={out} />;
+  }
   const motif = motifAt(endCardFrom, total);
   const volume = (f: number) =>
     interpolate(f, [motif - DUCK_RAMP, motif, total - OUT_FADE, total - 1], [1, DUCK, DUCK, 0], {

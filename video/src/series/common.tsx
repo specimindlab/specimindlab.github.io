@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useContext } from "react";
 import { AbsoluteFill, Sequence } from "remotion";
 import { z } from "zod";
 import { BANDS, FPS, SAFE } from "../brand";
@@ -23,19 +23,27 @@ export type Platform = z.infer<typeof platform>;
 
 const words = (s: string) => s.trim().split(/\s+/).filter(Boolean).length;
 
-/** A caption line: 2-6 words (CLAUDE.md signature). */
+/** A caption line: 1-6 words (CLAUDE.md signature; one-word lines are the punchlines). */
 export const captionLine = z
   .string()
   .min(1)
-  .refine((s) => words(s) >= 2 && words(s) <= 6, { message: "caption lines carry 2-6 words" });
+  .refine((s) => words(s) >= 1 && words(s) <= 6, { message: "caption lines carry 1-6 words" });
 /** 1-3 lines per beat. */
 export const caption = z.array(captionLine).min(1).max(3);
 
 export const row = z.object({ key: z.string().min(1), value: z.string().min(1) });
 export type Row = z.infer<typeof row>;
 
+/** Beats last whole multiples of 0.5 s: one beat at 120 bpm (scripts/make_music.py), so every cut
+ *  lands on the music grid. */
+export const beatSeconds = z
+  .number()
+  .min(1)
+  .max(26) // Drawer roll call runs to 24 s
+  .refine((s) => Math.abs(s * 2 - Math.round(s * 2)) < 1e-9, { message: "beat seconds must be a multiple of 0.5 (120 bpm grid)" });
+
 export const beat = <T extends string, S extends z.ZodRawShape>(type: T, shape: S) =>
-  z.object({ type: z.literal(type), seconds: z.number().min(1).max(26), ...shape }); // Drawer roll call runs to 24 s
+  z.object({ type: z.literal(type), seconds: beatSeconds, ...shape });
 
 export const header = {
   id: z.string().regex(/^E\d{3}$/),
@@ -46,10 +54,16 @@ export const header = {
   tool: z.string().min(1),
   genus: z.string().min(1),
   bed: z.string().optional(),
+  /** Episode music (scripts/make_music.py -> <episode>/music.wav). Replaces the ambient bed. */
+  music: z.string().optional(),
+  /** make_music.py groove 1-6 (never the same as the previous upload). */
+  groove: z.number().int().min(1).max(6).optional(),
   cta: z.object({ yt: z.string().min(1), ig: z.string().min(1), x: z.string().min(1) }),
 };
 
-export const MIN_SECONDS = 28;
+// 18-40 s is the hard range; the target is 20-30 s (prompts/voice.md: Shorts and Reels complete
+// best around 15-30 s).
+export const MIN_SECONDS = 18;
 export const MAX_SECONDS = 40;
 
 type Beatish = { type: string; seconds: number };
@@ -135,6 +149,9 @@ export const captionBox = (lines: string[], maxHeight = CAPTION_MAX, bottom: num
 
 export const CONTENT_TOP = 430;
 
+/** Which beat is rendering (0 = the first frame of the video). */
+export const BeatIndex = createContext(-1);
+
 export const Caption: React.FC<{ lines: string[]; at?: number; maxHeight?: number; bottom?: number }> = ({
   lines,
   at = 0,
@@ -142,7 +159,10 @@ export const Caption: React.FC<{ lines: string[]; at?: number; maxHeight?: numbe
   bottom = BANDS.captionBottom,
 }) => {
   const box = captionBox(lines, maxHeight, bottom);
-  return <FitStack lines={lines} layout={box.layout} y={bottom} anchor="bottom" start={at} x={SAFE.left} />;
+  // The first frame decides the swipe (prompts/voice.md): the hook's lines are all there on frame 0,
+  // no cut-in, no pop. Later beats cut in line by line on the beat.
+  const first = useContext(BeatIndex) === 0;
+  return <FitStack lines={lines} layout={box.layout} y={bottom} anchor="bottom" start={first ? -60 : at} pop={!first} x={SAFE.left} />;
 };
 
 // ---- frame scaffold ----------------------------------------------------------------------------
@@ -155,6 +175,7 @@ type HeaderScript = {
   disclosure: "Affiliate" | "Unpaid";
   mode: "Live specimen" | "Field sketch";
   bed?: string;
+  music?: string;
   beats: { seconds: number }[];
 };
 
@@ -171,7 +192,7 @@ export const SeriesFrame: React.FC<{ script: HeaderScript; modeEmphasis?: boolea
   <FontGate>
     <EpisodeAssets id={script.id}>
       <Paper seed={script.id} />
-      <Soundtrack bed={script.bed} endCardFrom={totalFramesOf(script.beats.slice(0, -1))} />
+      <Soundtrack bed={script.bed} music={script.music} endCardFrom={totalFramesOf(script.beats.slice(0, -1))} />
       {children}
       <SpecimenLabel
         code={script.code}
@@ -180,6 +201,7 @@ export const SeriesFrame: React.FC<{ script: HeaderScript; modeEmphasis?: boolea
         disclosure={script.disclosure}
         mode={script.mode}
         modeEmphasis={modeEmphasis}
+        dropAt={-20}
       />
     </EpisodeAssets>
   </FontGate>
@@ -201,7 +223,9 @@ export const framed = <P extends { script: HeaderScript }>(Body: React.FC<P>, op
 /** A beat's sequence. Children see frames relative to the beat start. */
 export const Beat: React.FC<{ t: { from: number; dur: number; type: string; index: number }; children: React.ReactNode }> = ({ t, children }) => (
   <Sequence from={t.from} durationInFrames={t.dur} name={`${t.index + 1} ${t.type}`}>
-    <AbsoluteFill>{children}</AbsoluteFill>
+    <BeatIndex.Provider value={t.index}>
+      <AbsoluteFill>{children}</AbsoluteFill>
+    </BeatIndex.Provider>
   </Sequence>
 );
 

@@ -14,7 +14,8 @@ The beat structures below are the house definition. Each Remotion composition in
 | `observation` | The real capture (input → result) with the ScaleBar showing measured seconds |
 | `notes` | The "Field notes" card: habitat, feeds on, free tier, paid from, best for, weakness |
 | `flaw` | The flaw, circled in red ink on the output or on the notes card |
-| `verdict` | Stamp (Captured / Released / Watch / Rare sighting) and the drawer |
+| `verdict` | Stamp (Captured / Released / Watch / Rare sighting) and the drawer; optional `use_for` / `skip_if` |
+| `score` | The SPECIMIND Score card (data/score.md): number out of 100 + four bars, locks on the music's crash |
 | `cta` | Platform-specific last line (ig: "Comment {code}…"; yt/x: hub URL) |
 | `counter` | CreditCounter: credits used / left, or generations per day |
 | `stamp-open` | The RARE SIGHTING stamp lands first, with the launch date |
@@ -29,7 +30,7 @@ The beat structures below are the house definition. Each Remotion composition in
 
 Every series keeps these on screen for the **whole** video: the pinned label (code, tool, genus), the mode label ("Live specimen" or "Field sketch — not hands-on") and the disclosure word ("Affiliate" or "Unpaid").
 
-Durations are targets. The composition computes its total from `script.json` and must land between 28 and 40 s.
+Durations are targets. The composition computes its total from `script.json`: 20–30 s is the target, 18–40 s is enforced, and every beat is a multiple of 0.5 s so cuts land on the 120 bpm music (scripts/make_music.py). Series not yet rebuilt for v2 pacing still run long (28–38 s); shorten their beats in the script toward the target.
 
 ---
 
@@ -48,17 +49,17 @@ Durations are targets. The composition computes its total from `script.json` and
 
 ## 2. Free Range — `FR` · composition `FreeRange` · 26 episodes
 
-- **Purpose:** what the free tier actually gets you, in numbers. No card needed.
+- **Purpose:** what the free tier actually gets you, in numbers, told as a story on the counter.
 - **Mode:** Live specimen.
-- **Signature opening:** a counter showing credits used / credits left.
-- **Structure:**
-  1. `counter` 0–3 s. The CreditCounter at its start value. Caption: the free allowance as a number.
-  2. `observation` × 2–3 3–22 s. Each generation ticks the counter down; each result is pinned as a small plate in a row.
-  3. `price-math` 22–30 s. A card: free = N results per day/month; the first paid tier = price → cost per result.
-  4. `flaw` 30–34 s. The flaw is circled on the weakest of the pinned results.
-  5. `verdict` + `cta` 34–38 s. A stamp, then the counter frozen at its final value.
-- **Ends on:** the counter, not the drawer.
-- **Differs from FS:** there is no conditions card. The counter is the structure, and the notes card is replaced by the price math.
+- **Signature opening:** the counter with the most dramatic real result on frame 0 (before → after when the input is a photo).
+- **Structure (v2, 20–30 s, beats on the 0.5 s grid):**
+  1. `counter` ~2 s. The CreditCounter at its start value + the hook visual (`media`, optional `before`). Hook caption: the outcome with a number.
+  2. `observation` × 2–3, ~2.5–3 s each, with **one `flaw` placed right after the observation it is about** (the comedy beat: the music dies). Each generation ticks the counter down; earlier results pin as thumbnails.
+  3. `price-math` ~3.5 s. Free = N results per day/month; the first paid tier.
+  4. `score` ~3 s. The SPECIMIND Score counts up and locks on the crash (`data/score.md`).
+  5. `verdict` ~4.5 s. Stamp + score, "Use it for / Skip it if", the counter frozen if it fits, the hub URL.
+- **Ends on:** the frozen counter and the decision card.
+- **Differs from FS:** no conditions card. The counter is the structure; the notes card is replaced by the price math.
 
 ## 3. Rare Sighting — `RS` · composition `RareSighting` · 32 episodes
 

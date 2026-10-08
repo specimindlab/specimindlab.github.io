@@ -259,6 +259,8 @@ episodes/{E###-slug}/research.md — what it is, who makes it, free tier exact l
 
 episodes/{E###-slug}/facts.json — machine-readable version: {tool, genus, habitat, feeds_on[], free_tier, paid_from, licence_note, launched, sources[]}. Use null for anything not published.
 
+Inputs: when the test needs a photo or file and episodes/{E###-slug}/raw/input/ is empty, choose licensed inputs yourself (Unsplash, Pexels or CC0, via WebFetch when a site blocks curl), pick them to stress the test (one easy, one hard), save them to raw/input/ with SOURCES.md (URL, photographer, licence, date) and put the credit line in facts.json `credits`. Never claim the object is ours.
+
 Then update README.md in the episode folder: the exact capture checklist for the human (what to record with OBS, which setting, which input to use, where to save the output). If the free tier cannot do the test, say so and switch the brief's mode to 'Field sketch'.
 
 Flag anything that contradicts the calendar row (e.g. the free tier no longer exists) at the top of research.md.
@@ -278,7 +280,7 @@ Episode: {E###}. Inspect episodes/{E###-slug}/raw/. For each file:
 
 Look at extracted frames yourself. Find the single most honest flaw a viewer can SEE (fused geometry, melted hands, misspelled text, wrong count, artefacts). Write it to facts.json as flaw {text (max 5 words), timestamp or image region}. If there is no visible flaw, use the most important limitation from research.md and mark flaw_source: 'research'.
 
-Decide the verdict with reasons in facts.json: Captured / Released (Live) or Watch (Field sketch). Be willing to release.
+Decide the verdict with reasons in facts.json: Captured / Released (Live) or Watch (Field sketch). Be willing to release. Live specimens: compute the SPECIMIND Score by data/score.md and store it in facts.json `score` ({total, parts: [{key, value, max}], result_runs}). Tools: scripts/auto_capture_hf.py (anonymous Space runs) and scripts/glb_inspect.mjs (3D stats + clay renders).
 
 AUTO-CAPTURE (when raw/ is empty): only if data/env-check.md says huggingface.co is reachable from this VM. If the tool is open-source with a public Hugging Face Space, or offers a free API that needs no login and no payment, run the test yourself:
 - Use the gradio_client Python package (or the documented free API) with the exact input from the brief. Save inputs and outputs to raw/auto/.
@@ -295,13 +297,13 @@ If raw/ is empty and auto-capture is not possible: never invent footage. If the 
 ## Playbook V — Script, render, review loop (used by prompt B; do not paste)
 
 ```
-Episode: {E###}. Read CLAUDE.md, data/series.md, brief.json, research.md, facts.json, and the list of the last 6 published episodes' script.json files (episodes/*/script.json, by date).
+Episode: {E###}. Read CLAUDE.md, prompts/voice.md, data/series.md, data/score.md, brief.json, research.md, facts.json, and the list of the last 6 published episodes' script.json files (episodes/*/script.json, by date).
 
-1. Write episodes/{E###-slug}/script.json for the series composition: beats, durations, every caption line (2–6 words per line, 1–3 lines per beat), which asset fills each plate, scale-bar seconds, field-notes rows, flaw annotation target, verdict, code, label text, mode, bed number (not the same as the previous episode).
+1. Write episodes/{E###-slug}/script.json for the series composition in the voice of prompts/voice.md: beats (each a multiple of 0.5 s, 20–30 s total), every caption line (1–6 words per line, 1–3 lines per beat), which asset fills each plate, scale-bar seconds, field-notes rows, flaw annotation target, the score beat, verdict with use_for / skip_if, code, label text, mode, "music": "music.wav" and "groove" 1-6 (not the same as the previous episode), and "cover" (before/after or the strongest result + the hook).
    Hook rules: the first beat states what happened in OUR test using a number from facts.json ("This mug was a phone photo 38 seconds ago."). Rewrite the calendar's draft hook if reality differs. Must not start with the same first word as either of the last 2 episodes. Banned words: insane, crazy, game-changer, mind-blowing, unbelievable, secret, hack, 🤯 or any emoji.
-   CTA beat: "Comment {code}" (Instagram version) and "specimindlab.github.io/{code}" (all versions). Produce three variants of the final beat text in script.json: ig, yt, x.
+   CTA beat: one platform-neutral line with the hub URL, e.g. "Every score: specimindlab.github.io/{code}", the same in cta.yt, cta.ig and cta.x (one master video serves all three).
 
-2. Do NOT render the final MP4s here: render.yml does that on GitHub. In this VM, export {E###}-cover.png (cover template layout, key content inside y 240–1680) and {E###}.srt (every caption, timed to the composition), and render the review stills below (in the background; or via preview.yml if this VM cannot render). If you need to check timing or the loop, render one low-resolution preview (540×960, CRF 30) and delete it afterwards.
+2. Do NOT render the final MP4s here: render.yml does that on GitHub. In this VM, run scripts/render_previews.sh {E###}: it composes music.wav, renders the review stills, cover.png (Cover composition) and {E###}.srt (in the background; or via preview.yml if this VM cannot render). If you need to check timing or the loop, render one low-resolution preview (540×960, CRF 30) and delete it afterwards.
 
 3. REVIEW LOOP — do not skip. Extract a still at every beat boundary + 1 s and at 25%, 50%, 75% of the duration (npx remotion still). Look at each image and check:
    [ ] first frame shows the output (or diagram in Field sketch) — not a title card
@@ -312,10 +314,11 @@ Episode: {E###}. Read CLAUDE.md, data/series.md, brief.json, research.md, facts.
    [ ] colours only from the brand tokens; no orange, no gradients, no glow
    [ ] verdict stamp legible; drawer shows the correct code highlighted
    [ ] text readable at phone size (downscale a still to 360 px wide and look again)
-   [ ] audio plan: bed and effect levels set as in prompt S3 (the final -14 LUFS check runs in render.yml)
-   [ ] duration 28–40 s; last frame matches first frame closely enough to loop
+   [ ] music: groove differs from the previous upload; flaw, score lock and verdict land where the picture does (make_music.py prints the sections)
+   [ ] duration 20–30 s (max 40); every beat a multiple of 0.5 s; last frame matches first frame closely enough to loop
+   [ ] frame 0 alone would stop a scroll: complete, readable with the sound off, a number or concrete outcome
    [ ] not structurally identical to the previous episode (compare beat lists)
-   Write qa/report.md with each check, PASS/FAIL, and the still that proves it. Fix every FAIL, re-render, re-check. Loop until all PASS (max 4 iterations; if still failing, stop and explain).
+   Write qa/report.md with each check, PASS/FAIL, and the still that proves it (stills are not committed; qa/contact-sheet.jpg is). Fix every FAIL, re-render, re-check. Loop until all PASS (max 4 iterations; if still failing, stop and explain).
 
 4. Commit and push the episode folder (script, facts, research, srt, cover, qa report and stills; never MP4s).
 ```
@@ -327,7 +330,7 @@ Episode: {E###}. Read CLAUDE.md, data/series.md, brief.json, research.md, facts.
 ```
 Episode: {E###}. Using facts.json, script.json and the templates in the strategy doc (copied in data/copy-templates.md), write episodes/{E###-slug}/meta/:
 
-youtube.md — title (tool name first, under 60 characters, states what happened), description (template; disclosure line verbatim), 3 hashtags, tags list from YouTube autocomplete research for the tool name (search YouTube suggestions and list the 8 most relevant), playlist names (pillar + series), related-video suggestion (Plate → winner's Field Specimen; Drawer → latest Field Guide), pinned comment.
+youtube.md — title (tool name first, under 60 characters, the outcome with a number or the score, in the voice of prompts/voice.md; never "my"), description (template; disclosure line verbatim), 3 hashtags, tags list from YouTube autocomplete research for the tool name (search YouTube suggestions and list the 8 most relevant), playlist names (pillar + series), related-video suggestion (Plate → winner's Field Specimen; Drawer → latest Field Guide), pinned comment.
 instagram.md — caption (first line = same keyword line), conditions, "Comment {code} and we'll DM you the link", disclosure, 3–5 hashtags, alt text, the exact auto-DM text for the comment-automation tool with {code} filled in, and a suggested Trial Reel alternative hook.
 x.md — post text (≤ 200 characters, tool name + one opinion), first-reply text with the hub link + disclosure.
 

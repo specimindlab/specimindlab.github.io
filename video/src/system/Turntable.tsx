@@ -72,7 +72,7 @@ export type TurntableProps = {
   startAngle?: number;
 };
 
-export const Turntable: React.FC<TurntableProps> = ({ src, width: rawW, height: rawH, clay = false, period = 9, startAngle = -30 }) => {
+export const Turntable: React.FC<TurntableProps> = ({ src, width: rawW, height: rawH, clay = false, period = 6, startAngle = -30 }) => {
   const width = Math.round(rawW); // ThreeCanvas requires integer sizes
   const height = Math.round(rawH);
   const frame = useCurrentFrame();

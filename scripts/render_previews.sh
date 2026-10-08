@@ -3,7 +3,9 @@
 #   scripts/render_previews.sh E001 [E002 ...]
 # Stills land in episodes/<id>-<slug>/qa/stills/<frame>-<label>.png: frame 0, every beat boundary + 1 s,
 # 25/50/75 % and the last frame (loop check), each rendered with platform "ig" (the busiest CTA).
-# Also writes qa/stills/contact-sheet.png at phone size, to look at the whole episode in one image,
+# Stills are for looking at in this VM and are NOT committed (.gitignore); the committed record is
+# qa/report.md plus qa/contact-sheet.jpg (every still at phone size in one image, ~300 KB).
+# Also writes
 # the episode cover (Cover composition -> <episode>/cover.png, plus qa/stills/cover-360.png at
 # phone size) and the captions file (<episode>/<id>.srt, scripts/make_srt.mjs).
 # Used locally and by .github/workflows/preview.yml. EPISODES_DIR overrides the episodes folder.
@@ -24,6 +26,10 @@ for id in "$@"; do
   dir=$(ls -d "$EPISODES_DIR/$id"-*/ 2>/dev/null | head -1); dir="${dir%/}"
   [ -n "$dir" ] || { echo "::error::$id: no folder in $EPISODES_DIR"; FAILED=1; continue; }
   mkdir -p "$STAGE/$id"
+  # Episode music is composed from the script (scripts/make_music.py), never committed.
+  if [ -f "$dir/script.json" ] && grep -q '"music"' "$dir/script.json"; then
+    python3 scripts/make_music.py "$dir/script.json" || FAILED=1
+  fi
   (cd "$dir" && find . -path ./qa -prune -o -path ./render -prune -o -path ./meta -prune -o -type f -print0) \
     | (cd "$dir" && xargs -0 -r cp --parents -t "$ROOT/$STAGE/$id")
 done
@@ -49,10 +55,10 @@ for id in "$@"; do
   if command -v ffmpeg >/dev/null && [ -f "$dir/cover.png" ]; then
     ffmpeg -hide_banner -loglevel error -y -i "$dir/cover.png" -vf scale=360:-1 "$stills/cover-360.png" || true
   fi
-  if command -v ffmpeg >/dev/null && ls "$stills"/*.png >/dev/null 2>&1; then
+  if command -v ffmpeg >/dev/null && ls "$stills"/[0-9]*.png >/dev/null 2>&1; then
     n=$(ls "$stills"/[0-9]*.png | wc -l); cols=$(( n < 6 ? n : 6 )); rows=$(( (n + cols - 1) / cols ))
     ffmpeg -hide_banner -loglevel error -y -pattern_type glob -i "$stills/[0-9]*.png" \
-      -vf "scale=360:-1,tile=${cols}x${rows}:padding=8:color=0x151612" -frames:v 1 "$stills/contact-sheet.png" \
+      -vf "scale=360:-1,tile=${cols}x${rows}:padding=8:color=0x151612" -frames:v 1 -q:v 3 "$dir/qa/contact-sheet.jpg" \
       || echo "contact sheet failed (stills are still there)"
   fi
   echo "$id: $(ls "$stills" | wc -l) files in $stills"

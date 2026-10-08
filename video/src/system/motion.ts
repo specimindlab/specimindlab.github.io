@@ -1,7 +1,7 @@
 import { Easing, interpolate } from "remotion";
 
-// The house motion vocabulary (CLAUDE.md "Motion rules"). Calm and exact: no glow, no bounce
-// beyond the single pin overshoot, no fades on captions.
+// The house motion vocabulary (CLAUDE.md "Motion rules"). Snappy and exact, cut on the 120 bpm grid:
+// no glow, no glitch, no particles, no fades on captions; one small pop when a caption line lands.
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
@@ -9,6 +9,7 @@ export const PIN = { drop: 6, overshoot: 2 } as const; // 8 frames total; contac
 export const PAPER = 12; // card slide
 export const INK = 10; // ink annotation draw-on
 export const LINE_CUT = 3; // caption lines, one per 3 frames
+export const POP = 4; // caption line lands: scale 1.06 -> 1 over 4 frames (the beat hit, not a zoom-punch)
 
 /** Pin drop: falls `distance` px with gravity, lands at frame 6 a few px low, settles by frame 8. */
 export const pinDrop = (frame: number, start: number, distance = 90) => {

@@ -148,6 +148,10 @@ const entryFor = (id) => {
     homepage: /^https:\/\//.test(homepage) ? homepage : "",
     sources: sources(facts),
     credits: str(facts.credits),
+    score: facts.score?.total !== undefined ? { total: facts.score.total, parts: facts.score.parts ?? [] } : undefined,
+    use_for: str(facts.use_for),
+    skip_if: str(facts.skip_if),
+    lesson: str(facts.lesson),
     affiliate_url: "",
   };
 };

@@ -26,3 +26,5 @@ export * from "./Text";
 export * from "./Tray";
 export * from "./Triptych";
 export * from "./Turntable";
+export * from "./ScoreCard";
+export * from "./BeforeAfter";

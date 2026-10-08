@@ -110,7 +110,7 @@
   "flaw": {
     "text": "Chrome lamp shattered",
     "region": "plate 1 (lamp-1-chrome)",
-    "detail": "6 disconnected pieces; thin arms lost"
+    "detail": "6 disconnected pieces; thin parts lost"
   },
   "flaw_source": "observed",
   "verdict": "Captured",
@@ -152,5 +152,59 @@
       "accessed": "2026-10-08"
     }
   ],
-  "credits": "Input photos: Roger Bradshaw, Andrej Lišakov and Aashish Chandra on Unsplash (Unsplash License)."
+  "credits": "Input photos: Roger Bradshaw, Andrej Lišakov and Aashish Chandra on Unsplash (Unsplash License).",
+  "score": {
+    "total": 71,
+    "parts": [
+      {
+        "key": "Result",
+        "value": 28,
+        "max": 50
+      },
+      {
+        "key": "Speed",
+        "value": 15,
+        "max": 15
+      },
+      {
+        "key": "Free tier",
+        "value": 18,
+        "max": 25
+      },
+      {
+        "key": "Price",
+        "value": 10,
+        "max": 10
+      }
+    ],
+    "result_runs": [
+      {
+        "run": "lamp-1-chrome",
+        "value": 0,
+        "deductions": [
+          "pieces -25",
+          "thin parts lost -10",
+          "wrong silhouette -15"
+        ]
+      },
+      {
+        "run": "lamp-2-grey",
+        "value": 42,
+        "deductions": [
+          "tabletop kept -8"
+        ]
+      },
+      {
+        "run": "lamp-3-orange",
+        "value": 42,
+        "deductions": [
+          "block kept -8"
+        ]
+      }
+    ],
+    "rubric": "data/score.md v1"
+  },
+  "use_for": "Matte props, fast",
+  "skip_if": "It's shiny or chrome",
+  "lesson": "Chrome and other mirror-like surfaces confuse it: shoot matte objects on a plain background."
 }

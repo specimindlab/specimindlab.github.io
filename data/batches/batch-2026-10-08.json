@@ -1,14 +1,14 @@
 {
   "batch": "batch-2026-10-08",
   "created": "2026-10-08",
-  "note": "Test batch: one episode (prompt B with 1). E001 Tripo skipped to data/needs-capture.md.",
+  "note": "Test batch: one episode. v2 (2026-10-08) re-cuts E002 on engine v2: 24 s, composed 120 bpm music, SPECIMIND Score, one master video for all platforms. E001 Tripo is in data/needs-capture.md.",
   "episodes": [
     {
       "id": "E002",
       "post_at": "2026-10-19 06:30 IST",
       "youtube": {
-        "title": "Hunyuan3D: 3 lamps, 55 free seconds, 1 shattered",
-        "description": "Unpaid. No affiliate link, and Tencent did not pay for this test.\n\nSpecimen Nº002: Hunyuan3D 2.1 on Tencent's official Hugging Face Space, logged out. One run per photo, default settings: three desk lamps, about 20 seconds each, 55 of the 120 free GPU seconds a logged-out visitor gets per day.\nCaptured: two lamps came back as clean, one-piece shapes. Honest flaw: the chrome lamp shattered into six loose pieces. Textured models were refused without a login (they ask for more GPU time than the free quota allows).\n\nFree tier: 2 GPU minutes a day logged out (shapes only). Paid from: $9 a month (Hugging Face PRO, 8× the GPU quota).\nField notes, sources and the test conditions: https://specimindlab.github.io/002?from=yt\n\nLamp photos: Roger Bradshaw, Andrej Lišakov and Aashish Chandra on Unsplash.\nLicence note: Hunyuan3D 2.1's community licence excludes the EU, UK and South Korea.\n\n#ai3d #3dmodeling #specimindlab",
+        "title": "Hunyuan3D: free 3D AI shattered this lamp (71/100)",
+        "description": "Unpaid. No affiliate link, and Tencent did not pay for this test.\n\nFree 3D AI, no login, one attempt per lamp. The chrome lamp came back in six pieces. The grey one kept the table. The orange one was flawless (show-off).\n\nSPECIMIND Score: 71/100 (result 28/50, speed 15/15, free tier 18/25, price 10/10).\nUse it for: matte props, fast. Skip it if: it's shiny or chrome.\nField tip: mirror-like surfaces confuse it. Shoot matte objects on a plain background.\n\nFree tier: 2 GPU minutes a day logged out (about 6 shapes, no textures). Paid from: $9 a month (Hugging Face PRO).\nEvery score, the leaderboard and the sources: specimindlab.github.io/002 (link in our channel profile)\n\nLamp photos: Roger Bradshaw, Andrej Lišakov and Aashish Chandra on Unsplash.\nLicence note: Hunyuan3D 2.1's community licence excludes the EU, UK and South Korea.\n\n#ai3d #3dmodeling #specimindlab",
         "hashtags": [
           "#ai3d",
           "#3dmodeling",
@@ -25,17 +25,19 @@
           "hunyuan 3d 2.1 low vram"
         ],
         "related_video": "",
-        "altered_content": false
+        "altered_content": false,
+        "pinned_comment": "71/100 for free and no login. Would you have bet on the chrome lamp? Full scores and the 3D leaderboard: specimindlab.github.io/best/3d (tap our channel name → links)."
       },
       "instagram": {
-        "caption": "Hunyuan3D: three desk lamps, 55 free GPU seconds, no login.\n\nConditions: Tencent's official Hugging Face Space, logged out. One run per photo, default settings, about 20 s each. Two lamps came back clean; the chrome one shattered into six pieces. Textures were refused without a login.\n\nFree: 2 GPU minutes a day logged out. Paid from $9 a month (Hugging Face PRO).\n\nComment 002 and we'll DM you the field notes.\n\nUnpaid: no affiliate link, Tencent did not pay for this.\nLamp photos: Roger Bradshaw, Andrej Lišakov, Aashish Chandra (Unsplash).\n\n#ai3d #3dmodeling #3dprinting #specimindlab",
+        "caption": "Free 3D AI, no login: this lamp shattered.\n\nHunyuan3D on its official free demo, one attempt per lamp. Chrome lamp: six pieces, zero lamp. Grey lamp: kept the table too. Orange lamp: flawless, total show-off.\n\nSPECIMIND Score 71/100. Use it for matte props, fast. Skip it if it's shiny or chrome.\nField tip: mirror-like surfaces confuse it. Shoot matte things on a plain background.\n\nFree: 2 GPU minutes a day logged out (about 6 shapes, no textures). Paid from $9 a month (Hugging Face PRO).\n\nComment 002 and we'll DM you the full scores and the 3D leaderboard.\n\nUnpaid: no affiliate link, Tencent did not pay for this.\nLamp photos: Roger Bradshaw, Andrej Lišakov, Aashish Chandra (Unsplash).\n\n#ai3d #3dmodeling #3dprinting #aitools #specimindlab",
         "comment_code": "002",
-        "auto_dm": "Here's Specimen Nº002, Hunyuan3D: https://specimindlab.github.io/002?from=ig (no affiliate link, Unpaid). The free path is the official Hugging Face Space: no login, 2 GPU minutes a day, shapes only."
+        "auto_dm": "Specimen Nº002, Hunyuan3D: 71/100. Scores, the chrome-lamp disaster and the free path: https://specimindlab.github.io/002?from=ig · Best 3D AI tools, ranked: https://specimindlab.github.io/best/3d/?from=ig (no affiliate link on 002, Unpaid)"
       },
       "x": {
-        "post": "Hunyuan3D, logged out, free: 3 desk lamps in 55 GPU seconds. Two came back clean. The chrome lamp shattered into six pieces. Shapes only: textures need a login.",
-        "first_reply": "Field notes, prices and sources: https://specimindlab.github.io/002?from=x · Unpaid (no affiliate link)"
+        "post": "Free 3D AI, no login. Three lamps in. The chrome one came back in six pieces, the orange one was flawless. Hunyuan3D scores 71/100. Matte objects only, please.",
+        "first_reply": "Every score, the free path and the 3D leaderboard: https://specimindlab.github.io/002?from=x · Unpaid (no affiliate link)"
       }
     }
-  ]
+  ],
+  "version": 2
 }

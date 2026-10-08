@@ -20,9 +20,12 @@ episodes/     one folder per episode: E001-tripo/, ... (raw/ holds the human's u
 | New episode folder | `python3 scripts/new_episode.py E001` or `--next 10` |
 | Review stills | `bash scripts/render_previews.sh E001` (or Actions → Render previews) |
 | Pipeline self-test | `bash scripts/smoke_test.sh` (renders and verifies the E000 fixture; no Release) |
+| Episode music | `python3 scripts/make_music.py episodes/<id>-*/script.json` (render_previews.sh and render_batch.sh run it) |
 | Catalog entry + site | `node scripts/catalog_sync.mjs E001`, then `node site/build.mjs` (pages.yml deploys on push) |
 | Render + publish | push `data/batches/<batch>.json` to main, or Actions → Render batch → `batch` |
 
-Delivery spec (identical for YouTube Shorts, Instagram Reels and X; only the CTA beat differs): 1080×1920, constant 30 fps, H.264 High, CRF 18, yuv420p, BT.709, AAC-LC 48 kHz stereo 192 kbps, +faststart, 28–40 s, under 100 MB, -14 LUFS ±1, true peak ≤ -1 dBTP.
+Delivery spec: ONE master `<id>.mp4` per episode for YouTube Shorts, Instagram Reels and X (all play 9:16 full screen): 1080×1920, constant 30 fps, H.264 High, CRF 18, yuv420p, BT.709, AAC-LC 48 kHz stereo 192 kbps, +faststart, 18–40 s (target 20–30), under 100 MB, -14 LUFS ±1, true peak ≤ -1 dBTP.
 
-Licences: Remotion (free for individuals and companies of up to 3 people), Anybody font (SIL OFL 1.1, `video/public/fonts/OFL.txt`). All sound is generated in code.
+Voice, hooks, pacing and the money model: [prompts/voice.md](prompts/voice.md). The SPECIMIND Score rubric: [data/score.md](data/score.md).
+
+Licences: Remotion (free for individuals and companies of up to 3 people), Anybody font (SIL OFL 1.1, `video/public/fonts/OFL.txt`). All sound, including each episode's music, is generated in code.

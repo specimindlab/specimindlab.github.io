@@ -65,6 +65,13 @@ for (const s of specimens) {
   if (!["Affiliate", "Unpaid"].includes(s.disclosure)) errors.push(`${at}: disclosure must be Affiliate or Unpaid`);
   if (!isDate(s.tested_on)) errors.push(`${at}: tested_on must be YYYY-MM-DD`);
   if (s.affiliate_url && s.disclosure !== "Affiliate") errors.push(`${at}: affiliate_url set but disclosure is not Affiliate`);
+  if (s.score !== undefined) {
+    const t = s.score?.total;
+    if (!Number.isInteger(t) || t < 0 || t > 100) errors.push(`${at}: score.total must be an integer 0-100`);
+    if (s.mode === "Field sketch") errors.push(`${at}: Field sketches get no score (data/score.md)`);
+    const sum = (s.score?.parts ?? []).reduce((a, p) => a + p.value, 0);
+    if (s.score?.parts?.length && sum !== t) errors.push(`${at}: score parts add up to ${sum}, not ${t}`);
+  }
   for (const u of [s.affiliate_url, s.homepage, ...Object.values(s.links ?? {})]) if (!isUrl(u)) errors.push(`${at}: not an https URL: ${u}`);
 }
 for (const g of groups) {
@@ -85,6 +92,12 @@ if (errors.length) {
 const byCode = new Map(specimens.map((s) => [s.code, s]));
 const num = (s) => parseInt(s.code, 10);
 const newest = [...specimens].sort((a, b) => (b.posted_on || b.tested_on).localeCompare(a.posted_on || a.tested_on) || num(b) - num(a))[0];
+
+// Leaderboards: every scored specimen, ranked inside its drawer (pillar).
+const slug = (x) => String(x ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const scored = (pillar) => specimens.filter((o) => o.score && (!pillar || o.pillar === pillar)).sort((a, b) => b.score.total - a.score.total || num(a) - num(b));
+const rankOf = (s) => (s.score ? scored(s.pillar).indexOf(s) + 1 : 0);
+const PILLARS = [...new Set(specimens.map((o) => o.pillar).filter(Boolean))].sort();
 
 // ---------- helpers ----------
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -210,7 +223,7 @@ ${FIXTURE ? '<meta name="robots" content="noindex">' : ""}
 ${FIXTURE ? '<div class="fixture-banner">Design fixture: placeholder data, not research</div>' : ""}${top}
 <header class="wrap bar">
 <a class="brand" href="/">${MARK}SPECIMIND</a>
-<nav aria-label="Site"><a href="/"${nav === "drawer" ? ' aria-current="page"' : ""}>Drawer</a><a href="/about/"${nav === "about" ? ' aria-current="page"' : ""}>About</a></nav>
+<nav aria-label="Site"><a href="/"${nav === "drawer" ? ' aria-current="page"' : ""}>Drawer</a><a href="/best/"${nav === "best" ? ' aria-current="page"' : ""}>Best</a><a href="/about/"${nav === "about" ? ' aria-current="page"' : ""}>About</a></nav>
 </header>
 <main id="main">
 ${body}
@@ -234,7 +247,7 @@ const write = (rel, content) => {
 // ---------- cells ----------
 const searchText = (s) => [s.code, s.tool, s.genus, s.pillar, s.verdict, s.flaw, s.series, s.title, ...(s.members ?? []).map((m) => m.tool)].filter(Boolean).join(" ").toLowerCase();
 const cell = (s, keep = false) => `<li class="cell" data-code="${s.code}" data-pillar="${esc(s.pillar)}" data-verdict="${s.verdict}" data-search="${esc(searchText(s))}">
-<a href="/${s.code}/"${keep ? " data-keep" : ""}>${tag(s.code, tone(s))}<span class="tool">${esc(s.tool)}<span class="sr">, specimen number ${s.code}</span></span><span class="meta">${s.verdict} · ${esc(s.pillar)}</span>${s.flaw ? `<span class="flaw">Flaw: ${esc(lowerFirst(plain(s.flaw)))}</span>` : ""}</a></li>`;
+<a href="/${s.code}/"${keep ? " data-keep" : ""}>${tag(s.code, tone(s))}<span class="tool">${esc(s.tool)}<span class="sr">, specimen number ${s.code}</span></span><span class="meta">${s.score ? `<b>${s.score.total}</b>/100 · ` : ""}${s.verdict} · ${esc(s.pillar)}</span>${s.flaw ? `<span class="flaw">Flaw: ${esc(lowerFirst(plain(s.flaw)))}</span>` : ""}</a></li>`;
 
 // ---------- / : the drawer ----------
 const CELLS = 10; // one drawer = 5 x 2 cells, as in the video's Drawer
@@ -394,6 +407,8 @@ const buildSpecimen = (s) => {
 <header class="spec-head">${tag(s.code, "red", "-3")}<div><p class="kicker">Specimen Nº${s.code}</p><h1>${esc(s.tool)}</h1>${s.genus ? `<p class="genus">${esc(s.genus)}</p>` : ""}<div class="badges"><span class="badge">${live ? "Live specimen" : "Field sketch — not hands-on"}</span><span class="badge${s.disclosure === "Affiliate" ? " aff" : ""}">${s.disclosure}</span>${s.pillar ? `<span class="badge">${esc(s.pillar)}</span>` : ""}</div></div></header>
 <div class="hook">${fit(hook)}</div>
 <section class="verdict" aria-label="Verdict">${stamp(s.verdict, "lands")}<div><p class="why">${esc(s.verdict_reason || VERDICT_LINE[s.verdict])}</p><p class="lab">${live ? "Tested" : "Desk study"} ${fmtDate(s.tested_on)}${s.seconds_to_result ? ` · ${s.seconds_to_result} s to result` : ""}</p><div class="try">${tryLink(s)}</div></div></section>
+${scoreBlock(s)}
+${decisionBlock(s)}
 <section class="notes card" aria-labelledby="notes"><h2 id="notes">Field notes</h2>${rows(notes, flawRow)}</section>
 ${cond}
 <section class="flaw-sec" aria-labelledby="flaw"><h2 id="flaw" class="sr">The honest flaw</h2>${fit(["Honest flaw:", sentence(flawCaption)])}<p>${flawSource}</p></section>
@@ -433,6 +448,40 @@ ${cond}
     }),
   );
 };
+// The SPECIMIND Score (data/score.md) with its parts and the specimen's rank in its drawer.
+const scoreBlock = (s) => {
+  if (!s.score) return "";
+  const r = rankOf(s);
+  const n = scored(s.pillar).length;
+  return `<section class="score card" aria-labelledby="score"><h2 id="score">SPECIMIND Score</h2>
+<p class="score-num"><b>${s.score.total}</b><span>/ 100</span></p>
+<p class="lab">Rank ${r} of ${n} in the <a href="/best/${slug(s.pillar)}/">${esc(s.pillar)} leaderboard</a> · <a href="/about/#score">how we score</a></p>
+<dl class="bars">${(s.score.parts ?? []).map((p) => `<div><dt>${esc(p.key)}</dt><dd><span class="meter"><i style="width:${Math.round((100 * p.value) / p.max)}%"></i></span><span>${p.value}/${p.max}</span></dd></div>`).join("")}</dl></section>`;
+};
+
+// The decision: use it for / skip it if / the lesson, and, when we earn nothing from this tool or
+// it failed, the best-scoring Captured alternatives in the same drawer (their Try links).
+const decisionBlock = (s) => {
+  const rows = [
+    s.use_for ? `<div><dt>Use it for</dt><dd>${esc(s.use_for)}</dd></div>` : "",
+    s.skip_if ? `<div><dt>Skip it if</dt><dd>${esc(s.skip_if)}</dd></div>` : "",
+    s.lesson ? `<div><dt>Field tip</dt><dd>${esc(s.lesson)}</dd></div>` : "",
+  ].join("");
+  const alts = s.disclosure !== "Affiliate" || s.verdict === "Released"
+    ? scored(s.pillar).filter((o) => o !== s && o.verdict === "Captured").slice(0, 3)
+    : [];
+  const altHtml = alts.length
+    ? `<h3 class="alts-h">Also worth trying in ${esc(s.pillar)}</h3><ul class="alts">${alts.map((o) => `<li><a href="/${o.code}/" data-keep>Nº${o.code} ${esc(o.tool)}</a> <b>${o.score.total}</b>/100${o.affiliate_url ? ` · ${tryLinkInline(o)}` : ""}</li>`).join("")}</ul>`
+    : "";
+  return rows || altHtml ? `<section class="decide card" aria-labelledby="decide"><h2 id="decide">Field verdict</h2>${rows ? `<dl class="rows">${rows}</dl>` : ""}${altHtml}</section>` : "";
+};
+const tryLinkInline = (o) => {
+  const param = subidParam(o);
+  const u = new URL(o.affiliate_url);
+  if (param) u.searchParams.set(param, `p-web-e${epNum(o)}`);
+  return `<a href="${esc(u.href)}" rel="sponsored noopener"${param ? ` data-subid="${esc(param)}" data-ep="${esc(epNum(o))}"` : ""}>Try it</a> (affiliate)`;
+};
+
 const VERDICT_LINE = {
   Captured: "Captured: it did what we tested, in one attempt, well enough to use.",
   Released: "Released: it did not pass our one-attempt test.",
@@ -491,6 +540,58 @@ ${g.verdict ? `<section class="verdict" aria-label="Verdict">${stamp(g.verdict, 
   );
 };
 
+// ---------- /best/ : the leaderboards (the money pages) ----------
+const buildBest = () => {
+  const table = (list) =>
+    list.length
+      ? `<ol class="board">${list
+          .map(
+            (o, i) => `<li><span class="rank" aria-hidden="true">${i + 1}</span><a class="who" href="/${o.code}/">${tag(o.code, tone(o), "0")}<span><span class="t">${esc(o.tool)}</span><span class="m">${o.verdict} · ${esc(o.genus || o.pillar)} · free: ${esc(o.free_tier || "not published")}</span></span></a><span class="pts"><b>${o.score.total}</b>/100</span>${
+              o.affiliate_url ? `<span class="go">${tryLinkInline(o)}</span>` : o.homepage ? `<span class="go"><a href="${esc(o.homepage)}" rel="noopener">Try it</a></span>` : ""
+            }</li>`,
+          )
+          .join("")}</ol>`
+      : `<p>No scored specimens in this drawer yet.</p>`;
+  const intro = `<p class="dek">Every tool we have tested, ranked by its SPECIMIND Score: one real attempt, measured speed, what the free tier really gives you, and the cheapest price. <a href="/about/#score">How the score works</a>.</p>`;
+  const disc = `<div class="disclosure"><div class="wrap"><p><b>Disclosure.</b> Some Try links on this page are affiliate links (marked); SPECIMIND may earn a commission at no extra cost to you. Rankings come from the score only. <a href="/about/#disclosure">Full disclosure</a>.</p></div></div>`;
+  write(
+    "best/index.html",
+    page({
+      path: "/best/",
+      title: "The best AI tools, ranked by test · SPECIMIND",
+      description: "Every AI tool SPECIMIND has tested, ranked by the SPECIMIND Score in its drawer: 3D, video, image, audio, work and build.",
+      top: disc,
+      nav: "best",
+      body: `<div class="wrap prose wide-prose"><h1>The leaderboards</h1>${intro}${PILLARS.map((p) => `<h2><a href="/best/${slug(p)}/">Best ${esc(p)} AI tools</a></h2>${table(scored(p).slice(0, 5))}`).join("") || "<p>The first scores arrive with the first specimens.</p>"}</div>`,
+      js: SPECIMEN_JS,
+    }),
+  );
+  for (const p of PILLARS) {
+    const list = scored(p);
+    write(
+      `best/${slug(p)}/index.html`,
+      page({
+        path: `/best/${slug(p)}/`,
+        title: `Best ${p} AI tools, ranked by real tests · SPECIMIND`,
+        description: `${list.length} ${p} AI tools tested once each and ranked by the SPECIMIND Score${list[0] ? `. #1: ${list[0].tool} (${list[0].score.total}/100)` : ""}.`,
+        top: disc,
+        nav: "best",
+        body: `<div class="wrap prose wide-prose"><p class="kicker"><a href="/best/">Leaderboards</a></p><h1>Best ${esc(p)} AI tools</h1>${intro}${table(list)}</div>`,
+        jsonld: [
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: `Best ${p} AI tools (SPECIMIND Score)`,
+            itemListOrder: "https://schema.org/ItemListOrderDescending",
+            itemListElement: list.map((o, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE}/${o.code}/`, name: `${o.tool} (${o.score.total}/100)` })),
+          },
+        ],
+        js: SPECIMEN_JS,
+      }),
+    );
+  }
+};
+
 // ---------- /about/ ----------
 const buildAbout = () => {
   const body = `<div class="wrap prose">
@@ -508,6 +609,15 @@ ${tag("Nº", "red", "-4")}
 <li><span><b>Nothing borrowed.</b>No narration, no AI voice, no copyrighted music, no other creators' footage, no tool logos as hero images. Every sound is generated in code.</span></li>
 <li><span><b>Disclosure from first frame to last.</b>“Affiliate” or “Unpaid” stays on screen for the whole video, and the disclosure sits at the top of every specimen page here.</span></li>
 </ol>
+<h2 id="score">The SPECIMIND Score</h2>
+<p>Every live specimen gets one number out of 100, so any two AI tools in the same drawer can be compared at a glance. It is computed from the test by fixed rules, never adjusted:</p>
+<ul>
+<li><b>Result, 50 points.</b> Each run in the video starts at 50 and loses points for what went wrong (for 3D: broken into pieces, thin parts lost, extra geometry, wrong shape). Failed runs count.</li>
+<li><b>Speed, 15 points.</b> Measured seconds to result, against bands for the kind of tool.</li>
+<li><b>Free tier, 25 points.</b> Whether you need an account or a card, how many results the free tier gives you per day, and whether the key feature is locked.</li>
+<li><b>Price, 10 points.</b> The cheapest paid plan per month.</li>
+</ul>
+<p>Field sketches are not hands-on, so they get no score. The <a href="/best/">leaderboards</a> rank every scored tool in its drawer.</p>
 <h2 id="disclosure">Affiliate disclosure</h2>
 <p>Some links on this site are affiliate links. If you sign up for or pay for a tool through one of them, SPECIMIND may earn a commission. You pay the same price either way.</p>
 <p><b>What the labels mean.</b> <em>Affiliate</em> means we have joined that tool's affiliate programme, so the “Try” link on its page may earn us a commission. <em>Unpaid</em> means there is no affiliate link and no payment of any kind: the button goes to the tool's homepage.</p>
@@ -572,7 +682,7 @@ const buildText = () => {
     "## Specimens",
     "",
     ...(ordered.length
-      ? ordered.map((s) => `- [Nº${s.code} ${s.tool}](${SITE}/${s.code}/): ${s.verdict}. Flaw: ${lowerFirst(plain(s.flaw))}. Tested ${s.tested_on}. ${s.mode === "Field sketch" ? "Field sketch, not hands-on" : "Live specimen"}; ${s.pillar}; ${s.disclosure}.`)
+      ? ordered.map((s) => `- [Nº${s.code} ${s.tool}](${SITE}/${s.code}/): ${s.verdict}${s.score ? `, SPECIMIND Score ${s.score.total}/100` : ""}. Flaw: ${lowerFirst(plain(s.flaw))}. Tested ${s.tested_on}. ${s.mode === "Field sketch" ? "Field sketch, not hands-on" : "Live specimen"}; ${s.pillar}; ${s.disclosure}.`)
       : [`No specimens are pinned yet.${start && start > today ? ` The first is pinned on ${start}.` : ""}`]),
   ];
   if (groups.length) {
@@ -587,6 +697,8 @@ const buildText = () => {
   const urls = [
     ["/", today],
     ["/about/", today],
+    ["/best/", today],
+    ...PILLARS.map((p) => [`/best/${slug(p)}/`, today]),
     ...ordered.map((s) => [`/${s.code}/`, s.updated_on || s.posted_on || s.tested_on]),
     ...groups.map((g) => [`/${g.code}/`, g.updated_on || g.posted_on || g.tested_on]),
   ];
@@ -608,6 +720,7 @@ writeFileSync(join(out, ".nojekyll"), "");
 buildHome();
 specimens.forEach(buildSpecimen);
 groups.forEach(buildGroup);
+buildBest();
 buildAbout();
 build404();
 buildText();

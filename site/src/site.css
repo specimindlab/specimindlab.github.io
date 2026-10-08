@@ -41,7 +41,7 @@ h2 { font-stretch: 130%; font-size: 1.125rem; }
 .bar nav a { text-decoration-color: transparent; padding: 6px 0; }
 .bar nav a:hover, .bar nav a[aria-current] { text-decoration-color: var(--red); }
 
-@media (max-width: 400px) { .brand { font-size: 1rem; gap: 8px; } .brand svg { width: 28px; height: 28px; } .bar nav { gap: 14px; } }
+@media (max-width: 400px) { .brand { font-size: .9375rem; gap: 6px; letter-spacing: 0; } .brand svg { width: 26px; height: 26px; } .bar nav { gap: 12px; font-size: .9375rem; } }
 
 /* Pinned specimen tag: crimson rectangle, hairline inner border at 85 %, entomology pin.
    --h is the tag height; everything scales from it (brand/vectors/vector-tag, PinnedTag.tsx). */
@@ -235,3 +235,37 @@ html:not(.js) .filters, html:not(.js) .finder { display: none; }
 .foot ul { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0; padding: 0; list-style: none; font-weight: 700; }
 .foot p { margin: 0; }
 .fixture-banner { background: var(--ink); color: var(--label); text-align: center; padding: 6px; font-weight: 800; font-size: .8125rem; }
+
+/* SPECIMIND Score, decision card, leaderboards */
+.score .score-num { margin: 0; display: flex; align-items: baseline; gap: 10px; }
+.score .score-num b { font-stretch: 150%; font-weight: 900; font-size: clamp(3.5rem, 16vw, 5.5rem); line-height: 1; color: var(--red); }
+.score .score-num span { font-stretch: 140%; font-weight: 900; font-size: 1.5rem; }
+.score .lab { margin: 6px 0 12px; }
+.bars { margin: 0 0 8px; }
+.bars > div { display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: center; padding: 6px 0; }
+.bars dt { font-stretch: 90%; font-weight: 700; font-size: .875rem; }
+.bars dd { margin: 0; display: grid; grid-template-columns: 1fr 52px; gap: 10px; align-items: center; font-stretch: 100%; font-weight: 800; font-size: .875rem; }
+.meter { display: block; height: 16px; border: 2px solid var(--ink); }
+.meter i { display: block; height: 100%; background: var(--red); }
+.decide { grid-area: notes; }
+.spec { grid-template-areas: "head" "hook" "verdict" "score" "decide" "notes" "cond" "flaw" "short" "more"; }
+.spec .score { grid-area: score; } .spec .decide { grid-area: decide; }
+@media (min-width: 900px) {
+  .spec { grid-template-areas: "head short" "hook short" "verdict short" "score short" "decide short" "notes short" "cond short" "flaw short" "more short"; }
+}
+.alts-h { font-stretch: 110%; font-size: 1rem; margin: 16px 0 6px; }
+.alts { margin: 0 0 10px; padding-left: 1.2em; }
+.alts li + li { margin-top: 4px; }
+.wide-prose { max-width: 860px; }
+.board { list-style: none; margin: 14px 0 26px; padding: 0; display: grid; gap: 10px; }
+.board li { display: grid; grid-template-columns: 40px 1fr auto; gap: 6px 14px; align-items: center; background: var(--cell); border: 1.5px solid var(--cell-stroke); padding: 22px 14px 14px; }
+.board .rank { font-stretch: 140%; font-weight: 900; font-size: 1.75rem; text-align: center; }
+.board .who { display: flex; gap: 16px; align-items: center; text-decoration: none; min-width: 0; }
+.board .who .pinned { --h: 26px; }
+.board .t { display: block; font-weight: 900; font-size: 1.0625rem; }
+.board .m { display: block; font-stretch: 85%; font-weight: 600; font-size: .8125rem; }
+.board .pts { font-weight: 800; white-space: nowrap; }
+.board .pts b { font-stretch: 140%; font-weight: 900; font-size: 1.5rem; color: var(--red); }
+.board .go { grid-column: 2 / -1; font-weight: 800; font-size: .9375rem; }
+.cell .meta b { font-stretch: 130%; font-weight: 900; }
+@media (max-width: 560px) { .board li { grid-template-columns: 36px 1fr; } .board .pts, .board .go { grid-column: 2; } }

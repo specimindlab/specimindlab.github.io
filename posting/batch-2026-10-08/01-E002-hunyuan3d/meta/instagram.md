@@ -1,27 +1,30 @@
 # Instagram · E002 · Specimen Nº002 · Hunyuan3D
 
 ## Caption
-Hunyuan3D: three desk lamps, 55 free GPU seconds, no login.
+Free 3D AI, no login: this lamp shattered.
 
-Conditions: Tencent's official Hugging Face Space, logged out. One run per photo, default settings, about 20 s each. Two lamps came back clean; the chrome one shattered into six pieces. Textures were refused without a login.
+Hunyuan3D on its official free demo, one attempt per lamp. Chrome lamp: six pieces, zero lamp. Grey lamp: kept the table too. Orange lamp: flawless, total show-off.
 
-Free: 2 GPU minutes a day logged out. Paid from $9 a month (Hugging Face PRO).
+SPECIMIND Score 71/100. Use it for matte props, fast. Skip it if it's shiny or chrome.
+Field tip: mirror-like surfaces confuse it. Shoot matte things on a plain background.
 
-Comment 002 and we'll DM you the field notes.
+Free: 2 GPU minutes a day logged out (about 6 shapes, no textures). Paid from $9 a month (Hugging Face PRO).
+
+Comment 002 and we'll DM you the full scores and the 3D leaderboard.
 
 Unpaid: no affiliate link, Tencent did not pay for this.
 Lamp photos: Roger Bradshaw, Andrej Lišakov, Aashish Chandra (Unsplash).
 
-#ai3d #3dmodeling #3dprinting #specimindlab
+#ai3d #3dmodeling #3dprinting #aitools #specimindlab
 
 ## Comment code
 002
 
 ## Auto-DM text
-Here's Specimen Nº002, Hunyuan3D: https://specimindlab.github.io/002?from=ig (no affiliate link, Unpaid). The free path is the official Hugging Face Space: no login, 2 GPU minutes a day, shapes only.
+Specimen Nº002, Hunyuan3D: 71/100. Scores, the chrome-lamp disaster and the free path: https://specimindlab.github.io/002?from=ig · Best 3D AI tools, ranked: https://specimindlab.github.io/best/3d/?from=ig (no affiliate link on 002, Unpaid)
 
 ## Alt text
-A free-range credit counter at 120 GPU seconds ticks down to 65 as three grey clay 3D models of desk lamps are pinned in a row; the first, a chrome lamp, is broken into scattered pieces and circled in red ink. Ends on a red "Captured" stamp.
+Before and after: a chrome desk lamp photo next to its 3D model, broken into scattered grey pieces. A free counter of 120 GPU seconds ticks down as two more lamps come out clean; a red ellipse circles the broken one. A score card counts up to 71 out of 100, then a red "Captured" stamp, "Use it for: matte props, fast. Skip it if: it's shiny or chrome."
 
 ## Trial Reel alternative hook
-"The chrome lamp broke. The orange one didn't."
+"71 out of 100. Here's what broke."

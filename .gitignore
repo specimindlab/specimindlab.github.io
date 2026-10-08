@@ -7,9 +7,17 @@ node_modules/
 # the MP4s only ever live in the Release.
 /posting/**/*.mp4
 /episodes/*/render/
+# review stills: looked at, never committed (qa/report.md + qa/contact-sheet.jpg are)
+/episodes/*/qa/stills/
+# composed per episode by scripts/make_music.py (in render.yml and render_previews.sh)
+/episodes/*/music.wav
 /video/out/
 /video/build/
 /scripts/fixtures/episodes/*/render/
+# review stills: looked at, never committed (qa/report.md + qa/contact-sheet.jpg are)
+/episodes/*/qa/stills/
+# composed per episode by scripts/make_music.py (in render.yml and render_previews.sh)
+/episodes/*/music.wav
 /scripts/fixtures/episodes/*/cover.png
 /scripts/fixtures/episodes/*/qa/
 

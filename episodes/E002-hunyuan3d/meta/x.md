@@ -1,7 +1,7 @@
 # X · E002 · Specimen Nº002 · Hunyuan3D
 
 ## Post (≤ 200 characters)
-Hunyuan3D, logged out, free: 3 desk lamps in 55 GPU seconds. Two came back clean. The chrome lamp shattered into six pieces. Shapes only: textures need a login.
+Free 3D AI, no login. Three lamps in. The chrome one came back in six pieces, the orange one was flawless. Hunyuan3D scores 71/100. Matte objects only, please.
 
 ## First reply
-Field notes, prices and sources: https://specimindlab.github.io/002?from=x · Unpaid (no affiliate link)
+Every score, the free path and the 3D leaderboard: https://specimindlab.github.io/002?from=x · Unpaid (no affiliate link)
