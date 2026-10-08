@@ -1,6 +1,6 @@
 {
   "batch": "batch-2026-10-08",
-  "status": "in_progress",
+  "status": "complete",
   "started": "2026-10-08",
   "updated": "2026-10-08",
   "episodes": [
@@ -10,13 +10,20 @@
       "mode": "Live specimen (auto-captured)",
       "step": "ready",
       "verdict": "Captured",
-      "commit": null,
+      "commit": "215c88b",
       "code": "002",
-      "tool": "Hunyuan3D"
+      "tool": "Hunyuan3D",
+      "post_at": "2026-10-19 06:30 IST"
     }
   ],
-  "render_runs": [],
-  "release": null,
+  "render_runs": [
+    {
+      "run_id": 37832025398,
+      "conclusion": "success",
+      "url": "https://github.com/specimindlab/specimindlab.github.io/actions/runs/37832025398"
+    }
+  ],
+  "release": "https://github.com/specimindlab/specimindlab.github.io/releases/tag/batch-2026-10-08",
   "notes": "Test batch of 1 episode (prompt B with 1). Episode entry: {id, folder, mode, step: research|ingest|script|review|meta|ready, verdict, commit}.",
   "skipped": [
     {

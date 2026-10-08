@@ -1,7 +1,14 @@
 {
   "timezone": "Asia/Kolkata",
-  "slots": { "A": "06:30", "B": "18:30" },
+  "slots": {
+    "A": "06:30",
+    "B": "18:30"
+  },
   "calendar_start": "2026-10-19",
-  "last_scheduled": { "date": "2026-10-18", "slot": "B", "episode": null },
+  "last_scheduled": {
+    "date": "2026-10-19",
+    "slot": "A",
+    "episode": "E002"
+  },
   "note": "last_scheduled is the slot BEFORE the next post. The next batch starts at the slot after it: 2026-10-19 slot A (06:30 IST), the calendar's Day 1. Update this after each batch (prompt B, step 6)."
 }
