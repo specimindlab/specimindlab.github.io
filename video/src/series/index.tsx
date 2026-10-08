@@ -9,6 +9,7 @@ import { DrawerSeries, drawerProps } from "./Drawer";
 import { ExtinctionWatch, extinctionProps } from "./ExtinctionWatch";
 import { FieldSketch, fieldSketchProps } from "./FieldSketch";
 import { FieldSpecimen, fieldSpecimenProps } from "./FieldSpecimen";
+import { Cover, coverProps } from "./Cover";
 import { FreeRange, freeRangeProps } from "./FreeRange";
 import { Mimicry, mimicryProps } from "./Mimicry";
 import { PlateSeries, plateProps } from "./Plate";
@@ -70,8 +71,28 @@ export const SERIES: Entry[] = [
 
 const FIXTURE_CATALOG = catalogSchema.parse(fxCatalog);
 
+const coverMeta: CalculateMetadataFunction<z.infer<typeof coverProps>> = ({ props }) => {
+  const parsed = coverProps.safeParse(props);
+  if (!parsed.success) {
+    throw new Error(`script.json cannot make a cover. ${parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join(" | ")}`);
+  }
+  return { durationInFrames: 1, props: parsed.data };
+};
+
 export const SeriesCompositions: React.FC = () => (
   <>
+    {/* One-frame episode cover: scripts/make_cover.sh renders it to episodes/<id>/cover.png. */}
+    <Composition
+      id="Cover"
+      component={Cover}
+      schema={coverProps}
+      defaultProps={{ script: fxFieldSpecimen as z.infer<typeof coverProps>["script"] }}
+      calculateMetadata={coverMeta}
+      durationInFrames={1}
+      fps={FPS}
+      width={WIDTH}
+      height={HEIGHT}
+    />
     {SERIES.map((s) => (
       <Composition
         key={s.id}

@@ -1,0 +1,135 @@
+{
+  "id": "E002",
+  "code": "002",
+  "composition": "FreeRange",
+  "series": "Free Range",
+  "mode": "Live specimen",
+  "disclosure": "Unpaid",
+  "tool": "Hunyuan3D",
+  "genus": "3D generator",
+  "bed": "sfx/bed-2.wav",
+  "cta": {
+    "yt": "Notes at specimindlab.github.io/002",
+    "ig": "Comment 002 for the link.",
+    "x": "Notes at specimindlab.github.io/002"
+  },
+  "beats": [
+    {
+      "type": "counter",
+      "seconds": 3.5,
+      "lines": [
+        "Three lamps cost",
+        "55 free seconds."
+      ],
+      "total": 120,
+      "unit": "GPU seconds",
+      "period": "a day, logged out"
+    },
+    {
+      "type": "observation",
+      "seconds": 6.5,
+      "lines": [
+        "Chrome lamp first."
+      ],
+      "result": {
+        "kind": "glb",
+        "src": "raw/auto/lamp-1-chrome-out0.glb",
+        "clay": true
+      },
+      "seconds_to_result": 21,
+      "used_after": 19
+    },
+    {
+      "type": "observation",
+      "seconds": 6.5,
+      "lines": [
+        "Grey arm lamp next."
+      ],
+      "result": {
+        "kind": "glb",
+        "src": "raw/auto/lamp-2-grey-out0.glb",
+        "clay": true
+      },
+      "seconds_to_result": 18,
+      "used_after": 37
+    },
+    {
+      "type": "observation",
+      "seconds": 6,
+      "lines": [
+        "Orange lamp came clean."
+      ],
+      "result": {
+        "kind": "glb",
+        "src": "raw/auto/lamp-3-orange-out0.glb",
+        "clay": true
+      },
+      "seconds_to_result": 22,
+      "used_after": 55
+    },
+    {
+      "type": "price-math",
+      "seconds": 8,
+      "lines": [
+        "About six lamps",
+        "a day, untextured."
+      ],
+      "rows": [
+        {
+          "key": "Free, logged out",
+          "value": "120 GPU s a day"
+        },
+        {
+          "key": "Per lamp",
+          "value": "About 18 GPU s"
+        },
+        {
+          "key": "Textured model",
+          "value": "Refused logged out"
+        },
+        {
+          "key": "Paid from",
+          "value": "$9 a month (HF PRO)"
+        }
+      ],
+      "result": {
+        "key": "Free math",
+        "value": "About 6 shapes a day"
+      }
+    },
+    {
+      "type": "flaw",
+      "seconds": 4,
+      "lines": [
+        "Honest flaw: chrome",
+        "lamp shattered."
+      ],
+      "result_index": 0,
+      "region": {
+        "x": 0.08,
+        "y": 0.12,
+        "w": 0.84,
+        "h": 0.76
+      },
+      "note": "6 loose pieces"
+    },
+    {
+      "type": "verdict",
+      "seconds": 4,
+      "verdict": "Captured"
+    }
+  ],
+  "cover": {
+    "media": {
+      "kind": "glb",
+      "src": "raw/auto/lamp-3-orange-out0.glb",
+      "clay": true
+    },
+    "lines": [
+      "Three desk lamps,",
+      "55 free seconds,",
+      "one shattered."
+    ],
+    "angle": -40
+  }
+}

@@ -3,6 +3,10 @@
 
     python3 scripts/build_posting.py data/batches/<batch>.json [--episodes-dir episodes] [--out posting/<batch>]
 
+Run it locally before pushing the batch file (no MP4s yet): the text package is committed to the
+repo under posting/<batch>/, so captions, descriptions and covers are on github.com the moment the
+batch is ready. render.yml runs it again with the MP4s for the Release (MP4s are never committed).
+
 Layout:
     posting/<batch>/POSTING.md            step-by-step posting guide (also the Release notes)
     posting/<batch>/posting-sheet.csv     one row per episode, for a scheduling spreadsheet
@@ -97,6 +101,7 @@ def main():
             f"- [ ] Upload `{eid}-yt.mp4`; custom thumbnail `cover.png`; subtitles `{eid}.srt` (English)",
             f"- [ ] Title: {g(yt, 'title')}",
             f"- [ ] Hashtags: {tags}",
+            *([f"- [ ] Tags: {', '.join(g(yt, 'tags', default=[]))}"] if g(yt, "tags", default=[]) else []),
             f"- [ ] \"Altered or synthetic content\" toggle: **{altered}**",
             f"- [ ] Related video: {g(yt, 'related_video') or 'none'}",
             f"- [ ] Paid promotion box: {'tick it' if script.get('disclosure') == 'Affiliate' else 'leave unticked'}",
@@ -144,7 +149,7 @@ def main():
     head = [
         f"# SPECIMIND {name}: posting guide",
         "",
-        f"{len(rows)} episode{'s' if len(rows) != 1 else ''}. Download `specimind-{name}.zip` from this Release and unzip it; each folder holds the three "
+        f"{len(rows)} episode{'s' if len(rows) != 1 else ''}. Download `specimind-{name}.zip` from the Release `{name}` (or each MP4 on its own from the same Release) and unzip it; each folder holds the three "
         "platform files (`-yt`, `-ig`, `-x`), `cover.png`, the `.srt` captions and `meta/`. Every MP4 is 1080×1920, 30 fps, "
         "H.264, -14 LUFS, and was verified automatically before this Release was created.",
         "",

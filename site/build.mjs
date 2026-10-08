@@ -386,7 +386,7 @@ const buildSpecimen = (s) => {
       ? `<section><h2>Also appears in</h2><ul class="watch">${inGroups.map((g) => `<li><a href="/${g.code}/" data-keep>${g.code} · ${esc(g.title)}</a></li>`).join("")}</ul></section>`
       : "",
     sources.length
-      ? `<section><h2>Sources</h2><ol class="sources">${sources.map((x) => `<li><a href="${esc(x.url)}" rel="noopener">${esc(x.label || new URL(x.url).hostname)}</a>${x.accessed ? `, accessed ${fmtDate(x.accessed)}` : ""}</li>`).join("")}</ol></section>`
+      ? `<section><h2>Sources</h2><ol class="sources">${sources.map((x) => `<li><a href="${esc(x.url)}" rel="noopener">${esc(x.label || new URL(x.url).hostname)}</a>${x.accessed ? `, accessed ${fmtDate(x.accessed)}` : ""}</li>`).join("")}</ol>${s.credits ? `<p class="lab" style="margin-top:12px">${esc(s.credits)}</p>` : ""}</section>`
       : "",
     sameP.length ? `<section><h2>More from the ${esc(s.pillar)} drawer</h2><ul class="mini-cells">${sameP.map((o) => cell(o, true)).join("")}</ul></section>` : "",
   ].join("");

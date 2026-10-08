@@ -31,7 +31,8 @@
       "affiliate_url": "Empty until the human pastes the tracking link. Requires disclosure 'Affiliate'. Gets rel='sponsored noopener'.",
       "affiliate_subid_param": "Optional. Sub-ID query parameter for this link's network; auto-detected for impact.com (subId1), PartnerStack (sid), FirstPromoter (fp_sid), CJ (sid), ShareASale (afftrack), Awin (clickref), Rakuten (u1). '' = the network has no sub-IDs.",
       "disclosure": "'Affiliate' | 'Unpaid'.",
-      "corrections": "[{date, text}] Dated errata, shown on the page. Never renumber; correct."
+      "corrections": "[{date, text}] Dated errata, shown on the page. Never renumber; correct.",
+      "credits": "Optional. Credit line for inputs we did not make (e.g. licensed photos), shown under Sources."
     },
     "groups[]": {
       "code": "'P01' | 'D01' | 'M01' | 'W01' | 'X01'.",
@@ -41,6 +42,143 @@
       "episode, pillar, tested_on, posted_on, hook_lines, flaw, verdict?, links, disclosure, cover, corrections": "As for specimens."
     }
   },
-  "specimens": [],
+  "specimens": [
+    {
+      "code": "002",
+      "episode": "E002",
+      "pillar": "3D",
+      "series": "Free Range",
+      "tested_on": "2026-10-08",
+      "posted_on": "2026-10-19",
+      "hook_lines": [
+        "Three lamps cost",
+        "55 free seconds."
+      ],
+      "disclosure": "Unpaid",
+      "cover": "episodes/E002-hunyuan3d/cover.png",
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "tool": "Hunyuan3D",
+      "genus": "3D generator",
+      "mode": "Live specimen",
+      "verdict": "Captured",
+      "verdict_reason": "Two of three lamps came back as usable, one-piece shapes in about 20 seconds each, free and without a login; the chrome lamp shattered, and textures need more GPU time than a logged-out visitor gets.",
+      "flaw": "Chrome lamp shattered",
+      "flaw_caption": "chrome lamp shattered.",
+      "flaw_source": "observed",
+      "flaw_at": "",
+      "free_tier": "2 GPU min a day logged out (shapes only)",
+      "paid_from": "$9 a month (Hugging Face PRO)",
+      "seconds_to_result": 20.4,
+      "conditions": [
+        {
+          "key": "Input",
+          "value": "3 desk-lamp photos (Unsplash License)"
+        },
+        {
+          "key": "Plan",
+          "value": "Free, logged out (no account, no token)"
+        },
+        {
+          "key": "Attempts",
+          "value": "1 per lamp (3 runs)"
+        },
+        {
+          "key": "Retries",
+          "value": "0"
+        },
+        {
+          "key": "Settings",
+          "value": "Space defaults (30 steps, octree 256)"
+        },
+        {
+          "key": "Edited",
+          "value": "No"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "21 s, 18 s, 22 s"
+        },
+        {
+          "key": "Textured model",
+          "value": "Refused: needs more GPU time than logged out allows"
+        },
+        {
+          "key": "Capture",
+          "value": "Auto-captured on the official Hugging Face Space"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Browser (Hugging Face Space), Open weights"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Photo, up to 4 views of one object"
+        },
+        {
+          "key": "Free tier",
+          "value": "2 GPU min a day logged out (shapes only)"
+        },
+        {
+          "key": "Paid from",
+          "value": "$9 a month (Hugging Face PRO)"
+        },
+        {
+          "key": "Licence",
+          "value": "Tencent Hunyuan 3D 2.1 Community License: excludes the EU, UK and South Korea; outputs may not train other models."
+        },
+        {
+          "key": "Weakness",
+          "value": "Chrome lamp shattered"
+        }
+      ],
+      "homepage": "https://huggingface.co/spaces/tencent/Hunyuan3D-2.1",
+      "sources": [
+        {
+          "url": "https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1",
+          "label": "Hunyuan3D-2.1 on GitHub (release date, VRAM)",
+          "accessed": "2026-10-08"
+        },
+        {
+          "url": "https://huggingface.co/spaces/tencent/Hunyuan3D-2.1",
+          "label": "Official Hugging Face Space",
+          "accessed": "2026-10-08"
+        },
+        {
+          "url": "https://huggingface.co/spaces/tencent/Hunyuan3D-2.1/raw/main/gradio_app.py",
+          "label": "Space code (GPU durations requested)",
+          "accessed": "2026-10-08"
+        },
+        {
+          "url": "https://huggingface.co/docs/hub/en/spaces-zerogpu",
+          "label": "Hugging Face ZeroGPU quotas",
+          "accessed": "2026-10-08"
+        },
+        {
+          "url": "https://huggingface.co/pricing",
+          "label": "Hugging Face pricing (PRO)",
+          "accessed": "2026-10-08"
+        },
+        {
+          "url": "https://huggingface.co/tencent/Hunyuan3D-2.1/blob/main/LICENSE",
+          "label": "Hunyuan 3D 2.1 Community License",
+          "accessed": "2026-10-08"
+        },
+        {
+          "url": "https://www.prnewswire.com/news-releases/tencent-announces-global-launch-of-hunyuan-3d-engine-to-empower-creators-with-advanced-creation-tools-302626280.html",
+          "label": "Tencent: 20 free generations a day on the hosted app",
+          "accessed": "2026-10-08"
+        }
+      ],
+      "credits": "Input photos: Roger Bradshaw, Andrej Lišakov and Aashish Chandra on Unsplash (Unsplash License).",
+      "affiliate_url": "",
+      "updated_on": "2026-10-08"
+    }
+  ],
   "groups": []
 }

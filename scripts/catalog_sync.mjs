@@ -35,9 +35,11 @@ const orNP = (v) => str(v) || "Not published";
 const beat = (script, type) => script?.beats?.find((b) => b.type === type);
 const firstLines = (script) => script?.beats?.find((b) => b.lines?.length)?.lines ?? [];
 const flawCaption = (script) => {
+  // "Honest flaw:" may stand alone on its line or start it ("Honest flaw: chrome" / "lamp shattered.").
   for (const b of script?.beats ?? []) {
-    const i = (b.lines ?? []).findIndex((l) => /^honest flaw:?$/i.test(l.trim()));
-    if (i >= 0) return b.lines.slice(i + 1).join(" ");
+    const text = (b.lines ?? []).join(" ").replace(/\s+/g, " ").trim();
+    const m = text.match(/^honest flaw:\s*(.+)$/i);
+    if (m) return m[1];
   }
   return "";
 };
@@ -112,7 +114,9 @@ const entryFor = (id) => {
       ];
   if (!notes.some((r) => r.key === "Weakness")) notes.push({ key: "Weakness", value: flaw });
   const seconds = facts.seconds_to_result ?? beat(script, "observation")?.seconds_to_result;
-  const conditions = condBeat?.rows?.length
+  const conditions = Array.isArray(facts.conditions) && facts.conditions.length
+    ? facts.conditions.map((r) => ({ key: r.key, value: str(r.value) }))
+    : condBeat?.rows?.length
     ? condBeat.rows.map((r) => ({ key: r.key, value: r.value }))
     : (script.mode ?? brief.mode) === "Field sketch"
       ? []
@@ -122,7 +126,7 @@ const entryFor = (id) => {
           { key: "Attempts", value: str(facts.attempts ?? 1) },
         ];
   if (seconds && !conditions.some((r) => /seconds/i.test(r.key)) && conditions.length) conditions.push({ key: "Seconds to result", value: `${seconds} s` });
-  if (facts.auto_captured) conditions.push({ key: "Capture", value: "Auto-captured on a public demo" });
+  if (facts.auto_captured && !conditions.some((r) => r.key === "Capture")) conditions.push({ key: "Capture", value: "Auto-captured on a public demo" });
   const first = sources(facts)[0]?.url;
   const homepage = facts.homepage ?? facts.url ?? (first ? `${new URL(first).origin}/` : "");
   return {
@@ -143,6 +147,7 @@ const entryFor = (id) => {
     field_notes: notes,
     homepage: /^https:\/\//.test(homepage) ? homepage : "",
     sources: sources(facts),
+    credits: str(facts.credits),
     affiliate_url: "",
   };
 };

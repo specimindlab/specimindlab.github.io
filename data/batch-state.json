@@ -8,9 +8,11 @@
       "id": "E002",
       "folder": "episodes/E002-hunyuan3d",
       "mode": "Live specimen (auto-captured)",
-      "step": "script",
-      "verdict": null,
-      "commit": null
+      "step": "ready",
+      "verdict": "Captured",
+      "commit": null,
+      "code": "002",
+      "tool": "Hunyuan3D"
     }
   ],
   "render_runs": [],

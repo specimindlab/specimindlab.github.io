@@ -3,7 +3,9 @@ node_modules/
 
 # Finished videos never enter git history: GitHub Releases hold them.
 *.zip
-/posting/
+# posting/<batch>/: the text package (POSTING.md, posting-sheet.csv, covers, captions, meta) is committed;
+# the MP4s only ever live in the Release.
+/posting/**/*.mp4
 /episodes/*/render/
 /video/out/
 /video/build/

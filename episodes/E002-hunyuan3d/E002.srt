@@ -1,0 +1,31 @@
+1
+00:00:00,000 --> 00:00:03,500
+Three lamps cost
+55 free seconds.
+
+2
+00:00:03,500 --> 00:00:10,000
+Chrome lamp first.
+
+3
+00:00:10,000 --> 00:00:16,500
+Grey arm lamp next.
+
+4
+00:00:16,500 --> 00:00:22,500
+Orange lamp came clean.
+
+5
+00:00:22,500 --> 00:00:30,500
+About six lamps
+a day, untextured.
+
+6
+00:00:30,500 --> 00:00:34,500
+Honest flaw: chrome
+lamp shattered.
+
+7
+00:00:34,500 --> 00:00:38,500
+Notes at
+specimindlab.github.io/002

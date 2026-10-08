@@ -3,7 +3,9 @@
 #   scripts/render_previews.sh E001 [E002 ...]
 # Stills land in episodes/<id>-<slug>/qa/stills/<frame>-<label>.png: frame 0, every beat boundary + 1 s,
 # 25/50/75 % and the last frame (loop check), each rendered with platform "ig" (the busiest CTA).
-# Also writes qa/stills/contact-sheet.png at phone size, to look at the whole episode in one image.
+# Also writes qa/stills/contact-sheet.png at phone size, to look at the whole episode in one image,
+# the episode cover (Cover composition -> <episode>/cover.png, plus qa/stills/cover-360.png at
+# phone size) and the captions file (<episode>/<id>.srt, scripts/make_srt.mjs).
 # Used locally and by .github/workflows/preview.yml. EPISODES_DIR overrides the episodes folder.
 set -uo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -40,9 +42,15 @@ for id in "$@"; do
     (cd video && npx --no-install remotion still build "$comp" "$ROOT/$f" --frame="$frame" --props="$props" --log=error) \
       || { echo "::error file=$dir/script.json::$id: still at frame $frame failed"; FAILED=1; }
   done < <(node scripts/episode_frames.mjs "$dir/script.json" review)
+  (cd video && npx --no-install remotion still build Cover "$ROOT/$dir/cover.png" --frame=0 --props="$props" --log=error) \
+    || { echo "::error file=$dir/script.json::$id: cover failed"; FAILED=1; }
+  node scripts/make_srt.mjs "$dir/script.json" yt || FAILED=1
   rm -f "$props"
+  if command -v ffmpeg >/dev/null && [ -f "$dir/cover.png" ]; then
+    ffmpeg -hide_banner -loglevel error -y -i "$dir/cover.png" -vf scale=360:-1 "$stills/cover-360.png" || true
+  fi
   if command -v ffmpeg >/dev/null && ls "$stills"/*.png >/dev/null 2>&1; then
-    n=$(ls "$stills"/*.png | wc -l); cols=$(( n < 6 ? n : 6 )); rows=$(( (n + cols - 1) / cols ))
+    n=$(ls "$stills"/[0-9]*.png | wc -l); cols=$(( n < 6 ? n : 6 )); rows=$(( (n + cols - 1) / cols ))
     ffmpeg -hide_banner -loglevel error -y -pattern_type glob -i "$stills/[0-9]*.png" \
       -vf "scale=360:-1,tile=${cols}x${rows}:padding=8:color=0x151612" -frames:v 1 "$stills/contact-sheet.png" \
       || echo "contact sheet failed (stills are still there)"

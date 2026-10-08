@@ -116,11 +116,14 @@ if [ "${NO_RELEASE:-0}" = "1" ]; then
   echo "NO_RELEASE=1: skipping the GitHub Release. Package: $ZIP"
   exit 0
 fi
+# The zip (everything) plus each MP4 on its own, so a single video downloads straight to a phone.
 assets=("$ZIP")
+while IFS= read -r -d '' f; do assets+=("$f"); done < <(find "posting/$BATCH" -name '*.mp4' -print0 | sort -z)
 size=$(stat -c %s "$ZIP")
 if [ "$size" -gt 1900000000 ]; then   # Release assets max out at 2 GiB each
   echo "Zip is over 1.9 GB; attaching one zip per episode instead"
   assets=()
+  while IFS= read -r -d '' f; do assets+=("$f"); done < <(find "posting/$BATCH" -name '*.mp4' -print0 | sort -z)
   for d in posting/"$BATCH"/*/; do
     n="specimind-$BATCH-$(basename "$d").zip"
     (cd "posting/$BATCH" && zip -q -r -0 "../../$n" "$(basename "$d")" POSTING.md posting-sheet.csv)

@@ -4,7 +4,7 @@ import { ThreeCanvas } from "@remotion/three";
 import React, { useMemo } from "react";
 import { useCurrentFrame, useVideoConfig } from "remotion";
 import * as THREE from "three";
-import { DERIVED } from "../brand";
+import { COLORS } from "../brand";
 
 // A 3D specimen on a turntable. Rotation is a pure function of the frame (never useFrame), so
 // every frame renders identically in parallel workers. Transparent background: the Plate's
@@ -22,7 +22,9 @@ const Model: React.FC<ModelProps> = ({ src, clay, angle, tilt, aspect }) => {
     const center = box.getCenter(new THREE.Vector3());
     const scale = 2 / Math.max(size.x, size.y, size.z, 1e-6);
     root.position.set(-center.x, -box.min.y, -center.z); // centred, standing on the floor
-    const material = new THREE.MeshStandardMaterial({ color: DERIVED.clay, roughness: 0.82, metalness: 0 });
+    // Lit clay in pin steel: the light storyboard clay (DERIVED.clay) washes out on the archival
+    // plate once it is shaded, so untextured meshes read as grey-on-white instead (E002 review).
+    const material = new THREE.MeshStandardMaterial({ color: COLORS.steel, roughness: 0.78, metalness: 0 });
     root.traverse((o) => {
       const mesh = o as THREE.Mesh;
       if (!mesh.isMesh) return;
@@ -32,16 +34,20 @@ const Model: React.FC<ModelProps> = ({ src, clay, angle, tilt, aspect }) => {
     });
     return { root, scale, size, height: size.y * scale };
   }, [scene, clay]);
-  // Frame the model: bounding sphere fits the vertical field of view with a margin, camera 16 deg
-  // above the horizon. Set synchronously so every frame (and every worker) sees the same camera.
+  // Frame the model so it fills the plate at every turntable angle: its horizontal radius (the
+  // footprint swept by the rotation) fits the horizontal field of view and its height fits the
+  // vertical one, camera 16 deg above the horizon. A bounding SPHERE wasted most of the plate on
+  // flat or sprawling meshes (E002 review). Set synchronously so every worker sees the same camera.
   const cam = camera as THREE.PerspectiveCamera;
-  const r = Math.hypot(prepared.size.x, prepared.size.y, prepared.size.z) * 0.5 * prepared.scale;
+  const rH = Math.hypot(prepared.size.x, prepared.size.z) * 0.5 * prepared.scale;
   const cy = prepared.height / 2;
   const fov = 30;
   const vHalf = (fov * Math.PI) / 360;
   const hHalf = Math.atan(Math.tan(vHalf) * aspect);
-  const d = (r * 1.18) / Math.sin(Math.min(vHalf, hHalf));
   const el = (16 * Math.PI) / 180;
+  const dH = rH / Math.sin(hHalf) * 1.06;
+  const dV = rH + ((prepared.height / 2) * 1.12 + rH * Math.sin(el)) / Math.tan(vHalf);
+  const d = Math.max(dH, dV);
   cam.fov = fov;
   cam.position.set(0, cy + d * Math.sin(el), d * Math.cos(el));
   cam.lookAt(0, cy * 0.92, 0);

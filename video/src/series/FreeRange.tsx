@@ -41,46 +41,49 @@ type Script = z.infer<typeof freeRangeScript>;
 type Obs = Extract<Script["beats"][number], { type: "observation" }>;
 type Ctr = Extract<Script["beats"][number], { type: "counter" }>;
 
-/** The row of pinned result plates; `upTo` = how many are pinned, `live` = the one playing. */
-const ResultRow: React.FC<{ obs: Obs[]; upTo: number; y: number; h: number; live?: number; flaw?: { index: number; region: z.infer<typeof region>; note: string } }> = ({
-  obs,
-  upTo,
-  y,
-  h,
-  live,
-  flaw,
-}) => {
-  const gap = 24;
-  const n = obs.length;
-  const w = (860 - gap * (n - 1)) / n;
-  const plateH = h - 110;
+// One result large enough to read on a phone (the "hero"), the other pinned results as small
+// plates in a column on the right (x 870-1010: plates may run to 1010, never text). E002 review:
+// three equal plates in a row were 270 px wide and a thin 3D mesh became unreadable.
+const THUMB = { x: 870, w: 136, gap: 18 }; // border stroke stays inside x 1010
+const HERO_W = THUMB.x - 20 - 70;
+
+const HeroWithThumbs: React.FC<{
+  obs: Obs[];
+  hero: number;
+  thumbs: number[];
+  y: number;
+  bottom: number;
+  live?: boolean;
+  flaw?: { region: z.infer<typeof region>; note: string };
+}> = ({ obs, hero, thumbs, y, bottom, live, flaw }) => {
+  const o = obs[hero];
+  const plateY = y + 30;
+  const plateH = bottom - plateY - (flaw ? 100 : 64);
   return (
     <>
-      {obs.slice(0, upTo).map((o, i) => {
-        const x = 70 + i * (w + gap);
-        return (
-          <React.Fragment key={i}>
-            <Plate x={x} y={y + 30} w={w} h={plateH} crosses={false}>
-              <Media spec={o.result} width={w} height={plateH} />
-            </Plate>
-            <PinnedTag x={x + 12} y={y} w={84} h={46} rotate={-4} tone={live === i ? "red" : "ink"} text={`#${i + 1}`} textSpan={[0.18, 0.74]} headR={6} />
-            <Line text={`${o.seconds_to_result} s`} x={x} baseline={y + 30 + plateH + 50} maxWidth={w} size={40} axes={AXES.digits} />
-            {flaw && flaw.index === i ? (
-              <>
-                <InkMark
-                  shape="ellipse"
-                  target={{ x: x + flaw.region.x * w, y: y + 30 + flaw.region.y * plateH, w: flaw.region.w * w, h: flaw.region.h * plateH }}
-                  start={6}
-                  seed="fr-flaw"
-                  pad={8}
-                  strokeWidth={6}
-                />
-                <Line text={flaw.note} x={x} baseline={y + 30 + plateH + 90} maxWidth={w} size={30} axes={AXES.note} color={COLORS.red} />
-              </>
-            ) : null}
-          </React.Fragment>
-        );
-      })}
+      <Plate x={70} y={plateY} w={HERO_W} h={plateH} crosses={false}>
+        <Media spec={o.result} width={HERO_W} height={plateH} />
+      </Plate>
+      <PinnedTag x={82} y={y} w={96} h={52} rotate={-4} tone={live ? "red" : "ink"} text={`#${hero + 1}`} textSpan={[0.18, 0.74]} headR={7} />
+      <Line text={`${o.seconds_to_result} s`} x={70} baseline={plateY + plateH + 52} maxWidth={HERO_W} size={44} axes={AXES.digits} />
+      {flaw ? (
+        <>
+          <InkMark
+            shape="ellipse"
+            target={{ x: 70 + flaw.region.x * HERO_W, y: plateY + flaw.region.y * plateH, w: flaw.region.w * HERO_W, h: flaw.region.h * plateH }}
+            start={6}
+            seed="fr-flaw"
+            pad={8}
+            strokeWidth={6}
+          />
+          <Line text={flaw.note} x={70} baseline={plateY + plateH + 94} maxWidth={HERO_W} size={34} axes={AXES.note} color={COLORS.red} />
+        </>
+      ) : null}
+      {thumbs.map((t, k) => (
+        <Plate key={t} x={THUMB.x} y={plateY + k * (THUMB.w + THUMB.gap)} w={THUMB.w} h={THUMB.w} crosses={false} border={3}>
+          <Media spec={obs[t].result} width={THUMB.w} height={THUMB.w} />
+        </Plate>
+      ))}
     </>
   );
 };
@@ -88,12 +91,12 @@ const ResultRow: React.FC<{ obs: Obs[]; upTo: number; y: number; h: number; live
 const ObservationBeat: React.FC<{ b: Timed<Obs>; ctr: Ctr; obs: Obs[]; i: number; prevUsed: number }> = ({ b, ctr, obs, i, prevUsed }) => {
   const box = captionBox(b.lines, 420);
   const ch = counterHeight(true);
-  const rowY = CONTENT_TOP + ch + 30;
+  const rowY = CONTENT_TOP + ch + 24;
   // The counter ticks when this generation's result lands (after its pin drop).
   return (
     <>
       <CreditCounter total={ctr.total} used={b.used_after} prevUsed={prevUsed} changeAt={14} unit={ctr.unit} period={ctr.period} y={CONTENT_TOP} compact />
-      <ResultRow obs={obs} upTo={i + 1} y={rowY} h={box.contentBottom - rowY} live={i} />
+      <HeroWithThumbs obs={obs} hero={i} thumbs={Array.from({ length: i }, (_, k) => k)} y={rowY} bottom={box.contentBottom} live />
       <Caption lines={b.lines} maxHeight={420} />
     </>
   );
@@ -142,7 +145,14 @@ const FreeRangeBody: React.FC<FreeRangeProps> = ({ script, platform }) => {
             ) : null}
             {b.type === "flaw" && box ? (
               <>
-                <ResultRow obs={obs} upTo={obs.length} y={CONTENT_TOP + 20} h={box.contentBottom - CONTENT_TOP - 20} flaw={{ index: Math.min(b.result_index, obs.length - 1), region: b.region, note: b.note }} />
+                <HeroWithThumbs
+                  obs={obs}
+                  hero={Math.min(b.result_index, obs.length - 1)}
+                  thumbs={obs.map((_, k) => k).filter((k) => k !== Math.min(b.result_index, obs.length - 1))}
+                  y={CONTENT_TOP}
+                  bottom={box.contentBottom}
+                  flaw={{ region: b.region, note: b.note }}
+                />
                 <Caption lines={b.lines} maxHeight={420} />
               </>
             ) : null}
