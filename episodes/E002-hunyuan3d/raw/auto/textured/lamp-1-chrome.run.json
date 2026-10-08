@@ -1,0 +1,21 @@
+{
+  "space": "tencent/Hunyuan3D-2.1",
+  "api_name": "/generation_all",
+  "input": "episodes/E002-hunyuan3d/raw/input/lamp-1-chrome.jpg",
+  "params": {},
+  "attempts": 1,
+  "started_utc": "2026-10-08T19:06:21Z",
+  "status_log": [
+    {
+      "t": 0.0,
+      "code": "Status.STARTING",
+      "rank": null,
+      "eta": null
+    }
+  ],
+  "wall_seconds": 1.8,
+  "queue_seconds": null,
+  "seconds_to_result_excl_queue": 1.8,
+  "ok": false,
+  "error": "AppError: 'The requested GPU duration (270s) is larger than the maximum allowedSubscribe to Hugging Face PRO to allow GPU tasks up to 40 min - https://huggingface.co/subscribe/pro?from=ZeroGPU'"
+}

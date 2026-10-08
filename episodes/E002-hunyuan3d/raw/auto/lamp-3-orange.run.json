@@ -1,0 +1,73 @@
+{
+  "space": "tencent/Hunyuan3D-2.1",
+  "api_name": "/shape_generation",
+  "input": "episodes/E002-hunyuan3d/raw/input/lamp-3-orange.jpg",
+  "params": {},
+  "attempts": 1,
+  "started_utc": "2026-10-08T19:05:46Z",
+  "status_log": [
+    {
+      "t": 0.0,
+      "code": "Status.STARTING",
+      "rank": null,
+      "eta": null
+    },
+    {
+      "t": 1.75,
+      "code": "Status.PROCESSING",
+      "rank": null,
+      "eta": null
+    },
+    {
+      "t": 23.03,
+      "code": "Status.FINISHED",
+      "rank": null,
+      "eta": null
+    }
+  ],
+  "wall_seconds": 24.0,
+  "queue_seconds": 1.8,
+  "seconds_to_result_excl_queue": 22.3,
+  "outputs": [
+    {
+      "index": 0,
+      "file": "episodes/E002-hunyuan3d/raw/auto/lamp-3-orange-out0.glb",
+      "remote": "/tmp/gradio/f299fd0130a041e80228861e32c7e028ff012829e9ed16857769c9fdb544e25a/white_mesh.glb"
+    },
+    {
+      "index": 1,
+      "value": "\n        <div style='height: 650; width: 100%;'>\n        <iframe src=\"/static/76655e9a-88ec-4f55-bfb7-a3ab432535d6/white_mesh.html\" height=\"650\" width=\"100%\" frameborder=\"0\"></iframe>\n        </div>\n    "
+    },
+    {
+      "index": 2,
+      "value": {
+        "model": {
+          "shapegen": "tencent/Hunyuan3D-2.1/hunyuan3d-dit-v2-1",
+          "texgen": "tencent/Hunyuan3D-2.1"
+        },
+        "params": {
+          "caption": null,
+          "steps": 30,
+          "guidance_scale": 5.0,
+          "seed": 1797702,
+          "octree_resolution": 256,
+          "check_box_rembg": true,
+          "num_chunks": 8000
+        },
+        "number_of_faces": 313180,
+        "number_of_vertices": 156590,
+        "time": {
+          "remove background": 1.0590932369232178,
+          "shape generation": 17.10600233078003,
+          "export to trimesh": 0.0715796947479248,
+          "total": 18.239379167556763
+        }
+      }
+    },
+    {
+      "index": 3,
+      "value": 1797702
+    }
+  ],
+  "ok": true
+}

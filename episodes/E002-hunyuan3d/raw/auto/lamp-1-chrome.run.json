@@ -1,0 +1,77 @@
+{
+  "space": "tencent/Hunyuan3D-2.1",
+  "api_name": "/shape_generation",
+  "input": "episodes/E002-hunyuan3d/raw/input/lamp-1-chrome.jpg",
+  "params": {},
+  "attempts": 1,
+  "started_utc": "2026-10-08T19:04:36Z",
+  "status_log": [
+    {
+      "t": 0.0,
+      "code": "Status.STARTING",
+      "rank": null,
+      "eta": null
+    },
+    {
+      "t": 1.75,
+      "code": "Status.PROCESSING",
+      "rank": null,
+      "eta": null
+    },
+    {
+      "t": 22.28,
+      "code": "Status.FINISHED",
+      "rank": null,
+      "eta": null
+    }
+  ],
+  "wall_seconds": 22.5,
+  "queue_seconds": 1.8,
+  "seconds_to_result_excl_queue": 20.8,
+  "outputs": [
+    {
+      "index": 0,
+      "value": {
+        "value": "/tmp/gradio/7836db9cfe7fc6bf3b60ae3aac1a98d79c09b636874eff44f98bab21c118b1ca/white_mesh.glb",
+        "__type__": "update"
+      },
+      "file": "episodes/E002-hunyuan3d/raw/auto/lamp-1-chrome-out0.glb"
+    },
+    {
+      "index": 1,
+      "value": "\n        <div style='height: 650; width: 100%;'>\n        <iframe src=\"/static/e6b64cc0-1b8a-4409-9273-f35ccca5f073/white_mesh.html\" height=\"650\" width=\"100%\" frameborder=\"0\"></iframe>\n        </div>\n    "
+    },
+    {
+      "index": 2,
+      "value": {
+        "model": {
+          "shapegen": "tencent/Hunyuan3D-2.1/hunyuan3d-dit-v2-1",
+          "texgen": "tencent/Hunyuan3D-2.1"
+        },
+        "params": {
+          "caption": null,
+          "steps": 30,
+          "guidance_scale": 5.0,
+          "seed": 5573904,
+          "octree_resolution": 256,
+          "check_box_rembg": true,
+          "num_chunks": 8000
+        },
+        "number_of_faces": 11016,
+        "number_of_vertices": 5518,
+        "time": {
+          "remove background": 1.1627802848815918,
+          "shape generation": 17.404119729995728,
+          "export to trimesh": 0.0030410289764404297,
+          "total": 18.57301163673401
+        }
+      }
+    },
+    {
+      "index": 3,
+      "value": 5573904
+    }
+  ],
+  "ok": true,
+  "note": "GLB fetched from <host>/file=<path> right after the run (the first version of auto_capture_hf.py did not follow gr.update outputs). Same single run, not a retry."
+}
