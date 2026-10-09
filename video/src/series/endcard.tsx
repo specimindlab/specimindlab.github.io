@@ -18,9 +18,16 @@ export const decision = { use_for: z.string().min(1).max(40).optional(), skip_if
 
 export const ScoreBeatView: React.FC<{ b: z.infer<typeof scoreBeat> }> = ({ b }) => {
   const box = captionBox(b.lines, 420);
+  // A two- or three-line caption leaves less room than the card needs: shrink the card (centred,
+  // from the top of the content box) so it never runs into the caption.
+  const h = scoreHeight(b.parts.length);
+  const avail = box.contentBottom - CONTENT_TOP - 16;
+  const k = Math.min(1, avail / h);
   return (
     <>
-      <ScoreCard total={b.total} parts={b.parts} y={Math.max(CONTENT_TOP, box.contentBottom - scoreHeight(b.parts.length))} />
+      <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 1920, transform: k < 1 ? `scale(${k})` : undefined, transformOrigin: `540px ${CONTENT_TOP}px` }}>
+        <ScoreCard total={b.total} parts={b.parts} y={k < 1 ? CONTENT_TOP : Math.max(CONTENT_TOP, box.contentBottom - h)} />
+      </div>
       <Caption lines={b.lines} maxHeight={420} />
     </>
   );

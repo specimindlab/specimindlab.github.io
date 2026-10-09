@@ -43,6 +43,11 @@ export const media = z.object({
   sound: z.boolean().default(false),
   /** Zoom into a region (Mimicry detail crops, Rare Sighting static crop). */
   crop: region.optional(),
+  /** Image only: a stepped turntable from a tool's own preview views (e.g. 8 angles of a 3D result).
+   * `src` is the first view; `frames` lists every view in order, each held `hold` seconds (default
+   * 0.5 s, one beat at 120 bpm, so the views change on the music). */
+  frames: z.array(z.string().min(1)).min(2).max(64).optional(),
+  hold: z.number().min(0.1).max(4).default(0.5),
   /** Short alt description, used only in QA logs. */
   alt: z.string().optional(),
 });

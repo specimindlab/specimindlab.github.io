@@ -331,6 +331,8 @@ def sections(script):
         if abs(d / BEAT - round(d / BEAT)) > 1e-6:
             raise SystemExit(f"beat {i + 1} ({b['type']}) is {d} s; beats must be multiples of {BEAT} s (cuts on the 120 bpm grid)")
         role = ROLE.get(b["type"], "verse")
+        if b["type"] == "notes" and ("flaw" in b or "flaw_row" in b):
+            role = "flaw"  # the notes card carries the circled flaw: the music dies with it
         if i == 0:
             role = "hook"
         elif i == len(beats) - 1:

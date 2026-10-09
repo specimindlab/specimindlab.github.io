@@ -1,5 +1,5 @@
 import React from "react";
-import { Img, OffthreadVideo, useVideoConfig } from "remotion";
+import { Img, OffthreadVideo, useCurrentFrame, useVideoConfig } from "remotion";
 import { MediaSpec, useAsset } from "./assets";
 import { Turntable } from "./Turntable";
 
@@ -11,8 +11,11 @@ export const Media: React.FC<{ spec: MediaSpec; width: number; height: number; a
   angleOffset,
 }) => {
   const asset = useAsset();
+  const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const src = asset(spec.src);
+  // Image sequences step through the tool's own views, one every `hold` seconds.
+  const step = spec.frames?.length ? Math.floor(Math.max(0, frame) / Math.max(1, Math.round((spec.hold ?? 0.5) * fps))) % spec.frames.length : 0;
+  const src = asset(spec.frames?.length ? spec.frames[step] : spec.src);
   const fit = spec.fit ?? "contain";
   const crop = spec.crop;
   const zoom = crop ? Math.min(1 / Math.max(crop.w, 0.05), 1 / Math.max(crop.h, 0.05)) : 1;

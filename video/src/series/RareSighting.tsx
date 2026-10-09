@@ -1,7 +1,8 @@
 import React from "react";
+import { useCurrentFrame } from "remotion";
 import { z } from "zod";
 import { COLORS } from "../brand";
-import { Card, cardLayout, fitInline, InkMark, media, Media, Plate, PLATE_W, PLATE_X, ScaleBar, Stamp, AXES, Line } from "../system";
+import { BeforeAfter, Card, cardLayout, fitInline, InkMark, media, Media, Plate, PLATE_W, PLATE_X, region, ScaleBar, Stamp, AXES, Line } from "../system";
 import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, row, framed, seriesProps, seriesScript, timeline } from "./common";
 import { ObservationPlate } from "./FieldSpecimen";
 import { decision, EndCard, scoreBeat, ScoreBeatView } from "./endcard";
@@ -11,7 +12,7 @@ import { decision, EndCard, scoreBeat, ScoreBeatView } from "./endcard";
 // card with the flaw circled inside -> SPECIMIND Score (Live only) -> end card ending on the
 // "spotted" date line and the platform CTA.
 
-const stampOpen = beat("stamp-open", { lines: caption, launched: z.string().min(3), crop: media });
+const stampOpen = beat("stamp-open", { lines: caption, launched: z.string().min(3), crop: media, before: media.optional() });
 const output = beat("output", { lines: caption, media });
 const observation = beat("observation", { lines: caption, input: media, result: media, seconds_to_result: z.number().positive() });
 const notes = beat("notes", {
@@ -23,6 +24,9 @@ const notes = beat("notes", {
       message: "3 rows: habitat, free tier, paid from",
     }),
   flaw: z.string().min(1),
+  /** Optional: show the flaw on the output itself (a thumbnail plate under the card, ellipse on the region). */
+  flaw_media: media.optional(),
+  flaw_region: region.optional(),
 });
 const verdict = beat("verdict", { verdict: z.enum(["Captured", "Released", "Watch"]), spotted: z.string().min(3), ...decision });
 
@@ -46,6 +50,20 @@ type Bt<T extends string> = Extract<z.infer<typeof rareSightingScript>["beats"][
 const StampOpen: React.FC<{ b: Bt<"stamp-open"> }> = ({ b }) => {
   const box = captionBox(b.lines, 420);
   const h = box.contentBottom - CONTENT_TOP;
+  if (b.before) {
+    // Before -> after on frame 0 (the strongest still we have); the stamp shrinks to a sticker over
+    // the input's top-left corner so the result stays fully visible.
+    const pw = (936 - 56) / 2;
+    return (
+      <>
+        <BeforeAfter before={b.before} after={b.crop} y={CONTENT_TOP} h={h} />
+        <div style={{ position: "absolute", left: 84, top: CONTENT_TOP + 14, width: pw - 28, height: 200, background: COLORS.label, opacity: 0.92, border: `3px solid ${COLORS.ink}` }} />
+        <Stamp word="Rare sighting" x={84 + (pw - 28) / 2} y={CONTENT_TOP + 70} width={pw - 170} start={0} />
+        <Line text={`Launched ${b.launched}`} x={84 + (pw - 28) / 2} baseline={CONTENT_TOP + 194} maxWidth={pw - 70} size={34} axes={AXES.digits} anchor="middle" color={COLORS.red} />
+        <Caption lines={b.lines} maxHeight={420} />
+      </>
+    );
+  }
   return (
     <>
       <Plate y={CONTENT_TOP} h={h}>
@@ -61,13 +79,43 @@ const StampOpen: React.FC<{ b: Bt<"stamp-open"> }> = ({ b }) => {
 };
 
 const NotesBeat: React.FC<{ b: Bt<"notes"> }> = ({ b }) => {
+  const frame = useCurrentFrame();
   const box = captionBox(b.lines, 420);
+  const cardOut = b.flaw_media ? Math.round(b.seconds * 30 * 0.4) : Infinity;
   const l = cardLayout({ title: "Field notes", rows: b.rows, y: CONTENT_TOP });
   const flawY = CONTENT_TOP + l.height + 90;
   return (
     <>
-      <Card title="Field notes" rows={b.rows} y={CONTENT_TOP} maxHeight={box.contentBottom - CONTENT_TOP - 140} />
-      {flawY < box.contentBottom ? (
+      {frame < cardOut ? <Card title="Field notes" rows={b.rows} y={CONTENT_TOP} maxHeight={box.contentBottom - CONTENT_TOP - 140} /> : null}
+      {b.flaw_media ? (
+        (() => {
+          // Two acts in one beat: the field notes (price on screen) for the first 40 %, then the flaw
+          // itself, full size, with the region circled. The caption ("Honest flaw: ...") sets it up.
+          const swap = Math.round(b.seconds * 30 * 0.4);
+          if (frame < swap) return null;
+          const ph = box.contentBottom - CONTENT_TOP - 90;
+          const r = b.flaw_region ?? { x: 0.1, y: 0.1, w: 0.8, h: 0.8 };
+          const note = b.flaw.split("|").join(" · ");
+          return (
+            <>
+              <Plate y={CONTENT_TOP} h={ph}>
+                <Media spec={b.flaw_media} width={PLATE_W} height={ph} />
+              </Plate>
+              {(() => {
+                // Map the region (0..1 of the media) into the plate, honouring "contain" letterboxing
+                // of a square view; crops fill the plate ("cover").
+                const sq = b.flaw_media!.crop ? null : Math.min(PLATE_W, ph);
+                const mx = sq ? PLATE_X + (PLATE_W - sq) / 2 : PLATE_X;
+                const my = sq ? CONTENT_TOP + (ph - sq) / 2 : CONTENT_TOP;
+                const mw = sq ?? PLATE_W;
+                const mh = sq ?? ph;
+                return <InkMark shape="ellipse" target={{ x: mx + r.x * mw, y: my + r.y * mh, w: r.w * mw, h: r.h * mh }} start={swap + 6} seed="rs-flaw" pad={10} />;
+              })()}
+              <Line text={note} x={PLATE_X} baseline={CONTENT_TOP + ph + 62} maxWidth={860} size={46} axes={AXES.note} color={COLORS.red} />
+            </>
+          );
+        })()
+      ) : flawY < box.contentBottom ? (
         <>
           <Line text="Flaw" x={110} baseline={flawY} maxWidth={200} size={28} axes={AXES.key} color={COLORS.steel} />
           <Line text={b.flaw} x={330} baseline={flawY} maxWidth={560} size={40} axes={AXES.value} />

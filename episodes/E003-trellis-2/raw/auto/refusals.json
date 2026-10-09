@@ -1,0 +1,121 @@
+{
+  "space": "microsoft/TRELLIS.2",
+  "note": "Anonymous requests refused before any generation ran (no output, so not attempts). Retried every 5-15 minutes; never with a token, never bypassing the queue.",
+  "refusals": [
+    {
+      "utc": "2026-10-09T09:30:29Z",
+      "step": "upload (background removal)",
+      "error": "You have exceeded your ZeroGPU runs limit. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T09:35:27Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T09:35:48Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T09:50:55Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T10:01:42Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T10:16:50Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T10:31:57Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T10:47:04Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 85s left). Try again in 18:26:45. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T11:02:12Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T11:17:20Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T11:32:29Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T11:47:37Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T11:53:09Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T11:58:16Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T12:03:24Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T12:08:34Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T12:13:42Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 80s left). Try again in 17:00:07. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T12:18:50Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 172s left). Try again in 21:03:07. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T12:23:58Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 172s left). Try again in 20:57:59. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T12:29:06Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T12:34:15Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T12:39:23Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 80s left). Try again in 16:34:26. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    },
+    {
+      "utc": "2026-10-09T12:44:31Z",
+      "step": "generate",
+      "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left). Try again in 0:00:00. Authenticate with a Hugging Face token for more quota - https://huggingface.co/settings/tokens"
+    }
+  ]
+}

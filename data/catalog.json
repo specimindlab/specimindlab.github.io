@@ -209,6 +209,165 @@
       "updated_on": "2026-10-08"
     },
     {
+      "code": "003",
+      "episode": "E003",
+      "pillar": "3D",
+      "series": "Rare Sighting",
+      "tested_on": "2026-10-09",
+      "posted_on": "2026-10-19",
+      "hook_lines": [
+        "One drawing, 41 seconds:",
+        "a 3D dragon."
+      ],
+      "disclosure": "Unpaid",
+      "cover": "episodes/E003-trellis-2/cover.png",
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "tool": "TRELLIS 2",
+      "genus": "3D generator",
+      "mode": "Live specimen",
+      "verdict": "Captured",
+      "verdict_reason": "A flat, cel-shaded drawing became one coherent 3D creature in 41 seconds, free and without a login, with wings, horns and claws intact; the side the artist never drew is weaker (a flat paddle tail), and logged out you can look but not download.",
+      "flaw": "Tail flat as a paddle",
+      "flaw_caption": "the side nobody drew.",
+      "flaw_source": "observed",
+      "flaw_at": "",
+      "free_tier": "1 generation a day logged out (120 GPU s); GLB download needs more quota",
+      "paid_from": "$9 a month (Hugging Face PRO)",
+      "seconds_to_result": 41,
+      "conditions": [
+        {
+          "key": "Input",
+          "value": "1 dragon drawing (Unsplash License)"
+        },
+        {
+          "key": "Background",
+          "value": "Keyed out by us (the Space's remover refused)"
+        },
+        {
+          "key": "Plan",
+          "value": "Free, logged out (no account, no token)"
+        },
+        {
+          "key": "Attempts",
+          "value": "1"
+        },
+        {
+          "key": "Retries",
+          "value": "0 (23 quota refusals before it ran)"
+        },
+        {
+          "key": "Settings",
+          "value": "Space defaults (1024, 12/12/12 steps)"
+        },
+        {
+          "key": "Edited",
+          "value": "No"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "41 s"
+        },
+        {
+          "key": "GLB download",
+          "value": "Refused: quota spent by the preview"
+        },
+        {
+          "key": "Capture",
+          "value": "Auto-captured on the official Hugging Face Space"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Hugging Face Space"
+        },
+        {
+          "key": "Free tier",
+          "value": "1 run a day, no download"
+        },
+        {
+          "key": "Paid from",
+          "value": "$9 a month (HF PRO)"
+        },
+        {
+          "key": "Weakness",
+          "value": "Tail flat as a paddle"
+        }
+      ],
+      "homepage": "https://huggingface.co/spaces/microsoft/TRELLIS.2",
+      "sources": [
+        {
+          "url": "https://github.com/microsoft/TRELLIS.2",
+          "label": "TRELLIS.2 on GitHub (features, H100 timings, MIT licence)",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://huggingface.co/spaces/microsoft/TRELLIS.2",
+          "label": "Official Hugging Face Space",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://huggingface.co/spaces/microsoft/TRELLIS.2/raw/main/app.py",
+          "label": "Space code (120 GPU s per Generate and per GLB)",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://huggingface.co/microsoft/TRELLIS.2-4B",
+          "label": "Model card (known limitations)",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://arxiv.org/abs/2512.14692",
+          "label": "Paper, 16 Dec 2025",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://huggingface.co/docs/hub/en/spaces-zerogpu",
+          "label": "Hugging Face ZeroGPU quotas",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://huggingface.co/pricing",
+          "label": "Hugging Face PRO, $9 a month",
+          "accessed": "2026-10-08"
+        }
+      ],
+      "credits": "Input drawing: void (@voidhve) on Unsplash (Unsplash License).",
+      "score": {
+        "total": 72,
+        "parts": [
+          {
+            "key": "Result",
+            "value": 35,
+            "max": 50
+          },
+          {
+            "key": "Speed",
+            "value": 12,
+            "max": 15
+          },
+          {
+            "key": "Free tier",
+            "value": 15,
+            "max": 25
+          },
+          {
+            "key": "Price",
+            "value": 10,
+            "max": 10
+          }
+        ]
+      },
+      "use_for": "Concept art to a 3D draft",
+      "skip_if": "You need the file, logged out",
+      "lesson": "Give it a clean cut-out: key out the background first, and expect to fix the sides the artist never drew.",
+      "affiliate_url": ""
+    },
+    {
       "code": "006",
       "episode": "E006",
       "pillar": "Image",
