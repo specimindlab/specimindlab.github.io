@@ -2,7 +2,7 @@
   "batch": "batch-2026-10-08",
   "status": "complete",
   "started": "2026-10-08",
-  "updated": "2026-10-08",
+  "updated": "2026-10-09",
   "episodes": [
     {
       "id": "E002",
@@ -14,7 +14,7 @@
       "code": "002",
       "tool": "Hunyuan3D",
       "post_at": "2026-10-19 06:30 IST",
-      "version": 2
+      "version": 3
     }
   ],
   "render_runs": [
@@ -31,7 +31,7 @@
     }
   ],
   "release": "https://github.com/specimindlab/specimindlab.github.io/releases/tag/batch-2026-10-08",
-  "notes": "v2 re-render of batch-2026-10-08 on engine v2 (music, score, single master). Episode entry: {id, folder, mode, step, verdict, commit}.",
+  "notes": "v3 re-render of batch-2026-10-08: music v3 (arranged, loops) and per-platform end cards (E002-yt/-ig/-x.mp4). Episode entry: {id, folder, mode, step, verdict, commit}.",
   "skipped": [
     {
       "id": "E001",

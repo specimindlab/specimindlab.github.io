@@ -8,9 +8,9 @@
   "tool": "TRELLIS 2",
   "genus": "3D generator",
   "cta": {
-    "yt": "Notes at specimindlab.github.io/003",
-    "ig": "Comment 003 for the link.",
-    "x": "Notes at specimindlab.github.io/003"
+    "yt": "Tap our name\nfor the link.",
+    "ig": "Comment 003\nfor the link.",
+    "x": "Link in the\nfirst reply."
   },
   "beats": [
     {
@@ -34,10 +34,10 @@
     },
     {
       "type": "output",
-      "seconds": 8,
+      "seconds": 3,
       "lines": [
-        "Concept art in,",
-        "a 3D creature out."
+        "Concept art in.",
+        "Creature out."
       ],
       "media": {
         "kind": "glb",
@@ -47,9 +47,10 @@
     },
     {
       "type": "observation",
-      "seconds": 12,
+      "seconds": 6,
       "lines": [
-        "One run, timed."
+        "One run, timed.",
+        "No retries."
       ],
       "input": {
         "kind": "image",
@@ -63,7 +64,7 @@
     },
     {
       "type": "notes",
-      "seconds": 8,
+      "seconds": 4,
       "lines": [
         "Rough edges:",
         "the tail melted."
@@ -85,10 +86,42 @@
       "flaw": "Tail melted into body"
     },
     {
+      "type": "score",
+      "seconds": 3,
+      "lines": [
+        "SPECIMIND Score."
+      ],
+      "total": 66,
+      "parts": [
+        {
+          "key": "Result",
+          "value": 30,
+          "max": 50
+        },
+        {
+          "key": "Speed",
+          "value": 12,
+          "max": 15
+        },
+        {
+          "key": "Free tier",
+          "value": 16,
+          "max": 25
+        },
+        {
+          "key": "Price",
+          "value": 8,
+          "max": 10
+        }
+      ]
+    },
+    {
       "type": "verdict",
-      "seconds": 5,
+      "seconds": 4,
       "verdict": "Captured",
-      "spotted": "6 Oct 2026"
+      "spotted": "6 Oct 2026",
+      "use_for": "Game-jam creatures",
+      "skip_if": "Tails and fingers"
     }
   ]
 }

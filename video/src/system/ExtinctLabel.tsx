@@ -34,7 +34,8 @@ export const ExtinctLabel: React.FC<ExtinctLabelProps> = ({ name, note, x = 70, 
   const alone = successors.length === 0;
   const tag = alone ? { w: 760, h: 230 } : EXTINCT_TAG;
   const top = alone ? y + Math.max(40, (h - tag.h - 80) / 2) : y + 40;
-  const listTop = top + tag.h + 92;
+  // The successor tags' pins reach ~50 px above them: keep them clear of the note line.
+  const listTop = top + tag.h + 118;
   const rowH = successors.length ? Math.min(170, (y + h - listTop) / successors.length) : 0;
   const k = Math.min(1, rowH / 150);
   const sw = 150 * k;
@@ -57,7 +58,7 @@ export const ExtinctLabel: React.FC<ExtinctLabelProps> = ({ name, note, x = 70, 
             <Line text={s.free_tier} x={textX} baseline={ry + 78 * k} maxWidth={930 - textX} size={30 * k} axes={AXES.value} color={COLORS.red} />
             <Line text={s.line} x={textX} baseline={ry + 114 * k} maxWidth={930 - textX} size={28 * k} axes={AXES.key} color={COLORS.ink} />
             {pick && pick.index === i ? (
-              <InkMark shape="underline" target={{ x: textX, y: ry - 4 * k, w: 360 * k, h: 40 * k }} start={pick.at} seed="extinct-pick" strokeWidth={6} />
+              <InkMark shape="ellipse" pad={14} target={{ x, y: ry, w: sw, h: sh }} start={pick.at} seed="extinct-pick" strokeWidth={6} />
             ) : null}
           </React.Fragment>
         );

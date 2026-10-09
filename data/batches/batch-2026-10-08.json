@@ -1,7 +1,7 @@
 {
   "batch": "batch-2026-10-08",
   "created": "2026-10-08",
-  "note": "Test batch: one episode. v2 (2026-10-08) re-cuts E002 on engine v2: 24 s, composed 120 bpm music, SPECIMIND Score, one master video for all platforms. E001 Tripo is in data/needs-capture.md.",
+  "note": "Test batch: one episode. v3 (2026-10-09) re-renders E002 with music v3 (arranged song, seamless loop) and one video per platform (E002-yt/-ig/-x.mp4), each ending on its own CTA. E001 Tripo is in data/needs-capture.md.",
   "episodes": [
     {
       "id": "E002",
@@ -39,5 +39,5 @@
       }
     }
   ],
-  "version": 2
+  "version": 3
 }

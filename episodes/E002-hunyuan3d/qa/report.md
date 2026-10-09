@@ -19,5 +19,18 @@ v1 (38.5 s, ambient bed, three platform files) was published in Release batch-20
 | Safe zones | PASS (check_safe_zones.py) |
 | Honest flaw on screen and circled | PASS: ellipse + "Chrome confused it" |
 | Price and free tier on screen | PASS: price-math card |
-| One master file, platform-neutral CTA | PASS: "Every score: specimindlab.github.io/002" |
+| Per-platform end card (superseded in v3) | v2 had one master file with a platform-neutral CTA |
 | Every number from facts.json | PASS |
+
+## v3 round (2026-10-09): music v3 + one video per platform
+
+Feedback: the music repeated the same beat through the middle; it must loop seamlessly; each platform needs its own call to action on the end card.
+
+| Check | Result |
+| --- | --- |
+| Music arranged, not looped | PASS: `hook1@0.0 verse1@2.0 flaw1@5.0 verse2@8.0 verse3@10.5 build1@13.0 roll1@16.5 drop1@19.5`; every section has its own drums, bass, chords and melody, verses climb +2 semitones, fills before every cut; 0 near-identical adjacent bars (v2: 1) |
+| Loop seam | PASS: tail folded into the first 2.5 s; level at the end -19.3 dB vs -18.8 dB at the start; no fade on the soundtrack |
+| Score lock on the crash | PASS: crash at 18.0 s = ScoreCard lock (frame 540) |
+| End card, one video per platform | PASS: yt "Tap our name / for the 3D ranking.", ig "Comment 002 / for the 3D ranking.", x "3D ranking in / the first reply.", hub URL in small print under each; stamp + 71 + Use it for / Skip it if above |
+| Captions and posts match the CTA | PASS: YouTube description points to the channel profile link; IG caption + auto-DM on "002"; X first reply carries the link |
+| Safe zones (13 stills) | PASS (check_safe_zones.py, 0 problems); the hub URL line was lifted 8 px so its descenders clear y 1440 |

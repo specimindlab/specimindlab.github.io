@@ -8,17 +8,17 @@
   "tool": "Fixture Pro",
   "genus": "Video generator",
   "cta": {
-    "yt": "Notes at specimindlab.github.io/012",
-    "ig": "Comment 012 for the link.",
-    "x": "Notes at specimindlab.github.io/012"
+    "yt": "Tap our name\nfor the link.",
+    "ig": "Comment 012\nfor the link.",
+    "x": "Link in the\nfirst reply."
   },
   "beats": [
     {
       "type": "sketch",
-      "seconds": 6,
+      "seconds": 4,
       "lines": [
-        "Redrawn from",
-        "the public docs."
+        "No free tier.",
+        "So: the map."
       ],
       "inputs": [
         "Photo",
@@ -32,7 +32,7 @@
     },
     {
       "type": "notes",
-      "seconds": 10,
+      "seconds": 5,
       "lines": [
         "What it eats,",
         "what it costs."
@@ -54,10 +54,10 @@
     },
     {
       "type": "price-math",
-      "seconds": 10,
+      "seconds": 5,
       "lines": [
-        "The cheapest way",
-        "in, worked out."
+        "Cheapest way in,",
+        "worked out."
       ],
       "rows": [
         {
@@ -76,10 +76,10 @@
     },
     {
       "type": "flaw",
-      "seconds": 5,
+      "seconds": 4,
       "lines": [
-        "The documented",
-        "catch, in writing."
+        "The catch,",
+        "in their own docs."
       ],
       "text": "No free tier",
       "source": "example.com/pricing",
@@ -87,7 +87,7 @@
     },
     {
       "type": "verdict",
-      "seconds": 5
+      "seconds": 4
     }
   ]
 }

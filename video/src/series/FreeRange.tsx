@@ -6,7 +6,6 @@ import {
   AXES,
   BeforeAfter,
   Card,
-  cardLayout,
   counterHeight,
   CreditCounter,
   InkMark,
@@ -16,19 +15,15 @@ import {
   PinnedTag,
   Plate,
   region,
-  ScoreCard,
-  scoreHeight,
-  Stamp,
 } from "../system";
 import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, row, framed, seriesProps, seriesScript, timeline } from "./common";
+import { decision, EndCard, scoreBeat, ScoreBeatView } from "./endcard";
 
 // 2. Free Range (FR): what the free tier actually buys, told as a story on the counter.
 //   counter (the hook: the most dramatic result on frame 0, the allowance as a number)
 //   -> 2-3 generations, each ticking the counter down, with the flaw gag where it happens
 //   -> price math -> SPECIMIND Score -> verdict: stamp, use it for / skip it if, frozen counter.
 // No conditions card, no notes card, no drawer. 120 bpm grid: beats are multiples of 0.5 s.
-
-const score = z.object({ key: z.string().min(1), value: z.number().int().min(0), max: z.number().int().positive() });
 
 const counter = beat("counter", {
   lines: caption,
@@ -56,12 +51,7 @@ const flaw = beat("flaw", {
   region,
   note: z.string().min(1),
 });
-const scoreBeat = beat("score", { lines: caption, total: z.number().int().min(0).max(100), parts: z.array(score).min(1).max(4) });
-const verdict = beat("verdict", {
-  verdict: z.enum(["Captured", "Released"]),
-  use_for: z.string().min(1).optional(),
-  skip_if: z.string().min(1).optional(),
-});
+const verdict = beat("verdict", { verdict: z.enum(["Captured", "Released"]), ...decision });
 
 export const freeRangeScript = seriesScript(
   "FreeRange",
@@ -198,14 +188,19 @@ const FreeRangeBody: React.FC<FreeRangeProps> = ({ script, platform }) => {
                 <Caption lines={b.lines} maxHeight={420} />
               </>
             ) : null}
-            {b.type === "score" && box ? (
-              <>
-                <ScoreCard total={b.total} parts={b.parts} y={Math.max(CONTENT_TOP, box.contentBottom - scoreHeight(b.parts.length))} />
-                <Caption lines={b.lines} maxHeight={420} />
-              </>
-            ) : null}
+            {b.type === "score" ? <ScoreBeatView b={b} /> : null}
             {b.type === "verdict" ? (
-              <VerdictCard ctr={ctr} used={finalUsed} word={b.verdict} score={scoreB?.total} useFor={b.use_for} skipIf={b.skip_if} lines={ctaFor(script.cta, platform)} />
+              <EndCard
+                word={b.verdict}
+                code={script.code}
+                score={scoreB?.total}
+                useFor={b.use_for}
+                skipIf={b.skip_if}
+                lines={ctaFor(script.cta, platform)}
+                signature={(top, bottom) =>
+                  bottom - top >= counterHeight(true) ? <FrozenCounter ctr={ctr} used={finalUsed} y={top} /> : null
+                }
+              />
             ) : null}
           </Beat>
         );
@@ -214,41 +209,10 @@ const FreeRangeBody: React.FC<FreeRangeProps> = ({ script, platform }) => {
   );
 };
 
-/** The end card: stamp + score, the decision (use it for / skip it if), the frozen counter, CTA. */
-const VerdictCard: React.FC<{ ctr: Ctr; used: number; word: "Captured" | "Released"; score?: number; useFor?: string; skipIf?: string; lines: string[] }> = ({
-  ctr,
-  used,
-  word,
-  score,
-  useFor,
-  skipIf,
-  lines,
-}) => {
+/** Free Range ends on its counter, frozen at what the test spent. */
+const FrozenCounter: React.FC<{ ctr: Ctr; used: number; y: number }> = ({ ctr, used, y }) => {
   const frame = useCurrentFrame();
-  const box = captionBox(lines, 300);
-  const rows = [
-    ...(useFor ? [{ key: "Use it for", value: useFor }] : []),
-    ...(skipIf ? [{ key: "Skip it if", value: skipIf }] : []),
-  ];
-  const stampY = CONTENT_TOP + 90;
-  const cardY = CONTENT_TOP + 210;
-  const cardH = rows.length ? cardLayout({ title: "Field verdict", rows, y: cardY }).height : 0;
-  const ctrY = cardY + cardH + 28;
-  const ctrFits = ctrY + counterHeight(true) <= box.contentBottom;
-  return (
-    <>
-      <Stamp word={word} x={score !== undefined ? 360 : 500} y={stampY} width={score !== undefined ? 520 : 600} start={0} />
-      {score !== undefined ? (
-        <>
-          <Line text={`${score}`} x={930} baseline={stampY + 58} maxWidth={250} size={150} axes={AXES.digits} color={COLORS.red} anchor="end" />
-          <Line text="/ 100 score" x={930} baseline={stampY + 104} maxWidth={250} size={34} axes={AXES.small} anchor="end" />
-        </>
-      ) : null}
-      {rows.length ? <Card title="Field verdict" rows={rows} y={cardY} start={4} /> : null}
-      {ctrFits ? <CreditCounter total={ctr.total} used={used} unit={ctr.unit} period={ctr.period} y={ctrY} compact frozen={frame >= 14} /> : null}
-      <Caption lines={lines} maxHeight={300} />
-    </>
-  );
+  return <CreditCounter total={ctr.total} used={used} unit={ctr.unit} period={ctr.period} y={y} compact frozen={frame >= 14} />;
 };
 
 export const FreeRange = framed(FreeRangeBody);

@@ -24,7 +24,7 @@ episodes/     one folder per episode: E001-tripo/, ... (raw/ holds the human's u
 | Catalog entry + site | `node scripts/catalog_sync.mjs E001`, then `node site/build.mjs` (pages.yml deploys on push) |
 | Render + publish | push `data/batches/<batch>.json` to main, or Actions → Render batch → `batch` |
 
-Delivery spec: ONE master `<id>.mp4` per episode for YouTube Shorts, Instagram Reels and X (all play 9:16 full screen): 1080×1920, constant 30 fps, H.264 High, CRF 18, yuv420p, BT.709, AAC-LC 48 kHz stereo 192 kbps, +faststart, 18–40 s (target 20–30), under 100 MB, -14 LUFS ±1, true peak ≤ -1 dBTP.
+Delivery spec: one video per platform per episode, `<id>-yt.mp4`, `<id>-ig.mp4` and `<id>-x.mp4` (all play 9:16 full screen; they differ only in the end card's call to action): 1080×1920, constant 30 fps, H.264 High, CRF 18, yuv420p, BT.709, AAC-LC 48 kHz stereo 192 kbps, +faststart, 18–40 s (target 20–30), under 100 MB, -14 LUFS ±1, true peak ≤ -1 dBTP.
 
 Voice, hooks, pacing and the money model: [prompts/voice.md](prompts/voice.md). The SPECIMIND Score rubric: [data/score.md](data/score.md).
 

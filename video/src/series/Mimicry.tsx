@@ -4,6 +4,7 @@ import { z } from "zod";
 import { BANDS, COLORS } from "../brand";
 import { media, region, Sfx, SplitAB, AXES, Line } from "../system";
 import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, framed, seriesProps, seriesScript, timeline } from "./common";
+import { ctaBox, CtaCaption } from "./endcard";
 
 // 6. Mimicry (MI): AI or real? A and B side by side, unlabelled -> matched detail crops, no hints
 // -> 3, 2, 1 in catalog digits -> the AI side gets its specimen tag, the real side "Real", and the
@@ -47,7 +48,7 @@ const Countdown: React.FC<{ dur: number; cx: number; cy: number }> = ({ dur, cx,
 const MimicryBody: React.FC<MimicryProps> = ({ script, platform }) => {
   const t = timeline(script.beats);
   const ctaLines = ctaFor(script.cta, platform);
-  const tallest = Math.max(...t.map((b) => captionBox("lines" in b ? b.lines : ctaLines, CAP).layout.height));
+  const tallest = Math.max(...t.map((b) => ("lines" in b ? captionBox(b.lines, CAP).layout.height : BANDS.captionBottom - ctaBox(ctaLines, CAP).top)));
   const bottom = BANDS.captionBottom - tallest - BANDS.gap;
   const h = bottom - CONTENT_TOP;
   const revealBeat = t.find((b) => b.type === "reveal");
@@ -68,7 +69,7 @@ const MimicryBody: React.FC<MimicryProps> = ({ script, platform }) => {
           )}
           {b.type === "countdown" ? <Countdown dur={b.dur} cx={500} cy={CONTENT_TOP + h / 2} /> : null}
           {"lines" in b ? <Caption lines={b.lines} maxHeight={CAP} /> : null}
-          {b.type === "cta" ? <Caption lines={ctaLines} maxHeight={CAP} /> : null}
+          {b.type === "cta" ? <CtaCaption lines={ctaLines} code={script.code} maxHeight={CAP} /> : null}
         </Beat>
       ))}
     </>

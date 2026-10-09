@@ -3,10 +3,12 @@ import { z } from "zod";
 import { BANDS } from "../brand";
 import { media, region, Triptych } from "../system";
 import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, framed, seriesProps, seriesScript, timeline } from "./common";
+import { ctaBox, CtaCaption } from "./endcard";
 
 // 4. Plate (PL): same input, three tools, one sheet. Shared input card over three empty plates ->
 // the plates fill one by one with their own scale bars -> one ink circle per plate -> rank tags
-// pin on and the winner is stamped -> CTA over the ranked triptych.
+// pin on with each tool's SPECIMIND Score and the winner is stamped -> the platform CTA over the
+// ranked triptych.
 
 const specimen = z.object({
   code: z.string().regex(/^\d{3}$/),
@@ -15,6 +17,8 @@ const specimen = z.object({
   seconds: z.number().positive(),
   flaw: z.object({ text: z.string().min(1).max(32), region }),
   rank: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+  /** SPECIMIND Score of this tool in this test (data/score.md); shown with its rank tag. */
+  score: z.number().int().min(0).max(100).optional(),
 });
 
 const setup = beat("triptych", { lines: caption });
@@ -53,7 +57,7 @@ const PlateSeriesBody: React.FC<PlateSeriesProps> = ({ script, platform }) => {
   const rankAt = (at("verdict")?.from ?? Infinity) + 6;
   const ctaLines = ctaFor(script.cta, platform);
   // One continuous triptych under every beat (global frames); only the captions cut per beat.
-  const tallest = Math.max(...t.map((b) => captionBox("lines" in b ? b.lines : ctaLines, CAP).layout.height));
+  const tallest = Math.max(...t.map((b) => ("lines" in b ? captionBox(b.lines, CAP).layout.height : BANDS.captionBottom - ctaBox(ctaLines, CAP).top)));
   const bottom = BANDS.captionBottom - tallest - BANDS.gap;
   return (
     <>
@@ -69,7 +73,7 @@ const PlateSeriesBody: React.FC<PlateSeriesProps> = ({ script, platform }) => {
       />
       {t.map((b) => (
         <Beat key={b.index} t={b}>
-          <Caption lines={"lines" in b ? b.lines : ctaLines} maxHeight={CAP} />
+          {"lines" in b ? <Caption lines={b.lines} maxHeight={CAP} /> : <CtaCaption lines={ctaLines} code={script.code} maxHeight={CAP} />}
         </Beat>
       ))}
     </>

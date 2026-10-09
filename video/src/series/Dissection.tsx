@@ -3,6 +3,7 @@ import { z } from "zod";
 import { BANDS } from "../brand";
 import { media, Media, Plate, PLATE_W, region, Stamp, Tray } from "../system";
 import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, framed, seriesProps, seriesScript, timeline } from "./common";
+import { ctaBox, CtaCaption } from "./endcard";
 
 // 7. Dissection (DS): a workflow of 2-3 tools. The finished thing -> the empty tray with numbered
 // wells and tool tags -> each stage fills its well with its own seconds, joined by ink arrows ->
@@ -39,7 +40,7 @@ const DissectionBody: React.FC<DissectionProps> = ({ script, platform }) => {
   const flawBeat = t.find((b) => b.type === "flaw");
   const verdictBeat = t.find((b) => b.type === "verdict");
   const totalSeconds = script.stages.reduce((a, s) => a + s.seconds, 0);
-  const tallest = Math.max(...t.filter((b) => b.type !== "output").map((b) => captionBox("lines" in b ? b.lines : ctaLines, CAP).layout.height));
+  const tallest = Math.max(...t.filter((b) => b.type !== "output").map((b) => ("lines" in b ? captionBox(b.lines, CAP).layout.height : BANDS.captionBottom - ctaBox(ctaLines, CAP).top)));
   const bottom = BANDS.captionBottom - tallest - BANDS.gap;
   const flawSpec = flawBeat && flawBeat.type === "flaw" ? { stage: flawBeat.stage, at: flawBeat.from + 8, region: flawBeat.region } : undefined;
   return (
@@ -73,7 +74,7 @@ const DissectionBody: React.FC<DissectionProps> = ({ script, platform }) => {
         return (
           <Beat key={b.index} t={b}>
             {b.type === "verdict" ? <Stamp word={b.verdict} x={808} y={CONTENT_TOP + 62} width={220} start={14} /> : null}
-            <Caption lines={"lines" in b ? b.lines : ctaLines} maxHeight={CAP} />
+            {"lines" in b ? <Caption lines={b.lines} maxHeight={CAP} /> : <CtaCaption lines={ctaLines} code={script.code} maxHeight={CAP} />}
           </Beat>
         );
       })}

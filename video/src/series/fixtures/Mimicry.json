@@ -8,9 +8,9 @@
   "tool": "Photoroom",
   "genus": "Product photo AI",
   "cta": {
-    "yt": "Notes at specimindlab.github.io/M01",
-    "ig": "Comment A or B before you rewatch.",
-    "x": "Notes at specimindlab.github.io/M01"
+    "yt": "A or B? Comment\nbefore you rewatch.",
+    "ig": "Comment A or B\nbefore you rewatch.",
+    "x": "A or B? Reply\nbefore you rewatch."
   },
   "a": {
     "kind": "image",
@@ -30,7 +30,7 @@
   "beats": [
     {
       "type": "split",
-      "seconds": 12,
+      "seconds": 6,
       "lines": [
         "One is Photoroom.",
         "One is a camera."
@@ -38,7 +38,7 @@
     },
     {
       "type": "details",
-      "seconds": 10,
+      "seconds": 6,
       "lines": [
         "Look closer.",
         "Same spot, both."
@@ -80,7 +80,7 @@
     },
     {
       "type": "reveal",
-      "seconds": 6,
+      "seconds": 4,
       "lines": [
         "B was the AI.",
         "The handle told."
@@ -88,7 +88,7 @@
     },
     {
       "type": "cta",
-      "seconds": 4
+      "seconds": 3.5
     }
   ]
 }

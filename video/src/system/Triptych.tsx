@@ -23,6 +23,8 @@ export type TriptychSpecimen = {
   seconds: number;
   flaw: { text: string; region: Region };
   rank: 1 | 2 | 3;
+  /** SPECIMIND Score (data/score.md), shown with the rank tag. */
+  score?: number;
 };
 
 export type TriptychProps = {
@@ -133,6 +135,9 @@ export const Triptych: React.FC<TriptychProps> = ({
                   push={pinPush(frame, rankStart, 10)}
                 />
                 <Sfx name="pin-tick" at={rankStart + PIN.drop} />
+                {s.score !== undefined ? (
+                  <Line text={`${s.score}`} x={cx + colW - 14} baseline={plateTop - 12} maxWidth={colW - 120} size={52} axes={AXES.digits} color={s.rank === 1 ? COLORS.red : COLORS.ink} anchor="end" />
+                ) : null}
               </>
             ) : null}
           </React.Fragment>

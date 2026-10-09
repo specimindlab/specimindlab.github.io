@@ -35,5 +35,5 @@ SPECIMIND Score.
 
 8
 00:00:19,500 --> 00:00:24,000
-Every score:
-specimindlab.github.io/002
+Tap our name
+for the 3D ranking.

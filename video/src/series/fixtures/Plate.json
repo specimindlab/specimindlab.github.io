@@ -8,9 +8,9 @@
   "tool": "Tripo · Meshy · Rodin",
   "genus": "3D generators",
   "cta": {
-    "yt": "Notes at specimindlab.github.io/P01",
-    "ig": "Comment P01 for the link.",
-    "x": "Notes at specimindlab.github.io/P01"
+    "yt": "Tap our name\nfor the link.",
+    "ig": "Comment P01\nfor the link.",
+    "x": "Link in the\nfirst reply."
   },
   "input": {
     "kind": "image",
@@ -35,7 +35,8 @@
           "w": 0.25,
           "h": 0.3
         }
-      }
+      },
+      "score": 74
     },
     {
       "code": "011",
@@ -55,7 +56,8 @@
           "w": 0.5,
           "h": 0.25
         }
-      }
+      },
+      "score": 61
     },
     {
       "code": "019",
@@ -74,21 +76,22 @@
           "w": 0.3,
           "h": 0.3
         }
-      }
+      },
+      "score": 52
     }
   ],
   "beats": [
     {
       "type": "triptych",
-      "seconds": 3,
+      "seconds": 2.5,
       "lines": [
-        "Same photo.",
-        "Three tools."
+        "Same mug.",
+        "Three free tools."
       ]
     },
     {
       "type": "triptych-fill",
-      "seconds": 15,
+      "seconds": 9,
       "lines": [
         "38, 61 and",
         "95 seconds."
@@ -96,7 +99,7 @@
     },
     {
       "type": "flaw",
-      "seconds": 9,
+      "seconds": 5,
       "lines": [
         "Every one",
         "broke somewhere."
@@ -104,15 +107,15 @@
     },
     {
       "type": "verdict",
-      "seconds": 8,
+      "seconds": 5,
       "lines": [
-        "Tripo wins",
-        "on the handle."
+        "Tripo wins.",
+        "74 out of 100."
       ]
     },
     {
       "type": "cta",
-      "seconds": 3
+      "seconds": 3.5
     }
   ]
 }

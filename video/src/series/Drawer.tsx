@@ -4,6 +4,7 @@ import { z } from "zod";
 import { COLORS } from "../brand";
 import { CATALOG, CatalogEntry, Drawer, drawerSize, PinnedTag, Sfx, Stamp, AXES, Line } from "../system";
 import { Beat, beat, caption, Caption, CONTENT_TOP, ctaFor, framed, seriesProps, seriesScript, timeline } from "./common";
+import { ctaBox, CtaCaption } from "./endcard";
 
 // 8. The Drawer (DR): the Sunday recap, built only from data/catalog.json. The drawer slides open
 // -> roll call: each label lights up, its verdict mini-stamp lands and its flaw note appears ->
@@ -54,9 +55,9 @@ const DrawerSeriesBody: React.FC<DrawerSeriesProps> = ({ script, platform, catal
         <Beat key={b.index} t={b}>
           {b.type === "roll-call" ? <RollCall entries={entries} per={per} top={dy + ds.height + 70} /> : null}
           {b.type === "tally" ? <Tally entries={entries} y={dy + ds.height + 70} /> : null}
-          {b.type === "cta" ? <Teaser y={dy + ds.height + 120} /> : null}
+          {b.type === "cta" ? <Teaser y={Math.min(dy + ds.height + 120, ctaBox(ctaLines, CAP).contentBottom - 200)} /> : null}
           {"lines" in b ? <Caption lines={b.lines} maxHeight={CAP} /> : null}
-          {b.type === "cta" ? <Caption lines={ctaLines} maxHeight={CAP} /> : null}
+          {b.type === "cta" ? <CtaCaption lines={ctaLines} code={script.code} maxHeight={CAP} /> : null}
         </Beat>
       ))}
     </>
@@ -81,8 +82,11 @@ const RollCall: React.FC<{ entries: CatalogEntry[]; per: number; top: number }> 
   const local = Math.round(i * per);
   return (
     <>
-      <Line text={`${e.code} · ${e.tool}`} x={70} baseline={top + 50} maxWidth={860} size={56} axes={AXES.tool} />
+      <Line text={`${e.code} · ${e.tool}`} x={70} baseline={top + 50} maxWidth={640} size={56} axes={AXES.tool} />
       <Stamp key={e.code} word={e.verdict} x={300} y={top + 170} width={420} start={local + 4} />
+      {e.score ? (
+        <Line text={`${e.score.total}/100`} x={930} baseline={top + 50} maxWidth={200} size={56} axes={AXES.digits} color={COLORS.red} anchor="end" />
+      ) : null}
       {frame >= local + 12 && e.flaw ? (
         <>
           <Line text="Flaw" x={560} baseline={top + 150} maxWidth={360} size={26} axes={AXES.key} color={COLORS.steel} />

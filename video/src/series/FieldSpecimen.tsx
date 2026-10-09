@@ -1,7 +1,7 @@
 import React from "react";
 import { z } from "zod";
-import { BANDS, COLORS } from "../brand";
-import { Card, CatalogEntry, Drawer, drawerSize, InkMark, media, Media, Plate, PLATE_W, PLATE_X, ScaleBar, Stamp, AXES, Line } from "../system";
+import { COLORS } from "../brand";
+import { BeforeAfter, Card, Drawer, drawerSize, InkMark, media, Media, Plate, PLATE_W, PLATE_X, ScaleBar } from "../system";
 import {
   Beat,
   beat,
@@ -10,20 +10,20 @@ import {
   captionBox,
   CONTENT_TOP,
   ctaFor,
-  hubUrl,
-  Platform,
   row,
   framed,
   seriesProps,
   seriesScript,
   timeline,
 } from "./common";
+import { decision, EndCard, scoreBeat, ScoreBeatView } from "./endcard";
 
-// 1. Field Specimen (FS): cold open on the output -> conditions -> observation with the scale
-// bar -> field notes with the flaw circled -> stamp, then the label drops into the drawer.
-// Reference: brand/reference/storyboard-episode-001.png.
+// 1. Field Specimen (FS), the flagship: cold open on the output (or before -> after) -> conditions
+// -> observation with the scale bar -> field notes with the flaw circled -> SPECIMIND Score ->
+// end card: stamp + score, use it for / skip it if, the label in the drawer, the platform CTA.
+// v2 pacing: 20-30 s on the 0.5 s grid. Reference: brand/reference/storyboard-episode-001.png.
 
-const output = beat("output", { lines: caption, media });
+const output = beat("output", { lines: caption, media, before: media.optional() });
 const conditions = beat("conditions", {
   lines: caption,
   rows: z
@@ -50,14 +50,14 @@ const notes = beat("notes", {
     }),
   flaw_row: z.number().int().min(0),
 });
-const verdict = beat("verdict", { verdict: z.enum(["Captured", "Released"]) });
+const verdict = beat("verdict", { verdict: z.enum(["Captured", "Released"]), ...decision });
 
 export const fieldSpecimenScript = seriesScript(
   "FieldSpecimen",
   {},
-  z.discriminatedUnion("type", [output, conditions, observation, notes, verdict]),
-  /^output conditions observation notes verdict$/,
-  "output, conditions, observation, notes, verdict",
+  z.discriminatedUnion("type", [output, conditions, observation, notes, scoreBeat, verdict]),
+  /^output conditions observation notes( score)? verdict$/,
+  "output, conditions, observation, notes, score (Live), verdict",
 );
 export const fieldSpecimenProps = seriesProps(fieldSpecimenScript);
 export type FieldSpecimenProps = z.infer<typeof fieldSpecimenProps>;
@@ -69,9 +69,13 @@ const OutputBeat: React.FC<{ b: B<"output"> }> = ({ b }) => {
   const h = box.contentBottom - CONTENT_TOP;
   return (
     <>
-      <Plate y={CONTENT_TOP} h={h}>
-        <Media spec={b.media} width={PLATE_W} height={h} />
-      </Plate>
+      {b.before ? (
+        <BeforeAfter before={b.before} after={b.media} y={CONTENT_TOP} h={h} />
+      ) : (
+        <Plate y={CONTENT_TOP} h={h}>
+          <Media spec={b.media} width={PLATE_W} height={h} />
+        </Plate>
+      )}
       <Caption lines={b.lines} />
     </>
   );
@@ -141,29 +145,7 @@ const NotesBeat: React.FC<{ b: B<"notes"> }> = ({ b }) => {
   );
 };
 
-export const VerdictWithDrawer: React.FC<{
-  word: "Captured" | "Released" | "Watch";
-  code: string;
-  lines: string[];
-  platform: Platform;
-  catalog?: CatalogEntry[];
-}> = ({ word, code, lines, platform, catalog }) => {
-  const small = platform === "ig" ? 56 : 0;
-  const box = captionBox(lines, 420, BANDS.captionBottom - small);
-  const ds = drawerSize(5, 2);
-  const stampY = CONTENT_TOP + 110;
-  const drawerY = Math.min(stampY + 210, box.contentBottom - ds.height);
-  return (
-    <>
-      <Stamp word={word} x={420} y={stampY} width={600} start={0} />
-      {/^\d{3}$/.test(code) ? <Drawer highlight={code} x={70 + (860 - ds.width) / 2} y={drawerY} start={10} dropAt={24} catalog={catalog} /> : null}
-      <Caption lines={lines} maxHeight={420} bottom={BANDS.captionBottom - small} />
-      {platform === "ig" ? (
-        <Line text={`or type ${hubUrl(code)}`} x={70} baseline={BANDS.captionBottom - 8} maxWidth={860} size={30} axes={AXES.small} />
-      ) : null}
-    </>
-  );
-};
+const scoreOf = (beats: { type: string; total?: number }[]) => beats.find((b) => b.type === "score")?.total;
 
 const FieldSpecimenBody: React.FC<FieldSpecimenProps> = ({ script, platform, catalog }) => {
   const t = timeline(script.beats);
@@ -175,7 +157,22 @@ const FieldSpecimenBody: React.FC<FieldSpecimenProps> = ({ script, platform, cat
           {b.type === "conditions" ? <ConditionsBeat b={b} /> : null}
           {b.type === "observation" ? <ObservationBeat b={b} /> : null}
           {b.type === "notes" ? <NotesBeat b={b} /> : null}
-          {b.type === "verdict" ? <VerdictWithDrawer word={b.verdict} code={script.code} lines={ctaFor(script.cta, platform)} platform={platform} catalog={catalog} /> : null}
+          {b.type === "score" ? <ScoreBeatView b={b} /> : null}
+          {b.type === "verdict" ? (
+            <EndCard
+              word={b.verdict}
+              code={script.code}
+              score={scoreOf(script.beats)}
+              useFor={b.use_for}
+              skipIf={b.skip_if}
+              lines={ctaFor(script.cta, platform)}
+              signature={(top, bottom) => {
+                const ds = drawerSize(5, 2, 110);
+                if (!/^\d{3}$/.test(script.code) || bottom - top < ds.height + 40) return null;
+                return <Drawer highlight={script.code} x={70 + (860 - ds.width) / 2} y={top + 40} cell={110} start={6} dropAt={16} catalog={catalog} />;
+              }}
+            />
+          ) : null}
         </Beat>
       ))}
     </>

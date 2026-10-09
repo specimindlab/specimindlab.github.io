@@ -1,6 +1,6 @@
 # SPECIMIND batch-2026-10-08: posting guide
 
-1 episode. Download `specimind-batch-2026-10-08.zip` from the Release `batch-2026-10-08` (or each MP4 on its own from the same Release) and unzip it; each folder holds one master video `<id>.mp4` (the same file goes to YouTube, Instagram and X), `cover.png`, the `.srt` captions and `meta/`. Every MP4 is 1080×1920, 30 fps, H.264, -14 LUFS, and was verified automatically before this Release was created.
+1 episode. Download `specimind-batch-2026-10-08.zip` from the Release `batch-2026-10-08` (or each MP4 on its own from the same Release) and unzip it; each folder holds one video per platform (`<id>-yt.mp4`, `<id>-ig.mp4`, `<id>-x.mp4`: the same edit, each ending on that platform's call to action), `cover.png`, the `.srt` captions and `meta/`. Every MP4 is 1080×1920, 30 fps, H.264, -14 LUFS, and was verified automatically before this Release was created.
 
 Schedule YouTube in YouTube Studio and Instagram in Meta Business Suite (both free). Post X by hand if scheduling is not offered on your account. Times are IST.
 
@@ -13,7 +13,7 @@ Schedule YouTube in YouTube Studio and Instagram in Meta Business Suite (both fr
 **Post:** 2026-10-19 06:30 IST · **Series:** Free Range · **Mode:** Live specimen · **Disclosure:** Unpaid · **Folder:** `01-E002-hunyuan3d/` · **Hub:** https://specimindlab.github.io/002
 
 ### YouTube Shorts
-- [ ] Upload `E002.mp4`; custom thumbnail `cover.png`; subtitles `E002.srt` (English)
+- [ ] Upload `E002-yt.mp4`; custom thumbnail `cover.png`; subtitles `E002.srt` (English)
 - [ ] Title: Hunyuan3D: free 3D AI shattered this lamp (71/100)
 - [ ] Hashtags: #ai3d #3dmodeling #specimindlab
 - [ ] Tags: hunyuan 3d 2.1, hunyuan3d, hunyuan 3d 2.1 texture, tencent/hunyuan 3d-2.1, image to 3d free, photo to 3d free, image to 3d free ai, hunyuan 3d 2.1 low vram
@@ -43,7 +43,7 @@ Licence note: Hunyuan3D 2.1's community licence excludes the EU, UK and South Ko
 </details>
 
 ### Instagram Reels
-- [ ] Upload `E002.mp4`; cover `cover.png`
+- [ ] Upload `E002-ig.mp4`; cover `cover.png`
 - [ ] Comment-automation keyword: **002**
 
 <details><summary>Caption</summary>
@@ -75,7 +75,7 @@ Specimen Nº002, Hunyuan3D: 71/100. Scores, the chrome-lamp disaster and the fre
 </details>
 
 ### X
-- [ ] Upload `E002.mp4` with the post below, then reply to it with the first reply.
+- [ ] Upload `E002-x.mp4` with the post below, then reply to it with the first reply.
 
 ```
 Free 3D AI, no login. Three lamps in. The chrome one came back in six pieces, the orange one was flawless. Hunyuan3D scores 71/100. Matte objects only, please.

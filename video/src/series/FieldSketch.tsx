@@ -3,6 +3,7 @@ import { z } from "zod";
 import { COLORS } from "../brand";
 import { Card, cardLayout, cardValueBox, InkMark, Plate, PLATE_W, PLATE_X, Sketch, Stamp, AXES, Line } from "../system";
 import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, row, framed, seriesProps, seriesScript, timeline } from "./common";
+import { ctaBox, CtaCaption } from "./endcard";
 
 // 5. Field Sketch (SK): a desk study, not hands-on. The diagram draws itself from public
 // information -> field notes from research.md -> price math -> the documented limitation circled
@@ -54,7 +55,7 @@ const FieldSketchBody: React.FC<FieldSketchProps> = ({ script, platform }) => {
     <>
       {t.map((b) => {
         const lines = "lines" in b ? b.lines : ctaLines;
-        const box = captionBox(lines, 420);
+        const box = "lines" in b ? captionBox(lines, 420) : ctaBox(lines, 420);
         const h = box.contentBottom - CONTENT_TOP;
         return (
           <Beat key={b.index} t={b}>
@@ -84,7 +85,7 @@ const FieldSketchBody: React.FC<FieldSketchProps> = ({ script, platform }) => {
                 <Stamp word="Watch" x={540} y={CONTENT_TOP + h / 2} width={480} start={6} backing />
               </>
             ) : null}
-            <Caption lines={lines} maxHeight={420} />
+            {"lines" in b ? <Caption lines={lines} maxHeight={420} /> : <CtaCaption lines={lines} code={script.code} maxHeight={420} />}
           </Beat>
         );
       })}

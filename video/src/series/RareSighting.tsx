@@ -1,13 +1,15 @@
 import React from "react";
 import { z } from "zod";
 import { COLORS } from "../brand";
-import { Card, cardLayout, fitInline, InkMark, media, Media, Plate, PLATE_W, PLATE_X, ScaleBar, Stamp, stampHeight, AXES, Line } from "../system";
+import { Card, cardLayout, fitInline, InkMark, media, Media, Plate, PLATE_W, PLATE_X, ScaleBar, Stamp, AXES, Line } from "../system";
 import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, row, framed, seriesProps, seriesScript, timeline } from "./common";
 import { ObservationPlate } from "./FieldSpecimen";
+import { decision, EndCard, scoreBeat, ScoreBeatView } from "./endcard";
 
 // 3. Rare Sighting (RS): speed beats polish. The RARE SIGHTING stamp lands first over a static
 // crop, with the launch date -> the full output -> one run with the scale bar -> a 3-row notes
-// card with the flaw circled inside -> verdict, ending on the "spotted" date line.
+// card with the flaw circled inside -> SPECIMIND Score (Live only) -> end card ending on the
+// "spotted" date line and the platform CTA.
 
 const stampOpen = beat("stamp-open", { lines: caption, launched: z.string().min(3), crop: media });
 const output = beat("output", { lines: caption, media });
@@ -22,14 +24,14 @@ const notes = beat("notes", {
     }),
   flaw: z.string().min(1),
 });
-const verdict = beat("verdict", { verdict: z.enum(["Captured", "Released", "Watch"]), spotted: z.string().min(3) });
+const verdict = beat("verdict", { verdict: z.enum(["Captured", "Released", "Watch"]), spotted: z.string().min(3), ...decision });
 
 export const rareSightingScript = seriesScript(
   "RareSighting",
   {},
-  z.discriminatedUnion("type", [stampOpen, output, observation, notes, verdict]),
-  /^stamp-open output observation notes verdict$/,
-  "stamp-open, output, observation, notes, verdict",
+  z.discriminatedUnion("type", [stampOpen, output, observation, notes, scoreBeat, verdict]),
+  /^stamp-open output observation notes( score)? verdict$/,
+  "stamp-open, output, observation, notes, score (Live only), verdict",
 ).superRefine((s, ctx) => {
   const v = s.beats.find((b) => b.type === "verdict");
   if (v && v.type === "verdict" && (v.verdict === "Watch") !== (s.mode === "Field sketch")) {
@@ -77,18 +79,6 @@ const NotesBeat: React.FC<{ b: Bt<"notes"> }> = ({ b }) => {
   );
 };
 
-const VerdictBeat: React.FC<{ b: Bt<"verdict">; lines: string[] }> = ({ b, lines }) => {
-  const box = captionBox(lines, 420);
-  const mid = (CONTENT_TOP + box.contentBottom) / 2;
-  return (
-    <>
-      <Stamp word={b.verdict} x={500} y={mid - 60} width={620} start={0} />
-      <Line text={`Spotted ${b.spotted}`} x={500} baseline={mid - 60 + stampHeight(620) / 2 + 90} maxWidth={760} size={48} axes={AXES.digits} anchor="middle" />
-      <Caption lines={lines} maxHeight={420} />
-    </>
-  );
-};
-
 const RareSightingBody: React.FC<RareSightingProps> = ({ script, platform }) => {
   const t = timeline(script.beats);
   return (
@@ -114,7 +104,20 @@ const RareSightingBody: React.FC<RareSightingProps> = ({ script, platform }) => 
               </>
             ) : null}
             {b.type === "notes" ? <NotesBeat b={b} /> : null}
-            {b.type === "verdict" ? <VerdictBeat b={b} lines={ctaFor(script.cta, platform)} /> : null}
+            {b.type === "score" ? <ScoreBeatView b={b} /> : null}
+            {b.type === "verdict" ? (
+              <EndCard
+                word={b.verdict}
+                code={script.code}
+                score={(script.beats.find((x) => x.type === "score") as { total?: number } | undefined)?.total}
+                useFor={b.use_for}
+                skipIf={b.skip_if}
+                lines={ctaFor(script.cta, platform)}
+                signature={(top) => (
+                  <Line text={`Spotted ${b.spotted}`} x={500} baseline={top + 70} maxWidth={760} size={48} axes={AXES.digits} anchor="middle" />
+                )}
+              />
+            ) : null}
           </Beat>
         );
       })}

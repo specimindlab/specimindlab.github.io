@@ -15,6 +15,7 @@ export const catalogEntry = z
     flaw: z.string().optional(),
     pillar: z.string().optional(),
     tested_on: z.string().optional(),
+    score: z.object({ total: z.number() }).passthrough().optional(),
   })
   .passthrough();
 export type CatalogEntry = z.infer<typeof catalogEntry>;

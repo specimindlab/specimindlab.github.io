@@ -8,16 +8,16 @@
   "tool": "Hunyuan3D",
   "genus": "3D generator",
   "cta": {
-    "yt": "Notes at specimindlab.github.io/002",
-    "ig": "Comment 002 for the link.",
-    "x": "Notes at specimindlab.github.io/002"
+    "yt": "Tap our name\nfor the link.",
+    "ig": "Comment 002\nfor the link.",
+    "x": "Link in the\nfirst reply."
   },
   "beats": [
     {
       "type": "counter",
-      "seconds": 3,
+      "seconds": 2,
       "lines": [
-        "20 free models",
+        "20 free models,",
         "every day."
       ],
       "total": 20,
@@ -26,7 +26,7 @@
     },
     {
       "type": "observation",
-      "seconds": 6.5,
+      "seconds": 3,
       "lines": [
         "Desk lamp, try one."
       ],
@@ -39,9 +39,10 @@
     },
     {
       "type": "observation",
-      "seconds": 6.5,
+      "seconds": 2.5,
       "lines": [
-        "Same lamp, side view."
+        "Side view.",
+        "Same lamp."
       ],
       "result": {
         "kind": "glb",
@@ -53,10 +54,10 @@
     },
     {
       "type": "flaw",
-      "seconds": 4,
+      "seconds": 3,
       "lines": [
-        "The thin arm",
-        "snapped off."
+        "The thin arm:",
+        "gone."
       ],
       "result_index": 1,
       "region": {
@@ -69,9 +70,10 @@
     },
     {
       "type": "observation",
-      "seconds": 6,
+      "seconds": 2.5,
       "lines": [
-        "Back view this time."
+        "Back view.",
+        "Arm still gone."
       ],
       "result": {
         "kind": "image",
@@ -82,7 +84,7 @@
     },
     {
       "type": "price-math",
-      "seconds": 8,
+      "seconds": 3.5,
       "lines": [
         "Free covers",
         "a month of tests."
@@ -103,9 +105,41 @@
       }
     },
     {
+      "type": "score",
+      "seconds": 3,
+      "lines": [
+        "SPECIMIND Score."
+      ],
+      "total": 68,
+      "parts": [
+        {
+          "key": "Result",
+          "value": 26,
+          "max": 50
+        },
+        {
+          "key": "Speed",
+          "value": 12,
+          "max": 15
+        },
+        {
+          "key": "Free tier",
+          "value": 22,
+          "max": 25
+        },
+        {
+          "key": "Price",
+          "value": 8,
+          "max": 10
+        }
+      ]
+    },
+    {
       "type": "verdict",
-      "seconds": 4,
-      "verdict": "Captured"
+      "seconds": 4.5,
+      "verdict": "Captured",
+      "use_for": "Chunky objects",
+      "skip_if": "Thin arms or wires"
     }
   ]
 }

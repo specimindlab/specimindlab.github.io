@@ -3,31 +3,46 @@
     "code": "001",
     "tool": "Tripo",
     "verdict": "Captured",
-    "flaw": "Thin parts fuse"
+    "flaw": "Thin parts fuse",
+    "score": {
+      "total": 74
+    }
   },
   {
     "code": "002",
     "tool": "Hunyuan3D",
     "verdict": "Captured",
-    "flaw": "Thin arm snapped"
+    "flaw": "Thin arm snapped",
+    "score": {
+      "total": 68
+    }
   },
   {
     "code": "003",
     "tool": "TRELLIS 2",
     "verdict": "Captured",
-    "flaw": "Tail melted"
+    "flaw": "Tail melted",
+    "score": {
+      "total": 66
+    }
   },
   {
     "code": "004",
     "tool": "Kling 3.0",
     "verdict": "Released",
-    "flaw": "Hands melt"
+    "flaw": "Hands melt",
+    "score": {
+      "total": 47
+    }
   },
   {
     "code": "005",
     "tool": "Fixture E",
     "verdict": "Captured",
-    "flaw": "Text misspelled"
+    "flaw": "Text misspelled",
+    "score": {
+      "total": 71
+    }
   },
   {
     "code": "006",
@@ -39,6 +54,9 @@
     "code": "007",
     "tool": "Fixture G",
     "verdict": "Captured",
-    "flaw": "Colours drift"
+    "flaw": "Colours drift",
+    "score": {
+      "total": 63
+    }
   }
 ]

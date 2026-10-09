@@ -16,7 +16,7 @@ The beat structures below are the house definition. Each Remotion composition in
 | `flaw` | The flaw, circled in red ink on the output or on the notes card |
 | `verdict` | Stamp (Captured / Released / Watch / Rare sighting) and the drawer; optional `use_for` / `skip_if` |
 | `score` | The SPECIMIND Score card (data/score.md): number out of 100 + four bars, locks on the music's crash |
-| `cta` | Platform-specific last line (ig: "Comment {code}…"; yt/x: hub URL) |
+| `cta` | The end card's platform CTA (yt "Tap our name…", ig "Comment {code}…", x "…first reply") with the hub URL in small print under it; one video per platform |
 | `counter` | CreditCounter: credits used / left, or generations per day |
 | `stamp-open` | The RARE SIGHTING stamp lands first, with the launch date |
 | `triptych` | Three plates in columns under one shared input card |
@@ -30,7 +30,7 @@ The beat structures below are the house definition. Each Remotion composition in
 
 Every series keeps these on screen for the **whole** video: the pinned label (code, tool, genus), the mode label ("Live specimen" or "Field sketch — not hands-on") and the disclosure word ("Affiliate" or "Unpaid").
 
-Durations are targets. The composition computes its total from `script.json`: 20–30 s is the target, 18–40 s is enforced, and every beat is a multiple of 0.5 s so cuts land on the 120 bpm music (scripts/make_music.py). Series not yet rebuilt for v2 pacing still run long (28–38 s); shorten their beats in the script toward the target.
+Durations are targets. The composition computes its total from `script.json`: 20–30 s is the target, 18–40 s is enforced, and every beat is a multiple of 0.5 s so cuts land on the 120 bpm music (scripts/make_music.py). All nine series are on v2 pacing; their fixtures run 22–25 s. Every series ends on the shared end card (`video/src/series/endcard.tsx`): the stamp, the score (Live), the decision card where the series has one, the series' own signature (drawer, frozen counter, spotted date, totals, successors), then the platform CTA.
 
 ---
 
@@ -39,12 +39,13 @@ Durations are targets. The composition computes its total from `script.json`: 20
 - **Purpose:** the flagship. One tool, one real test, a conditions card, the flaw, the verdict.
 - **Mode:** Live specimen.
 - **Signature opening:** a cold open on the output, followed by the full anatomy.
-- **Structure (reference: `brand/reference/storyboard-episode-001.png`):**
-  1. `output` 0–2.5 s. The hook caption states what happened in our test, with a number.
-  2. `conditions` 2.5–8 s. Caption: the rules of the test ("One photo. One try.").
-  3. `observation` 8–24 s. Input → result, ScaleBar filled to the measured `seconds_to_result`. Caption points the eye ("Watch the handle.").
-  4. `notes` + `flaw` 24–33 s. The Field notes card; the weakness row is circled in red ink. Caption: "Honest flaw: …".
-  5. `verdict` + `cta` 33–38 s. Captured or Released stamp; the label drops into the drawer.
+- **Structure (v2, 20–30 s; fixture 23 s):**
+  1. `output` ~2.5 s. Frame 0 is complete: the result (or `before` → after) and the hook with a number from our test.
+  2. `conditions` ~2.5 s. Caption: the rules of the test ("One photo. One try.").
+  3. `observation` ~5–6 s. Input → result, ScaleBar filled to the measured `seconds_to_result`. Caption points the eye ("Watch the handle.").
+  4. `notes` ~4.5 s. The Field notes card; the weakness row is circled in red ink (the flaw: the music dies). Caption: "Honest flaw: …".
+  5. `score` ~3 s. The SPECIMIND Score counts up and locks on the crash (Live only).
+  6. `verdict` ~4.5 s. The end card: stamp + score, "Use it for / Skip it if", the drawer if it fits, the platform CTA + hub URL.
 - **Ends on:** the drawer cell with this code highlighted.
 
 ## 2. Free Range — `FR` · composition `FreeRange` · 26 episodes
@@ -66,12 +67,13 @@ Durations are targets. The composition computes its total from `script.json`: 20
 - **Purpose:** a tool most people haven't heard of yet. Speed beats polish.
 - **Mode:** Live specimen or Field sketch.
 - **Signature opening:** the RARE SIGHTING stamp and the launch date.
-- **Structure:**
-  1. `stamp-open` 0–2 s. The stamp lands over a sharp, static crop of the output; launch date in catalog digits ("Launched 3 Oct").
-  2. `output` 2–10 s. The full result is revealed; the caption says what it does in one line.
-  3. `observation` 10–22 s. A single run, with the ScaleBar.
-  4. `notes` (short: 3 rows only, habitat / free tier / paid from) 22–30 s, with the `flaw` circled inside.
-  5. `verdict` + `cta` 30–36 s. "Watch" in Field sketch mode, otherwise Captured or Released.
+- **Structure (v2, 20–30 s; fixture 22 s):**
+  1. `stamp-open` ~2 s. The stamp lands over a sharp crop of the output; launch date in catalog digits ("Launched 3 Oct").
+  2. `output` ~3 s. The full result; the caption says what it does in one line.
+  3. `observation` ~5–6 s. A single run, with the ScaleBar.
+  4. `notes` ~4 s (3 rows: habitat / free tier / paid from), with the `flaw` circled inside.
+  5. `score` ~3 s (Live only).
+  6. `verdict` ~4 s. End card: "Watch" in Field sketch mode, otherwise Captured or Released, with score, decision and the platform CTA.
 - **Ends on:** the "spotted" date line under the stamp.
 - **Differs from FS:** it opens on the stamp, not the output, and uses a 3-row notes card. There is no conditions card.
 
@@ -80,12 +82,12 @@ Durations are targets. The composition computes its total from `script.json`: 20
 - **Purpose:** same input, three tools, a side-by-side triptych. The highest search intent of all the series.
 - **Mode:** Live specimen.
 - **Signature opening:** three columns under one shared input card, ranked at the end.
-- **Structure:**
-  1. `triptych` (input card on top, three empty plates) 0–3 s. Caption: "Same photo. Three tools."
-  2. `triptych` fill 3–18 s. The plates fill one by one, each with its own small ScaleBar (seconds).
-  3. `flaw` × 3 18–27 s. One ink circle per plate, each with a 2–4-word note.
-  4. `verdict` as a ranking 27–35 s. Rank tags 1, 2 and 3 pin onto the plates; the winner gets the Captured stamp.
-  5. `cta` 35–38 s.
+- **Structure (v2, 20–30 s; fixture 25 s):**
+  1. `triptych` ~2.5 s. Input card on top, three plates. Caption: "Same photo. Three tools."
+  2. `triptych-fill` ~8–9 s. The plates fill one by one, each with its own small ScaleBar (seconds).
+  3. `flaw` ~5 s. One ink circle per plate, each with a 2–4-word note.
+  4. `verdict` ~5 s. Rank tags 1–3 pin on with each plate's SPECIMIND Score; the winner gets the Captured stamp.
+  5. `cta` ~3.5 s. The platform CTA + hub URL over the ranked triptych.
 - **Ends on:** the ranked triptych.
 - **Differs from FS:** three specimens on one sheet, flaws compared side by side, and a ranking instead of a single verdict.
 
@@ -94,12 +96,12 @@ Durations are targets. The composition computes its total from `script.json`: 20
 - **Purpose:** a desk study of a paid tool, labelled "not hands-on". The verdict is always "Watch".
 - **Mode:** Field sketch.
 - **Signature opening:** pencil-line diagrams redrawn from public information, then the price math.
-- **Structure:**
-  1. `sketch` 0–6 s. The redrawn diagram (what goes in, what comes out) draws itself line by line. The "Field sketch — not hands-on" mode label is larger than usual.
-  2. `notes` 6–16 s, built from research.md: habitat, feeds on, plans.
-  3. `price-math` 16–26 s. The cheapest way in, and what it buys.
-  4. `flaw` 26–31 s. The most important documented limitation, circled. `flaw_source` is always `research`.
-  5. `verdict` (Watch stamp) + `cta` 31–36 s.
+- **Structure (v2, 20–30 s; fixture 22 s):**
+  1. `sketch` ~4 s. The redrawn diagram (what goes in, what comes out) draws itself line by line. The "Field sketch — not hands-on" mode label is larger than usual.
+  2. `notes` ~5 s, built from research.md: habitat, feeds on, plans.
+  3. `price-math` ~5 s. The cheapest way in, and what it buys.
+  4. `flaw` ~4 s. The most important documented limitation, circled. `flaw_source` is always `research`.
+  5. `verdict` ~4 s. The Watch stamp over the sketch + the platform CTA. No score (not hands-on).
 - **Ends on:** the Watch stamp over the sketch.
 - **Never shows:** generated output presented as our own. Any example image must be our own redrawing.
 
@@ -108,12 +110,12 @@ Durations are targets. The composition computes its total from `script.json`: 20
 - **Purpose:** AI or real? Viewers comment A or B, and the answer is revealed at the end.
 - **Mode:** Live specimen.
 - **Signature opening:** a split screen A/B; the answer is revealed after a 3 s countdown.
-- **Structure:**
-  1. `split` 0–12 s. A and B, unlabelled. Caption: the question ("One is Photoroom. One is a camera.").
-  2. `split` details 12–22 s. Matched crops from A and B, with no hints in the text.
-  3. `countdown` 22–25 s. 3, 2, 1.
-  4. `verdict` reveal 25–31 s. The AI side gets its specimen label pinned on; the real side gets "Real" in ink. The `flaw` that gave it away is circled.
-  5. `cta` 31–35 s. Instagram: "Comment A or B before you rewatch."
+- **Structure (v2, 20–30 s; fixture 22.5 s):**
+  1. `split` ~5–6 s. A and B, unlabelled. Caption: the question ("One is Photoroom. One is a camera.").
+  2. `details` ~5–6 s. Matched crops from A and B, with no hints in the text.
+  3. `countdown` 3 s. 3, 2, 1, one per beat of the music.
+  4. `reveal` ~4 s. The AI side gets its specimen label pinned on; the real side gets "Real" in ink. The `flaw` that gave it away is circled.
+  5. `cta` ~3.5 s. Per platform: IG "Comment A or B before you rewatch.", YT "A or B? Comment before you rewatch.", X "A or B? Reply before you rewatch."; hub URL under it.
 - **Ends on:** the revealed split, which loops back cleanly to the unlabelled split.
 - **Differs from FS:** the output is hidden in plain sight, the flaw is the punchline, and nothing is identified until the reveal.
 
@@ -122,12 +124,12 @@ Durations are targets. The composition computes its total from `script.json`: 20
 - **Purpose:** a workflow that chains 2–3 tools to make one finished thing.
 - **Mode:** Live specimen.
 - **Signature opening:** numbered stages laid out like a dissection tray.
-- **Structure:**
-  1. `output` (the finished thing) 0–3 s, followed straight away by
-  2. `tray` 3–6 s. The empty tray with numbered wells 1–3 and the tool names on small tags.
-  3. `observation` × N 6–28 s. Each stage fills its well, with its own seconds; the stages are joined by ink arrows.
-  4. `flaw` 28–32 s. The weakest stage is circled.
-  5. `verdict` (on the whole workflow) + `cta` 32–38 s. Total time and total cost (often "0") in catalog digits.
+- **Structure (v2, 20–30 s; fixture 25 s):**
+  1. `output` ~2.5 s. The finished thing, followed straight away by
+  2. `tray` ~2.5 s. The empty tray with numbered wells 1–3 and the tool names on small tags.
+  3. `observation` × 2–3, ~4 s each. Each stage fills its well, with its own seconds; the stages are joined by ink arrows.
+  4. `flaw` ~3.5 s. The weakest stage is circled.
+  5. `verdict` ~4.5 s (on the whole workflow). Total time and total cost (often "0") in catalog digits, the platform CTA.
 - **Ends on:** the full tray with the totals.
 - **Differs from FS:** several tools and a stage-by-stage tray; the verdict judges the chain.
 
@@ -136,11 +138,11 @@ Durations are targets. The composition computes its total from `script.json`: 20
 - **Purpose:** the Sunday recap. Every specimen pinned this week, in 30 s.
 - **Mode:** built from the week's renders, using `data/catalog.json` and each episode's facts.json. No new capture is needed.
 - **Signature opening:** the drawer opens, and each label lights up with its verdict.
-- **Structure:**
-  1. `drawer` slides open 0–2 s. Caption: "Week N."
-  2. `drawer` roll call 2–26 s. About 2–3 s per specimen: the label lights up, its verdict mini-stamp lands, and a 2–4-word flaw note appears.
-  3. `drawer` tally 26–30 s. The counts per verdict.
-  4. `cta` 30–33 s: a teaser for next week (a covered label with a "?" code).
+- **Structure (v2, 20–30 s; fixture 24 s):**
+  1. `drawer-open` ~2 s. Caption: "Week N."
+  2. `roll-call` ~2–3 s per specimen: the label lights up, its verdict mini-stamp lands, its score and a 2–4-word flaw note appear.
+  3. `tally` ~3 s. The counts per verdict.
+  4. `cta` ~3 s: a teaser for next week (a covered label) + the platform CTA to this week's rankings (IG "Comment W01 for the rankings.").
 - **Ends on:** the drawer sliding shut.
 - **Rule:** the Drawer reads catalog data and never invents a verdict.
 
@@ -149,12 +151,12 @@ Durations are targets. The composition computes its total from `script.json`: 20
 - **Purpose:** a tool or model that died or changed, and what replaced it.
 - **Mode:** Field sketch.
 - **Signature opening:** an ink-black label and a crossed-out specimen, then the successors pinned beside it.
-- **Structure:**
-  1. `extinct` 0–4 s. The black label with the dead tool's name; the red strike draws across it. Caption: what happened, with a date.
-  2. Timeline card 4–12 s: launch → change → closure (dates from research.md).
-  3. Successors 12–28 s. Three small labels pin in beside it, each with its free tier and one line.
-  4. `flaw` 28–31 s. The catch shared by the successors, circled.
-  5. `verdict` (Watch on the best successor) + `cta` 31–36 s.
+- **Structure (v2, 20–30 s; fixture 24 s):**
+  1. `extinct` ~3 s. The black label with the dead tool's name; the red strike draws across it. Caption: what happened, with a date.
+  2. `timeline` ~5 s: launch → change → closure (dates from research.md).
+  3. `successors` ~8 s. Three small labels pin in beside it, each with its free tier and one line.
+  4. `flaw` ~3.5 s. The catch shared by the successors, circled.
+  5. `verdict` ~4.5 s. Watch, with the best successor circled, + the platform CTA.
 - **Ends on:** the extinct label with its successors pinned around it.
 
 ---

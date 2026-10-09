@@ -8,9 +8,9 @@
   "tool": "Fixture Studio",
   "genus": "Video generator",
   "cta": {
-    "yt": "Notes at specimindlab.github.io/X01",
-    "ig": "Comment X01 for the link.",
-    "x": "Notes at specimindlab.github.io/X01"
+    "yt": "Tap our name\nfor the link.",
+    "ig": "Comment X01\nfor the link.",
+    "x": "Link in the\nfirst reply."
   },
   "extinct_name": "Fixture Studio",
   "extinct_note": "Shut down 30 Sep 2026",
@@ -35,7 +35,7 @@
   "beats": [
     {
       "type": "extinct",
-      "seconds": 4,
+      "seconds": 3,
       "lines": [
         "Gone on 30 Sep.",
         "Files deleted."
@@ -43,7 +43,7 @@
     },
     {
       "type": "timeline",
-      "seconds": 8,
+      "seconds": 5,
       "lines": [
         "Two years,",
         "start to finish."
@@ -65,7 +65,7 @@
     },
     {
       "type": "successors",
-      "seconds": 16,
+      "seconds": 8,
       "lines": [
         "Three replacements,",
         "all free to try."
@@ -73,7 +73,7 @@
     },
     {
       "type": "flaw",
-      "seconds": 3,
+      "seconds": 3.5,
       "lines": [
         "The shared catch."
       ],
@@ -81,7 +81,7 @@
     },
     {
       "type": "verdict",
-      "seconds": 5
+      "seconds": 4.5
     }
   ]
 }

@@ -8,9 +8,9 @@
   "tool": "Week 1",
   "genus": "Weekly recap",
   "cta": {
-    "yt": "Next week: a new specimen.",
-    "ig": "Next week: a new specimen.",
-    "x": "Next week: a new specimen."
+    "yt": "This week, ranked:\ntap our name.",
+    "ig": "Comment W01\nfor the rankings.",
+    "x": "Rankings in\nthe first reply."
   },
   "week": 1,
   "codes": [
@@ -33,11 +33,11 @@
     },
     {
       "type": "roll-call",
-      "seconds": 24
+      "seconds": 16
     },
     {
       "type": "tally",
-      "seconds": 4,
+      "seconds": 3,
       "lines": [
         "Five kept,",
         "one let go."

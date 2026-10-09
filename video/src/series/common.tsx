@@ -84,6 +84,14 @@ export const seriesScript = <S extends z.ZodRawShape, B extends z.ZodTypeAny>(
       if (!order.test(seq)) {
         ctx.addIssue({ code: "custom", path: ["beats"], message: `${composition} beats must be: ${orderText} (got: ${seq})` });
       }
+      for (const b of list as unknown as { type: string; total?: number; parts?: { value: number }[] }[]) {
+        if (b.type === "score" && b.parts && b.parts.reduce((a, p) => a + p.value, 0) !== b.total) {
+          ctx.addIssue({ code: "custom", path: ["beats"], message: `score parts add up to ${b.parts.reduce((a, p) => a + p.value, 0)}, not ${b.total} (data/score.md)` });
+        }
+        if (b.type === "score" && (s as unknown as { mode: string }).mode === "Field sketch") {
+          ctx.addIssue({ code: "custom", path: ["beats"], message: "Field sketches get no score (data/score.md)" });
+        }
+      }
       const total = list.reduce((a, b) => a + b.seconds, 0);
       if (total < MIN_SECONDS || total > MAX_SECONDS) {
         ctx.addIssue({ code: "custom", path: ["beats"], message: `total ${total} s; must be ${MIN_SECONDS}-${MAX_SECONDS} s` });

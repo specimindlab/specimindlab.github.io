@@ -4,25 +4,25 @@
 #   scripts/render_batch.sh <batch>            # data/batches/<batch>.json
 #   scripts/render_batch.sh path/to/batch.json
 #
-# For each episode in the batch: renders ONE master <id>.mp4 for YouTube Shorts, Instagram Reels and
-# X alike (all three play 1080x1920 9:16 full screen; X has no 4:5 video format) with one delivery
-# spec (1080x1920, constant 30 fps, H.264 High, CRF 18, yuv420p, BT.709, AAC-LC 48 kHz stereo
-# 192 kbps, +faststart). The CTA is platform-neutral (the hub URL). ONLY_PLATFORMS="yt ig x" brings
-# back per-platform files (<id>-<p>.mp4) if a script ever needs different CTAs.
+# For each episode in the batch: renders one video per platform, <id>-yt.mp4, <id>-ig.mp4 and
+# <id>-x.mp4. All three play 1080x1920 9:16 full screen; they differ only in the end card's CTA
+# (YouTube "Tap our name", Instagram "Comment {code}", X "Link in the first reply"), because the
+# end card is where the affiliate click is won. One delivery spec for all: 1080x1920, constant
+# 30 fps, H.264 High, CRF 18, yuv420p, BT.709, AAC-LC 48 kHz stereo 192 kbps, +faststart.
 # Then: scripts/loudness.sh (-14 LUFS, <= -1 dBTP), scripts/verify_delivery.py, posting/<batch>/,
 # specimind-<batch>.zip and the GitHub Release <batch>.
 #
 # Environment:
 #   EPISODES_DIR   where episode folders live (default: episodes; the smoke test uses fixtures)
 #   NO_RELEASE=1   build posting/ and the zip but do not create a Release
-#   ONLY_PLATFORMS "master" (default: one <id>.mp4 for every platform) or a subset of "yt ig x"
+#   ONLY_PLATFORMS a subset of "yt ig x" (default: all three); "master" renders one <id>.mp4 with the yt CTA
 #   GH_TOKEN       required for the Release (GITHUB_TOKEN inside Actions)
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 EPISODES_DIR="${EPISODES_DIR:-episodes}"
-PLATFORMS="${ONLY_PLATFORMS:-master}"
+PLATFORMS="${ONLY_PLATFORMS:-yt ig x}"
 FAILED=0
 
 annotate() { # annotate <repo-path> <message>
@@ -142,8 +142,8 @@ if gh release view "$BATCH" >/dev/null 2>&1; then
   echo "Release $BATCH exists; replacing its assets and notes"
   gh release upload "$BATCH" "${assets[@]}" --clobber && gh release edit "$BATCH" --notes-file "$notes" \
     || { echo "::error file=$BATCH_FILE::updating Release $BATCH failed"; exit 1; }
-  # A re-render replaces the batch: drop assets this render did not produce (e.g. the old
-  # per-platform <id>-yt/-ig/-x.mp4 files), so the Release only holds what POSTING.md describes.
+  # A re-render replaces the batch: drop assets this render did not produce (e.g. an old master
+  # <id>.mp4), so the Release only holds what POSTING.md describes.
   keep=" $(for a in "${assets[@]}"; do printf '%s ' "$(basename "$a")"; done)"
   gh release view "$BATCH" --json assets --jq '.assets[].name' | while read -r name; do
     case "$keep" in *" $name "*) ;; *) echo "removing stale asset $name"; gh release delete-asset "$BATCH" "$name" -y || true ;; esac

@@ -2,6 +2,7 @@ import React from "react";
 import { z } from "zod";
 import { Card, cardLayout, cardValueBox, ExtinctLabel, InkMark, Stamp } from "../system";
 import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, row, framed, seriesProps, seriesScript, timeline } from "./common";
+import { ctaBox, CtaCaption } from "./endcard";
 
 // 9. Extinction Watch (EX): a tool that died or changed. The ink-black label and its red strike ->
 // a timeline card (launch -> change -> closure) -> three successors pin in beside it -> the catch
@@ -39,7 +40,7 @@ const ExtinctionWatchBody: React.FC<ExtinctionWatchProps> = ({ script, platform 
     <>
       {t.map((b) => {
         const lines = "lines" in b ? b.lines : ctaLines;
-        const box = captionBox(lines, CAP);
+        const box = "lines" in b ? captionBox(lines, CAP) : ctaBox(lines, CAP);
         const h = box.contentBottom - CONTENT_TOP;
         const label = (strikeAt: number, successorsAt: number[], pick?: { index: number; at: number }) => (
           <ExtinctLabel
@@ -76,7 +77,7 @@ const ExtinctionWatchBody: React.FC<ExtinctionWatchProps> = ({ script, platform 
                 <Stamp word="Watch" x={745} y={CONTENT_TOP + 110} width={250} start={10} rotate={-9} />
               </>
             ) : null}
-            <Caption lines={lines} maxHeight={CAP} />
+            {"lines" in b ? <Caption lines={lines} maxHeight={CAP} /> : <CtaCaption lines={lines} code={script.code} maxHeight={CAP} />}
           </Beat>
         );
       })}

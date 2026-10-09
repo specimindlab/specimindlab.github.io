@@ -41,16 +41,17 @@ export const motifAt = (endCardFrom: number, total: number) => {
 };
 
 /**
- * The episode soundtrack. With `music` (scripts/make_music.py: a 120 bpm track composed to this
- * edit, ending on the SPECIMIND hook) it plays that, with a 6-frame fade at the cut. Without it,
+ * The episode soundtrack. With `music` (scripts/make_music.py: a 120 bpm song arranged to this
+ * edit, built to loop seamlessly) it plays that, unfaded. Without it,
  * the old ambient bed plays, ducking 6 dB under the motif on the end card.
  */
 export const Soundtrack: React.FC<{ bed?: string; music?: string; endCardFrom: number }> = ({ bed, music, endCardFrom }) => {
   const { durationInFrames: total } = useVideoConfig();
   const asset = useAsset();
   if (music) {
-    const out = (f: number) => interpolate(f, [total - OUT_FADE, total - 1], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-    return <Audio src={asset(music)} volume={out} />;
+    // No fade: make_music.py folds the tail onto the start, so on a looping Short/Reel the last
+    // frame flows straight back into the hook on the beat.
+    return <Audio src={asset(music)} />;
   }
   const motif = motifAt(endCardFrom, total);
   const volume = (f: number) =>

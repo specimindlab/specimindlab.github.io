@@ -8,9 +8,9 @@
   "tool": "Tripo",
   "genus": "3D generator",
   "cta": {
-    "yt": "Notes at specimindlab.github.io/001",
-    "ig": "Comment 001 for the link.",
-    "x": "Notes at specimindlab.github.io/001"
+    "yt": "Tap our name\nfor the link.",
+    "ig": "Comment 001\nfor the link.",
+    "x": "Link in the\nfirst reply."
   },
   "beats": [
     {
@@ -25,11 +25,15 @@
         "kind": "glb",
         "src": "@/test/mug.glb",
         "clay": false
+      },
+      "before": {
+        "kind": "image",
+        "src": "@/test/mug-photo.svg"
       }
     },
     {
       "type": "conditions",
-      "seconds": 5.5,
+      "seconds": 2.5,
       "lines": [
         "One photo.",
         "One try."
@@ -59,9 +63,10 @@
     },
     {
       "type": "observation",
-      "seconds": 16,
+      "seconds": 6,
       "lines": [
-        "Watch the handle."
+        "Watch the handle.",
+        "Confidence: high."
       ],
       "input": {
         "kind": "image",
@@ -75,7 +80,7 @@
     },
     {
       "type": "notes",
-      "seconds": 9,
+      "seconds": 4.5,
       "lines": [
         "Honest flaw:",
         "the handle fused."
@@ -109,9 +114,41 @@
       "flaw_row": 5
     },
     {
+      "type": "score",
+      "seconds": 3,
+      "lines": [
+        "SPECIMIND Score."
+      ],
+      "total": 74,
+      "parts": [
+        {
+          "key": "Result",
+          "value": 38,
+          "max": 50
+        },
+        {
+          "key": "Speed",
+          "value": 12,
+          "max": 15
+        },
+        {
+          "key": "Free tier",
+          "value": 16,
+          "max": 25
+        },
+        {
+          "key": "Price",
+          "value": 8,
+          "max": 10
+        }
+      ]
+    },
+    {
       "type": "verdict",
-      "seconds": 5,
-      "verdict": "Captured"
+      "seconds": 4.5,
+      "verdict": "Captured",
+      "use_for": "Toys, props, prints",
+      "skip_if": "Thin handles matter"
     }
   ]
 }
