@@ -13,10 +13,10 @@
   "pillar": "Image",
   "phase": "1 Collect",
   "day": 3,
-  "date": "2026-10-21",
-  "weekday": "Wed",
-  "slot": "B",
-  "post_time_ist": "18:30",
+  "date": "2026-10-20",
+  "weekday": "Tue",
+  "slot": "A",
+  "post_time_ist": "06:30",
   "draft_hook": "Still the taste leader? A desk study.",
   "the_test": "Desk study: public gallery, pricing, who it's for",
   "free_path": "No free tier (Field sketch)",
@@ -33,5 +33,6 @@
   ],
   "hub_url": "https://specimindlab.github.io/006",
   "capture": "not needed",
-  "affiliate_note": "No public Midjourney affiliate programme found (research.md, 2026-10-09)."
+  "affiliate_note": "No public Midjourney affiliate programme found (research.md, 2026-10-09).",
+  "calendar_date": "2026-10-21"
 }

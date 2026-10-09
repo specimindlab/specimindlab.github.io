@@ -1,7 +1,7 @@
 import React from "react";
 import { z } from "zod";
 import { BANDS, SAFE } from "../brand";
-import { BeforeAfter, EpisodeAssets, FitStack, FontGate, layoutStack, media, Media, Paper, Plate, SpecimenLabel } from "../system";
+import { BeforeAfter, EpisodeAssets, FitStack, FontGate, layoutStack, media, Media, Paper, Plate, Sketch, SpecimenLabel } from "../system";
 import { caption, header } from "./common";
 
 // The episode cover (brand/templates/shorts-cover-template.svg): pinned label lowered into the
@@ -47,6 +47,8 @@ const CAPTION_MAX_H = 1640 - CAPTION_TOP;
 const CoverBody: React.FC<CoverProps> = ({ script }) => {
   const spec = script.cover?.media ?? firstMedia(script.beats);
   const lines = script.cover?.lines ?? firstLines(script.beats);
+  const sk = script.beats.find((b) => b.type === "sketch") as { inputs?: string[]; process?: string; outputs?: string[] } | undefined;
+  const sketch = sk?.inputs && sk.process && sk.outputs ? { inputs: sk.inputs, process: sk.process, outputs: sk.outputs } : null;
   const layout = layoutStack(lines, { maxHeight: CAPTION_MAX_H });
   return (
     <>
@@ -61,6 +63,10 @@ const CoverBody: React.FC<CoverProps> = ({ script }) => {
           {spec ? <Media spec={spec} width={PLATE.w} height={PLATE.h} angleOffset={script.cover?.angle} /> : null}
         </Plate>
       )}
+      {!spec && sketch ? (
+        // Field sketches have no output to show: the cover carries our redrawn diagram instead.
+        <Sketch inputs={sketch.inputs} tool={sketch.process} outputs={sketch.outputs} x={PLATE.x} y={PLATE.y} w={PLATE.w} h={PLATE.h} start={-1000} step={1} />
+      ) : null}
       <FitStack lines={lines} layout={layout} y={CAPTION_TOP} anchor="top" start={-60} x={SAFE.left} />
     </>
   );

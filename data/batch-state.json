@@ -17,9 +17,11 @@
       "id": "E006",
       "folder": "episodes/E006-midjourney",
       "mode": "Field sketch",
-      "step": "script",
+      "step": "ready",
       "code": "006",
-      "tool": "Midjourney"
+      "tool": "Midjourney",
+      "verdict": "Watch",
+      "post_at": "2026-10-20 06:30 IST"
     },
     {
       "id": "E013",

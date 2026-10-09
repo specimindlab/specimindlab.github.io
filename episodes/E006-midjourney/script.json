@@ -26,8 +26,7 @@
       "seconds": 4,
       "lines": [
         "$10 to start.",
-        "$60 to go private.",
-        "No free tier."
+        "$60 to go private."
       ],
       "inputs": [
         "Text prompt",

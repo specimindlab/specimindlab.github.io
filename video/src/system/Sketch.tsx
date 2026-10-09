@@ -29,8 +29,8 @@ const row = (items: string[], x: number, y: number, w: number, h: number, seed: 
   return items.map((text, i) => ({ x: x + i * (bw + gap), y, w: bw, h, text, seed: `${seed}${i}` }));
 };
 
-export const Sketch: React.FC<SketchProps> = ({ inputs, tool, outputs, x, y, w, h, start = 0, step = 8 }) => {
-  const frame = useCurrentFrame();
+/** Geometry of the diagram, shared with callers that annotate it (e.g. ink on the tool box). */
+export const sketchLayout = ({ inputs, tool, outputs, x, y, w, h }: Pick<SketchProps, "inputs" | "tool" | "outputs" | "x" | "y" | "w" | "h">) => {
   const pad = 34;
   const boxH = Math.min(120, (h - 2 * pad) / 4.2);
   const toolH = boxH * 1.25;
@@ -39,6 +39,12 @@ export const Sketch: React.FC<SketchProps> = ({ inputs, tool, outputs, x, y, w, 
   const ins = row(inputs, inner.x, y + pad, inner.w, boxH, "in");
   const toolBox: Box = { x: inner.x + inner.w * 0.18, y: y + pad + boxH + rowGap, w: inner.w * 0.64, h: toolH, text: tool, seed: "tool", strong: true };
   const outs = row(outputs, inner.x, toolBox.y + toolH + rowGap, inner.w, boxH, "out");
+  return { ins, toolBox, toolH, outs };
+};
+
+export const Sketch: React.FC<SketchProps> = ({ inputs, tool, outputs, x, y, w, h, start = 0, step = 8 }) => {
+  const frame = useCurrentFrame();
+  const { ins, toolBox, toolH, outs } = sketchLayout({ inputs, tool, outputs, x, y, w, h });
   const items: { paths: ReturnType<typeof toPath>[]; box?: Box; red?: boolean }[] = [];
   ins.forEach((b) => items.push({ paths: wobblyRect(b, b.seed).map(toPath), box: b }));
   ins.forEach((b, i) =>

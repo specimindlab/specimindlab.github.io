@@ -41,11 +41,15 @@ export const toPath = (pts: Point[]): Path => {
 const ellipse = (t: Rect, seed: string, pad: number): Path[] => {
   const cx = t.x + t.w / 2;
   const cy = t.y + t.h / 2;
-  const rx = t.w / 2 + pad * 1.6;
-  const ry = t.h / 2 + pad;
+  // A wide, short target (a line of text) needs a loop that clears its corners: an ellipse through
+  // the box's corners is sqrt(2) x the box, so stretch both radii and flatten the tilt, or the ink
+  // runs through the first and last letters.
+  const wide = t.h > 0 && t.w / t.h > 3;
+  const rx = wide ? (t.w / 2) * 1.12 + pad * 1.6 : t.w / 2 + pad * 1.6;
+  const ry = wide ? (t.h / 2) * 2.2 + pad * 0.6 : t.h / 2 + pad;
   const t0 = rand(`${seed}-t0`, 2.6, 3.4); // start near the left, like a right-handed loop
   const turns = 1.1;
-  const tilt = (rand(`${seed}-tilt`, -4, -1.5) * Math.PI) / 180;
+  const tilt = ((rand(`${seed}-tilt`, -4, -1.5) * Math.PI) / 180) * (wide ? Math.min(1, 120 / rx) : 1);
   const pts: Point[] = [];
   const n = 90;
   for (let i = 0; i <= n; i++) {

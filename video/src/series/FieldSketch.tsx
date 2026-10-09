@@ -1,7 +1,7 @@
 import React from "react";
 import { z } from "zod";
 import { COLORS } from "../brand";
-import { Card, cardLayout, cardValueBox, InkMark, Plate, PLATE_W, PLATE_X, Sketch, Stamp, AXES, Line } from "../system";
+import { Card, cardLayout, cardValueBox, InkMark, Plate, PLATE_W, PLATE_X, Sketch, sketchLayout, Stamp, AXES, Line } from "../system";
 import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, row, framed, seriesProps, seriesScript, timeline } from "./common";
 import { ctaBox, CtaCaption } from "./endcard";
 
@@ -59,7 +59,20 @@ const FieldSketchBody: React.FC<FieldSketchProps> = ({ script, platform }) => {
         const h = box.contentBottom - CONTENT_TOP;
         return (
           <Beat key={b.index} t={b}>
-            {b.type === "sketch" ? <SketchPlate b={b} y={CONTENT_TOP} h={h} start={4} step={Math.max(4, Math.floor((b.dur - 40) / 12))} /> : null}
+            {b.type === "sketch" ? (
+              // Frame 0 is a complete still (CLAUDE.md): the diagram is already drawn when the video
+              // opens; the motion is the red ink that loops the tool, drawn on half a second in.
+              <>
+                <SketchPlate b={b} y={CONTENT_TOP} h={h} start={-1000} step={1} />
+                <InkMark
+                  shape="ellipse"
+                  target={sketchLayout({ inputs: b.inputs, tool: b.process, outputs: b.outputs, x: PLATE_X, y: CONTENT_TOP, w: PLATE_W, h }).toolBox}
+                  start={15}
+                  seed="sk-tool"
+                  pad={10}
+                />
+              </>
+            ) : null}
             {b.type === "notes" ? <Card title="Field notes · from public docs" rows={b.rows} y={CONTENT_TOP} maxHeight={h} /> : null}
             {b.type === "price-math" ? <Card title="Cheapest way in" rows={[...b.rows, { ...b.result, emphasis: true }]} y={CONTENT_TOP} maxHeight={h} /> : null}
             {b.type === "flaw" ? (

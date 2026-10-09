@@ -207,6 +207,121 @@
       "lesson": "Chrome and other mirror-like surfaces confuse it: shoot matte objects on a plain background.",
       "affiliate_url": "",
       "updated_on": "2026-10-08"
+    },
+    {
+      "code": "006",
+      "episode": "E006",
+      "pillar": "Image",
+      "series": "Field Sketch",
+      "tested_on": "2026-10-09",
+      "posted_on": "2026-10-20",
+      "hook_lines": [
+        "$10 to start.",
+        "$60 to go private."
+      ],
+      "disclosure": "Unpaid",
+      "cover": "episodes/E006-midjourney/cover.png",
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "tool": "Midjourney",
+      "genus": "Image generator",
+      "mode": "Field sketch",
+      "verdict": "Watch",
+      "verdict_reason": "No free tier to test, so no score: a Field sketch. On paper, $10 buys about 800 images, but everything made below the $60 Pro plan is public.",
+      "flaw": "Public unless you pay $60",
+      "flaw_caption": "everyone sees them.",
+      "flaw_source": "research",
+      "flaw_at": "",
+      "free_tier": "None on the web or Discord (niji・journey app: small trial for new app users)",
+      "paid_from": "$10 a month (Basic, 200 Fast GPU minutes)",
+      "conditions": [],
+      "field_notes": [
+        {
+          "key": "Habitat",
+          "value": "Web app, Discord"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Text, up to 4 images"
+        },
+        {
+          "key": "Model",
+          "value": "V8.2, since 24 Jul 2026"
+        },
+        {
+          "key": "Free tier",
+          "value": "None on web or Discord"
+        },
+        {
+          "key": "Paid from",
+          "value": "$10 a month (Basic)"
+        },
+        {
+          "key": "Weakness",
+          "value": "Public unless you pay $60"
+        }
+      ],
+      "homepage": "https://www.midjourney.com/",
+      "sources": [
+        {
+          "url": "https://updates.midjourney.com/version-8-2/",
+          "label": "Midjourney: Version 8.2 (24 Jul 2026)",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://updates.midjourney.com/edit-model-for-v8/",
+          "label": "Midjourney: Edit Model for V8 (27 Aug 2026)",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://updates.midjourney.com/testing-thinking-mode/",
+          "label": "Midjourney: Testing Thinking Mode (8 Oct 2026)",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://docs.midjourney.com/hc/en-us/articles/27870484040333-Comparing-Midjourney-Plans",
+          "label": "Comparing Midjourney Plans (prices, Fast hours)",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://docs.midjourney.com/hc/en-us/articles/32016412137741-GPU-Speed-Fast-Relax-Turbo",
+          "label": "GPU Speed: one prompt is about one GPU minute; no Relax on Basic",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://docs.midjourney.com/hc/en-us/articles/27870399340173-Free-Trials",
+          "label": "Free Trials: none on the web or Discord",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://nijijourney.com/help-center/sub-trial-generation",
+          "label": "niji・journey trial: new app-store users only",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://docs.midjourney.com/hc/en-us/articles/32019750070669-Stealth-Mode",
+          "label": "Stealth Mode: Pro and Mega only",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://docs.midjourney.com/hc/en-us/articles/32083055291277-Terms-of-Service",
+          "label": "Terms of Service: public by default; $1M revenue rule",
+          "accessed": "2026-10-09"
+        },
+        {
+          "url": "https://docs.midjourney.com/hc/en-us/articles/33570952624141-Purchasing-Extra-Fast-Time",
+          "label": "Extra Fast time: $4 an hour",
+          "accessed": "2026-10-09"
+        }
+      ],
+      "credits": "No third-party images: the diagram is our own redrawing from Midjourney's public documentation.",
+      "use_for": "Mood boards you don't mind sharing",
+      "skip_if": "Client work must stay private",
+      "lesson": "Read the privacy line before the price line: the $10 plan publishes everything you make.",
+      "affiliate_url": ""
     }
   ],
   "groups": []
