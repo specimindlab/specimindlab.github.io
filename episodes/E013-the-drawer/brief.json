@@ -1,0 +1,33 @@
+{
+  "id": "E013",
+  "slug": "the-drawer",
+  "code": "W01",
+  "series": "The Drawer",
+  "series_code": "DR",
+  "composition": "Drawer",
+  "mode": "Built from the week's renders",
+  "tools": [],
+  "tools_raw": "This week's specimens",
+  "pillar": "All",
+  "phase": "1 Collect",
+  "day": 7,
+  "date": "2026-10-25",
+  "weekday": "Sun",
+  "slot": "A",
+  "post_time_ist": "06:30",
+  "draft_hook": "Week 1: every specimen we pinned.",
+  "the_test": "Recap each label + verdict in 30 s; end on next week's teaser",
+  "free_path": "No tool use",
+  "free_path_note": "From the calendar; re-verify in research.md before filming.",
+  "affiliate_status": "n/a",
+  "on_screen_label": "Unpaid",
+  "disclosure": "Unpaid",
+  "youtube_title_draft": "Every AI tool we tested this week | The Drawer W01",
+  "hashtags": [
+    "#aitools",
+    "#weeklyrecap",
+    "#specimindlab"
+  ],
+  "hub_url": "https://specimindlab.github.io/W01",
+  "capture": "not needed"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "E008",
+  "slug": "photoroom",
+  "code": "M01",
+  "series": "Mimicry",
+  "series_code": "MI",
+  "composition": "Mimicry",
+  "mode": "Live specimen",
+  "tools": [
+    "Photoroom"
+  ],
+  "tools_raw": "Photoroom",
+  "pillar": "Image",
+  "phase": "1 Collect",
+  "day": 4,
+  "date": "2026-10-22",
+  "weekday": "Thu",
+  "slot": "B",
+  "post_time_ist": "18:30",
+  "draft_hook": "A product photo: real or Photoroom?",
+  "the_test": "Make the AI side on the free tier; shoot the real side ourselves; comment A or B",
+  "free_path": "Free tier",
+  "free_path_note": "From the calendar; re-verify in research.md before filming.",
+  "affiliate_status": "Check for program",
+  "on_screen_label": "Unpaid (the reveal names the tool)",
+  "disclosure": "Unpaid",
+  "youtube_title_draft": "A product photo: real or Photoroom? | Mimicry M01",
+  "hashtags": [
+    "#aiart",
+    "#aiimage",
+    "#design",
+    "#aiorreal",
+    "#specimindlab"
+  ],
+  "hub_url": "https://specimindlab.github.io/M01",
+  "capture": "pending"
+}

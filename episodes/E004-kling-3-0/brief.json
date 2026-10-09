@@ -1,0 +1,36 @@
+{
+  "id": "E004",
+  "slug": "kling-3-0",
+  "code": "004",
+  "series": "Field Specimen",
+  "series_code": "FS",
+  "composition": "FieldSpecimen",
+  "mode": "Live specimen",
+  "tools": [
+    "Kling 3.0"
+  ],
+  "tools_raw": "Kling 3.0",
+  "pillar": "Video",
+  "phase": "1 Collect",
+  "day": 2,
+  "date": "2026-10-20",
+  "weekday": "Tue",
+  "slot": "B",
+  "post_time_ist": "18:30",
+  "draft_hook": "Free AI video, refilled every day. Here's day one.",
+  "the_test": "Image-to-video of a still-life photo, 5 s, one try",
+  "free_path": "Free: 66 credits/day, 720p, 5 s",
+  "free_path_note": "From the calendar; re-verify in research.md before filming.",
+  "affiliate_status": "Check for program",
+  "on_screen_label": "Affiliate if approved, else Unpaid",
+  "disclosure": "pending",
+  "youtube_title_draft": "Kling 3.0: Free AI video, refilled every day. Here's day one | Specimen Nº004",
+  "hashtags": [
+    "#aivideo",
+    "#videogeneration",
+    "#filmmaking",
+    "#specimindlab"
+  ],
+  "hub_url": "https://specimindlab.github.io/004",
+  "capture": "pending"
+}

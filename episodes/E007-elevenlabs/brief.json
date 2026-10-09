@@ -1,0 +1,36 @@
+{
+  "id": "E007",
+  "slug": "elevenlabs",
+  "code": "007",
+  "series": "Field Specimen",
+  "series_code": "FS",
+  "composition": "FieldSpecimen",
+  "mode": "Live specimen",
+  "tools": [
+    "ElevenLabs"
+  ],
+  "tools_raw": "ElevenLabs",
+  "pillar": "Audio",
+  "phase": "1 Collect",
+  "day": 4,
+  "date": "2026-10-22",
+  "weekday": "Thu",
+  "slot": "A",
+  "post_time_ist": "06:30",
+  "draft_hook": "Sound effects from a sentence, not a library.",
+  "the_test": "Generate 'drawer sliding shut in a museum' SFX",
+  "free_path": "Free: monthly characters, attribution required",
+  "free_path_note": "From the calendar; re-verify in research.md before filming.",
+  "affiliate_status": "Confirmed program",
+  "on_screen_label": "Affiliate",
+  "disclosure": "Affiliate",
+  "youtube_title_draft": "ElevenLabs: Sound effects from a sentence, not a library | Specimen Nº007",
+  "hashtags": [
+    "#aimusic",
+    "#audio",
+    "#soundeffects",
+    "#specimindlab"
+  ],
+  "hub_url": "https://specimindlab.github.io/007",
+  "capture": "pending"
+}

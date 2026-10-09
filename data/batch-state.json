@@ -1,47 +1,70 @@
 {
-  "batch": "batch-2026-10-08",
-  "status": "complete",
-  "started": "2026-10-08",
+  "batch": "batch-2026-10-09",
+  "status": "in_progress",
+  "started": "2026-10-09",
   "updated": "2026-10-09",
+  "requested": 3,
   "episodes": [
     {
-      "id": "E002",
-      "folder": "episodes/E002-hunyuan3d",
+      "id": "E003",
+      "folder": "episodes/E003-trellis-2",
       "mode": "Live specimen (auto-captured)",
-      "step": "ready",
-      "verdict": "Captured",
-      "commit": "d731be5",
-      "code": "002",
-      "tool": "Hunyuan3D",
-      "post_at": "2026-10-19 06:30 IST",
-      "version": 3
-    }
-  ],
-  "render_runs": [
-    {
-      "run_id": 37832025398,
-      "conclusion": "success",
-      "url": "https://github.com/specimindlab/specimindlab.github.io/actions/runs/37832025398"
+      "step": "research",
+      "code": "003",
+      "tool": "TRELLIS 2"
     },
     {
-      "run_id": 37844327967,
-      "conclusion": "success",
-      "note": "v2 master E002.mp4 (24 s)",
-      "url": "https://github.com/specimindlab/specimindlab.github.io/actions/runs/37844327967"
+      "id": "E006",
+      "folder": "episodes/E006-midjourney",
+      "mode": "Field sketch",
+      "step": "script",
+      "code": "006",
+      "tool": "Midjourney"
     },
     {
-      "run_id": 37899725619,
-      "conclusion": "success",
-      "note": "v3 E002-yt/-ig/-x.mp4 (24 s, music v3, per-platform end cards); stale E002.mp4 removed",
-      "url": "https://github.com/specimindlab/specimindlab.github.io/actions/runs/37899725619"
+      "id": "E013",
+      "folder": "episodes/E013-the-drawer",
+      "mode": "The Drawer (built from catalog)",
+      "step": "pending",
+      "code": "W01",
+      "tool": "Week 1"
     }
   ],
-  "release": "https://github.com/specimindlab/specimindlab.github.io/releases/tag/batch-2026-10-08",
-  "notes": "v3 re-render of batch-2026-10-08: music v3 (arranged, loops) and per-platform end cards (E002-yt/-ig/-x.mp4). Episode entry: {id, folder, mode, step, verdict, commit}.",
   "skipped": [
     {
-      "id": "E001",
+      "id": "E004",
+      "reason": "needs capture (commercial, login required, raw/ empty)"
+    },
+    {
+      "id": "E005",
+      "reason": "needs capture (commercial, login required, raw/ empty)"
+    },
+    {
+      "id": "E007",
+      "reason": "needs capture (commercial, login required, raw/ empty)"
+    },
+    {
+      "id": "E008",
+      "reason": "needs capture (commercial, login required, raw/ empty)"
+    },
+    {
+      "id": "E009",
+      "reason": "needs capture (commercial, login required, raw/ empty)"
+    },
+    {
+      "id": "E010",
+      "reason": "needs capture (commercial, login required, raw/ empty)"
+    },
+    {
+      "id": "E011",
+      "reason": "needs capture (commercial, login required, raw/ empty)"
+    },
+    {
+      "id": "E012",
       "reason": "needs capture (commercial, login required, raw/ empty)"
     }
-  ]
+  ],
+  "selection_note": "3 videos requested. Field sketches capped at 40% (1 of 3): E006 taken, E014 passed over; E013 The Drawer taken per the batch rules.",
+  "render_runs": [],
+  "notes": "Episode entry: {id, folder, mode, step, verdict, commit}. TRELLIS.2 anonymous ZeroGPU quota was exhausted at 09:30 UTC; retries every 15 min, refusals logged in raw/auto/refused/."
 }

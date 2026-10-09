@@ -1,0 +1,118 @@
+{
+  "id": "E006",
+  "code": "006",
+  "composition": "FieldSketch",
+  "series": "Field Sketch",
+  "mode": "Field sketch",
+  "disclosure": "Unpaid",
+  "tool": "Midjourney",
+  "genus": "Image generator",
+  "groove": 5,
+  "music": "music.wav",
+  "cta": {
+    "yt": "Tap our name\nfor the price map.",
+    "ig": "Comment 006\nfor the price map.",
+    "x": "Price map in\nthe first reply."
+  },
+  "cover": {
+    "lines": [
+      "$10 to start.",
+      "$60 to go private."
+    ]
+  },
+  "beats": [
+    {
+      "type": "sketch",
+      "seconds": 4,
+      "lines": [
+        "$10 to start.",
+        "$60 to go private.",
+        "No free tier."
+      ],
+      "inputs": [
+        "Text prompt",
+        "Up to 4 images"
+      ],
+      "process": "Midjourney V8.2",
+      "outputs": [
+        "4-image grid",
+        "Short video"
+      ]
+    },
+    {
+      "type": "notes",
+      "seconds": 4.5,
+      "lines": [
+        "Habitat: browser.",
+        "Diet: words."
+      ],
+      "rows": [
+        {
+          "key": "Habitat",
+          "value": "Web app, Discord"
+        },
+        {
+          "key": "Feeds on",
+          "value": "Text, up to 4 images"
+        },
+        {
+          "key": "Model",
+          "value": "V8.2, since 24 Jul 2026"
+        },
+        {
+          "key": "Free tier",
+          "value": "None on web or Discord"
+        },
+        {
+          "key": "Paid from",
+          "value": "$10 a month (Basic)"
+        }
+      ]
+    },
+    {
+      "type": "price-math",
+      "seconds": 4.5,
+      "lines": [
+        "$10 buys about",
+        "800 images."
+      ],
+      "rows": [
+        {
+          "key": "Basic",
+          "value": "$10 a month"
+        },
+        {
+          "key": "Fast time",
+          "value": "200 GPU minutes"
+        },
+        {
+          "key": "One prompt",
+          "value": "About 1 min, 4 images"
+        },
+        {
+          "key": "Relax mode",
+          "value": "Not on Basic"
+        }
+      ],
+      "result": {
+        "key": "Per image",
+        "value": "About 1.3 cents"
+      }
+    },
+    {
+      "type": "flaw",
+      "seconds": 4.5,
+      "lines": [
+        "Honest flaw:",
+        "everyone sees them."
+      ],
+      "text": "Public unless you pay $60",
+      "source": "docs.midjourney.com",
+      "flaw_source": "research"
+    },
+    {
+      "type": "verdict",
+      "seconds": 4.5
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "E011",
+  "slug": "gamma",
+  "code": "010",
+  "series": "Field Specimen",
+  "series_code": "FS",
+  "composition": "FieldSpecimen",
+  "mode": "Live specimen",
+  "tools": [
+    "Gamma"
+  ],
+  "tools_raw": "Gamma",
+  "pillar": "Work",
+  "phase": "1 Collect",
+  "day": 6,
+  "date": "2026-10-24",
+  "weekday": "Sat",
+  "slot": "A",
+  "post_time_ist": "06:30",
+  "draft_hook": "A whole slide deck from one sentence.",
+  "the_test": "10-slide deck on composting; count fixes needed",
+  "free_path": "Free credits",
+  "free_path_note": "From the calendar; re-verify in research.md before filming.",
+  "affiliate_status": "Check for program",
+  "on_screen_label": "Affiliate if approved, else Unpaid",
+  "disclosure": "pending",
+  "youtube_title_draft": "Gamma: A whole slide deck from one sentence | Specimen Nº010",
+  "hashtags": [
+    "#productivity",
+    "#studytips",
+    "#worktools",
+    "#specimindlab"
+  ],
+  "hub_url": "https://specimindlab.github.io/010",
+  "capture": "pending"
+}
