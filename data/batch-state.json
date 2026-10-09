@@ -1,6 +1,6 @@
 {
   "batch": "batch-2026-10-09",
-  "status": "in_progress",
+  "status": "rendering",
   "started": "2026-10-09",
   "updated": "2026-10-09",
   "requested": 3,
@@ -73,5 +73,6 @@
   ],
   "selection_note": "3 videos requested. Field sketches capped at 40% (1 of 3): E006 taken, E014 passed over; E013 The Drawer taken per the batch rules.",
   "render_runs": [],
-  "notes": "Episode entry: {id, folder, mode, step, verdict, commit}. TRELLIS.2: 23 anonymous quota refusals 09:30-12:44 UTC (shared egress), the run went through at 12:49 UTC; refusals in episodes/E003-trellis-2/raw/auto/refusals.json."
+  "notes": "Episode entry: {id, folder, mode, step, verdict, commit}. TRELLIS.2: 23 anonymous quota refusals 09:30-12:44 UTC (shared egress), the run went through at 12:49 UTC; refusals in episodes/E003-trellis-2/raw/auto/refusals.json.",
+  "batch_file": "data/batches/batch-2026-10-09.json"
 }

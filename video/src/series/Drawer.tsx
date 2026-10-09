@@ -120,8 +120,11 @@ const RollCall: React.FC<{ entries: CatalogEntry[]; per: number; top: number; co
   const tx = covers ? 70 + cw + 36 : 70;
   const tw = 930 - tx;
   const sx = tx + tw / 2;
+  // The layout is drawn for ~700 px; a two-row drawer leaves less, so scale it into what is left
+  // above the caption band (y 1440).
+  const k = Math.min(1, (1430 - top) / (covers ? (cw * 16) / 9 : 660));
   return (
-    <>
+    <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 1920, transform: k < 1 ? `scale(${k})` : undefined, transformOrigin: `70px ${top}px` }}>
       {covers ? (
         <Plate key={`c${e.code}`} x={70} y={top} w={cw} h={(cw * 16) / 9} border={3}>
           <Img src={asset(`covers/${e.code}.png`)} style={{ width: cw, height: (cw * 16) / 9, display: "block" }} />
@@ -141,7 +144,7 @@ const RollCall: React.FC<{ entries: CatalogEntry[]; per: number; top: number; co
           <Line text={e.flaw} x={tx} baseline={top + 626} maxWidth={tw} size={46} axes={AXES.note} color={COLORS.red} />
         </>
       ) : null}
-    </>
+    </div>
   );
 };
 
