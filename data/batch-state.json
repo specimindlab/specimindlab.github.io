@@ -10,7 +10,7 @@
       "mode": "Live specimen (auto-captured)",
       "step": "ready",
       "verdict": "Captured",
-      "commit": "3f75079",
+      "commit": "d731be5",
       "code": "002",
       "tool": "Hunyuan3D",
       "post_at": "2026-10-19 06:30 IST",
@@ -28,6 +28,12 @@
       "conclusion": "success",
       "note": "v2 master E002.mp4 (24 s)",
       "url": "https://github.com/specimindlab/specimindlab.github.io/actions/runs/37844327967"
+    },
+    {
+      "run_id": 37899725619,
+      "conclusion": "success",
+      "note": "v3 E002-yt/-ig/-x.mp4 (24 s, music v3, per-platform end cards); stale E002.mp4 removed",
+      "url": "https://github.com/specimindlab/specimindlab.github.io/actions/runs/37899725619"
     }
   ],
   "release": "https://github.com/specimindlab/specimindlab.github.io/releases/tag/batch-2026-10-08",
