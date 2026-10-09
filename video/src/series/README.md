@@ -2,7 +2,7 @@
 
 One Remotion composition per series in `data/series.md`. Each takes `{ script, platform }`, where
 `script` is the episode's `script.json`, validated by that series' zod schema. Duration is the sum of
-the beat `seconds` (same rule as `scripts/episode_frames.mjs`): 18-40 s enforced, 20-30 s the target,
+the beat `seconds` (same rule as `scripts/episode_frames.mjs`): 18-60 s enforced, 35-55 s the target,
 and every beat's `seconds` is a multiple of 0.5 (one beat at 120 bpm, so cuts land on the music).
 The beat ORDER is enforced per series, so a script written for one series fails validation in any
 other (CLAUDE.md: never reuse one series' structure for another). Working examples:

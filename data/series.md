@@ -32,7 +32,7 @@ The beat structures below are the house definition. Each Remotion composition in
 
 Every series keeps these on screen for the **whole** video: the pinned label (code, tool, genus), the mode label ("Live specimen" or "Field sketch — not hands-on") and the disclosure word ("Affiliate" or "Unpaid").
 
-Durations are targets. The composition computes its total from `script.json`: 20–30 s is the target, 18–40 s is enforced, and every beat is a multiple of 0.5 s so cuts land on the 120 bpm music (scripts/make_music.py). All nine series are on v2 pacing; their fixtures run 22–25 s. Every series ends on the shared end card (`video/src/series/endcard.tsx`): the stamp, the score (Live), the decision card where the series has one, the series' own signature (drawer, frozen counter, spotted date, totals, successors), then the platform CTA.
+Durations are targets. The composition computes its total from `script.json`: 35–55 s is the target (prompts/voice.md v3), 18–60 s is enforced, and every beat is a multiple of 0.5 s so cuts land on the 120 bpm music (scripts/make_music.py). All nine series are on v2 pacing; their fixtures run 22–25 s. Every series ends on the shared end card (`video/src/series/endcard.tsx`): the stamp, the score (Live), the decision card where the series has one, the series' own signature (drawer, frozen counter, spotted date, totals, successors), then the platform CTA.
 
 ---
 
