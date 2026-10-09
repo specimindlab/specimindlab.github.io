@@ -1,6 +1,6 @@
 {
   "batch": "batch-2026-10-19",
-  "status": "rendering",
+  "status": "complete",
   "started": "2026-10-09",
   "updated": "2026-10-09",
   "requested": 4,
@@ -64,5 +64,13 @@
     "R011 Gamma",
     "R012 Gemini image"
   ],
-  "next_episode_id": "E005"
+  "next_episode_id": "E005",
+  "release": "https://github.com/specimindlab/specimindlab.github.io/releases/tag/batch-2026-10-19",
+  "release_assets": [
+    "specimind-batch-2026-10-19.zip"
+  ],
+  "render_runs": {
+    "37973560502": "failure (verify_delivery still capped at 40 s; fixed)",
+    "37977176864": "success"
+  }
 }
