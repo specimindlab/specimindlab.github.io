@@ -2,17 +2,23 @@
 
 Zero budget, no voice. **This pack runs entirely in Claude Code on the web** (claude.ai/code), on Anthropic's cloud, connected to the GitHub repo `specimindlab/specimindlab.github.io`. Nothing is installed on your computer. Final videos are rendered by a free GitHub Actions workflow and published as a GitHub Release you download.
 
-**You paste only six prompts in total**, each into a new session at claude.ai/code with the `specimindlab.github.io` repo selected:
+**You don't paste prompts any more.** Start a session at claude.ai/code with the `specimindlab.github.io` repo selected and type a command. The commands live in `.claude/skills/` in this repo, so every new session has them, and the SessionStart hook prints where the channel stands (`scripts/channel_status.py`).
 
-| When | Paste | What it does |
-| --- | --- | --- |
-| Once, in order | S1, S2, S3, S4 | Builds the repo, the video design system, the sound, the catalog website, and the GitHub workflows that render and publish |
-| Any free day | **B** (with the number of videos you want) | Makes that many videos, then GitHub renders them and publishes one downloadable Release |
-| Before a capture session | C | Lists exactly which tool tests to record by hand, and where to upload each recording |
-| Sundays (optional) | W | Weekly review and next week's picks |
-| End of each month (optional) | M | Long-form Field Guide compilation |
+| Type | What it does |
+| --- | --- |
+| `/batch 3` | Makes the next 3 videos end to end, then GitHub renders them and publishes one Release zip. Any number works; add rows to pick them (`/batch 2 R015`) or a note (`/batch 4 no research-only`). Resumes an unfinished batch first. |
+| `/channel` | Dashboard: made, released, posted, recordings waiting, what the next batch would make, problems, the one next step. |
+| `/captures` | Your recording checklist for tests only you can do (tools that need your login), grouped by tool, with inputs and upload links. |
+| `/scout 7` | Finds new AI tools worth testing (fresh, free plan, visual result) and adds them to the calendar. |
+| `/posted E005 <links>` | After you post: puts the YouTube/Instagram/X links on the hub and marks the calendar. |
+| `/revise E005 <change>` | Changes a made video or its copy, checks it again and re-releases it. |
+| `/rerelease <batch>` | Renders a batch again and replaces its Release zip. |
+| `/affiliate 005 <url>` | Adds an affiliate link with the right disclosures (hub, video label, post copy). |
+| `/weekly` | Weekly review from the analytics you upload to data/, plus next week's plan. |
 
-The Playbooks (R, I, V, P) further down are instructions Claude Code follows *inside* prompt B. You never paste them.
+The S1-S4 setup prompts below are history (already done). Prompts B, C and W are kept as the reference the commands were built from; the commands are the current version.
+
+The Playbooks (R, I, V, P) further down are the steps `/batch` and `/revise` follow for each episode. You never paste them.
 
 **Before prompt S1:** from your existing personal GitHub account (the one already connected to Claude), create a free organization named `specimindlab`. In it, create a new **public** repository named exactly `specimindlab.github.io` (Owner: `specimindlab`, not your personal account), ticking "Add a README". A repository named `<owner>.github.io` is that owner's main GitHub Pages site, so this one is served at `https://specimindlab.github.io` and each tool at `https://specimindlab.github.io/047`; any other repository name would be a project site at `https://specimindlab.github.io/<repo-name>/`. Then Add file → Upload files, and drop these three files into the repo root: `specimind-brand-kit.zip`, `specimind-90-day-calendar.xlsx`, and this file `specimind-claude-code-prompts.md`. Commit. Finally, at claude.ai/code, give the Claude GitHub App access to the `specimindlab` organization and this repository.
 
@@ -174,7 +180,7 @@ Make sure pages.yml (from S1) builds this site. Commit, push, check that the Pag
 
 ---
 
-## B — Batch: make any number of videos with one prompt (paste whenever you have time)
+## B — Batch (reference; now `/batch N`)
 
 Start a new session at claude.ai/code with the `specimindlab.github.io` repo selected, paste this, and change `10` to however many you want. You can close the browser tab; the session keeps working in the cloud, and you can check on it later from claude.ai/code or the Claude app.
 
@@ -207,7 +213,7 @@ Make the next 10 SPECIMIND episodes end to end. You are in Claude Code on the we
 
 ---
 
-## C — Capture list (paste before a recording session)
+## C — Capture list (reference; now `/captures`)
 
 ```
 Read CLAUDE.md, data/calendar.csv and data/needs-capture.md. List the next 15 episodes that need ME to record a test by hand (commercial tools whose free tier needs my login), skipping any whose episodes/<id>/raw/ already has a recording.
@@ -234,7 +240,7 @@ Collect the month's Live specimens with verdict Captured, ordered by Scorecard p
 
 ---
 
-## W — Weekly review and next week's picks (optional, Sundays)
+## W — Weekly review (reference; now `/weekly`)
 
 ```
 Inputs: data/scorecard-week-{n}.csv (the human uploads it through github.com: YouTube Studio Shorts table, Instagram Insights, X analytics, affiliate dashboards — any format; parse what's there) and data/specimind-90-day-calendar.xlsx.
@@ -248,9 +254,9 @@ Inputs: data/scorecard-week-{n}.csv (the human uploads it through github.com: Yo
 
 ---
 
-# Playbooks (Claude Code reads these during prompt B — you never paste them)
+# Playbooks (followed by /batch and /revise — you never paste them)
 
-## Playbook R — Research (used by prompt B; do not paste)
+## Playbook R — Research (used by /batch and /revise)
 
 ```
 Episode: {E###}. Read episodes/{E###-slug}/brief.json and CLAUDE.md.
@@ -270,7 +276,7 @@ Flag anything that contradicts the calendar row (e.g. the free tier no longer ex
 
 ---
 
-## Playbook I — Ingest, or auto-capture (used by prompt B; do not paste)
+## Playbook I — Ingest, or auto-capture (used by /batch and /revise)
 
 ```
 Episode: {E###}. Inspect episodes/{E###-slug}/raw/. For each file:
@@ -289,17 +295,17 @@ AUTO-CAPTURE (when raw/ is empty): only if data/env-check.md says huggingface.co
 - Measure seconds_to_result as wall-clock time from request to result, excluding queue wait (record both).
 - If Playwright's Chromium is available (env-check), also record the run as video: open the Space headless, perform the same steps, and keep Playwright's page recording so the Observation beat shows the real interface. Otherwise the Observation beat shows the input and the output side by side with the measured time.
 - Never create accounts, never log in, never bypass rate limits, queues or captchas. If the Space is down or queued > 10 minutes, mark the episode 'needs capture' instead.
-- Label the episode 'Live specimen' and add 'Auto-captured on a public demo' to the Conditions card.
+- Label the episode 'Live specimen' (on screen: "Tested by us") and set facts.json `auto_captured: true`; the hub then says "Screen-recorded by us on the free demo page".
 
 If raw/ is empty and auto-capture is not possible: never invent footage. If the tool has no free tier (or the series is Field Sketch / Extinction Watch), make it a Field sketch. Otherwise mark it 'needs capture' and let prompt B move on.
 ```
 
 ---
 
-## Playbook V — Script, render, review loop (used by prompt B; do not paste)
+## Playbook V — Script, render, review loop (used by /batch and /revise)
 
 ```
-Episode: {E###}. Read CLAUDE.md, prompts/voice.md (v3: plain words, the story, reading time, sounding human), data/series.md, data/score.md, brief.json, research.md, facts.json, and the list of the last 6 published episodes' script.json files (episodes/*/script.json, by date).
+Episode: {E###}. Read CLAUDE.md, prompts/voice.md (v3: plain words, the story, reading time, sounding human), data/series.md, data/score.md, brief.json, research.md, facts.json, and the last 6 made episodes' script.json files (episodes/E###-*/script.json, highest numbers).
 
 1. Write episodes/{E###-slug}/script.json for the series composition in the voice of prompts/voice.md: beats (each a multiple of 0.5 s, 35–55 s total), the story (hook, what it is, what we did, what happened, the catch, free vs paid, score, should you use it), every caption line in plain spoken words (1–7 words per line, 1–3 lines per beat, at most 2.5 words per second including card rows), labelled pictures, which asset fills each plate, scale-bar seconds, field-notes rows, flaw annotation target, the score beat, verdict with use_for / skip_if, code, label text, mode, "music": "music.wav" and "groove" 1-6 (not the same as the previous episode), and "cover" (before/after or the strongest result + the hook).
    Hook rules: the first beat states what happened in OUR test using a number from facts.json ("This mug was a phone photo 38 seconds ago."). Rewrite the calendar's draft hook if reality differs. Must not start with the same first word as either of the last 2 episodes. Banned words: insane, crazy, game-changer, mind-blowing, unbelievable, secret, hack, 🤯 or any emoji.
@@ -314,11 +320,12 @@ Episode: {E###}. Read CLAUDE.md, prompts/voice.md (v3: plain words, the story, r
    [ ] no text in bottom 480 px or right 150 px; nothing clipped
    [ ] every caption line spans the content width; no descender collisions; max 3 lines
    [ ] flaw is on screen and circled; price and free tier on screen
-   [ ] colours only from the brand tokens; no orange, no gradients, no glow
+   [ ] our design elements use only the brand tokens (the tool's real input and output keep their colours); no gradients, no glow
    [ ] verdict stamp legible; drawer shows the correct code highlighted
    [ ] text readable at phone size (downscale a still to 360 px wide and look again)
    [ ] music: groove differs from the previous upload; flaw, score lock and verdict land where the picture does (make_music.py prints the sections)
-   [ ] duration 20–30 s (max 40); every beat a multiple of 0.5 s; last frame matches first frame closely enough to loop
+   [ ] duration 35–55 s (18–60 enforced); every beat a multiple of 0.5 s and long enough to read (2.5 words/s); last frame matches first frame closely enough to loop
+   [ ] plain words only (`python3 scripts/plain_check.py {E###}` PASS) and every beat after the hook has its chapter label; words drawn by components (vocab.ts) are plain too
    [ ] frame 0 alone would stop a scroll: complete, readable with the sound off, a number or concrete outcome
    [ ] not structurally identical to the previous episode (compare beat lists)
    Write qa/report.md with each check, PASS/FAIL, and the still that proves it (stills are not committed; qa/contact-sheet.jpg is). Fix every FAIL, re-render, re-check. Loop until all PASS (max 4 iterations; if still failing, stop and explain).
@@ -328,25 +335,25 @@ Episode: {E###}. Read CLAUDE.md, prompts/voice.md (v3: plain words, the story, r
 
 ---
 
-## Playbook P — Publishing metadata (used by prompt B; do not paste)
+## Playbook P — Publishing metadata (used by /batch and /revise)
 
 ```
-Episode: {E###}. Using facts.json, script.json and the templates in the strategy doc (copied in data/copy-templates.md), write episodes/{E###-slug}/meta/:
+Episode: {E###}. Using facts.json, script.json, prompts/voice.md and the latest made episode's meta/ as the format reference (same headings: build_posting.py and make_batch_file.py read them), write episodes/{E###-slug}/meta/:
 
 youtube.md — title (tool name first, under 60 characters, the outcome with a number or the score, in the voice of prompts/voice.md; never "my"), description (template; disclosure line verbatim), 3 hashtags, tags list from YouTube autocomplete research for the tool name (search YouTube suggestions and list the 8 most relevant), playlist names (pillar + series), related-video suggestion (Plate → winner's Field Specimen; Drawer → latest Field Guide), pinned comment.
 instagram.md — caption (first line = same keyword line), conditions, "Comment {code} and we'll DM you the link", disclosure, 3–5 hashtags, alt text, the exact auto-DM text for the comment-automation tool with {code} filled in, and a suggested Trial Reel alternative hook.
 x.md — post text (≤ 200 characters, tool name + one opinion), first-reply text with the hub link + disclosure.
 
-Also update data/catalog.json (`node scripts/catalog_sync.mjs {E###}`, then `node site/build.mjs` to validate) and commit; pages.yml publishes specimindlab.github.io/{code} so it is live before the video is posted. After posting, the human pastes the YouTube/Instagram/X URLs into `links` and any affiliate link into `affiliate_url`.
+Also update data/catalog.json (`node scripts/catalog_sync.mjs {E###}`, then `node site/build.mjs` to validate) and commit; pages.yml publishes specimindlab.github.io/{code} so it is live before the video is posted. After posting, the human runs `/posted E### <links>` (links on the hub) and `/affiliate <code> <url>` for an affiliate link.
 ```
 
 ---
 
 ## Notes for the human
 
-- **What you do by hand, in stretches when you are free:** a capture session (prompt C, then drag the recordings onto github.com); a batch day (prompt B at claude.ai/code, then walk away); a posting session (download the Release, schedule from POSTING.md). YouTube Studio and Meta Business Suite schedule for free; post X manually if scheduling is not offered on your account.
+- **What you do by hand, in stretches when you are free:** a capture session (`/captures`, then drag the recordings onto github.com); a batch day (`/batch N` at claude.ai/code, then walk away); a posting session (download the Release zip, schedule from POSTING.md, then `/posted`). YouTube Studio and Meta Business Suite schedule for free; post X manually if scheduling is not offered on your account.
 - **Where things run:** research, scripting and review in Claude Code on the web; final rendering, the website and the Releases in GitHub Actions. Nothing runs on your computer except OBS during a capture session.
-- **If a session stops** (usage limit, idle pause, anything): start a new session on the same repo and paste the same prompt. data/batch-state.json lets it continue.
+- **If a session stops** (usage limit, idle pause, anything): start a new session on the same repo and type `/batch` again; it resumes. data/batch-state.json lets it continue.
 - **One optional setting unlocks more:** at claude.ai/code, open the environment selector (the cloud icon above the message box) → hover Default → settings icon → Network access: **Full**. With the default "Trusted" level, Hugging Face auto-capture and some research pages may be blocked; the S1 environment check tells you exactly what works.
 - **Free alternatives used instead of paid tools:** narration → captions-only format with code-generated sound; stock music → generated beds + Instagram's in-app library; link-in-bio tools → GitHub Pages hub; domain → specimindlab.github.io; paid generation → free tiers + open-source models; video editor and render farm → Remotion inside GitHub Actions; analytics → native dashboards + the Scorecard tab.
 - **When the first commission arrives:** buy a domain such as `specimindlab.com` and point it at the same GitHub Pages site. Catalog numbers stay the same.

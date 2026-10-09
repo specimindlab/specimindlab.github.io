@@ -11,6 +11,16 @@
             "timeout": 600
           }
         ]
+      },
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/scripts/channel_status.py --brief || true",
+            "timeout": 30
+          }
+        ]
       }
     ]
   }

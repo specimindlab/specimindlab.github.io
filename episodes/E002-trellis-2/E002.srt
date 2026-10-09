@@ -1,7 +1,7 @@
 1
 00:00:00,000 --> 00:00:03,500
-Free AI turned one drawing
-into a 3D dragon.
+One drawing became a 3D dragon
+in 41 seconds.
 
 2
 00:00:03,500 --> 00:00:09,000

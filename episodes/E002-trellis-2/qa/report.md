@@ -1,5 +1,11 @@
 # E002 · #002 · TRELLIS 2 · review loop (v4: plain words, new music, release-order number)
 
+## Revision 2026-10-09: hook
+
+- FAIL (found by `scripts/make_batch_file.py`): E001 and E002 are posted back to back and both hooks started "Free AI turned ...", the same first word and the same pattern (CLAUDE.md: no two consecutive uploads open with the same first word or hook pattern).
+- Fix: hook and cover "One drawing became a 3D dragon / in 41 seconds." (a time-based outcome); YouTube title "TRELLIS 2: a drawing to a 3D dragon in 41 seconds"; Instagram first line to match. The roundup (E004) was re-rendered after the catalog sync because it shows this cover.
+- Checks: plain_check PASS; safe zones 0 problems on all E002 and E004 stills; batch neighbour check PASS.
+
 Was E003 before the renumbering. Same capture as before; new style only. Review record: `qa/contact-sheet.jpg`; stills are not committed. Preview platform: ig.
 
 ## v4 round 1: 1 FAIL

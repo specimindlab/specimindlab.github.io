@@ -4,6 +4,7 @@
     python3 scripts/new_episode.py make R002 [--slug hunyuan3d]   # make an episode from a calendar row
     python3 scripts/new_episode.py capture R001 [R004 ...]         # a capture request: no number used
     python3 scripts/new_episode.py next 10                         # the next rows not made yet
+    python3 scripts/new_episode.py status Rendered E005 E006       # set Status (rows or episode ids)
 
 Why: viewers see the numbers (#001, #002 ...). If Tripo waits for a screen recording, the next video
 must still be #001, not #002, or the numbers on screen have gaps. So:
@@ -281,13 +282,27 @@ def main():
     c.add_argument("--slug")
     n = sub.add_parser("next")
     n.add_argument("count", type=int)
+    st = sub.add_parser("status")
+    st.add_argument("value", choices=["Planned", "Rendered", "Posted"])
+    st.add_argument("ids", nargs="+", help="R### rows or E### episode ids")
     a = ap.parse_args()
     rows, fields = load_calendar()
+    if a.cmd == "status":
+        for i in (x.upper() for x in a.ids):
+            hit = [r for r in rows if r["Row"] == i or (r.get("Episode") or "") == i]
+            if not hit:
+                sys.exit(f"{i}: no calendar row with that Row or Episode")
+            for r in hit:
+                r["Status"] = a.value
+                print(f"{r['Row']} ({r.get('Episode') or 'not made'}): Status = {a.value}")
+        save_calendar(rows, fields)
+        return
     if a.cmd == "next":
         todo = [r for r in rows if not r.get("Episode") and r["Status"] not in ("Rendered", "Posted")][: a.count]
         for r in todo:
             cap = sorted(CAPTURES.glob(f"{r['Row']}-*"))
-            has = cap and any(f.is_file() and f.name != ".gitkeep" for f in (cap[0] / "raw").rglob("*"))
+            raw = cap[0] / "raw" if cap else None
+            has = raw and any(f.is_file() and f.name != ".gitkeep" and f.relative_to(raw).parts[0] != "input" for f in raw.rglob("*"))
             print(f"{r['Row']}  {r['Series']:<16} {r['Tool(s)'][:40]:<40} {'uploads waiting' if has else ''}")
         return
     if getattr(a, "slug", None) and len(a.rows) != 1:

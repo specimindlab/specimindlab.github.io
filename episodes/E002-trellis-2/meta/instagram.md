@@ -1,7 +1,7 @@
 # Instagram · E002
 
 ## Caption
-Free AI turned one drawing into a 3D dragon.
+One drawing became a 3D dragon in 41 seconds.
 
 TRELLIS 2 is a free AI from Microsoft. One picture in, 3D model out. We gave it this drawing, one try, no account. 41 seconds later: wings, horns and claws, all there.
 

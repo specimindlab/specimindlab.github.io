@@ -32,7 +32,7 @@ hunyuan 3d 2.1, hunyuan3d, hunyuan 3d 2.1 texture, image to 3d free, photo to 3d
 3D · Free plan tests · SPECIMIND scores
 
 ## Related video
-TRELLIS 2: free AI turned a drawing into 3D (72/100), our #002, one point higher.
+TRELLIS 2: a drawing to a 3D dragon in 41 seconds, our #002, one point higher.
 
 ## Altered or synthetic content toggle
 OFF. Grey 3D shapes of desk lamps and our own cards; nothing a viewer could mistake for a real person, place or event.

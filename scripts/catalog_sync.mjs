@@ -67,7 +67,8 @@ const entryFor = (id) => {
   if (!script) throw new Error(`${id}: script.json missing (Playbook V)`);
   const code = script.code ?? brief.code;
   if (!code || code === "TBD") throw new Error(`${id}: no code assigned yet`);
-  const disclosure = script.disclosure ?? brief.disclosure;
+  // facts.disclosure = the relationship today (set by /affiliate after a video is out); the video keeps its own label.
+  const disclosure = facts.disclosure ?? script.disclosure ?? brief.disclosure;
   const composition = script.composition ?? brief.composition;
   const common = {
     code,

@@ -2,7 +2,7 @@
 
 A field guide to new AI tools. Captions-only Shorts, Reels and X videos: one real test per tool, one attempt, one honest flaw circled in red ink. Hub: https://specimindlab.github.io
 
-Everything runs in the cloud. Claude Code on the web does the research, scripting and review; GitHub Actions renders the videos and publishes them as Releases; GitHub Pages hosts the catalog. The rules every session follows are in [CLAUDE.md](CLAUDE.md), and the prompts to paste are in [prompts/specimind-claude-code-prompts.md](prompts/specimind-claude-code-prompts.md).
+Everything runs in the cloud. Claude Code on the web does the research, scripting and review; GitHub Actions renders the videos and publishes them as Releases; GitHub Pages hosts the catalog. The rules every session follows are in [CLAUDE.md](CLAUDE.md). To work on the channel, open a session at claude.ai/code on this repo and type a command: `/batch 3` (make the next 3 videos), `/channel` (where things stand, and the full menu), `/captures`, `/scout`, `/posted`, `/revise`, `/rerelease`, `/affiliate`, `/weekly`. Each command's steps are in [.claude/skills/](.claude/skills/); the playbooks they follow are in [prompts/specimind-claude-code-prompts.md](prompts/specimind-claude-code-prompts.md).
 
 ```
 brand/        brand kit: logo, social, vectors, templates, reference (brand board, storyboard, Anybody font)

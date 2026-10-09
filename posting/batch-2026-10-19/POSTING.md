@@ -21,7 +21,7 @@ Schedule YouTube in YouTube Studio and Instagram in Meta Business Suite (both fr
 - [ ] Hashtags: #ai3d #3dmodeling #specimindlab
 - [ ] Tags: hunyuan 3d 2.1, hunyuan3d, hunyuan 3d 2.1 texture, image to 3d free, photo to 3d free, image to 3d free ai, free 3d model ai, photo to 3d model
 - [ ] "Altered or synthetic content" toggle: **OFF**
-- [ ] Related video: TRELLIS 2: free AI turned a drawing into 3D (72/100), our #002, one point higher.
+- [ ] Related video: TRELLIS 2: a drawing to a 3D dragon in 41 seconds, our #002, one point higher.
 - [ ] Paid promotion box: leave unticked
 
 <details><summary>Description</summary>
@@ -98,7 +98,7 @@ The full test, the free plan and our 3D ranking: https://specimindlab.github.io/
 
 ### YouTube Shorts
 - [ ] Upload `E002-yt.mp4`; custom thumbnail `cover.png`; subtitles `E002.srt` (English)
-- [ ] Title: TRELLIS 2: free AI turned a drawing into 3D (72/100)
+- [ ] Title: TRELLIS 2: a drawing to a 3D dragon in 41 seconds
 - [ ] Hashtags: #ai3d #3dmodeling #specimindlab
 - [ ] Tags: trellis 2, trellis 2 3d, trellis 2 ai 3d, trellis 2d to 3d, microsoft trellis, microsoft trellis 3d, image to 3d free, image to 3d free ai
 - [ ] "Altered or synthetic content" toggle: **OFF**
@@ -134,7 +134,7 @@ Dragon drawing: void (@voidhve) on Unsplash.
 <details><summary>Caption</summary>
 
 ```
-Free AI turned one drawing into a 3D dragon.
+One drawing became a 3D dragon in 41 seconds.
 
 TRELLIS 2 is a free AI from Microsoft. One picture in, 3D model out. We gave it this drawing, one try, no account. 41 seconds later: wings, horns and claws, all there.
 
@@ -258,7 +258,7 @@ The price breakdown and every source: https://specimindlab.github.io/003?from=x 
 - [ ] Hashtags: #aitools #ai3d #specimindlab
 - [ ] Tags: trellis 2, hunyuan3d, midjourney, image to 3d free, image to 3d free ai, best ai 3d model generator, midjourney price plan, free ai tools
 - [ ] "Altered or synthetic content" toggle: **OFF**
-- [ ] Related video: TRELLIS 2: free AI turned a drawing into 3D (72/100), our top score so far.
+- [ ] Related video: TRELLIS 2: a drawing to a 3D dragon in 41 seconds, our top score so far.
 - [ ] Paid promotion box: leave unticked
 
 <details><summary>Description</summary>

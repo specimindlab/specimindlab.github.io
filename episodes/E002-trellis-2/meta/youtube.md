@@ -1,7 +1,7 @@
 # YouTube · E002
 
-## Title (52 characters)
-TRELLIS 2: free AI turned a drawing into 3D (72/100)
+## Title (50 characters)
+TRELLIS 2: a drawing to a 3D dragon in 41 seconds
 
 ## Description
 Not sponsored. No affiliate link. TRELLIS 2 is a free, open-source AI from Microsoft and nobody paid for this test.

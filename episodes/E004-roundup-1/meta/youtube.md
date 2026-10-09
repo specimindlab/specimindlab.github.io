@@ -25,7 +25,7 @@ trellis 2, hunyuan3d, midjourney, image to 3d free, image to 3d free ai, best ai
 Roundups · SPECIMIND scores
 
 ## Related video
-TRELLIS 2: free AI turned a drawing into 3D (72/100), our top score so far.
+TRELLIS 2: a drawing to a 3D dragon in 41 seconds, our top score so far.
 
 ## Altered or synthetic content toggle
 OFF. Our own covers, labels and scores; nothing realistic is generated.
