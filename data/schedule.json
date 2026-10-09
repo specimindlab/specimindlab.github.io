@@ -6,9 +6,9 @@
   },
   "calendar_start": "2026-10-19",
   "last_scheduled": {
-    "date": "2026-10-19",
-    "slot": "A",
-    "episode": "E002"
+    "date": "2026-10-20",
+    "slot": "B",
+    "episode": "E013"
   },
-  "note": "last_scheduled is the slot BEFORE the next post. The next batch starts at the slot after it: 2026-10-19 slot A (06:30 IST), the calendar's Day 1. Update this after each batch (prompt B, step 6)."
+  "note": "last_scheduled is the slot BEFORE the next post. The next batch starts at the slot after it: 2026-10-21 slot A (06:30 IST). Update this after each batch (prompt B, step 6)."
 }
