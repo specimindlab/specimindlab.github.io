@@ -125,7 +125,7 @@ const entryFor = (id) => {
           { key: "Attempts", value: str(facts.attempts ?? 1) },
         ];
   if (seconds && !conditions.some((r) => /seconds/i.test(r.key)) && conditions.length) conditions.push({ key: "Seconds to result", value: `${seconds} s` });
-  if (facts.auto_captured && !conditions.some((r) => r.key === "Capture")) conditions.push({ key: "Capture", value: "Auto-captured on a public demo" });
+  if (facts.auto_captured && !conditions.some((r) => r.key === "Recording")) conditions.push({ key: "Recording", value: "Screen-recorded by us on the free demo page" });
   const first = sources(facts)[0]?.url;
   const homepage = facts.homepage ?? facts.url ?? (first ? `${new URL(first).origin}/` : "");
   return {
