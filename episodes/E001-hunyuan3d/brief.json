@@ -1,0 +1,31 @@
+{
+  "id": "E001",
+  "row": "R002",
+  "slug": "hunyuan3d",
+  "code": "001",
+  "series": "Free Range",
+  "series_code": "FR",
+  "composition": "FreeRange",
+  "mode": "Live specimen",
+  "tools": [
+    "Hunyuan3D"
+  ],
+  "tools_raw": "Hunyuan3D",
+  "pillar": "3D",
+  "phase": "1 Collect",
+  "draft_hook": "Tencent's free 3D generator vs my desk lamp.",
+  "the_test": "Photo of a desk lamp to mesh; inspect the thin arm",
+  "free_path": "Free: ~20 generations/day, open weights",
+  "free_path_note": "From the calendar; re-verify in research.md before filming.",
+  "affiliate_status": "No program known (Unpaid)",
+  "on_screen_label": "Unpaid",
+  "disclosure": "Unpaid",
+  "hashtags": [
+    "#3dmodeling",
+    "#ai3d",
+    "#3dprinting",
+    "#specimindlab"
+  ],
+  "hub_url": "https://specimindlab.github.io/001",
+  "capture": "auto-captured 2026-10-08 (Hugging Face Space, logged out)"
+}

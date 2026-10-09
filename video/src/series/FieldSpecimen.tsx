@@ -1,7 +1,8 @@
 import React from "react";
 import { z } from "zod";
 import { COLORS } from "../brand";
-import { BeforeAfter, Card, Drawer, drawerSize, InkMark, media, Media, Plate, PLATE_W, PLATE_X, ScaleBar } from "../system";
+import { BeforeAfter, Card, Drawer, drawerSize, InkMark, media, Media, Plate, PLATE_W, PLATE_X, PlateTag, ScaleBar } from "../system";
+import { CARD, LABEL } from "../vocab";
 import {
   Beat,
   beat,
@@ -85,7 +86,7 @@ const ConditionsBeat: React.FC<{ b: B<"conditions"> }> = ({ b }) => {
   const box = captionBox(b.lines);
   return (
     <>
-      <Card title="Collection conditions" rows={b.rows} y={CONTENT_TOP} maxHeight={box.contentBottom - CONTENT_TOP} />
+      <Card title={CARD.how} rows={b.rows} y={CONTENT_TOP} maxHeight={box.contentBottom - CONTENT_TOP} />
       <Caption lines={b.lines} />
     </>
   );
@@ -110,10 +111,12 @@ export const ObservationPlate: React.FC<{ input: z.input<typeof media>; result: 
         </div>
       </Plate>
       <InkMark shape="arrow" from={{ x: PLATE_X + 30 + inset.w + 18, y: y + h / 2 }} to={{ x: PLATE_X + resX - 14, y: y + h / 2 }} start={resultAt - 12} seed="obs-arrow" />
+      <PlateTag text={LABEL.input} x={PLATE_X + 40} y={y + h - 96} size={28} maxWidth={inset.w - 20} />
       <Sequencer at={resultAt}>
         <div style={{ position: "absolute", left: PLATE_X + resX, top: y + 20, width: resW, height: h - 40, overflow: "hidden" }}>
           <Media spec={result} width={resW} height={h - 40} />
         </div>
+        <PlateTag text={LABEL.output} x={PLATE_X + resX + 10} y={y + h - 96} size={28} maxWidth={resW - 20} tone="red" />
       </Sequencer>
     </>
   );
@@ -139,7 +142,7 @@ const NotesBeat: React.FC<{ b: B<"notes"> }> = ({ b }) => {
   const box = captionBox(b.lines);
   return (
     <>
-      <Card title="Field notes" rows={b.rows} y={CONTENT_TOP} maxHeight={box.contentBottom - CONTENT_TOP} mark={{ row: Math.min(b.flaw_row, b.rows.length - 1), start: 24 }} />
+      <Card title={CARD.facts} rows={b.rows} y={CONTENT_TOP} maxHeight={box.contentBottom - CONTENT_TOP} mark={{ row: Math.min(b.flaw_row, b.rows.length - 1), start: 24 }} />
       <Caption lines={b.lines} />
     </>
   );

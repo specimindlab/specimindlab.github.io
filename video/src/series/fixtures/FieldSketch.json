@@ -39,11 +39,11 @@
       ],
       "rows": [
         {
-          "key": "Habitat",
+          "key": "Works in",
           "value": "Web app"
         },
         {
-          "key": "Feeds on",
+          "key": "You give it",
           "value": "Image, text"
         },
         {
@@ -61,7 +61,7 @@
       ],
       "rows": [
         {
-          "key": "Paid from",
+          "key": "Paid",
           "value": "Not published"
         },
         {

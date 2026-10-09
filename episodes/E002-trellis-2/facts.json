@@ -1,0 +1,172 @@
+{
+  "tool": "TRELLIS 2",
+  "version": "TRELLIS.2-4B (official Hugging Face Space microsoft/TRELLIS.2, logged out)",
+  "genus": "Turns a picture into a 3D model",
+  "homepage": "https://huggingface.co/spaces/microsoft/TRELLIS.2",
+  "habitat": [
+    "Browser (Hugging Face Space)",
+    "Open weights (MIT)"
+  ],
+  "feeds_on": [
+    "One image (alpha-masked preferred)"
+  ],
+  "free_tier": "1 try a day without an account; downloading the 3D file needs more",
+  "paid_from": "$9 a month (Hugging Face's paid plan)",
+  "licence_note": "MIT licence for the model and code; some rendering dependencies have their own licences.",
+  "launched": "2025-12-01",
+  "launched_note": "Weights published 1 Dec 2025; Space 10 Dec 2025; paper 16 Dec 2025.",
+  "tested_on": "2026-10-09",
+  "plan": "Free, logged out (no account, no token)",
+  "attempts": 1,
+  "auto_captured": true,
+  "test": "One creature concept drawing (licensed, background keyed out) to 3D on the official Space, Space defaults, one attempt; then Extract GLB.",
+  "conditions": [
+    {
+      "key": "What we gave it",
+      "value": "1 cartoon dragon drawing (free from Unsplash), with its background cut out"
+    },
+    {
+      "key": "Why cut out",
+      "value": "The demo's own background remover was refusing visitors without an account; the demo asks for a cut-out anyway"
+    },
+    {
+      "key": "Where",
+      "value": "TRELLIS 2's official free demo page, in a web browser"
+    },
+    {
+      "key": "Account",
+      "value": "None"
+    },
+    {
+      "key": "Tries",
+      "value": "1, no retries (the demo was busy 23 times before it let us in)"
+    },
+    {
+      "key": "Settings",
+      "value": "Left as they were"
+    },
+    {
+      "key": "Edited afterwards",
+      "value": "No"
+    },
+    {
+      "key": "Time to make it",
+      "value": "41 seconds"
+    },
+    {
+      "key": "Download",
+      "value": "Refused: the preview used up the free daily allowance"
+    },
+    {
+      "key": "Recorded by",
+      "value": "Us, running the demo page automatically"
+    }
+  ],
+  "runs": [
+    {
+      "input": "raw/input/dragon-concept-alpha.png",
+      "result": "raw/auto/views/ (6 render modes x 8 angles, the Space's own preview)",
+      "seconds_to_result": 40.7,
+      "queue_seconds": null,
+      "seed": 324847287,
+      "observed": "One coherent creature: both wings, horns, claws and the tail curve kept. Seen side-on, the tail is a broad flat paddle."
+    }
+  ],
+  "glb_attempt": {
+    "api": "/extract_glb",
+    "ok": false,
+    "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left)",
+    "log": "raw/auto/dragon-concept-alpha.run.json"
+  },
+  "seconds_to_result": 41,
+  "seconds_to_result_note": "Wall clock from submitting Generate to the preview arriving (40.7 s), measured by scripts/auto_capture_trellis2.py; the status stream showed no separate queue phase, so queue time is not subtracted.",
+  "flaw": {
+    "text": "Tail flat as a paddle",
+    "region": "views/clay-7.jpg (side view), lower left",
+    "detail": "Seen side-on, a view the drawing never showed, the tail is a broad flat paddle instead of a round tail."
+  },
+  "flaw_source": "observed",
+  "verdict": "Captured",
+  "verdict_reason": "One flat cartoon drawing became a full 3D dragon in 41 seconds, free and with no account, with the wings, horns and claws kept. Seen from the side, the tail is flat like a paddle, and without an account you can look at the model but not download it.",
+  "score": {
+    "total": 72,
+    "parts": [
+      {
+        "key": "Quality",
+        "value": 35,
+        "max": 50
+      },
+      {
+        "key": "Speed",
+        "value": 12,
+        "max": 15
+      },
+      {
+        "key": "Free plan",
+        "value": 15,
+        "max": 25
+      },
+      {
+        "key": "Price",
+        "value": 10,
+        "max": 10
+      }
+    ],
+    "result_runs": [
+      {
+        "run": "dragon-concept",
+        "value": 35,
+        "deductions": [
+          "wrong silhouette side-on (flat paddle tail) -15"
+        ]
+      }
+    ],
+    "free_tier_parts": {
+      "access": "no login 5",
+      "volume": "1 generation a day logged out 4",
+      "completeness": "GLB export locked behind more quota 6"
+    },
+    "rubric": "data/score.md v1"
+  },
+  "use_for": "Turning sketches into 3D drafts",
+  "skip_if": "You need to download it",
+  "lesson": "Give it a clean cut-out of your drawing, and expect to fix the sides the drawing never showed.",
+  "sources": [
+    {
+      "url": "https://github.com/microsoft/TRELLIS.2",
+      "label": "TRELLIS.2 on GitHub (features, H100 timings, MIT licence)",
+      "accessed": "2026-10-09"
+    },
+    {
+      "url": "https://huggingface.co/spaces/microsoft/TRELLIS.2",
+      "label": "Official Hugging Face Space",
+      "accessed": "2026-10-09"
+    },
+    {
+      "url": "https://huggingface.co/spaces/microsoft/TRELLIS.2/raw/main/app.py",
+      "label": "Space code (120 GPU s per Generate and per GLB)",
+      "accessed": "2026-10-09"
+    },
+    {
+      "url": "https://huggingface.co/microsoft/TRELLIS.2-4B",
+      "label": "Model card (known limitations)",
+      "accessed": "2026-10-09"
+    },
+    {
+      "url": "https://arxiv.org/abs/2512.14692",
+      "label": "Paper, 16 Dec 2025",
+      "accessed": "2026-10-09"
+    },
+    {
+      "url": "https://huggingface.co/docs/hub/en/spaces-zerogpu",
+      "label": "Hugging Face ZeroGPU quotas",
+      "accessed": "2026-10-09"
+    },
+    {
+      "url": "https://huggingface.co/pricing",
+      "label": "Hugging Face PRO, $9 a month",
+      "accessed": "2026-10-08"
+    }
+  ],
+  "credits": "Input drawing: void (@voidhve) on Unsplash (Unsplash License)."
+}

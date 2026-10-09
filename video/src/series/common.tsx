@@ -1,10 +1,13 @@
 import React, { createContext, useContext } from "react";
 import { AbsoluteFill, Sequence } from "remotion";
 import { z } from "zod";
-import { BANDS, FPS, SAFE } from "../brand";
+import { BANDS, COLORS, FPS, SAFE } from "../brand";
+import { CHAPTER } from "../vocab";
 import {
+  AXES,
   catalogSchema,
   EpisodeAssets,
+  Line,
   FitStack,
   FontGate,
   layoutStack,
@@ -23,11 +26,11 @@ export type Platform = z.infer<typeof platform>;
 
 const words = (s: string) => s.trim().split(/\s+/).filter(Boolean).length;
 
-/** A caption line: 1-6 words (CLAUDE.md signature; one-word lines are the punchlines). */
+/** A caption line: 1-7 words (prompts/voice.md v3: plain sentences, still fitted edge to edge). */
 export const captionLine = z
   .string()
   .min(1)
-  .refine((s) => words(s) >= 1 && words(s) <= 6, { message: "caption lines carry 1-6 words" });
+  .refine((s) => words(s) >= 1 && words(s) <= 7, { message: "caption lines carry 1-7 words" });
 /** 1-3 lines per beat. */
 export const caption = z.array(captionLine).min(1).max(3);
 
@@ -42,8 +45,9 @@ export const beatSeconds = z
   .max(26) // Drawer roll call runs to 24 s
   .refine((s) => Math.abs(s * 2 - Math.round(s * 2)) < 1e-9, { message: "beat seconds must be a multiple of 0.5 (120 bpm grid)" });
 
+/** Every beat may override its chapter label ("" hides it); see vocab.ts CHAPTER for the defaults. */
 export const beat = <T extends string, S extends z.ZodRawShape>(type: T, shape: S) =>
-  z.object({ type: z.literal(type), seconds: beatSeconds, ...shape });
+  z.object({ type: z.literal(type), seconds: beatSeconds, kicker: z.string().max(40).optional(), ...shape });
 
 export const header = {
   id: z.string().regex(/^E\d{3}$/),
@@ -61,10 +65,10 @@ export const header = {
   cta: z.object({ yt: z.string().min(1), ig: z.string().min(1), x: z.string().min(1) }),
 };
 
-// 18-40 s is the hard range; the target is 20-30 s (prompts/voice.md: Shorts and Reels complete
-// best around 15-30 s).
+// 18-60 s is the hard range; the target is 35-55 s (prompts/voice.md v3: long enough to explain
+// what the tool is, what we did, what happened and whether to use it, in plain words).
 export const MIN_SECONDS = 18;
-export const MAX_SECONDS = 40;
+export const MAX_SECONDS = 60;
 
 type Beatish = { type: string; seconds: number };
 
@@ -148,29 +152,44 @@ export const ctaLines = (text: string): string[] => {
 
 export const CAPTION_MAX = 600;
 
-/** Caption layout + the y where content above it must stop. */
+/** Room kept above every caption for its chapter label ("The test", "The catch" ...). */
+export const KICKER_H = 64;
+
+/** Caption layout + the y where content above it must stop (the chapter label's room included). */
 export const captionBox = (lines: string[], maxHeight = CAPTION_MAX, bottom: number = BANDS.captionBottom) => {
   const layout: StackLayout = layoutStack(lines, { maxHeight });
   const top = bottom - layout.height;
-  return { layout, top, contentBottom: top - BANDS.gap, bottom };
+  return { layout, top, contentBottom: top - BANDS.gap - KICKER_H, bottom };
 };
 
 export const CONTENT_TOP = 430;
 
 /** Which beat is rendering (0 = the first frame of the video). */
 export const BeatIndex = createContext(-1);
+/** The rendering beat's type and chapter-label override. */
+export const BeatInfo = createContext<{ type: string; kicker?: string }>({ type: "" });
 
-export const Caption: React.FC<{ lines: string[]; at?: number; maxHeight?: number; bottom?: number }> = ({
+export const Caption: React.FC<{ lines: string[]; at?: number; maxHeight?: number; bottom?: number; kicker?: string }> = ({
   lines,
   at = 0,
   maxHeight = CAPTION_MAX,
   bottom = BANDS.captionBottom,
+  kicker: kickerProp,
 }) => {
   const box = captionBox(lines, maxHeight, bottom);
   // The first frame decides the swipe (prompts/voice.md): the hook's lines are all there on frame 0,
   // no cut-in, no pop. Later beats cut in line by line on the beat.
-  const first = useContext(BeatIndex) === 0;
-  return <FitStack lines={lines} layout={box.layout} y={bottom} anchor="bottom" start={first ? -60 : at} pop={!first} x={SAFE.left} />;
+  const index = useContext(BeatIndex);
+  const info = useContext(BeatInfo);
+  const first = index === 0;
+  // Chapter label: plain words above the caption, so anyone looking up mid-video knows where they are.
+  const kicker = bottom !== BANDS.captionBottom ? "" : kickerProp ?? info.kicker ?? (first ? "" : CHAPTER[info.type] ?? "");
+  return (
+    <>
+      {kicker ? <Line text={kicker} x={SAFE.left} baseline={box.top - 26} maxWidth={SAFE.right - SAFE.left} size={42} axes={AXES.title} color={COLORS.red} /> : null}
+      <FitStack lines={lines} layout={box.layout} y={bottom} anchor="bottom" start={first ? -60 : at} pop={!first} x={SAFE.left} />
+    </>
+  );
 };
 
 // ---- frame scaffold ----------------------------------------------------------------------------
@@ -229,10 +248,12 @@ export const framed = <P extends { script: HeaderScript }>(Body: React.FC<P>, op
 };
 
 /** A beat's sequence. Children see frames relative to the beat start. */
-export const Beat: React.FC<{ t: { from: number; dur: number; type: string; index: number }; children: React.ReactNode }> = ({ t, children }) => (
+export const Beat: React.FC<{ t: { from: number; dur: number; type: string; index: number; kicker?: string }; children: React.ReactNode }> = ({ t, children }) => (
   <Sequence from={t.from} durationInFrames={t.dur} name={`${t.index + 1} ${t.type}`}>
     <BeatIndex.Provider value={t.index}>
-      <AbsoluteFill>{children}</AbsoluteFill>
+      <BeatInfo.Provider value={{ type: t.type, kicker: t.kicker }}>
+        <AbsoluteFill>{children}</AbsoluteFill>
+      </BeatInfo.Provider>
     </BeatIndex.Provider>
   </Sequence>
 );

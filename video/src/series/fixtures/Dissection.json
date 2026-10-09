@@ -76,7 +76,7 @@
       "type": "observation",
       "seconds": 4,
       "lines": [
-        "Photo to mesh:",
+        "Photo to 3D:",
         "38 seconds."
       ]
     },
@@ -92,7 +92,7 @@
       "type": "flaw",
       "seconds": 3.5,
       "lines": [
-        "Weakest link:",
+        "The catch:",
         "the fused handle."
       ],
       "stage": 1,

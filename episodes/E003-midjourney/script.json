@@ -1,0 +1,102 @@
+{
+  "id": "E003",
+  "code": "003",
+  "composition": "FieldSketch",
+  "series": "Field Sketch",
+  "mode": "Field sketch",
+  "disclosure": "Unpaid",
+  "tool": "Midjourney",
+  "genus": "Makes images from your words",
+  "groove": 4,
+  "music": "music.wav",
+  "cta": {
+    "yt": "Tap our name\nfor the price breakdown.",
+    "ig": "Comment 003\nfor the price breakdown.",
+    "x": "Price breakdown in\nthe first reply."
+  },
+  "cover": {
+    "lines": [
+      "Midjourney: $10 to start,",
+      "$60 to keep it private."
+    ]
+  },
+  "beats": [
+    {
+      "type": "sketch",
+      "seconds": 4.5,
+      "lines": [
+        "Midjourney: $10 to start,",
+        "$60 to keep it private."
+      ],
+      "inputs": [
+        "Your words",
+        "Up to 4 pictures"
+      ],
+      "process": "Midjourney",
+      "outputs": [
+        "4 images",
+        "Short videos"
+      ]
+    },
+    {
+      "type": "notes",
+      "seconds": 7.5,
+      "lines": [
+        "No free plan, so we",
+        "didn't test it."
+      ],
+      "rows": [
+        {
+          "key": "Works in",
+          "value": "Browser, Discord"
+        },
+        {
+          "key": "Latest",
+          "value": "V8.2 (July 2026)"
+        },
+        {
+          "key": "Free plan",
+          "value": "None"
+        }
+      ]
+    },
+    {
+      "type": "price-math",
+      "seconds": 7,
+      "lines": [
+        "What $10 buys."
+      ],
+      "rows": [
+        {
+          "key": "Cheapest plan",
+          "value": "$10 a month"
+        },
+        {
+          "key": "You get",
+          "value": "About 800 images"
+        }
+      ],
+      "result": {
+        "key": "Each image",
+        "value": "About 1.3 cents"
+      }
+    },
+    {
+      "type": "flaw",
+      "seconds": 4.5,
+      "lines": [
+        "Everyone can see",
+        "your images."
+      ],
+      "text": "Public unless you pay $60",
+      "source": "docs.midjourney.com",
+      "flaw_source": "research"
+    },
+    {
+      "type": "verdict",
+      "seconds": 7,
+      "use_for": "Mood boards you don't mind sharing",
+      "skip_if": "Client work that must stay private"
+    }
+  ]
+}

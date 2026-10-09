@@ -22,7 +22,7 @@ export const ScoreCard: React.FC<{ total: number; parts: ScorePart[]; y: number;
   x = 70,
   w = 860,
   start = 0,
-  label = "SPECIMIND Score",
+  label = "SPECIMIND score",
 }) => {
   const frame = useCurrentFrame() - start;
   if (frame < 0) return null;

@@ -1,0 +1,33 @@
+{
+  "id": "E004",
+  "row": "R013",
+  "slug": "roundup-1",
+  "code": "W01",
+  "series": "The Drawer",
+  "series_code": "DR",
+  "composition": "Drawer",
+  "mode": "Built from the week's renders",
+  "tools": [
+    "Hunyuan3D",
+    "TRELLIS 2",
+    "Midjourney"
+  ],
+  "tools_raw": "Hunyuan3D, TRELLIS 2, Midjourney",
+  "pillar": "All",
+  "phase": "1 Collect",
+  "draft_hook": "Week 1: every specimen we pinned.",
+  "the_test": "Recap each label + verdict in 30 s; end on next week's teaser",
+  "free_path": "No tool use",
+  "free_path_note": "From the calendar; re-verify in research.md before filming.",
+  "affiliate_status": "n/a",
+  "on_screen_label": "Unpaid",
+  "disclosure": "Unpaid",
+  "hashtags": [
+    "#aitools",
+    "#weeklyrecap",
+    "#specimindlab"
+  ],
+  "hub_url": "https://specimindlab.github.io/W01",
+  "capture": "not needed (built from data/catalog.json)",
+  "title": "Roundup #1: our first 3 tests, ranked"
+}

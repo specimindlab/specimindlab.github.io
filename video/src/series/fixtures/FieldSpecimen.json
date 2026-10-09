@@ -45,7 +45,7 @@
         },
         {
           "key": "Plan",
-          "value": "Free tier"
+          "value": "Free plan"
         },
         {
           "key": "Attempts",
@@ -66,7 +66,7 @@
       "seconds": 6,
       "lines": [
         "Watch the handle.",
-        "Confidence: high."
+        "It kept the shape."
       ],
       "input": {
         "kind": "image",
@@ -82,32 +82,32 @@
       "type": "notes",
       "seconds": 4.5,
       "lines": [
-        "Honest flaw:",
+        "The catch:",
         "the handle fused."
       ],
       "rows": [
         {
-          "key": "Habitat",
+          "key": "Works in",
           "value": "Browser"
         },
         {
-          "key": "Feeds on",
+          "key": "You give it",
           "value": "Photo, text, sketch"
         },
         {
-          "key": "Free tier",
+          "key": "Free plan",
           "value": "200 credits a month"
         },
         {
-          "key": "Paid from",
+          "key": "Paid",
           "value": "Not published"
         },
         {
-          "key": "Best for",
+          "key": "Good for",
           "value": "Toys, props, prints"
         },
         {
-          "key": "Weakness",
+          "key": "The catch",
           "value": "Thin parts fuse"
         }
       ],
@@ -132,7 +132,7 @@
           "max": 15
         },
         {
-          "key": "Free tier",
+          "key": "Free plan",
           "value": 16,
           "max": 25
         },

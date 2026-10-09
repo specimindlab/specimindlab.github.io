@@ -42,9 +42,9 @@
     const filtering = Boolean(text || pillar || verdict);
     for (const e of empties) e.hidden = filtering;
     for (const d of drawers) d.hidden = filtering && !d.querySelector("[data-code]:not([hidden])");
-    if (code && !known.has(code)) status.textContent = `Nº ${code} is not in the drawer yet.`;
-    else if (code) status.textContent = `Nº ${code} is in the drawer. Press Enter to open it.`;
-    else if (filtering) status.textContent = `${shown} of ${total} specimens match.`;
+    if (code && !known.has(code)) status.textContent = `#${code} isn't here yet.`;
+    else if (code) status.textContent = `#${code} is here. Press Enter to open it.`;
+    else if (filtering) status.textContent = `${shown} of ${total} tests match.`;
     else status.textContent = "";
     const p = new URLSearchParams();
     if (q.value.trim()) p.set("q", q.value.trim());

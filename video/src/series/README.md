@@ -10,6 +10,14 @@ other (CLAUDE.md: never reuse one series' structure for another). Working exampl
 copy of `Drawer` that reads `fixtures/catalog.fixture.json`; the real `Drawer` always reads
 `data/catalog.json` and fails loudly if a code is missing.
 
+v4 (plain words): every beat may carry `kicker` (its chapter label above the caption; defaults by beat
+type in `video/src/vocab.ts`, "" hides it). Free Range and Rare Sighting take an optional `intro` beat
+(`series/intro.tsx`: `lines` + `media` | `before`+`media` | `items[2-3]` of `{media, label}`), used for
+"What it is" and, with kicker "How we tested", the inputs. Free Range observations take `input` (an
+inset of the photo the result came from). Rare Sighting notes take 2-3 rows and, with `flaw_media`,
+`lines2` (act 1 "The price", act 2 "The catch"). Field Sketch verdicts take `use_for` / `skip_if`.
+Totals run 18-60 s (target 35-55). Captions: 1-7 words a line.
+
 Common fields (every series): `id` (E###), `code`, `composition`, `series`, `mode`
 ("Live specimen" | "Field sketch"), `disclosure` ("Affiliate" | "Unpaid"), `tool`, `genus`,
 `music` ("music.wav", composed by `scripts/make_music.py`) and `groove` (1-6, never the previous

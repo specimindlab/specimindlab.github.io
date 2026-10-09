@@ -5,6 +5,7 @@ import { COLORS } from "../brand";
 import { CATALOG, CatalogEntry, Drawer, drawerSize, PinnedTag, Plate, Sfx, Stamp, AXES, Line, useAsset } from "../system";
 import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, framed, seriesProps, seriesScript, timeline } from "./common";
 import { ctaBox, CtaCaption } from "./endcard";
+import { CARD, LABEL, tagText, VERDICT_WORD } from "../vocab";
 
 // 8. The Drawer (DR): the Sunday recap, built only from data/catalog.json. The drawer slides open
 // -> roll call: each label lights up, its verdict mini-stamp lands and its flaw note appears ->
@@ -54,7 +55,7 @@ const DrawerSeriesBody: React.FC<DrawerSeriesProps> = ({ script, platform, catal
   return (
     <>
       <ShutClip total={total} y={dy - 50} h={ds.height + 60}>
-        <Drawer highlight="" codes={script.codes} cols={5} rows={rows} x={dx} y={dy} start={script.covers ? (t[0]?.dur ?? 0) : -30} catalog={catalog} lit={litAt} heading={`Week ${script.week}`} />
+        <Drawer highlight="" codes={script.codes} cols={5} rows={rows} x={dx} y={dy} start={script.covers ? (t[0]?.dur ?? 0) : -30} catalog={catalog} lit={litAt} heading={`Roundup #${script.week}`} />
       </ShutClip>
       {t.map((b) => (
         <Beat key={b.index} t={b}>
@@ -94,7 +95,7 @@ export const CoverRow: React.FC<{ entries: CatalogEntry[]; top: number; bottom: 
     <>
       {entries.map((e, i) => {
         const x = x0 + i * (w + gap);
-        const tag = e.score ? `${e.score.total}` : e.verdict;
+        const tag = e.score ? `${e.score.total}` : VERDICT_WORD[e.verdict] ?? e.verdict;
         return (
           <React.Fragment key={e.code}>
             <Plate x={x} y={top} w={w} h={(w * 16) / 9} crosses={false} border={3}>
@@ -130,17 +131,17 @@ const RollCall: React.FC<{ entries: CatalogEntry[]; per: number; top: number; co
           <Img src={asset(`covers/${e.code}.png`)} style={{ width: cw, height: (cw * 16) / 9, display: "block" }} />
         </Plate>
       ) : null}
-      <Line text={`Nº${e.code}`} x={tx} baseline={top + 50} maxWidth={tw} size={46} axes={AXES.digits} color={COLORS.steel} />
+      <Line text={tagText(e.code)} x={tx} baseline={top + 50} maxWidth={tw} size={46} axes={AXES.digits} color={COLORS.steel} />
       <Line text={e.tool} x={tx} baseline={top + 140} maxWidth={tw} size={80} axes={AXES.tool} />
       {e.score ? (
         <Line text={`${e.score.total}/100`} x={tx} baseline={top + 300} maxWidth={tw} size={130} axes={AXES.digits} color={COLORS.red} />
       ) : (
-        <Line text="No score: not hands-on" x={tx} baseline={top + 260} maxWidth={tw} size={40} axes={AXES.key} color={COLORS.steel} />
+        <Line text={LABEL.noScore} x={tx} baseline={top + 260} maxWidth={tw} size={40} axes={AXES.key} color={COLORS.steel} />
       )}
       <Stamp key={e.code} word={e.verdict} x={covers ? sx : 300} y={top + 430} width={Math.min(440, tw - 20)} start={local + 4} />
       {frame >= local + 12 && e.flaw ? (
         <>
-          <Line text="Flaw" x={tx} baseline={top + 570} maxWidth={tw} size={30} axes={AXES.key} color={COLORS.steel} />
+          <Line text={CARD.catch} x={tx} baseline={top + 570} maxWidth={tw} size={30} axes={AXES.key} color={COLORS.steel} />
           <Line text={e.flaw} x={tx} baseline={top + 626} maxWidth={tw} size={46} axes={AXES.note} color={COLORS.red} />
         </>
       ) : null}
@@ -158,7 +159,7 @@ const Tally: React.FC<{ entries: CatalogEntry[]; y: number }> = ({ entries, y })
         return (
           <React.Fragment key={v}>
             <Line text={String(n)} x={cx} baseline={y + 120} maxWidth={colW - 20} size={140} axes={AXES.digits} color={v === "Captured" ? COLORS.red : COLORS.ink} />
-            <Line text={v} x={cx} baseline={y + 166} maxWidth={colW - 20} size={32} axes={AXES.tool} />
+            <Line text={VERDICT_WORD[v] ?? v} x={cx} baseline={y + 166} maxWidth={colW - 20} size={32} axes={AXES.tool} />
           </React.Fragment>
         );
       })}
@@ -174,7 +175,7 @@ const Teaser: React.FC<{ y: number }> = ({ y }) => (
     <svg width={1} height={1} style={{ position: "absolute", left: 0, top: 0, overflow: "visible" }}>
       <rect x={420} y={y - 20} width={190} height={200} fill={COLORS.label} stroke={COLORS.ink} strokeWidth={3} transform={`rotate(6 515 ${y + 80})`} />
     </svg>
-    <Line text="Next week" x={430} baseline={y + 96} maxWidth={170} size={34} axes={AXES.tool} />
+    <Line text={LABEL.nextUp} x={430} baseline={y + 96} maxWidth={170} size={34} axes={AXES.tool} />
   </>
 );
 

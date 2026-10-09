@@ -1,99 +1,68 @@
 {
-  "batch": "batch-2026-10-09",
-  "status": "complete",
+  "batch": "batch-2026-10-19",
+  "status": "rendering",
   "started": "2026-10-09",
   "updated": "2026-10-09",
-  "requested": 3,
+  "requested": 4,
+  "note": "v4 re-release (plain words, chapter labels, new music, release-order numbers, zip-only release). Replaces batch-2026-10-08 and batch-2026-10-09. Rows waiting for a capture live in captures/ and data/needs-capture.md; they get the next free E### when made.",
   "episodes": [
     {
-      "id": "E003",
-      "folder": "episodes/E003-trellis-2",
+      "id": "E001",
+      "row": "R002",
+      "folder": "episodes/E001-hunyuan3d",
+      "mode": "Live specimen",
+      "step": "ready",
+      "code": "001",
+      "tool": "Hunyuan3D",
+      "verdict": "Captured",
+      "score": 71,
+      "post_at": "2026-10-19 06:30 IST"
+    },
+    {
+      "id": "E002",
+      "row": "R003",
+      "folder": "episodes/E002-trellis-2",
       "mode": "Live specimen (auto-captured)",
       "step": "ready",
-      "code": "003",
+      "code": "002",
       "tool": "TRELLIS 2",
       "verdict": "Captured",
       "score": 72,
-      "post_at": "2026-10-19 18:30 IST",
-      "commit": "3a0f327"
+      "post_at": "2026-10-19 18:30 IST"
     },
     {
-      "id": "E006",
-      "folder": "episodes/E006-midjourney",
+      "id": "E003",
+      "row": "R006",
+      "folder": "episodes/E003-midjourney",
       "mode": "Field sketch",
       "step": "ready",
-      "code": "006",
+      "code": "003",
       "tool": "Midjourney",
       "verdict": "Watch",
-      "post_at": "2026-10-20 06:30 IST",
-      "commit": "3bb6aea"
+      "post_at": "2026-10-20 06:30 IST"
     },
     {
-      "id": "E013",
-      "folder": "episodes/E013-the-drawer",
+      "id": "E004",
+      "row": "R013",
+      "folder": "episodes/E004-roundup-1",
       "mode": "The Drawer (built from catalog)",
       "step": "ready",
       "code": "W01",
-      "tool": "Week 1",
+      "tool": "Roundup #1",
       "verdict": null,
-      "post_at": "2026-10-20 18:30 IST",
-      "commit": "c095435"
+      "post_at": "2026-10-20 18:30 IST"
     }
   ],
-  "skipped": [
-    {
-      "id": "E004",
-      "reason": "needs capture (commercial, login required, raw/ empty)"
-    },
-    {
-      "id": "E005",
-      "reason": "needs capture (commercial, login required, raw/ empty)"
-    },
-    {
-      "id": "E007",
-      "reason": "needs capture (commercial, login required, raw/ empty)"
-    },
-    {
-      "id": "E008",
-      "reason": "needs capture (commercial, login required, raw/ empty)"
-    },
-    {
-      "id": "E009",
-      "reason": "needs capture (commercial, login required, raw/ empty)"
-    },
-    {
-      "id": "E010",
-      "reason": "needs capture (commercial, login required, raw/ empty)"
-    },
-    {
-      "id": "E011",
-      "reason": "needs capture (commercial, login required, raw/ empty)"
-    },
-    {
-      "id": "E012",
-      "reason": "needs capture (commercial, login required, raw/ empty)"
-    }
+  "waiting_for_capture": [
+    "R001 Tripo",
+    "R004 Kling 3.0",
+    "R005 Tripo vs Meshy vs Hunyuan3D",
+    "R007 ElevenLabs",
+    "R008 Photoroom",
+    "R009 Tripo",
+    "R010 Hitem3D",
+    "R011 Gamma",
+    "R012 Gemini image"
   ],
-  "selection_note": "3 videos requested. Field sketches capped at 40% (1 of 3): E006 taken, E014 passed over; E013 The Drawer taken per the batch rules.",
-  "render_runs": [
-    {
-      "run_id": 37935641635,
-      "conclusion": "success",
-      "note": "first run; E003/E006/E013 -yt/-ig/-x.mp4",
-      "url": "https://github.com/specimindlab/specimindlab.github.io/actions/runs/37935641635"
-    }
-  ],
-  "notes": "Episode entry: {id, folder, mode, step, verdict, commit}. TRELLIS.2: 23 anonymous quota refusals 09:30-12:44 UTC (shared egress), the run went through at 12:49 UTC; refusals in episodes/E003-trellis-2/raw/auto/refusals.json.",
-  "batch_file": "data/batches/batch-2026-10-09.json",
-  "release": "https://github.com/specimindlab/specimindlab.github.io/releases/tag/batch-2026-10-09",
-  "checks": {
-    "pages": "success (run 37935641499)",
-    "hub_http_200": [
-      "/003/",
-      "/006/",
-      "/W01/",
-      "/best/3d/"
-    ],
-    "spot_check": "E003-ig.mp4: 1080x1920, 30 fps, 23.0 s, -14.1 LUFS, -1.9 dBFS peak"
-  }
+  "next_episode_id": "E005"
 }

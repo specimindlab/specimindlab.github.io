@@ -6,6 +6,7 @@ import { paperSlide, pinDrop, pinPush, PIN } from "./motion";
 import { rand } from "./noise";
 import { PinnedTag } from "./PinnedTag";
 import { Sfx } from "./Sfx";
+import { tagText } from "../vocab";
 
 // The specimen drawer (brand/vectors/vector-drawer.svg, storyboard-5): a grid of cells, each
 // specimen a small tag on a pin. Cells have fixed positions, like a real cabinet: specimen n
@@ -113,7 +114,7 @@ export const Drawer: React.FC<DrawerProps> = ({
               h={tagH}
               rotate={-6}
               tone="red"
-              text={code}
+              text={tagText(code)}
               headR={0.07 * tagW}
               dy={pinDrop(frame, drop, 60)}
               push={pinPush(frame, drop, 12)}
@@ -135,7 +136,7 @@ export const Drawer: React.FC<DrawerProps> = ({
             h={tagH}
             rotate={rand(`drawer-${code}`, -2.5, 2.5)}
             tone={tone}
-            text={code}
+            text={tagText(code)}
             headR={0.07 * tagW}
           />
         );

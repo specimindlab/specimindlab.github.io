@@ -14,8 +14,11 @@ import {
   Media,
   PinnedTag,
   Plate,
+  PlateTag,
   region,
 } from "../system";
+import { CARD, LABEL } from "../vocab";
+import { introBeat, IntroVisual } from "./intro";
 import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, row, framed, seriesProps, seriesScript, timeline } from "./common";
 import { decision, EndCard, scoreBeat, ScoreBeatView } from "./endcard";
 
@@ -35,9 +38,12 @@ const counter = beat("counter", {
   /** With `before` (the input), the hook shows before -> after. */
   before: media.optional(),
 });
+const intro = introBeat;
 const observation = beat("observation", {
   lines: caption,
   result: media,
+  /** The photo this result came from, shown as a small inset ("Photo") so each result has its input. */
+  input: media.optional(),
   seconds_to_result: z.number().positive(),
   /** Allowance spent after this generation (cumulative). */
   used_after: z.number().int().min(0),
@@ -56,9 +62,9 @@ const verdict = beat("verdict", { verdict: z.enum(["Captured", "Released"]), ...
 export const freeRangeScript = seriesScript(
   "FreeRange",
   {},
-  z.discriminatedUnion("type", [counter, observation, priceMath, flaw, scoreBeat, verdict]),
-  /^counter( observation| flaw)+ price-math( score)? verdict$/,
-  "counter, observation x2-3 with one flaw among them, price-math, score (optional), verdict",
+  z.discriminatedUnion("type", [counter, intro, observation, priceMath, flaw, scoreBeat, verdict]),
+  /^counter( intro){0,2}( observation| flaw)+ price-math( score)? verdict$/,
+  "counter, intro x0-2, observation x2-3 with one flaw among them, price-math, score (optional), verdict",
 ).superRefine((s, ctx) => {
   const types = s.beats.map((b) => b.type);
   const nObs = types.filter((t) => t === "observation").length;
@@ -90,7 +96,8 @@ const Hero: React.FC<{
   bottom: number;
   live?: boolean;
   flaw?: { region: z.infer<typeof region>; note: string };
-}> = ({ spec, tag, seconds, thumbs, y, bottom, live, flaw }) => {
+  input?: MediaSpec;
+}> = ({ spec, tag, seconds, thumbs, y, bottom, live, flaw, input }) => {
   const plateY = y + (tag ? 30 : 0);
   const below = flaw ? 100 : seconds !== undefined ? 64 : 0;
   const plateH = bottom - plateY - below;
@@ -100,8 +107,18 @@ const Hero: React.FC<{
       <Plate x={70} y={plateY} w={w} h={plateH} crosses={false}>
         <Media spec={spec} width={w} height={plateH} />
       </Plate>
+      {input ? (
+        // The photo this result came from, as an inset in the corner, so the pair reads at a glance.
+        <>
+          <Plate x={70 + w - Math.round(w * 0.3) - 16} y={plateY + 16} w={Math.round(w * 0.3)} h={Math.round(plateH * 0.36)} crosses={false} border={3}>
+            <Media spec={{ ...input, fit: "cover" }} width={Math.round(w * 0.3)} height={Math.round(plateH * 0.36)} />
+          </Plate>
+          <PlateTag text="Photo" x={70 + w - Math.round(w * 0.3) - 8} y={plateY + 24 + Math.round(plateH * 0.36) - 56} size={26} maxWidth={200} />
+        </>
+      ) : null}
+      {live && !flaw ? <PlateTag text={LABEL.output} x={82} y={plateY + plateH - 62} size={30} tone="red" /> : null}
       {tag ? <PinnedTag x={82} y={y} w={96} h={52} rotate={-4} tone={live ? "red" : "ink"} text={tag} textSpan={[0.18, 0.74]} headR={7} /> : null}
-      {seconds !== undefined ? <Line text={`${seconds} s to result`} x={70} baseline={plateY + plateH + 52} maxWidth={w} size={44} axes={AXES.digits} /> : null}
+      {seconds !== undefined ? <Line text={LABEL.seconds(seconds)} x={70} baseline={plateY + plateH + 52} maxWidth={w} size={44} axes={AXES.digits} /> : null}
       {flaw ? (
         <>
           <InkMark
@@ -165,7 +182,7 @@ const FreeRangeBody: React.FC<FreeRangeProps> = ({ script, platform }) => {
             {b.type === "observation" && box ? (
               <>
                 <CreditCounter total={ctr.total} used={b.used_after} prevUsed={i === 0 ? 0 : obs[i - 1].used_after} changeAt={8} unit={ctr.unit} period={ctr.period} y={CONTENT_TOP} compact />
-                <Hero spec={b.result} tag={`#${i + 1}`} seconds={b.seconds_to_result} thumbs={revealed.slice(0, i)} y={rowY} bottom={box.contentBottom} live />
+                <Hero spec={b.result} tag={`#${i + 1}`} seconds={b.seconds_to_result} thumbs={revealed.slice(0, i)} y={rowY} bottom={box.contentBottom} live input={b.input} />
                 <Caption lines={b.lines} maxHeight={420} />
               </>
             ) : null}
@@ -182,9 +199,15 @@ const FreeRangeBody: React.FC<FreeRangeProps> = ({ script, platform }) => {
                 <Caption lines={b.lines} maxHeight={420} />
               </>
             ) : null}
+            {b.type === "intro" && box ? (
+              <>
+                <IntroVisual b={b} y={CONTENT_TOP} bottom={box.contentBottom} />
+                <Caption lines={b.lines} maxHeight={420} />
+              </>
+            ) : null}
             {b.type === "price-math" && box ? (
               <>
-                <Card title="Price math" rows={[...b.rows, { ...b.result, emphasis: true }]} y={CONTENT_TOP} maxHeight={box.contentBottom - CONTENT_TOP} />
+                <Card title={CARD.price} rows={[...b.rows, { ...b.result, emphasis: true }]} y={CONTENT_TOP} maxHeight={box.contentBottom - CONTENT_TOP} />
                 <Caption lines={b.lines} maxHeight={420} />
               </>
             ) : null}

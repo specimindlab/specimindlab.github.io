@@ -71,15 +71,15 @@
       ],
       "rows": [
         {
-          "key": "Habitat",
+          "key": "Works in",
           "value": "Hugging Face Space"
         },
         {
-          "key": "Free tier",
+          "key": "Free plan",
           "value": "Free demo, queue"
         },
         {
-          "key": "Paid from",
+          "key": "Paid",
           "value": "Not published"
         }
       ],
@@ -104,7 +104,7 @@
           "max": 15
         },
         {
-          "key": "Free tier",
+          "key": "Free plan",
           "value": 16,
           "max": 25
         },

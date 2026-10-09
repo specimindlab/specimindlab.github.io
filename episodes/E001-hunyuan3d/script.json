@@ -1,0 +1,246 @@
+{
+  "id": "E001",
+  "code": "001",
+  "composition": "FreeRange",
+  "series": "Free Range",
+  "mode": "Live specimen",
+  "disclosure": "Unpaid",
+  "tool": "Hunyuan3D",
+  "genus": "Turns a photo into a 3D model",
+  "groove": 2,
+  "music": "music.wav",
+  "cta": {
+    "yt": "Tap our name\nfor the 3D ranking.",
+    "ig": "Comment 001\nfor the 3D ranking.",
+    "x": "3D ranking in\nthe first reply."
+  },
+  "cover": {
+    "before": {
+      "kind": "image",
+      "src": "raw/input/lamp-1-chrome.jpg"
+    },
+    "media": {
+      "kind": "glb",
+      "src": "raw/auto/lamp-1-chrome-out0.glb",
+      "clay": true
+    },
+    "lines": [
+      "Free AI turned this lamp",
+      "into 6 broken pieces."
+    ],
+    "angle": -20
+  },
+  "beats": [
+    {
+      "type": "counter",
+      "seconds": 3.5,
+      "lines": [
+        "Free AI turned this lamp",
+        "into 6 broken pieces."
+      ],
+      "total": 6,
+      "unit": "free tries",
+      "period": "a day, no account",
+      "media": {
+        "kind": "glb",
+        "src": "raw/auto/lamp-1-chrome-out0.glb",
+        "clay": true
+      },
+      "before": {
+        "kind": "image",
+        "src": "raw/input/lamp-1-chrome.jpg"
+      }
+    },
+    {
+      "type": "intro",
+      "seconds": 5,
+      "lines": [
+        "Hunyuan3D is a free AI",
+        "from Tencent. Photo in,",
+        "3D model out."
+      ],
+      "before": {
+        "kind": "image",
+        "src": "raw/input/lamp-3-orange.jpg"
+      },
+      "media": {
+        "kind": "glb",
+        "src": "raw/auto/lamp-3-orange-out0.glb",
+        "clay": true
+      }
+    },
+    {
+      "type": "intro",
+      "seconds": 4.5,
+      "kicker": "How we tested",
+      "lines": [
+        "We gave it 3 lamp photos.",
+        "One try each. No account."
+      ],
+      "items": [
+        {
+          "media": {
+            "kind": "image",
+            "src": "raw/input/lamp-1-chrome.jpg"
+          },
+          "label": "Shiny metal"
+        },
+        {
+          "media": {
+            "kind": "image",
+            "src": "raw/input/lamp-2-grey.jpg",
+            "crop": {
+              "x": 0.0,
+              "y": 0.1,
+              "w": 0.5,
+              "h": 0.9
+            }
+          },
+          "label": "Grey"
+        },
+        {
+          "media": {
+            "kind": "image",
+            "src": "raw/input/lamp-3-orange.jpg"
+          },
+          "label": "Orange"
+        }
+      ]
+    },
+    {
+      "type": "observation",
+      "seconds": 3.5,
+      "lines": [
+        "Lamp 1, the shiny one."
+      ],
+      "result": {
+        "kind": "glb",
+        "src": "raw/auto/lamp-1-chrome-out0.glb",
+        "clay": true
+      },
+      "input": {
+        "kind": "image",
+        "src": "raw/input/lamp-1-chrome.jpg"
+      },
+      "seconds_to_result": 21,
+      "used_after": 1
+    },
+    {
+      "type": "flaw",
+      "seconds": 4.5,
+      "lines": [
+        "Shiny metal confused it.",
+        "The lamp fell apart."
+      ],
+      "result_index": 0,
+      "result": {
+        "kind": "glb",
+        "src": "raw/auto/lamp-1-chrome-out0.glb",
+        "clay": true
+      },
+      "region": {
+        "x": 0.06,
+        "y": 0.1,
+        "w": 0.88,
+        "h": 0.8
+      },
+      "note": "6 loose pieces, no lamp"
+    },
+    {
+      "type": "observation",
+      "seconds": 3.5,
+      "lines": [
+        "Lamp 2 worked, but it",
+        "kept the table too."
+      ],
+      "result": {
+        "kind": "glb",
+        "src": "raw/auto/lamp-2-grey-out0.glb",
+        "clay": true
+      },
+      "input": {
+        "kind": "image",
+        "src": "raw/input/lamp-2-grey.jpg"
+      },
+      "seconds_to_result": 18,
+      "used_after": 2
+    },
+    {
+      "type": "observation",
+      "seconds": 3.5,
+      "lines": [
+        "Lamp 3: clean, in one piece."
+      ],
+      "result": {
+        "kind": "glb",
+        "src": "raw/auto/lamp-3-orange-out0.glb",
+        "clay": true
+      },
+      "input": {
+        "kind": "image",
+        "src": "raw/input/lamp-3-orange.jpg"
+      },
+      "seconds_to_result": 22,
+      "used_after": 3
+    },
+    {
+      "type": "price-math",
+      "seconds": 6.5,
+      "lines": [
+        "Grey shapes: free."
+      ],
+      "rows": [
+        {
+          "key": "Free",
+          "value": "About 6 a day"
+        },
+        {
+          "key": "Colours",
+          "value": "Need an account"
+        }
+      ],
+      "result": {
+        "key": "Paid",
+        "value": "$9 a month"
+      }
+    },
+    {
+      "type": "score",
+      "seconds": 4,
+      "lines": [
+        "71 out of 100.",
+        "Good, not great."
+      ],
+      "total": 71,
+      "parts": [
+        {
+          "key": "Quality",
+          "value": 28,
+          "max": 50
+        },
+        {
+          "key": "Speed",
+          "value": 15,
+          "max": 15
+        },
+        {
+          "key": "Free plan",
+          "value": 18,
+          "max": 25
+        },
+        {
+          "key": "Price",
+          "value": 10,
+          "max": 10
+        }
+      ]
+    },
+    {
+      "type": "verdict",
+      "seconds": 6.5,
+      "verdict": "Captured",
+      "use_for": "Quick 3D shapes of matte things",
+      "skip_if": "It's shiny or metal"
+    }
+  ]
+}

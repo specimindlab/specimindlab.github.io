@@ -125,14 +125,13 @@ if [ "${NO_RELEASE:-0}" = "1" ]; then
   echo "NO_RELEASE=1: skipping the GitHub Release. Package: $ZIP"
   exit 0
 fi
-# The zip (everything) plus each MP4 on its own, so a single video downloads straight to a phone.
+# One zip per batch, nothing else: every video, cover, caption file and the posting guide inside it.
+# (Releases used to carry each MP4 on its own too; the human asked for the zip only.)
 assets=("$ZIP")
-while IFS= read -r -d '' f; do assets+=("$f"); done < <(find "posting/$BATCH" -name '*.mp4' -print0 | sort -z)
 size=$(stat -c %s "$ZIP")
-if [ "$size" -gt 1900000000 ]; then   # Release assets max out at 2 GiB each
+if [ "$size" -gt 1900000000 ]; then   # Release assets max out at 2 GiB each: split the zip by episode
   echo "Zip is over 1.9 GB; attaching one zip per episode instead"
   assets=()
-  while IFS= read -r -d '' f; do assets+=("$f"); done < <(find "posting/$BATCH" -name '*.mp4' -print0 | sort -z)
   for d in posting/"$BATCH"/*/; do
     n="specimind-$BATCH-$(basename "$d").zip"
     (cd "posting/$BATCH" && zip -q -r -0 "../../$n" "$(basename "$d")" POSTING.md posting-sheet.csv)
@@ -144,8 +143,8 @@ if gh release view "$BATCH" >/dev/null 2>&1; then
   echo "Release $BATCH exists; replacing its assets and notes"
   gh release upload "$BATCH" "${assets[@]}" --clobber && gh release edit "$BATCH" --notes-file "$notes" \
     || { echo "::error file=$BATCH_FILE::updating Release $BATCH failed"; exit 1; }
-  # A re-render replaces the batch: drop assets this render did not produce (e.g. an old master
-  # <id>.mp4), so the Release only holds what POSTING.md describes.
+  # A re-render replaces the batch: drop every asset this render did not produce (old MP4s
+  # attached one by one), so the Release only holds the zip.
   keep=" $(for a in "${assets[@]}"; do printf '%s ' "$(basename "$a")"; done)"
   gh release view "$BATCH" --json assets --jq '.assets[].name' | while read -r name; do
     case "$keep" in *" $name "*) ;; *) echo "removing stale asset $name"; gh release delete-asset "$BATCH" "$name" -y || true ;; esac

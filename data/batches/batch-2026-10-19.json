@@ -1,0 +1,159 @@
+{
+  "batch": "batch-2026-10-19",
+  "created": "2026-10-09",
+  "note": "Re-release in the v4 style (plain words, chapter labels, new music), numbered by release order: E001 Hunyuan3D (was E002), E002 TRELLIS 2 (was E003), E003 Midjourney (was E006), E004 Roundup #1 (was E013). Replaces batch-2026-10-08 and batch-2026-10-09.",
+  "episodes": [
+    {
+      "id": "E001",
+      "post_at": "2026-10-19 06:30 IST",
+      "youtube": {
+        "title": "Hunyuan3D: free AI turned 3 lamps into 3D (71/100)",
+        "description": "Not sponsored. No affiliate link, and Tencent didn't pay for this.\n\nHunyuan3D is a free AI from Tencent: you give it a photo, it gives you a 3D model. We gave it 3 desk lamp photos on its free demo page, one try each, no account.\n\nLamp 1 was shiny metal, and it fell apart into 6 pieces. Lamp 2 worked, but it kept the table too. Lamp 3 came out clean, in one piece. Each took about 20 seconds.\n\nOur score: 71/100 (quality 28/50, speed 15/15, free plan 18/25, price 10/10).\nGood for: quick 3D shapes of matte things. Not for: anything shiny or metal.\nTip: shiny surfaces confuse it, so photograph matte objects on a plain background.\n\nFree: about 6 models a day with no account (grey shapes only). Colours need an account. Paid: $9 a month (Hugging Face's paid plan).\nAll the scores and our 3D ranking: specimindlab.github.io/001 (link in our channel profile)\n\nLamp photos: Roger Bradshaw, Andrej Lišakov and Aashish Chandra on Unsplash.\nLicence note: Hunyuan3D's licence doesn't cover the EU, the UK or South Korea.\n\n#ai3d #3dmodeling #specimindlab",
+        "hashtags": [
+          "#ai3d",
+          "#3dmodeling",
+          "#specimindlab"
+        ],
+        "tags": [
+          "hunyuan 3d 2.1",
+          "hunyuan3d",
+          "hunyuan 3d 2.1 texture",
+          "image to 3d free",
+          "photo to 3d free",
+          "image to 3d free ai",
+          "free 3d model ai",
+          "photo to 3d model"
+        ],
+        "related_video": "TRELLIS 2: free AI turned a drawing into 3D (72/100), our #002, one point higher.",
+        "altered_content": false,
+        "pinned_comment": "Free, no account, 3 lamps: 2 worked, the shiny one fell apart. 71/100. Which object should we try next? Full scores: specimindlab.github.io/001",
+        "playlists": "3D · Free plan tests · SPECIMIND scores"
+      },
+      "instagram": {
+        "caption": "Free AI turned this lamp into 6 broken pieces.\n\nHunyuan3D is a free AI from Tencent that turns a photo into a 3D model. We gave it 3 lamp photos, one try each, no account. The shiny metal lamp fell apart. The grey one kept the table too. The orange one came out clean.\n\nOur score: 71/100. Good for quick 3D shapes of matte things. Not for anything shiny or metal.\nTip: shiny surfaces confuse it. Photograph matte things on a plain background.\n\nFree: about 6 a day, no account (grey shapes). Colours need an account. Paid: $9 a month.\n\nComment 001 and we'll send you the full scores and our 3D ranking.\n\nNot sponsored, no affiliate link.\nLamp photos: Roger Bradshaw, Andrej Lišakov, Aashish Chandra (Unsplash).\n\n#ai3d #3dmodeling #3dprinting #aitools #specimindlab",
+        "comment_code": "001",
+        "auto_dm": "#001 Hunyuan3D, our score 71/100. The full test, the shiny-lamp problem and the free plan: https://specimindlab.github.io/001?from=ig · Best 3D AI tools, ranked: https://specimindlab.github.io/best/3d/?from=ig (not sponsored, no affiliate link)",
+        "alt_text": "A photo of a shiny desk lamp next to the 3D model an AI made of it, broken into thin scattered pieces. A counter of free tries goes down as two more lamps come out: one with the table stuck to it, one clean. A red circle marks the broken lamp. A score card counts up to 71 out of 100, then a red stamp says Worth it, with Good for: quick 3D shapes of matte things, Not for: shiny or metal.",
+        "trial_reel_hook": "\"We gave a free AI 3 lamps. One fell apart.\""
+      },
+      "x": {
+        "post": "Free AI, no account, 3 lamp photos to 3D. Two came out fine. The shiny one fell apart into 6 pieces. Hunyuan3D gets 71/100 from us. Matte objects only.",
+        "first_reply": "The full test, the free plan and our 3D ranking: https://specimindlab.github.io/001?from=x · Not sponsored (no affiliate link)"
+      }
+    },
+    {
+      "id": "E002",
+      "post_at": "2026-10-19 18:30 IST",
+      "youtube": {
+        "title": "TRELLIS 2: free AI turned a drawing into 3D (72/100)",
+        "description": "Not sponsored. No affiliate link. TRELLIS 2 is a free, open-source AI from Microsoft and nobody paid for this test.\n\nYou give it one picture, it gives you a 3D model. We gave it one cartoon dragon drawing on its free demo page, one try, no account. 41 seconds later we had a full 3D dragon, with the wings, the horns and the claws.\n\nThe catch: from the side, which the drawing never showed, the tail is flat like a paddle. And without an account you can look at the model but you can't download it.\n\nOur score: 72/100 (quality 35/50, speed 12/15, free plan 15/25, price 10/10). That's our best 3D tool so far, one point above Hunyuan3D.\nGood for: turning sketches into 3D drafts. Not for: when you need to download the file for free.\nTip: cut the background out of your drawing before you upload it.\n\nFree: 1 try a day with no account. Paid: $9 a month (Hugging Face's paid plan).\nOur 3D ranking and all the scores: specimindlab.github.io/002 (link in our channel profile)\n\nDragon drawing: void (@voidhve) on Unsplash.\n\n#ai3d #3dmodeling #specimindlab",
+        "hashtags": [
+          "#ai3d",
+          "#3dmodeling",
+          "#specimindlab"
+        ],
+        "tags": [
+          "trellis 2",
+          "trellis 2 3d",
+          "trellis 2 ai 3d",
+          "trellis 2d to 3d",
+          "microsoft trellis",
+          "microsoft trellis 3d",
+          "image to 3d free",
+          "image to 3d free ai"
+        ],
+        "related_video": "Hunyuan3D: free AI turned 3 lamps into 3D (71/100), our #001, the score it beats by one point.",
+        "altered_content": false,
+        "pinned_comment": "72/100, our best 3D tool so far. The catch: no download without an account. Would you use it for game props or 3D printing? Full scores: specimindlab.github.io/002",
+        "playlists": "3D · Little-known tools · SPECIMIND scores"
+      },
+      "instagram": {
+        "caption": "Free AI turned one drawing into a 3D dragon.\n\nTRELLIS 2 is a free AI from Microsoft. One picture in, 3D model out. We gave it this drawing, one try, no account. 41 seconds later: wings, horns and claws, all there.\n\nThe catch: from the side, the tail is flat like a paddle. And no account means no download.\n\nOur score: 72/100, our best 3D tool so far. Good for turning sketches into 3D drafts.\nTip: cut the background out of your drawing first.\n\nFree: 1 try a day. Paid: $9 a month.\n\nComment 002 and we'll send you our 3D ranking and all the scores.\n\nNot sponsored, no affiliate link.\nDrawing: void (@voidhve) on Unsplash.\n\n#ai3d #3dmodeling #3dprinting #aitools #specimindlab",
+        "comment_code": "002",
+        "auto_dm": "#002 TRELLIS 2, our score 72/100. The full test, the flat tail and the free plan: https://specimindlab.github.io/002?from=ig · Best 3D AI tools, ranked: https://specimindlab.github.io/best/3d/?from=ig (not sponsored, no affiliate link)",
+        "alt_text": "A cartoon drawing of a blue dragon next to the grey 3D model an AI made from it, with a red sticker saying Little-known. The 3D dragon turns around. A timer fills to 41 seconds. A side view shows the tail as a flat paddle, circled in red. A score card counts up to 72 out of 100, then a red stamp says Worth it.",
+        "trial_reel_hook": "\"One drawing, 41 seconds, a 3D dragon. Free.\""
+      },
+      "x": {
+        "post": "One cartoon drawing in, a full 3D dragon out in 41 seconds. Free, no account. TRELLIS 2 gets 72/100 from us, our best 3D tool so far. Catch: no download without an account.",
+        "first_reply": "The full test, the free plan and our 3D ranking: https://specimindlab.github.io/002?from=x · Not sponsored (no affiliate link)"
+      }
+    },
+    {
+      "id": "E003",
+      "post_at": "2026-10-20 06:30 IST",
+      "youtube": {
+        "title": "Midjourney: $10 to start, $60 to keep it private",
+        "description": "Not sponsored. No affiliate link, and Midjourney didn't pay for this.\n\nMidjourney makes images from your words. It has no free plan, so we didn't test it and we don't give it a score. Here's what your money gets you, from their own pages.\n\nThe cheapest plan is $10 a month. That buys about 800 images, roughly 1.3 cents each.\nThe catch: on the $10 and $30 plans, everyone can see the images you make. Keeping them private starts at $60 a month.\n\nGood for: mood boards you don't mind sharing. Not for: client work that has to stay private.\n\nThe full price breakdown and every source: specimindlab.github.io/003 (link in our channel profile)\n\nThe diagram is our own drawing, made from Midjourney's public pages. No Midjourney images are shown.\n\n#midjourney #aiart #specimindlab",
+        "hashtags": [
+          "#midjourney",
+          "#aiart",
+          "#specimindlab"
+        ],
+        "tags": [
+          "midjourney",
+          "midjourney price plan",
+          "midjourney ai price",
+          "midjourney v8",
+          "midjourney ai",
+          "midjourney tutorial",
+          "midjourney prompts",
+          "midjourney video"
+        ],
+        "related_video": "None yet. When we test an image tool, link it here.",
+        "altered_content": false,
+        "pinned_comment": "We couldn't test it (no free plan), so no score. Did you know your Midjourney images are public unless you pay $60? Every source: specimindlab.github.io/003",
+        "playlists": "Images · Research only"
+      },
+      "instagram": {
+        "caption": "Midjourney: $10 to start, $60 to keep it private.\n\nThere's no free plan, so we didn't test it and we don't score it. From their own pages: $10 a month buys about 800 images, roughly 1.3 cents each.\nThe catch: below the $60 plan, everyone can see the images you make.\nGood for mood boards you don't mind sharing. Not for client work that has to stay private.\n\nComment 003 and we'll send you the full price breakdown and every source.\n\nNot sponsored, no affiliate link.\n\n#midjourney #aiart #aiimage #design #specimindlab",
+        "comment_code": "003",
+        "auto_dm": "#003 Midjourney (not tested, research only): the price breakdown, the privacy catch and every source: https://specimindlab.github.io/003?from=ig (not sponsored, no affiliate link)",
+        "alt_text": "A hand-drawn diagram: your words and up to 4 pictures go into Midjourney, and 4 images or short videos come out. Cards follow with the facts, the price ($10 a month, about 800 images, about 1.3 cents each) and the catch, Public unless you pay $60, circled in red. A stamp says Not tested.",
+        "trial_reel_hook": "\"800 images for $10. Everyone can see them.\""
+      },
+      "x": {
+        "post": "Midjourney, from its own pages: $10 a month buys about 800 images. Everyone can see them unless you pay $60. No free plan, so we didn't test it or score it.",
+        "first_reply": "The price breakdown and every source: https://specimindlab.github.io/003?from=x · Not sponsored (no affiliate link)"
+      }
+    },
+    {
+      "id": "E004",
+      "post_at": "2026-10-20 18:30 IST",
+      "youtube": {
+        "title": "3 AI tools, ranked: TRELLIS 2 wins",
+        "description": "Not sponsored. No affiliate links in this video.\n\nOur first roundup: every AI tool we've covered so far, ranked by our score out of 100.\n1. TRELLIS 2 (#002): 72/100, worth it. One drawing to a 3D dragon in 41 seconds. The catch: the tail is flat from the side.\n2. Hunyuan3D (#001): 71/100, worth it. Free 3D from photos, no account. The catch: the shiny lamp fell apart.\n3. Midjourney (#003): not tested, no free plan. $10 a month to start, but your images are public unless you pay $60.\n\nThe full ranking, every score and the sources: specimindlab.github.io/W01 (link in our channel profile)\n\n#aitools #ai3d #specimindlab",
+        "hashtags": [
+          "#aitools",
+          "#ai3d",
+          "#specimindlab"
+        ],
+        "tags": [
+          "trellis 2",
+          "hunyuan3d",
+          "midjourney",
+          "image to 3d free",
+          "image to 3d free ai",
+          "best ai 3d model generator",
+          "midjourney price plan",
+          "free ai tools"
+        ],
+        "related_video": "TRELLIS 2: free AI turned a drawing into 3D (72/100), our top score so far.",
+        "altered_content": false,
+        "pinned_comment": "TRELLIS 2 72, Hunyuan3D 71, Midjourney not tested. Which AI tool should we test next? Ranking: specimindlab.github.io/W01",
+        "playlists": "Roundups · SPECIMIND scores"
+      },
+      "instagram": {
+        "caption": "3 AI tools, ranked. One we couldn't test.\n\n1. TRELLIS 2: 72/100, worth it (a drawing to a 3D dragon in 41 seconds; flat tail from the side).\n2. Hunyuan3D: 71/100, worth it (free 3D from photos, no account; the shiny lamp fell apart).\n3. Midjourney: not tested (no free plan; images are public unless you pay $60).\n\nComment W01 and we'll send you the full ranking and every score.\n\nNot sponsored, no affiliate links.\n\n#aitools #ai3d #3dmodeling #aiart #specimindlab",
+        "comment_code": "W01",
+        "auto_dm": "Roundup #1: TRELLIS 2 72, Hunyuan3D 71, Midjourney not tested. The ranking and every score: https://specimindlab.github.io/W01?from=ig · Best 3D AI tools: https://specimindlab.github.io/best/3d/?from=ig",
+        "alt_text": "Three of our video covers side by side, tagged 72, 71 and Not tested. A drawer of labels slides in and each tool gets its turn: TRELLIS 2 72/100 Worth it, Hunyuan3D 71/100 Worth it, Midjourney with no score, Not tested, each with its catch in red. A tally reads 2 worth it, 0 skip it, 1 not tested.",
+        "trial_reel_hook": "\"3 AI tools, 1 point apart at the top.\""
+      },
+      "x": {
+        "post": "Our first 3 AI tool tests, ranked. TRELLIS 2 72/100, Hunyuan3D 71/100, Midjourney not tested (no free plan). One drawing beat one lamp by a single point.",
+        "first_reply": "The ranking, every score and the sources: https://specimindlab.github.io/W01?from=x · Not sponsored (no affiliate links)"
+      }
+    }
+  ]
+}

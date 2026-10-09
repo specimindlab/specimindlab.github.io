@@ -44,8 +44,9 @@ export const cardLayout = (p: Pick<CardProps, "rows" | "x" | "y" | "w" | "maxHei
   const tail = 16;
   const weights = p.rows.map((r) => (r.emphasis ? 1.55 : 1));
   const units = weights.reduce((a, b) => a + b, 0);
-  let pitch = 92;
-  if (p.maxHeight !== undefined) pitch = Math.max(62, Math.min(92, (p.maxHeight - head - tail) / units));
+  // Rows grow up to 118 px (bigger type for phones, prompts/voice.md v3) when the room allows.
+  let pitch = 104;
+  if (p.maxHeight !== undefined) pitch = Math.max(62, Math.min(118, (p.maxHeight - head - tail) / units));
   const k = pitch / 92;
   const valueX = x + Math.round(w * 0.3);
   const valueW = x + w - pad - valueX;
@@ -57,11 +58,11 @@ export const cardLayout = (p: Pick<CardProps, "rows" | "x" | "y" | "w" | "maxHei
     cursor = rule;
     const valueFit = r.emphasis
       ? fitInline(r.value, valueW, EMPH_AXES, 64 * k, 90)
-      : fitInline(r.value, valueW, VALUE_AXES, 34 * Math.max(0.85, k), 70);
-    const keyFit = fitInline(r.key, keyW, KEY_AXES, 26 * Math.max(0.9, k), 65);
+      : fitInline(r.value, valueW, VALUE_AXES, 36 * Math.max(0.85, k), 70);
+    const keyFit = fitInline(r.key, keyW, KEY_AXES, 28 * Math.max(0.9, k), 65);
     return { rule, baseline: rule - 26 * k, valueFit, keyFit };
   });
-  const title = fitInline(p.title, w - 2 * pad, TITLE_AXES, 40, 90);
+  const title = fitInline(p.title, w - 2 * pad, TITLE_AXES, 44, 90);
   return { x, y: p.y, w, pad, valueX, rows, title, height: cursor + tail - p.y };
 };
 

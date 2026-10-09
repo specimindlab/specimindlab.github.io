@@ -1,0 +1,201 @@
+{
+  "id": "E002",
+  "code": "002",
+  "composition": "RareSighting",
+  "series": "Rare Sighting",
+  "mode": "Live specimen",
+  "disclosure": "Unpaid",
+  "tool": "TRELLIS 2",
+  "genus": "Turns a picture into a 3D model",
+  "groove": 5,
+  "music": "music.wav",
+  "cta": {
+    "yt": "Tap our name\nfor the 3D ranking.",
+    "ig": "Comment 002\nfor the 3D ranking.",
+    "x": "3D ranking in\nthe first reply."
+  },
+  "cover": {
+    "before": {
+      "kind": "image",
+      "src": "raw/input/dragon-concept.jpg"
+    },
+    "media": {
+      "kind": "image",
+      "src": "raw/auto/views/clay-5.jpg"
+    },
+    "lines": [
+      "Free AI turned one drawing",
+      "into a 3D dragon."
+    ]
+  },
+  "beats": [
+    {
+      "type": "stamp-open",
+      "seconds": 3.5,
+      "lines": [
+        "Free AI turned one drawing",
+        "into a 3D dragon."
+      ],
+      "launched": "Dec 2025",
+      "before": {
+        "kind": "image",
+        "src": "raw/input/dragon-concept.jpg"
+      },
+      "crop": {
+        "kind": "image",
+        "src": "raw/auto/views/clay-5.jpg",
+        "fit": "cover",
+        "crop": {
+          "x": 0.1,
+          "y": 0.04,
+          "w": 0.8,
+          "h": 0.9
+        }
+      }
+    },
+    {
+      "type": "intro",
+      "seconds": 5.5,
+      "lines": [
+        "TRELLIS 2 is a free AI",
+        "from Microsoft. One picture in,",
+        "3D model out."
+      ],
+      "media": {
+        "kind": "image",
+        "src": "raw/auto/views/clay-0.jpg",
+        "frames": [
+          "raw/auto/views/clay-0.jpg",
+          "raw/auto/views/clay-1.jpg",
+          "raw/auto/views/clay-2.jpg",
+          "raw/auto/views/clay-3.jpg",
+          "raw/auto/views/clay-4.jpg",
+          "raw/auto/views/clay-5.jpg",
+          "raw/auto/views/clay-6.jpg",
+          "raw/auto/views/clay-7.jpg"
+        ],
+        "hold": 0.5
+      }
+    },
+    {
+      "type": "output",
+      "seconds": 4,
+      "kicker": "The result",
+      "lines": [
+        "It kept the wings,",
+        "the horns and the claws."
+      ],
+      "media": {
+        "kind": "image",
+        "src": "raw/auto/views/clay-1.jpg",
+        "frames": [
+          "raw/auto/views/clay-1.jpg",
+          "raw/auto/views/clay-2.jpg",
+          "raw/auto/views/clay-3.jpg",
+          "raw/auto/views/clay-4.jpg",
+          "raw/auto/views/clay-5.jpg",
+          "raw/auto/views/clay-6.jpg",
+          "raw/auto/views/clay-7.jpg",
+          "raw/auto/views/clay-0.jpg"
+        ],
+        "hold": 0.5,
+        "crop": {
+          "x": 0.12,
+          "y": 0.05,
+          "w": 0.76,
+          "h": 0.62
+        }
+      }
+    },
+    {
+      "type": "observation",
+      "seconds": 4.5,
+      "kicker": "How we tested",
+      "lines": [
+        "We gave it one drawing.",
+        "One try. No account."
+      ],
+      "input": {
+        "kind": "image",
+        "src": "raw/input/dragon-concept.jpg"
+      },
+      "result": {
+        "kind": "image",
+        "src": "raw/auto/views/clay-5.jpg"
+      },
+      "seconds_to_result": 41
+    },
+    {
+      "type": "notes",
+      "seconds": 9,
+      "lines": [
+        "No account? You",
+        "can't download it."
+      ],
+      "rows": [
+        {
+          "key": "Free",
+          "value": "1 try a day"
+        },
+        {
+          "key": "Paid",
+          "value": "$9 a month"
+        }
+      ],
+      "flaw": "Flat paddle tail|side view",
+      "flaw_media": {
+        "kind": "image",
+        "src": "raw/auto/views/clay-7.jpg"
+      },
+      "flaw_region": {
+        "x": 0.27,
+        "y": 0.48,
+        "w": 0.4,
+        "h": 0.46
+      },
+      "lines2": [
+        "From the side,",
+        "the tail is flat."
+      ]
+    },
+    {
+      "type": "score",
+      "seconds": 4,
+      "lines": [
+        "72 out of 100:",
+        "our best 3D tool so far."
+      ],
+      "total": 72,
+      "parts": [
+        {
+          "key": "Quality",
+          "value": 35,
+          "max": 50
+        },
+        {
+          "key": "Speed",
+          "value": 12,
+          "max": 15
+        },
+        {
+          "key": "Free plan",
+          "value": 15,
+          "max": 25
+        },
+        {
+          "key": "Price",
+          "value": 10,
+          "max": 10
+        }
+      ]
+    },
+    {
+      "type": "verdict",
+      "seconds": 6.5,
+      "verdict": "Captured",
+      "spotted": "9 Oct 2026",
+      "use_for": "Turning sketches into 3D drafts",
+      "skip_if": "You need to download it"
+    }
+  ]
+}

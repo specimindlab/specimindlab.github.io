@@ -38,8 +38,8 @@ export const ScaleBar: React.FC<ScaleBarProps> = ({
   width,
   start = 0,
   duration = 36,
-  suffix = "s to result",
-  labelSize = 30,
+  suffix = "seconds to make it",
+  labelSize = 40,
   scale = 1,
 }) => {
   const frame = useCurrentFrame();

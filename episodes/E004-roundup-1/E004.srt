@@ -1,0 +1,14 @@
+1
+00:00:00,000 --> 00:00:03,500
+3 AI tools, ranked.
+One we couldn't test.
+
+2
+00:00:17,000 --> 00:00:20,500
+2 worth it.
+1 we couldn't test.
+
+3
+00:00:20,500 --> 00:00:24,000
+All 3, ranked:
+tap our name.

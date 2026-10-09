@@ -43,11 +43,16 @@ const RATING = { Captured: 4, Watch: 3, Released: 2 }; // out of 5 (JSON-LD Revi
 const KINDS = { P: "Plate", D: "Dissection", M: "Mimicry", W: "Drawer", X: "Extinction Watch" };
 const KIND_LINE = {
   Plate: "Same input, three tools, ranked side by side.",
-  Dissection: "One finished thing, made by chaining tools stage by stage.",
+  Dissection: "One finished thing, made by chaining tools step by step.",
   Mimicry: "AI or real? Two images, one reveal.",
-  Drawer: "The week's specimens, recapped in one drawer.",
-  "Extinction Watch": "A tool that died or changed, and what replaced it.",
+  Drawer: "Every tool we've covered so far, ranked.",
+  "Extinction Watch": "A tool that shut down, and what to use instead.",
 };
+// What the reader sees (prompts/voice.md v3: plain words); the catalog keeps the internal names.
+const SAYS = { Captured: "Worth it", Released: "Skip it", Watch: "Not tested" };
+const KIND_SAYS = { Plate: "Head to head", Dissection: "Workflow", Mimicry: "AI or real?", Drawer: "Roundup", "Extinction Watch": "Shut down" };
+const DISC_SAYS = { Unpaid: "Not sponsored", Affiliate: "Affiliate link" };
+const modeSays = (live) => (live ? "Tested by us" : "Not tested · research only");
 const specimens = catalog.specimens ?? [];
 const groups = catalog.groups ?? [];
 const errors = [];
@@ -112,7 +117,7 @@ const rot = (code) => {
 // of where its label was; the newest pin is red (unless it was released).
 const tone = (s) => (s.verdict === "Released" ? "outline" : s === newest ? "red" : s.verdict === "Watch" ? "steel" : "ink");
 const tag = (code, t = "red", r = rot(code)) => `<span class="pinned ${t}" style="--r:${r}deg" aria-hidden="true"><span class="tag">${esc(code)}</span></span>`;
-const stamp = (verdict, extra = "") => `<span class="stamp ${verdict} ${extra}"><span>${esc(verdict)}</span></span>`;
+const stamp = (verdict, extra = "") => `<span class="stamp ${verdict} ${extra}"><span>${esc(SAYS[verdict] ?? verdict)}</span></span>`;
 const plain = (s) => String(s ?? "").replace(/\s+/g, " ").trim();
 const sentence = (s) => {
   s = plain(s);
@@ -180,14 +185,14 @@ const disclosureText = (s) => {
   if (s.members && s.disclosure === "Affiliate") {
     return `<b>Disclosure.</b> Affiliate. SPECIMIND is an affiliate of at least one tool in this episode. This page has no affiliate links itself; a specimen's own page marks any affiliate link it carries. The commission never decides a ranking or a verdict.${more}`;
   }
-  if (s.members) return `<b>Disclosure.</b> Unpaid. There are no affiliate links on this page, and no tool in it paid for this test.${more}`;
+  if (s.members) return `<b>Disclosure.</b> Not sponsored. There are no affiliate links on this page, and no tool in it paid for this.${more}`;
   if (s.disclosure === "Affiliate" && s.affiliate_url) {
-    return `<b>Disclosure.</b> Some links on this page are affiliate links. If you sign up or pay through them, SPECIMIND may earn a commission, at no extra cost to you. The commission never decides the verdict: the test is run once, the flaw is shown either way, and a tool with an affiliate programme can still be Released.${more}`;
+    return `<b>Disclosure.</b> Some links on this page are affiliate links. If you sign up or pay through them, SPECIMIND may earn a commission, at no extra cost to you. The commission never decides the verdict: we test once, we show the catch either way, and a tool with an affiliate programme can still get "Skip it".${more}`;
   }
   if (s.disclosure === "Affiliate") {
     return `<b>Disclosure.</b> Affiliate. SPECIMIND is an affiliate of ${tool} and may earn a commission from it in future. No link on this page is an affiliate link yet. The commission never decides the verdict.${more}`;
   }
-  return `<b>Disclosure.</b> Unpaid. There are no affiliate links on this page, and ${tool} did not pay for this test.${more}`;
+  return `<b>Disclosure.</b> Not sponsored. There are no affiliate links on this page, and ${tool} didn't pay for this test.${more}`;
 };
 
 // ---------- page shell ----------
@@ -223,14 +228,14 @@ ${FIXTURE ? '<meta name="robots" content="noindex">' : ""}
 ${FIXTURE ? '<div class="fixture-banner">Design fixture: placeholder data, not research</div>' : ""}${top}
 <header class="wrap bar">
 <a class="brand" href="/">${MARK}SPECIMIND</a>
-<nav aria-label="Site"><a href="/"${nav === "drawer" ? ' aria-current="page"' : ""}>Drawer</a><a href="/best/"${nav === "best" ? ' aria-current="page"' : ""}>Best</a><a href="/about/"${nav === "about" ? ' aria-current="page"' : ""}>About</a></nav>
+<nav aria-label="Site"><a href="/"${nav === "drawer" ? ' aria-current="page"' : ""}>Tests</a><a href="/best/"${nav === "best" ? ' aria-current="page"' : ""}>Rankings</a><a href="/about/"${nav === "about" ? ' aria-current="page"' : ""}>About</a></nav>
 </header>
 <main id="main">
 ${body}
 </main>
 <footer class="wrap foot">
-<ul><li><a href="/">The drawer</a></li><li><a href="/about/">The Specimen Code</a></li><li><a href="/about/#disclosure">Disclosure</a></li><li><a href="/llms.txt">llms.txt</a></li>${Object.entries(PROFILES).map(([k, v]) => `<li><a href="${v}" rel="me noopener">${k}</a></li>`).join("")}</ul>
-<p>SPECIMIND is a field guide to new AI tools: one real test per tool, one attempt, one honest flaw. No cookies, no tracking, no third-party scripts on this site. Catalog numbers are permanent.</p>
+<ul><li><a href="/">All tests</a></li><li><a href="/about/">How we test</a></li><li><a href="/about/#disclosure">Disclosure</a></li><li><a href="/llms.txt">llms.txt</a></li>${Object.entries(PROFILES).map(([k, v]) => `<li><a href="${v}" rel="me noopener">${k}</a></li>`).join("")}</ul>
+<p>SPECIMIND tests new AI tools: one real try each, the catch circled, the price, a plain verdict. No cookies, no tracking, no third-party scripts on this site.</p>
 </footer>
 ${js ? `<script>${js}</script>` : ""}
 </body>
@@ -247,7 +252,7 @@ const write = (rel, content) => {
 // ---------- cells ----------
 const searchText = (s) => [s.code, s.tool, s.genus, s.pillar, s.verdict, s.flaw, s.series, s.title, ...(s.members ?? []).map((m) => m.tool)].filter(Boolean).join(" ").toLowerCase();
 const cell = (s, keep = false) => `<li class="cell" data-code="${s.code}" data-pillar="${esc(s.pillar)}" data-verdict="${s.verdict}" data-search="${esc(searchText(s))}">
-<a href="/${s.code}/"${keep ? " data-keep" : ""}>${tag(s.code, tone(s))}<span class="tool">${esc(s.tool)}<span class="sr">, specimen number ${s.code}</span></span><span class="meta">${s.score ? `<b>${s.score.total}</b>/100 · ` : ""}${s.verdict} · ${esc(s.pillar)}</span>${s.flaw ? `<span class="flaw">Flaw: ${esc(lowerFirst(plain(s.flaw)))}</span>` : ""}</a></li>`;
+<a href="/${s.code}/"${keep ? " data-keep" : ""}>${tag(s.code, tone(s))}<span class="tool">${esc(s.tool)}<span class="sr">, test number ${s.code}</span></span><span class="meta">${s.score ? `<b>${s.score.total}</b>/100 · ` : ""}${SAYS[s.verdict] ?? s.verdict} · ${esc(s.pillar)}</span>${s.flaw ? `<span class="flaw">The catch: ${esc(lowerFirst(plain(s.flaw)))}</span>` : ""}</a></li>`;
 
 // ---------- / : the drawer ----------
 const CELLS = 10; // one drawer = 5 x 2 cells, as in the video's Drawer
@@ -263,42 +268,38 @@ const buildHome = () => {
       const s = byCode.get(String(n).padStart(3, "0"));
       cells.push(s ? cell(s) : `<li class="cell empty${n > maxN && maxN > 0 ? " tail" : ""}" aria-hidden="true"></li>`);
     }
-    drawers.push(`<section class="drawer" aria-labelledby="dr${d + 1}"><h2 id="dr${d + 1}">Drawer ${String(d + 1).padStart(2, "0")} · ${String(lo).padStart(3, "0")}–${String(hi).padStart(3, "0")}</h2><ul class="cells">${cells.join("")}</ul></section>`);
+    drawers.push(`<section class="drawer" aria-labelledby="dr${d + 1}"><h2 id="dr${d + 1}">Tests #${String(lo).padStart(3, "0")}–#${String(hi).padStart(3, "0")}</h2><ul class="cells">${cells.join("")}</ul></section>`);
   }
   const pillars = [...new Set(specimens.map((s) => s.pillar).filter(Boolean))].sort();
   const count = (v) => specimens.filter((s) => s.verdict === v).length;
   const chips = (name, label, values) =>
     `<fieldset class="chips"><legend>${label}</legend>${["", ...values]
-      .map((v, i) => `<input type="radio" name="${name}" id="${name}${i}" value="${esc(v)}"${i ? "" : " checked"}><label for="${name}${i}">${esc(v || "All")}</label>`)
+      .map((v, i) => `<input type="radio" name="${name}" id="${name}${i}" value="${esc(v)}"${i ? "" : " checked"}><label for="${name}${i}">${esc(SAYS[v] ?? (v || "All"))}</label>`)
       .join("")}</fieldset>`;
   const start = schedule.calendar_start;
   const opens = specimens.length
     ? ""
-    : `<div class="opens"><p><b>The drawer is empty.</b> ${
-        start && start > today
-          ? `It opens on ${fmtDate(start)}, when the first specimen, Nº 001, is pinned.`
-          : "The first specimen is being prepared."
-      }</p><p>Every tool we test gets a permanent number and a page here, with the conditions of the test, the price, the one flaw we found and the verdict.</p></div>`;
+    : `<div class="opens"><p><b>No tests here yet.</b> The first one, #001, is on its way.</p><p>Every tool we test gets a number and a page here: how we tested it, the price, the catch we found and whether it's worth using.</p></div>`;
   const shelf = groups.length
-    ? `<section class="shelf" aria-labelledby="shelf"><h2 id="shelf">Plates, dissections and mimicry</h2><p>Episodes with more than one tool. Each one links to the specimens involved.</p><ul>${groups
-        .map((g) => `<li class="shelf-item" data-code="${g.code}" data-pillar="${esc(g.pillar)}" data-verdict="${g.verdict ?? ""}" data-search="${esc(searchText(g))}"><a href="/${g.code}/">${tag(g.code, "ink")}<span><span class="t">${esc(g.title)}</span><br><span class="m">${g.kind} · ${fmtDate(g.posted_on || g.tested_on)}</span></span></a></li>`)
+    ? `<section class="shelf" aria-labelledby="shelf"><h2 id="shelf">Roundups and head-to-heads</h2><p>Videos with more than one tool. Each one links to the tools in it.</p><ul>${groups
+        .map((g) => `<li class="shelf-item" data-code="${g.code}" data-pillar="${esc(g.pillar)}" data-verdict="${g.verdict ?? ""}" data-search="${esc(searchText(g))}"><a href="/${g.code}/">${tag(g.code, "ink")}<span><span class="t">${esc(g.title)}</span><br><span class="m">${KIND_SAYS[g.kind] ?? g.kind}</span></span></a></li>`)
         .join("")}</ul></section>`
     : "";
   const body = `<div class="wrap">
 <section class="masthead" aria-labelledby="title">
 <h1 id="title">SPECIMIND</h1>
-<p class="dek">A field guide to new AI tools. One real test per tool, one attempt, one honest flaw circled in red ink.</p>
-<ul class="tally" aria-label="Catalog totals"><li><b>${specimens.length}</b>pinned</li><li><b>${count("Captured")}</b>captured</li><li><b>${count("Released")}</b>released</li><li><b>${count("Watch")}</b>on watch</li></ul>
+<p class="dek">We test new AI tools, one real try each, and tell you plainly: is it worth using, what's the catch, and what does it cost?</p>
+<ul class="tally" aria-label="Totals"><li><b>${specimens.length}</b>tools</li><li><b>${count("Captured")}</b>worth it</li><li><b>${count("Released")}</b>skip it</li><li><b>${count("Watch")}</b>not tested</li></ul>
 </section>
 <form class="finder" id="finder" role="search" action="/" method="get">
-<label for="q" class="lab">Find a specimen by number or tool. “47” and “047” both work.</label>
-<div class="search"><span class="no" aria-hidden="true">Nº</span><input id="q" name="q" type="search" inputmode="search" autocomplete="off" spellcheck="false" placeholder="047" enterkeyhint="go"><button type="submit">Open</button></div>
+<label for="q" class="lab">Find a test by its number or the tool's name. “47” and “047” both work.</label>
+<div class="search"><span class="no" aria-hidden="true">#</span><input id="q" name="q" type="search" inputmode="search" autocomplete="off" spellcheck="false" placeholder="047" enterkeyhint="go"><button type="submit">Open</button></div>
 <p class="status" id="status" role="status" aria-live="polite"></p>
-${specimens.length ? `<div class="filters">${chips("pillar", "Pillar", pillars)}${chips("verdict", "Verdict", VERDICTS)}</div>` : ""}
+${specimens.length ? `<div class="filters">${chips("pillar", "Kind of tool", pillars)}${chips("verdict", "Our verdict", VERDICTS)}</div>` : ""}
 </form>
 ${opens}
 ${drawers.join("\n")}
-<ul class="legend" aria-label="Key"><li><i></i>Newest</li><li><i class="ink"></i>Captured</li><li><i class="steel"></i>Watch (field sketch)</li><li><i class="outline"></i>Released</li></ul>
+<ul class="legend" aria-label="Key"><li><i></i>Newest</li><li><i class="ink"></i>Worth it</li><li><i class="steel"></i>Not tested (research only)</li><li><i class="outline"></i>Skip it</li></ul>
 ${shelf}
 </div>`;
   const jsonld = [
@@ -306,16 +307,16 @@ ${shelf}
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "The SPECIMIND drawer",
-      itemListElement: [...specimens].sort((a, b) => num(a) - num(b)).map((s, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE}/${s.code}/`, name: `Nº${s.code} ${s.tool}` })),
+      name: "Every AI tool SPECIMIND has tested",
+      itemListElement: [...specimens].sort((a, b) => num(a) - num(b)).map((s, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE}/${s.code}/`, name: `#${s.code} ${s.tool}` })),
     },
   ];
   write(
     "index.html",
     page({
       path: "/",
-      title: "SPECIMIND · a field guide to new AI tools",
-      description: `Every AI tool SPECIMIND has tested, pinned in one drawer: ${specimens.length} specimens, each with one real attempt, the price, one honest flaw and a verdict.`,
+      title: "SPECIMIND · new AI tools, tested plainly",
+      description: `Every AI tool SPECIMIND has tested: ${specimens.length} so far, each with one real try, the price, the catch and whether it's worth using.`,
       body,
       jsonld,
       js: DRAWER_JS,
@@ -331,12 +332,11 @@ const shortBlock = (s, label) => {
   const id = yt(s.links?.youtube);
   const cover = coverOut(s);
   const img = cover ? `<img src="${cover}" width="1080" height="1920" loading="lazy" decoding="async" alt="">` : "";
-  const when = fmtDate(s.posted_on || s.tested_on);
   if (id) {
-    return `<a class="short${img ? "" : " poster"}" href="${esc(s.links.youtube)}" data-yt="${id}" data-title="${esc(label)}">${img || `<span class="wide" aria-hidden="true">Nº${esc(s.code)}</span>`}<span class="play">${PLAY}Play the Short<span class="sr">: ${esc(label)}</span></span></a>
+    return `<a class="short${img ? "" : " poster"}" href="${esc(s.links.youtube)}" data-yt="${id}" data-title="${esc(label)}">${img || `<span class="wide" aria-hidden="true">#${esc(s.code)}</span>`}<span class="play">${PLAY}Play the video<span class="sr">: ${esc(label)}</span></span></a>
       <p class="short-meta">The player loads from youtube-nocookie.com only when you press play.</p>`;
   }
-  if (img) return `<div class="short">${img.replace('alt=""', `alt="Cover of the ${esc(label)} Short"`)}</div><p class="short-meta">The Short ${s.posted_on && s.posted_on <= today ? "was posted" : "posts"} ${when ? `on ${when}` : "soon"}.</p>`;
+  if (img) return `<div class="short">${img.replace('alt=""', `alt="Cover of the ${esc(label)} video"`)}</div>`;
   return "";
 };
 const watchLinks = (s) => {
@@ -369,26 +369,26 @@ const videoLd = (s, name, description) => {
 // ---------- /<code>/ : a specimen ----------
 const buildSpecimen = (s) => {
   const hook = s.hook_lines?.length ? s.hook_lines : [s.tool];
-  const label = `Specimen Nº${s.code}: ${s.tool}`;
+  const label = `#${s.code}: ${s.tool}`;
   const notes = s.field_notes?.length
     ? s.field_notes
     : [
-        { key: "Free tier", value: s.free_tier || "Not published" },
-        { key: "Paid from", value: s.paid_from || "Not published" },
-        { key: "Weakness", value: s.flaw },
+        { key: "Free plan", value: s.free_tier || "Not published" },
+        { key: "Paid", value: s.paid_from || "Not published" },
+        { key: "The catch", value: s.flaw },
       ];
-  const flawRow = notes.findIndex((r) => r.key === "Weakness");
+  const flawRow = notes.findIndex((r) => r.key === "The catch" || r.key === "Weakness");
   const rows = (list, circle = -1) =>
     `<dl class="rows">${list.map((r, i) => `<div><dt>${esc(r.key)}</dt><dd>${i === circle ? `<span class="circled">${esc(r.value)}${INK_CIRCLE}</span>` : esc(r.value)}</dd></div>`).join("")}</dl>`;
   const live = s.mode !== "Field sketch";
   const cond = s.conditions?.length
-    ? `<section class="cond card" aria-labelledby="cond"><h2 id="cond">Collection conditions</h2>${rows(s.conditions)}</section>`
-    : `<section class="cond card" aria-labelledby="cond"><h2 id="cond">Collection conditions</h2><dl class="rows"><div><dt>Mode</dt><dd>Field sketch — not hands-on</dd></div><div><dt>Built from</dt><dd>The tool's public pages, listed under Sources</dd></div></dl></section>`;
+    ? `<section class="cond card" aria-labelledby="cond"><h2 id="cond">How we tested</h2>${rows(s.conditions)}</section>`
+    : `<section class="cond card" aria-labelledby="cond"><h2 id="cond">How we tested</h2><dl class="rows"><div><dt>Tested?</dt><dd>No: there's no free plan, so this is research only</dd></div><div><dt>Built from</dt><dd>The tool's own public pages, listed under Sources</dd></div></dl></section>`;
   const flawCaption = s.flaw_caption || s.flaw;
   const flawSource =
     s.flaw_source === "research"
-      ? `This is the most important limitation documented in the sources below${live ? "; nothing visibly failed in our attempt" : ", because a Field sketch is not hands-on"}.`
-      : `We saw it in our own attempt${s.flaw_at ? ` (${esc(s.flaw_at)} into the recording)` : ""}. One attempt, no retries${s.conditions?.find((r) => r.key === "Attempts" && r.value !== "1") ? " beyond those listed in the conditions" : ""}.`;
+      ? `This is the biggest limitation in the tool's own pages (sources below)${live ? "; nothing visibly went wrong in our try" : ". We didn't test it, so we can't show it happening"}.`
+      : `We saw it in our own try${s.flaw_at ? ` (${esc(s.flaw_at)} into the recording)` : ""}. One try, no retries.`;
   const sameP = specimens.filter((o) => o !== s && o.pillar === s.pillar).sort((a, b) => (b.tested_on || "").localeCompare(a.tested_on || "") || num(b) - num(a)).slice(0, 3);
   const inGroups = groups.filter((g) => g.members.some((m) => m.code === s.code));
   const sources = (s.sources ?? []).filter((x) => x.url);
@@ -401,33 +401,34 @@ const buildSpecimen = (s) => {
     sources.length
       ? `<section><h2>Sources</h2><ol class="sources">${sources.map((x) => `<li><a href="${esc(x.url)}" rel="noopener">${esc(x.label || new URL(x.url).hostname)}</a>${x.accessed ? `, accessed ${fmtDate(x.accessed)}` : ""}</li>`).join("")}</ol>${s.credits ? `<p class="lab" style="margin-top:12px">${esc(s.credits)}</p>` : ""}</section>`
       : "",
-    sameP.length ? `<section><h2>More from the ${esc(s.pillar)} drawer</h2><ul class="mini-cells">${sameP.map((o) => cell(o, true)).join("")}</ul></section>` : "",
+    sameP.length ? `<section><h2>More ${esc(s.pillar)} tools we tested</h2><ul class="mini-cells">${sameP.map((o) => cell(o, true)).join("")}</ul></section>` : "",
   ].join("");
   const body = `<article class="wrap spec">
-<header class="spec-head">${tag(s.code, "red", "-3")}<div><p class="kicker">Specimen Nº${s.code}</p><h1>${esc(s.tool)}</h1>${s.genus ? `<p class="genus">${esc(s.genus)}</p>` : ""}<div class="badges"><span class="badge">${live ? "Live specimen" : "Field sketch — not hands-on"}</span><span class="badge${s.disclosure === "Affiliate" ? " aff" : ""}">${s.disclosure}</span>${s.pillar ? `<span class="badge">${esc(s.pillar)}</span>` : ""}</div></div></header>
+<header class="spec-head">${tag(s.code, "red", "-3")}<div><p class="kicker">Test #${s.code}</p><h1>${esc(s.tool)}</h1>${s.genus ? `<p class="genus">${esc(s.genus)}</p>` : ""}<div class="badges"><span class="badge">${modeSays(live)}</span><span class="badge${s.disclosure === "Affiliate" ? " aff" : ""}">${DISC_SAYS[s.disclosure] ?? s.disclosure}</span>${s.pillar ? `<span class="badge">${esc(s.pillar)}</span>` : ""}</div></div></header>
 <div class="hook">${fit(hook)}</div>
-<section class="verdict" aria-label="Verdict">${stamp(s.verdict, "lands")}<div><p class="why">${esc(s.verdict_reason || VERDICT_LINE[s.verdict])}</p><p class="lab">${live ? "Tested" : "Desk study"} ${fmtDate(s.tested_on)}${s.seconds_to_result ? ` · ${s.seconds_to_result} s to result` : ""}</p><div class="try">${tryLink(s)}</div></div></section>
+<section class="verdict" aria-label="Verdict">${stamp(s.verdict, "lands")}<div><p class="why">${esc(s.verdict_reason || VERDICT_LINE[s.verdict])}</p><p class="lab">${live ? "Tested" : "Researched"} ${fmtDate(s.tested_on)}${s.seconds_to_result ? ` · made in ${s.seconds_to_result} seconds` : ""}</p><div class="try">${tryLink(s)}</div></div></section>
 ${scoreBlock(s)}
 ${decisionBlock(s)}
-<section class="notes card" aria-labelledby="notes"><h2 id="notes">Field notes</h2>${rows(notes, flawRow)}</section>
+<section class="notes card" aria-labelledby="notes"><h2 id="notes">The facts</h2>${rows(notes, flawRow)}</section>
 ${cond}
-<section class="flaw-sec" aria-labelledby="flaw"><h2 id="flaw" class="sr">The honest flaw</h2>${fit(["Honest flaw:", sentence(flawCaption)])}<p>${flawSource}</p></section>
-<aside class="short-wrap" aria-label="The Short">${shortBlock(s, label)}</aside>
+<section class="flaw-sec" aria-labelledby="flaw"><h2 id="flaw" class="sr">The catch</h2>${fit(["The catch:", sentence(flawCaption)])}<p>${flawSource}</p></section>
+<aside class="short-wrap" aria-label="The video">${shortBlock(s, label)}</aside>
 <div class="more">${more}</div>
 </article>`;
-  const description = `${s.tool}${s.genus ? ` (${s.genus.toLowerCase()})` : ""}, tested once by SPECIMIND on ${fmtDate(s.tested_on)}. Verdict: ${s.verdict}. Honest flaw: ${lowerFirst(plain(s.flaw))}. Free tier: ${s.free_tier || "not published"}. Paid from: ${s.paid_from || "not published"}.`;
-  const name = `${s.tool}: ${plain(hook.join(" "))} | Specimen Nº${s.code}`;
+  const description = `${s.tool}${s.genus ? ` (${s.genus.toLowerCase()})` : ""}: ${live ? "tested once by SPECIMIND" : "researched by SPECIMIND, not tested"}. Our verdict: ${SAYS[s.verdict] ?? s.verdict}. The catch: ${lowerFirst(plain(s.flaw))}. Free plan: ${s.free_tier || "not published"}. Paid: ${s.paid_from || "not published"}.`;
+  const hookText = plain(hook.join(" "));
+  const name = `${hookText.toLowerCase().startsWith(s.tool.toLowerCase()) ? hookText : `${s.tool}: ${hookText}`} | SPECIMIND #${s.code}`;
   const jsonld = [
     videoLd(s, name, description),
     {
       "@context": "https://schema.org",
       "@type": "Review",
-      name: `${s.tool}: ${s.verdict} (Specimen Nº${s.code})`,
+      name: `${s.tool}: ${SAYS[s.verdict] ?? s.verdict} (SPECIMIND #${s.code})`,
       url: `${SITE}/${s.code}/`,
       datePublished: s.posted_on || s.tested_on,
       itemReviewed: { "@type": "SoftwareApplication", name: s.tool, applicationCategory: s.genus || s.pillar, ...(s.homepage ? { url: s.homepage } : {}) },
-      reviewRating: { "@type": "Rating", ratingValue: RATING[s.verdict], bestRating: 5, worstRating: 1, ratingExplanation: s.verdict },
-      reviewBody: `Verdict: ${s.verdict}. ${sentence(s.verdict_reason)} Honest flaw: ${sentence(lowerFirst(plain(s.flaw)))}`.replace(/\s+/g, " ").trim(),
+      reviewRating: { "@type": "Rating", ratingValue: RATING[s.verdict], bestRating: 5, worstRating: 1, ratingExplanation: SAYS[s.verdict] ?? s.verdict },
+      reviewBody: `Our verdict: ${SAYS[s.verdict] ?? s.verdict}. ${sentence(s.verdict_reason)} The catch: ${sentence(lowerFirst(plain(s.flaw)))}`.replace(/\s+/g, " ").trim(),
       author: { "@type": "Organization", name: "SPECIMIND", url: `${SITE}/` },
       publisher: { "@type": "Organization", name: "SPECIMIND", url: `${SITE}/` },
     },
@@ -438,7 +439,7 @@ ${cond}
     `${s.code}/index.html`,
     page({
       path: `/${s.code}/`,
-      title: `${s.tool}: ${s.verdict} · Specimen Nº${s.code} · SPECIMIND`,
+      title: `${s.tool}: ${SAYS[s.verdict] ?? s.verdict} · #${s.code} · SPECIMIND`,
       description,
       top: `<div class="disclosure"><div class="wrap"><p>${disclosureText(s)}</p></div></div>`,
       body,
@@ -453,9 +454,9 @@ const scoreBlock = (s) => {
   if (!s.score) return "";
   const r = rankOf(s);
   const n = scored(s.pillar).length;
-  return `<section class="score card" aria-labelledby="score"><h2 id="score">SPECIMIND Score</h2>
+  return `<section class="score card" aria-labelledby="score"><h2 id="score">SPECIMIND score</h2>
 <p class="score-num"><b>${s.score.total}</b><span>/ 100</span></p>
-<p class="lab">Rank ${r} of ${n} in the <a href="/best/${slug(s.pillar)}/">${esc(s.pillar)} leaderboard</a> · <a href="/about/#score">how we score</a></p>
+<p class="lab">#${r} of ${n} in our <a href="/best/${slug(s.pillar)}/">${esc(s.pillar)} ranking</a> · <a href="/about/#score">how we score</a></p>
 <dl class="bars">${(s.score.parts ?? []).map((p) => `<div><dt>${esc(p.key)}</dt><dd><span class="meter"><i style="width:${Math.round((100 * p.value) / p.max)}%"></i></span><span>${p.value}/${p.max}</span></dd></div>`).join("")}</dl></section>`;
 };
 
@@ -463,17 +464,17 @@ const scoreBlock = (s) => {
 // it failed, the best-scoring Captured alternatives in the same drawer (their Try links).
 const decisionBlock = (s) => {
   const rows = [
-    s.use_for ? `<div><dt>Use it for</dt><dd>${esc(s.use_for)}</dd></div>` : "",
-    s.skip_if ? `<div><dt>Skip it if</dt><dd>${esc(s.skip_if)}</dd></div>` : "",
-    s.lesson ? `<div><dt>Field tip</dt><dd>${esc(s.lesson)}</dd></div>` : "",
+    s.use_for ? `<div><dt>Good for</dt><dd>${esc(s.use_for)}</dd></div>` : "",
+    s.skip_if ? `<div><dt>Not for</dt><dd>${esc(s.skip_if)}</dd></div>` : "",
+    s.lesson ? `<div><dt>Tip</dt><dd>${esc(s.lesson)}</dd></div>` : "",
   ].join("");
   const alts = s.disclosure !== "Affiliate" || s.verdict === "Released"
     ? scored(s.pillar).filter((o) => o !== s && o.verdict === "Captured").slice(0, 3)
     : [];
   const altHtml = alts.length
-    ? `<h3 class="alts-h">Also worth trying in ${esc(s.pillar)}</h3><ul class="alts">${alts.map((o) => `<li><a href="/${o.code}/" data-keep>Nº${o.code} ${esc(o.tool)}</a> <b>${o.score.total}</b>/100${o.affiliate_url ? ` · ${tryLinkInline(o)}` : ""}</li>`).join("")}</ul>`
+    ? `<h3 class="alts-h">Also worth trying in ${esc(s.pillar)}</h3><ul class="alts">${alts.map((o) => `<li><a href="/${o.code}/" data-keep>#${o.code} ${esc(o.tool)}</a> <b>${o.score.total}</b>/100${o.affiliate_url ? ` · ${tryLinkInline(o)}` : ""}</li>`).join("")}</ul>`
     : "";
-  return rows || altHtml ? `<section class="decide card" aria-labelledby="decide"><h2 id="decide">Field verdict</h2>${rows ? `<dl class="rows">${rows}</dl>` : ""}${altHtml}</section>` : "";
+  return rows || altHtml ? `<section class="decide card" aria-labelledby="decide"><h2 id="decide">Should you use it?</h2>${rows ? `<dl class="rows">${rows}</dl>` : ""}${altHtml}</section>` : "";
 };
 const tryLinkInline = (o) => {
   const param = subidParam(o);
@@ -483,9 +484,9 @@ const tryLinkInline = (o) => {
 };
 
 const VERDICT_LINE = {
-  Captured: "Captured: it did what we tested, in one attempt, well enough to use.",
-  Released: "Released: it did not pass our one-attempt test.",
-  Watch: "Watch: a desk study, not hands-on, so we do not judge it yet.",
+  Captured: "Worth it: it did what we tested, in one try, well enough to use.",
+  Released: "Skip it: it didn't pass our one-try test.",
+  Watch: "Not tested: no free plan, so this is research only and we don't judge it.",
 };
 
 // ---------- /<P01|D01|M01|W01|X01>/ : a group ----------
@@ -494,27 +495,27 @@ const buildGroup = (g) => {
   const members = [...g.members].sort((a, b) => (ranked ? (a.rank ?? 9) - (b.rank ?? 9) : 0));
   const item = (m, i) => {
     const s = m.code && byCode.get(m.code);
-    const name = s ? `<a href="/${s.code}/" data-keep>Nº${s.code} · ${esc(s.tool)}</a>` : esc(m.tool ?? m.code);
+    const name = s ? `<a href="/${s.code}/" data-keep>#${s.code} · ${esc(s.tool)}</a>` : esc(m.tool ?? m.code);
     const verdict = m.verdict ?? s?.verdict;
-    const note = m.note ?? (s ? `Flaw: ${lowerFirst(plain(s.flaw))}` : "");
-    const n = g.kind === "Dissection" ? `Stage ${i + 1}` : g.kind === "Plate" ? `Rank ${m.rank ?? i + 1}` : "";
+    const note = m.note ?? (s ? `${s.score ? `${s.score.total}/100 · ` : ""}The catch: ${lowerFirst(plain(s.flaw))}` : "");
+    const n = g.kind === "Dissection" ? `Step ${i + 1}` : g.kind === "Plate" ? `Rank ${m.rank ?? i + 1}` : "";
     const lead = ranked ? `<span class="rank" aria-hidden="true">${m.rank ?? i + 1}</span>` : s ? `<span aria-hidden="true">${tag(s.code, tone(s), "0")}</span>` : `<span class="rank" aria-hidden="true">·</span>`;
-    return `<li style="${ranked ? "" : "grid-template-columns:84px 1fr"}">${lead}<div>${n ? `<span class="sr">${n}: </span>` : ""}<span class="t">${name}</span>${verdict ? ` <span class="badge">${verdict}</span>` : ""}${note ? `<div class="n">${esc(note)}</div>` : ""}${!s && m.tool ? `<div class="n">No specimen page of its own yet.</div>` : ""}</div></li>`;
+    return `<li style="${ranked ? "" : "grid-template-columns:84px 1fr"}">${lead}<div>${n ? `<span class="sr">${n}: </span>` : ""}<span class="t">${name}</span>${verdict ? ` <span class="badge">${SAYS[verdict] ?? verdict}</span>` : ""}${note ? `<div class="n">${esc(note)}</div>` : ""}${!s && m.tool ? `<div class="n">No page of its own yet.</div>` : ""}</div></li>`;
   };
   const hook = g.hook_lines?.length ? g.hook_lines : [g.title];
-  const label = `${g.kind} ${g.code}: ${g.title}`;
+  const label = `${KIND_SAYS[g.kind] ?? g.kind} ${g.code}: ${g.title}`;
   const body = `<article class="wrap spec">
-<header class="spec-head">${tag(g.code, "ink", "-3")}<div><p class="kicker">${g.kind} ${g.code}</p><h1>${esc(g.title)}</h1><p class="genus">${KIND_LINE[g.kind]}</p><div class="badges"><span class="badge">${g.kind === "Extinction Watch" ? "Field sketch — not hands-on" : g.kind === "Drawer" ? "Built from the week's specimens" : "Live specimen"}</span><span class="badge${g.disclosure === "Affiliate" ? " aff" : ""}">${g.disclosure}</span></div></div></header>
+<header class="spec-head">${tag(g.code, "ink", "-3")}<div><p class="kicker">${KIND_SAYS[g.kind] ?? g.kind} ${g.code}</p><h1>${esc(g.title)}</h1><p class="genus">${KIND_LINE[g.kind]}</p><div class="badges"><span class="badge">${g.kind === "Extinction Watch" ? modeSays(false) : g.kind === "Drawer" ? "Made from our own tests" : modeSays(true)}</span><span class="badge${g.disclosure === "Affiliate" ? " aff" : ""}">${DISC_SAYS[g.disclosure] ?? g.disclosure}</span></div></div></header>
 <div class="hook">${fit(hook)}</div>
-<section class="notes" aria-labelledby="members"><h2 id="members" style="margin-bottom:10px">${g.kind === "Plate" ? "The ranking" : g.kind === "Dissection" ? "The stages" : g.kind === "Drawer" ? "In this week's drawer" : g.kind === "Extinction Watch" ? "The successors" : "The specimens"}</h2><ol class="members">${members.map(item).join("")}</ol></section>
-${g.flaw ? `<section class="flaw-sec" aria-labelledby="flaw"><h2 id="flaw" class="sr">The honest flaw</h2>${fit(["Honest flaw:", sentence(lowerFirst(g.flaw))])}</section>` : ""}
+<section class="notes" aria-labelledby="members"><h2 id="members" style="margin-bottom:10px">${g.kind === "Plate" ? "The ranking" : g.kind === "Dissection" ? "The steps" : g.kind === "Drawer" ? "The ranking" : g.kind === "Extinction Watch" ? "What to use instead" : "The tools"}</h2><ol class="members">${members.map(item).join("")}</ol></section>
+${g.flaw ? `<section class="flaw-sec" aria-labelledby="flaw"><h2 id="flaw" class="sr">The catch</h2>${fit(["The catch:", sentence(lowerFirst(g.flaw))])}</section>` : ""}
 ${g.verdict ? `<section class="verdict" aria-label="Verdict">${stamp(g.verdict, "lands")}<p class="why">${esc(g.verdict_reason || VERDICT_LINE[g.verdict])}</p></section>` : ""}
-<aside class="short-wrap" aria-label="The Short">${shortBlock(g, label)}</aside>
-<div class="more">${errata(g)}${watchLinks(g)}<p class="lab">${g.kind === "Drawer" ? "Recapped" : g.kind === "Extinction Watch" ? "Desk study" : "Tested"} ${fmtDate(g.tested_on)}</p></div>
+<aside class="short-wrap" aria-label="The video">${shortBlock(g, label)}</aside>
+<div class="more">${errata(g)}${watchLinks(g)}<p class="lab">${g.kind === "Drawer" ? "Made" : g.kind === "Extinction Watch" ? "Researched" : "Tested"} ${fmtDate(g.tested_on)}</p></div>
 </article>`;
-  const description = `${g.kind} ${g.code} by SPECIMIND: ${g.title}. ${KIND_LINE[g.kind]} ${members.map((m) => m.tool ?? byCode.get(m.code)?.tool).filter(Boolean).join(", ")}.`;
+  const description = `${KIND_SAYS[g.kind] ?? g.kind} ${g.code} by SPECIMIND: ${g.title}. ${KIND_LINE[g.kind]} ${members.map((m) => m.tool ?? byCode.get(m.code)?.tool).filter(Boolean).join(", ")}.`;
   const jsonld = [
-    videoLd(g, `${g.title} | ${g.kind} ${g.code}`, description),
+    videoLd(g, `${g.title} | ${KIND_SAYS[g.kind] ?? g.kind} ${g.code}`, description),
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
@@ -546,13 +547,13 @@ const buildBest = () => {
     list.length
       ? `<ol class="board">${list
           .map(
-            (o, i) => `<li><span class="rank" aria-hidden="true">${i + 1}</span><a class="who" href="/${o.code}/">${tag(o.code, tone(o), "0")}<span><span class="t">${esc(o.tool)}</span><span class="m">${o.verdict} · ${esc(o.genus || o.pillar)} · free: ${esc(o.free_tier || "not published")}</span></span></a><span class="pts"><b>${o.score.total}</b>/100</span>${
+            (o, i) => `<li><span class="rank" aria-hidden="true">${i + 1}</span><a class="who" href="/${o.code}/">${tag(o.code, tone(o), "0")}<span><span class="t">${esc(o.tool)}</span><span class="m">${SAYS[o.verdict] ?? o.verdict} · ${esc(o.genus || o.pillar)} · free: ${esc(o.free_tier || "not published")}</span></span></a><span class="pts"><b>${o.score.total}</b>/100</span>${
               o.affiliate_url ? `<span class="go">${tryLinkInline(o)}</span>` : o.homepage ? `<span class="go"><a href="${esc(o.homepage)}" rel="noopener">Try it</a></span>` : ""
             }</li>`,
           )
           .join("")}</ol>`
-      : `<p>No scored specimens in this drawer yet.</p>`;
-  const intro = `<p class="dek">Every tool we have tested, ranked by its SPECIMIND Score: one real attempt, measured speed, what the free tier really gives you, and the cheapest price. <a href="/about/#score">How the score works</a>.</p>`;
+      : `<p>No scored tools of this kind yet.</p>`;
+  const intro = `<p class="dek">Every tool we've tested, ranked by its SPECIMIND score: one real try, the measured speed, what the free plan really gives you, and the cheapest price. <a href="/about/#score">How the score works</a>.</p>`;
   const disc = `<div class="disclosure"><div class="wrap"><p><b>Disclosure.</b> Some Try links on this page are affiliate links (marked); SPECIMIND may earn a commission at no extra cost to you. Rankings come from the score only. <a href="/about/#disclosure">Full disclosure</a>.</p></div></div>`;
   write(
     "best/index.html",
@@ -562,7 +563,7 @@ const buildBest = () => {
       description: "Every AI tool SPECIMIND has tested, ranked by the SPECIMIND Score in its drawer: 3D, video, image, audio, work and build.",
       top: disc,
       nav: "best",
-      body: `<div class="wrap prose wide-prose"><h1>The leaderboards</h1>${intro}${PILLARS.map((p) => `<h2><a href="/best/${slug(p)}/">Best ${esc(p)} AI tools</a></h2>${table(scored(p).slice(0, 5))}`).join("") || "<p>The first scores arrive with the first specimens.</p>"}</div>`,
+      body: `<div class="wrap prose wide-prose"><h1>Rankings</h1>${intro}${PILLARS.map((p) => `<h2><a href="/best/${slug(p)}/">Best ${esc(p)} AI tools</a></h2>${table(scored(p).slice(0, 5))}`).join("") || "<p>The first scores arrive with the first tests.</p>"}</div>`,
       js: SPECIMEN_JS,
     }),
   );
@@ -576,7 +577,7 @@ const buildBest = () => {
         description: `${list.length} ${p} AI tools tested once each and ranked by the SPECIMIND Score${list[0] ? `. #1: ${list[0].tool} (${list[0].score.total}/100)` : ""}.`,
         top: disc,
         nav: "best",
-        body: `<div class="wrap prose wide-prose"><p class="kicker"><a href="/best/">Leaderboards</a></p><h1>Best ${esc(p)} AI tools</h1>${intro}${table(list)}</div>`,
+        body: `<div class="wrap prose wide-prose"><p class="kicker"><a href="/best/">Rankings</a></p><h1>Best ${esc(p)} AI tools</h1>${intro}${table(list)}</div>`,
         jsonld: [
           {
             "@context": "https://schema.org",
@@ -595,47 +596,47 @@ const buildBest = () => {
 // ---------- /about/ ----------
 const buildAbout = () => {
   const body = `<div class="wrap prose">
-${tag("Nº", "red", "-4")}
-<h1>The Specimen Code</h1>
-<p class="dek">SPECIMIND tests new AI tools the way a naturalist collects specimens: one real sample, labelled with where and how it was taken, pinned in a drawer with a permanent number. These are the rules every video and every page here follows.</p>
+${tag("#", "red", "-4")}
+<h1>How we test</h1>
+<p class="dek">We try new AI tools so you don't have to guess. Every video and every page here follows the same simple rules.</p>
 <ol class="code-list">
-<li><span><b>Output first.</b>Every video opens on what the tool actually made in our test, not on a title card or a promise.</span></li>
-<li><span><b>One attempt.</b>We run the test once, on the plan we name (usually the free tier), and show what came out. If a test ever needs more than one attempt, the Collection conditions card says exactly how many.</span></li>
-<li><span><b>One honest flaw, circled in red.</b>Every specimen has one flaw, shown on screen and circled in red ink. If nothing visibly went wrong, we name the most important documented limitation instead and say that it came from research.</span></li>
-<li><span><b>The price, on screen.</b>The free-tier limit and the cheapest paid plan, taken from the tool's own pages in the week we test, with the sources listed on its page here. When a number is not published, we write “not published”. We never guess.</span></li>
-<li><span><b>Three verdicts.</b><em>Captured</em>: it did what we tested, well enough to use. <em>Released</em>: it did not pass our test; roughly one in eight live specimens is released. <em>Watch</em>: a desk study we cannot judge hands-on yet.</span></li>
-<li><span><b>Two modes, always labelled.</b><em>Live specimen</em>: we ran the test ourselves, and the footage is our own capture (a screen recording, or a run on a public demo). <em>Field sketch — not hands-on</em>: built from public information, with diagrams we redrew ourselves. The label stays on screen for the whole video.</span></li>
-<li><span><b>Permanent numbers.</b>A catalog number is never changed and never reused. If we get something wrong, the page keeps its number and gets a dated erratum.</span></li>
-<li><span><b>Nothing borrowed.</b>No narration, no AI voice, no copyrighted music, no other creators' footage, no tool logos as hero images. Every sound is generated in code.</span></li>
-<li><span><b>Disclosure from first frame to last.</b>“Affiliate” or “Unpaid” stays on screen for the whole video, and the disclosure sits at the top of every specimen page here.</span></li>
+<li><span><b>We show what it made first.</b>Every video opens on the real result of our test, not on a title card or a promise.</span></li>
+<li><span><b>One try.</b>We run the test once, on the plan we name (usually the free one), and show what came out, good or bad. If a test ever needs more than one try, we say how many.</span></li>
+<li><span><b>The catch, circled in red.</b>Every test shows one real problem, circled on screen. If nothing went wrong in our try, we name the biggest limitation from the tool's own pages and say so.</span></li>
+<li><span><b>The price, on screen.</b>What the free plan gives you and what the cheapest paid plan costs, from the tool's own pages, with sources on its page here. If a number isn't published, we say so. We never guess.</span></li>
+<li><span><b>A plain verdict.</b><em>Worth it</em>: it did what we tested, well enough to use. <em>Skip it</em>: it didn't. <em>Not tested</em>: the tool has no free plan, so we only researched it and we don't judge it.</span></li>
+<li><span><b>Always labelled.</b>“Tested by us” means we ran the test ourselves and the footage is our own recording. “Not tested · research only” means the video is built from the tool's public pages, with diagrams we drew ourselves. The label stays on screen for the whole video.</span></li>
+<li><span><b>Numbers in the order videos come out.</b>Each video gets the next number (#001, #002 …) when it's made. A number is never changed or reused. If we get something wrong, the page keeps its number and gets a dated correction.</span></li>
+<li><span><b>Nothing borrowed.</b>No narration, no AI voice, no copyrighted music, no other creators' footage, no tool logos as the main picture. Our music is made in code.</span></li>
+<li><span><b>Disclosure from start to finish.</b>“Affiliate link” or “Not sponsored” stays on screen for the whole video, and the disclosure is at the top of every page here.</span></li>
 </ol>
-<h2 id="score">The SPECIMIND Score</h2>
-<p>Every live specimen gets one number out of 100, so any two AI tools in the same drawer can be compared at a glance. It is computed from the test by fixed rules, never adjusted:</p>
+<h2 id="score">The SPECIMIND score</h2>
+<p>Every tool we test gets one number out of 100, so you can compare tools of the same kind at a glance. It comes from the test, by fixed rules, and we never adjust it:</p>
 <ul>
-<li><b>Result, 50 points.</b> Each run in the video starts at 50 and loses points for what went wrong (for 3D: broken into pieces, thin parts lost, extra geometry, wrong shape). Failed runs count.</li>
-<li><b>Speed, 15 points.</b> Measured seconds to result, against bands for the kind of tool.</li>
-<li><b>Free tier, 25 points.</b> Whether you need an account or a card, how many results the free tier gives you per day, and whether the key feature is locked.</li>
+<li><b>Quality, 50 points.</b> Each try starts at 50 and loses points for what went wrong (for 3D: broken into pieces, thin parts lost, extra bits, wrong shape). Failed tries count.</li>
+<li><b>Speed, 15 points.</b> How many seconds it took, measured, compared with other tools of the same kind.</li>
+<li><b>Free plan, 25 points.</b> Whether you need an account or a card, how much the free plan gives you each day, and whether the main feature is locked.</li>
 <li><b>Price, 10 points.</b> The cheapest paid plan per month.</li>
 </ul>
-<p>Field sketches are not hands-on, so they get no score. The <a href="/best/">leaderboards</a> rank every scored tool in its drawer.</p>
+<p>Tools we couldn't test get no score. Our <a href="/best/">rankings</a> list every scored tool by kind.</p>
 <h2 id="disclosure">Affiliate disclosure</h2>
 <p>Some links on this site are affiliate links. If you sign up for or pay for a tool through one of them, SPECIMIND may earn a commission. You pay the same price either way.</p>
-<p><b>What the labels mean.</b> <em>Affiliate</em> means we have joined that tool's affiliate programme, so the “Try” link on its page may earn us a commission. <em>Unpaid</em> means there is no affiliate link and no payment of any kind: the button goes to the tool's homepage.</p>
-<p><b>Commission never decides a verdict.</b> The verdict comes from the one attempt in the video. A tool with an affiliate programme can be Released, and its flaw is shown either way. No tool has paid for a specimen. If that ever changes, the word “Sponsored” will appear where the disclosure word sits, in the video and on the page.</p>
+<p><b>What the labels mean.</b> <em>Affiliate link</em> means we've joined that tool's affiliate programme, so the “Try” link on its page may earn us a commission. <em>Not sponsored</em> means there's no affiliate link and no payment of any kind: the button goes to the tool's homepage.</p>
+<p><b>Money never decides a verdict.</b> The verdict comes from the one try in the video. A tool with an affiliate programme can still get “Skip it”, and its catch is shown either way. No tool has paid us. If that ever changes, the word “Sponsored” will appear where the disclosure sits, in the video and on the page.</p>
 <p><b>Sub-IDs.</b> Where the affiliate network supports it, our links carry a short tag such as <code>p-yt-e001</code>: the platform you came from (YouTube, Instagram, X or this website) and the episode number. It tells us which videos are useful. It contains nothing about you.</p>
-<p><b>Where the disclosure appears.</b> On screen for the whole video, at the top of every specimen page, next to every affiliate button, and in each post's caption. We follow India's ASCI guidelines for influencer advertising and the US FTC's Endorsement Guides.</p>
+<p><b>Where the disclosure appears.</b> On screen for the whole video, at the top of every page, next to every affiliate button, and in each post's caption. We follow India's ASCI guidelines for influencer advertising and the US FTC's Endorsement Guides.</p>
 <h2 id="privacy">Privacy</h2>
-<p>This site sets no cookies, runs no analytics, loads no tracking pixels and no third-party scripts. The font is served from this site. The only outside content is the YouTube player on a specimen page, which loads from youtube-nocookie.com only after you press play. Once you follow a “Try” link you are on the tool's or the affiliate network's site, under their privacy policy.</p>
-<h2>Find a specimen</h2>
-<p>Type the number after the slash: <a href="/001/">specimindlab.github.io/001</a>. Plates, dissections and mimicry episodes use P, D and M: <code>/P01</code>, <code>/D01</code>, <code>/M01</code>. Machines can read the whole catalog at <a href="/llms.txt">/llms.txt</a>.</p>
+<p>This site sets no cookies, runs no analytics, loads no tracking pixels and no third-party scripts. The font is served from this site. The only outside content is the YouTube player on a test's page, which loads from youtube-nocookie.com only after you press play. Once you follow a “Try” link you are on the tool's or the affiliate network's site, under their privacy policy.</p>
+<h2>Find a test</h2>
+<p>Type the number after the slash: <a href="/001/">specimindlab.github.io/001</a>. Head-to-heads, workflows, AI-or-real videos and roundups use P, D, M and W: <code>/P01</code>, <code>/D01</code>, <code>/M01</code>, <code>/W01</code>. Machines can read the whole list at <a href="/llms.txt">/llms.txt</a>.</p>
 <p>Follow <b>@${HANDLE}</b> on ${Object.entries(PROFILES).map(([k, v]) => `<a href="${v}" rel="me noopener">${k}</a>`).join(", ").replace(/, ([^,]*)$/, " and $1")}.</p>
 </div>`;
   write(
     "about/index.html",
     page({
       path: "/about/",
-      title: "The Specimen Code and disclosure · SPECIMIND",
-      description: "How SPECIMIND tests AI tools: output first, one attempt, one honest flaw, prices with sources, permanent catalog numbers. Plus our full affiliate disclosure.",
+      title: "How we test, and our disclosure · SPECIMIND",
+      description: "How SPECIMIND tests AI tools: the real result first, one try, the catch circled, prices with sources, a plain verdict. Plus our full affiliate disclosure.",
       body,
       nav: "about",
     }),
@@ -654,7 +655,7 @@ if (!code && (m = s.match(/^([PDMWX])-?0*(\\d{1,2})$/))) code = m[1] + m[2].padS
 if (!code) { const slug = raw.toLowerCase().replace(/[^a-z0-9]+/g, "-"); code = Object.keys(index).find((c) => index[c] === slug) || null; }
 if (code && index[code] !== undefined) return location.replace("/" + code + "/" + location.search);
 const msg = document.getElementById("msg");
-if (code) msg.textContent = "Nº " + code + " is not in the drawer yet.";
+if (code) msg.textContent = "#" + code + " isn't here yet.";
 const q = document.getElementById("q");
 if (raw && !code) q.value = raw.replace(/[-_/]+/g, " ");
 })();`;
@@ -662,8 +663,8 @@ if (raw && !code) q.value = raw.replace(/[-_/]+/g, " ");
 ${tag("404", "outline", "-4")}
 <h1>Not in the drawer</h1>
 <p id="msg">There is no page at this address.</p>
-<form class="finder" action="/" method="get" role="search"><label for="q" class="lab">Search the drawer by number or tool</label><div class="search"><span class="no" aria-hidden="true">Nº</span><input id="q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="047"><button type="submit">Search</button></div></form>
-<p><a href="/">Open the drawer</a> to see every specimen.</p>
+<form class="finder" action="/" method="get" role="search"><label for="q" class="lab">Search by number or tool</label><div class="search"><span class="no" aria-hidden="true">#</span><input id="q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="047"><button type="submit">Search</button></div></form>
+<p><a href="/">See all our tests</a>.</p>
 </div>`;
   write("404.html", page({ path: "/404.html", title: "Not in the drawer · SPECIMIND", description: "This page is not in the SPECIMIND drawer.", body, js }));
 };
@@ -675,24 +676,24 @@ const buildText = () => {
   const lines = [
     "# SPECIMIND",
     "",
-    "> A field guide to new AI tools. Each specimen is one real test of one tool: one attempt, the price on screen, one honest flaw, and a verdict (Captured, Released, or Watch for desk studies that are not hands-on). Catalog numbers are permanent.",
+    "> SPECIMIND tests new AI tools. Each entry is one real test of one tool: one try, the price, the catch, and a plain verdict (Worth it, Skip it, or Not tested for tools with no free plan, which we only research).",
     "",
-    "Format: code, tool, verdict, flaw, date tested, URL. Prices, test conditions and sources are on each page. The Specimen Code and the affiliate disclosure: " + `${SITE}/about/`,
+    "Format: number, tool, verdict, score, the catch, URL. Prices, how we tested and sources are on each page. How we test and the affiliate disclosure: " + `${SITE}/about/`,
     "",
-    "## Specimens",
+    "## Tests",
     "",
     ...(ordered.length
-      ? ordered.map((s) => `- [Nº${s.code} ${s.tool}](${SITE}/${s.code}/): ${s.verdict}${s.score ? `, SPECIMIND Score ${s.score.total}/100` : ""}. Flaw: ${lowerFirst(plain(s.flaw))}. Tested ${s.tested_on}. ${s.mode === "Field sketch" ? "Field sketch, not hands-on" : "Live specimen"}; ${s.pillar}; ${s.disclosure}.`)
-      : [`No specimens are pinned yet.${start && start > today ? ` The first is pinned on ${start}.` : ""}`]),
+      ? ordered.map((s) => `- [#${s.code} ${s.tool}](${SITE}/${s.code}/): ${SAYS[s.verdict] ?? s.verdict}${s.score ? `, SPECIMIND score ${s.score.total}/100` : ""}. The catch: ${lowerFirst(plain(s.flaw))}. ${modeSays(s.mode !== "Field sketch")}; ${s.pillar}; ${DISC_SAYS[s.disclosure] ?? s.disclosure}.`)
+      : ["No tests yet."]),
   ];
   if (groups.length) {
-    lines.push("", "## Plates, dissections, mimicry and recaps", "");
+    lines.push("", "## Roundups and head-to-heads", "");
     for (const g of groups) {
-      const who = g.members.map((m) => (m.code && byCode.has(m.code) ? `Nº${m.code} ${byCode.get(m.code).tool}` : m.tool ?? m.code)).join(", ");
-      lines.push(`- [${g.code} ${g.title}](${SITE}/${g.code}/): ${g.kind}. ${who}.${g.flaw ? ` Flaw: ${lowerFirst(plain(g.flaw))}.` : ""} Tested ${g.tested_on}.`);
+      const who = g.members.map((m) => (m.code && byCode.has(m.code) ? `#${m.code} ${byCode.get(m.code).tool}` : m.tool ?? m.code)).join(", ");
+      lines.push(`- [${g.code} ${g.title}](${SITE}/${g.code}/): ${KIND_SAYS[g.kind] ?? g.kind}. ${who}.${g.flaw ? ` The catch: ${lowerFirst(plain(g.flaw))}.` : ""}`);
     }
   }
-  lines.push("", "## Optional", "", `- [The Specimen Code and disclosure](${SITE}/about/)`, "");
+  lines.push("", "## Optional", "", `- [How we test, and our disclosure](${SITE}/about/)`, "");
   write("llms.txt", lines.join("\n"));
   const urls = [
     ["/", today],

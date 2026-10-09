@@ -1,0 +1,55 @@
+{
+  "id": "E004",
+  "code": "W01",
+  "composition": "Drawer",
+  "series": "The Drawer",
+  "mode": "Live specimen",
+  "disclosure": "Unpaid",
+  "tool": "Roundup #1",
+  "genus": "Every AI tool we've covered so far",
+  "groove": 1,
+  "music": "music.wav",
+  "cta": {
+    "yt": "All 3, ranked:\ntap our name.",
+    "ig": "Comment W01\nfor the ranking.",
+    "x": "The ranking is in\nthe first reply."
+  },
+  "cover": {
+    "lines": [
+      "3 AI tools, ranked.",
+      "One we couldn't test."
+    ]
+  },
+  "week": 1,
+  "codes": [
+    "002",
+    "001",
+    "003"
+  ],
+  "beats": [
+    {
+      "type": "drawer-open",
+      "seconds": 3.5,
+      "lines": [
+        "3 AI tools, ranked.",
+        "One we couldn't test."
+      ]
+    },
+    {
+      "type": "roll-call",
+      "seconds": 13.5
+    },
+    {
+      "type": "tally",
+      "seconds": 3.5,
+      "lines": [
+        "2 worth it.",
+        "1 we couldn't test."
+      ]
+    },
+    {
+      "type": "cta",
+      "seconds": 3.5
+    }
+  ]
+}

@@ -3,6 +3,10 @@ import { interpolate, Easing, useCurrentFrame } from "remotion";
 import { COLORS, FONT_FAMILY, variation } from "../brand";
 import { measureEm } from "./measure";
 import { Sfx } from "./Sfx";
+import { VERDICT_WORD } from "../vocab";
+
+// What the stamp says on screen (plain words, prompts/voice.md v3); the keys stay internal.
+const SAYS: Record<StampWord, string> = { ...VERDICT_WORD, "Rare sighting": "Little-known", Unpaid: "Not sponsored" } as Record<StampWord, string>;
 
 // Double-rule rubber stamp (brand/vectors/vector-stamp-*.svg): 10 px outer rule, 3 px inner rule
 // inset 16 px, the word in capitals at wdth 150 / wght 900. Lands rotating from -14 deg to -7 deg,
@@ -48,7 +52,7 @@ export const Stamp: React.FC<StampProps> = ({ word, x, y, width = 620, start = 0
     t < LAND
       ? interpolate(t, [0, LAND], [1.18, 1], { easing: Easing.in(Easing.quad) })
       : interpolate(t, [LAND, LAND + 1, LAND + 2], [1, 0.965, 1], { extrapolateRight: "clamp" });
-  const text = word.toUpperCase();
+  const text = (SAYS[word] ?? word).toUpperCase();
   const axes = { wdth: 150, wght: 900 };
   const inner = width - 2 * 26;
   const size = Math.min(h * 0.36, (inner - 0.09 * width) / measureEm(text, axes));

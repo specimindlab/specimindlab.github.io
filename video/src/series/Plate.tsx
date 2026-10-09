@@ -2,7 +2,7 @@ import React from "react";
 import { z } from "zod";
 import { BANDS } from "../brand";
 import { media, region, Triptych } from "../system";
-import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, framed, seriesProps, seriesScript, timeline } from "./common";
+import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, KICKER_H, ctaFor, framed, seriesProps, seriesScript, timeline } from "./common";
 import { ctaBox, CtaCaption } from "./endcard";
 
 // 4. Plate (PL): same input, three tools, one sheet. Shared input card over three empty plates ->
@@ -58,7 +58,7 @@ const PlateSeriesBody: React.FC<PlateSeriesProps> = ({ script, platform }) => {
   const ctaLines = ctaFor(script.cta, platform);
   // One continuous triptych under every beat (global frames); only the captions cut per beat.
   const tallest = Math.max(...t.map((b) => ("lines" in b ? captionBox(b.lines, CAP).layout.height : BANDS.captionBottom - ctaBox(ctaLines, CAP).top)));
-  const bottom = BANDS.captionBottom - tallest - BANDS.gap;
+  const bottom = BANDS.captionBottom - tallest - BANDS.gap - KICKER_H;
   return (
     <>
       <Triptych

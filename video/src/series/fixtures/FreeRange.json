@@ -95,7 +95,7 @@
           "value": "20 a day"
         },
         {
-          "key": "Paid from",
+          "key": "Paid",
           "value": "Not published"
         }
       ],
@@ -123,7 +123,7 @@
           "max": 15
         },
         {
-          "key": "Free tier",
+          "key": "Free plan",
           "value": 22,
           "max": 25
         },

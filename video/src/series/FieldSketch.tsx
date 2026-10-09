@@ -3,7 +3,8 @@ import { z } from "zod";
 import { COLORS } from "../brand";
 import { Card, cardLayout, cardValueBox, InkMark, Plate, PLATE_W, PLATE_X, Sketch, sketchLayout, Stamp, AXES, Line } from "../system";
 import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, row, framed, seriesProps, seriesScript, timeline } from "./common";
-import { ctaBox, CtaCaption } from "./endcard";
+import { ctaBox, CtaCaption, decision, EndCard } from "./endcard";
+import { CARD, LABEL } from "../vocab";
 
 // 5. Field Sketch (SK): a desk study, not hands-on. The diagram draws itself from public
 // information -> field notes from research.md -> price math -> the documented limitation circled
@@ -23,7 +24,7 @@ const flaw = beat("flaw", {
   source: z.string().min(3), // domain shown under the limitation, e.g. "docs.example.com"
   flaw_source: z.literal("research"),
 });
-const verdict = beat("verdict", {});
+const verdict = beat("verdict", { ...decision });
 
 export const fieldSketchScript = seriesScript(
   "FieldSketch",
@@ -43,7 +44,7 @@ const SketchPlate: React.FC<{ b: Bt<"sketch">; y: number; h: number; start: numb
       {null}
     </Plate>
     <Sketch inputs={b.inputs} tool={b.process} outputs={b.outputs} x={PLATE_X} y={y} w={PLATE_W} h={h} start={start} step={step} />
-    <Line text="Redrawn from public information" x={PLATE_X + 24} baseline={y + h - 20} maxWidth={PLATE_W - 48} size={22} axes={AXES.key} color={COLORS.steel} />
+    <Line text={LABEL.redrawn} x={PLATE_X + 24} baseline={y + h - 20} maxWidth={PLATE_W - 48} size={22} axes={AXES.key} color={COLORS.steel} />
   </>
 );
 
@@ -73,24 +74,26 @@ const FieldSketchBody: React.FC<FieldSketchProps> = ({ script, platform }) => {
                 />
               </>
             ) : null}
-            {b.type === "notes" ? <Card title="Field notes · from public docs" rows={b.rows} y={CONTENT_TOP} maxHeight={h} /> : null}
-            {b.type === "price-math" ? <Card title="Cheapest way in" rows={[...b.rows, { ...b.result, emphasis: true }]} y={CONTENT_TOP} maxHeight={h} /> : null}
+            {b.type === "notes" ? <Card title={CARD.factsResearch} rows={b.rows} y={CONTENT_TOP} maxHeight={h} /> : null}
+            {b.type === "price-math" ? <Card title={CARD.price} rows={[...b.rows, { ...b.result, emphasis: true }]} y={CONTENT_TOP} maxHeight={h} /> : null}
             {b.type === "flaw" ? (
               (() => {
                 const rows = [
-                  { key: "Limitation", value: b.text },
-                  { key: "Source", value: b.source },
+                  { key: CARD.catch, value: b.text },
+                  { key: CARD.source, value: b.source },
                 ];
-                const l = cardLayout({ title: "Documented limitation", rows, y: CONTENT_TOP });
+                const l = cardLayout({ title: CARD.catch, rows, y: CONTENT_TOP });
                 return (
                   <>
-                    <Card title="Documented limitation" rows={rows} y={CONTENT_TOP} />
+                    <Card title={CARD.catch} rows={rows} y={CONTENT_TOP} />
                     <InkMark shape="ellipse" target={cardValueBox(l, 0)} start={18} seed="sk-flaw" pad={14} />
                   </>
                 );
               })()
             ) : null}
-            {b.type === "verdict" ? (
+            {b.type === "verdict" && (b.use_for || b.skip_if) ? (
+              <EndCard word="Watch" code={script.code} useFor={b.use_for} skipIf={b.skip_if} lines={ctaLines} />
+            ) : b.type === "verdict" ? (
               <>
                 <div style={{ position: "absolute", inset: 0, opacity: 0.4 }}>
                   <SketchPlate b={sk} y={CONTENT_TOP} h={h} start={-1000} step={1} />
@@ -98,7 +101,11 @@ const FieldSketchBody: React.FC<FieldSketchProps> = ({ script, platform }) => {
                 <Stamp word="Watch" x={540} y={CONTENT_TOP + h / 2} width={480} start={6} backing />
               </>
             ) : null}
-            {"lines" in b ? <Caption lines={lines} maxHeight={420} /> : <CtaCaption lines={lines} code={script.code} maxHeight={420} />}
+            {"lines" in b ? (
+              <Caption lines={lines} maxHeight={420} />
+            ) : b.type === "verdict" && (b.use_for || b.skip_if) ? null : (
+              <CtaCaption lines={lines} code={script.code} maxHeight={420} />
+            )}
           </Beat>
         );
       })}

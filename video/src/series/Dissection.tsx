@@ -2,7 +2,7 @@ import React from "react";
 import { z } from "zod";
 import { BANDS } from "../brand";
 import { media, Media, Plate, PLATE_W, region, Stamp, Tray } from "../system";
-import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, framed, seriesProps, seriesScript, timeline } from "./common";
+import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, KICKER_H, ctaFor, framed, seriesProps, seriesScript, timeline } from "./common";
 import { ctaBox, CtaCaption } from "./endcard";
 
 // 7. Dissection (DS): a workflow of 2-3 tools. The finished thing -> the empty tray with numbered
@@ -41,7 +41,7 @@ const DissectionBody: React.FC<DissectionProps> = ({ script, platform }) => {
   const verdictBeat = t.find((b) => b.type === "verdict");
   const totalSeconds = script.stages.reduce((a, s) => a + s.seconds, 0);
   const tallest = Math.max(...t.filter((b) => b.type !== "output").map((b) => ("lines" in b ? captionBox(b.lines, CAP).layout.height : BANDS.captionBottom - ctaBox(ctaLines, CAP).top)));
-  const bottom = BANDS.captionBottom - tallest - BANDS.gap;
+  const bottom = BANDS.captionBottom - tallest - BANDS.gap - KICKER_H;
   const flawSpec = flawBeat && flawBeat.type === "flaw" ? { stage: flawBeat.stage, at: flawBeat.from + 8, region: flawBeat.region } : undefined;
   return (
     <>

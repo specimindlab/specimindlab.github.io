@@ -1,35 +1,31 @@
 #!/usr/bin/env python3
-"""Compose an episode's music from its script.json: an arranged 120 bpm song, cut to the edit,
-that loops seamlessly.
+"""Compose an episode's music from its script.json (v4): a modern, catchy 120 bpm track cut to the
+edit, with the SPECIMIND sound logo, that loops seamlessly.
 
-    python3 scripts/make_music.py episodes/E002-hunyuan3d/script.json      # -> <episode>/music.wav
-    python3 scripts/make_music.py <script.json> --out x.wav --groove 3
+    python3 scripts/make_music.py episodes/E001-hunyuan3d/script.json     # -> <episode>/music.wav
+    python3 scripts/make_music.py <script.json> --out x.wav --groove 3 --key 5
 
-v3 (2026-10-09): v2 repeated one bar under every section. Now the track is ARRANGED like a pop
-song around the story, so every few seconds something new arrives and the ear wants the payoff:
+v4 (2026-10-09). What changed and why (prompts/voice.md v3, "Music"):
+- v3 sounded like a novelty record: square-wave leads, a tape-stop + scratch + "sad wah" gag on the
+  flaw, organ stabs. Viewers found it unpleasant and funny. v4 is modern electronic pop production:
+  band-limited supersaws, plucks and FM bells, a punchy kick with sidechain pump, a real reverb and a
+  ping-pong delay, humanised timing and velocity.
+- Brand recognition: THE TAG. The same four-note phrase (scale degrees 1-5-3-6, the old A-E-C#-F#
+  motif) on the same glassy synth opens every video on frame 0 and comes back when the verdict stamp
+  lands. You know it's SPECIMIND in a second.
+- No two tracks alike: six styles (below), a key and a chord progression per episode, and a topline
+  built from the tag's intervals over that episode's chords, with its own rhythm.
+- It follows the story: room to read under the explaining beats, the topline arrives with the result,
+  a calm filtered breakdown under the catch (thoughtful, never a joke), a build into the score with the
+  impact on the number, the full chorus on the verdict.
 
-    hook (first beat)   CHORUS: full groove + the SPECIMIND hook (call phrase), impact on frame 0
-    observation #n      VERSE n: a different counter-melody per verse (arp up / broken / pedal),
-                        synth "chops" answering the beat, a STINGER that climbs a step higher with
-                        every new result (escalation), bass pattern A/B alternating per bar
-    flaw                BREAKDOWN gag: tape stop + scratch, a sad descending "wah" bass, half-time
-    price-math, notes   BUILD: chords pulse in 8ths with the filter opening, snare build, riser
-    score               ROLL: snare roll into the crash where the number locks + a winner's fanfare
-    verdict / cta       FINAL CHORUS: the hook's answer phrase, harmonised in thirds, then a pickup
-                        fill that lands back on bar 1, so the loop restarts on the beat
+Styles (script.json "groove": 1-6; never the previous upload's):
+    1 future house · 2 melodic house · 3 synthwave pop · 4 future garage · 5 electro pop · 6 chill house
 
-Every boundary gets a fill (snare flam, tom run, clap stutter or reverse crash, rotated), drums vary
-per bar (ghost notes, open hats, kick pushes), and the last bar's reverb tail is folded back onto
-the first bar: played on loop (Reels and Shorts loop), there is no seam, no fade, no gap.
-
-Six grooves (script.json "groove": 1-6), all 120 bpm in A major / F# minor so the SPECIMIND motif
-(A E C# F#) is the melody's DNA:
-    1 nu-disco · 2 electro-funk · 3 French-house filter · 4 UK-garage 2-step · 5 synth-pop · 6 boom-bap funk
-Consecutive uploads use different grooves (Playbook V).
-
-Everything is synthesised with numpy/scipy (helpers from make_sfx.py): no samples, nothing to
-license, nothing for Content ID to match. Deterministic: the same script makes the same file.
-Level: -19 LUFS integrated, true peak <= -9 dBTP; scripts/loudness.sh lifts the final mix to -14.
+Everything is synthesised with numpy/scipy: no samples, nothing to license, nothing for Content ID to
+match. Deterministic: the same script makes the same file. The tail is folded onto the start, so a
+looping Short or Reel has no seam. Level: -19 LUFS integrated, true peak <= -9 dBTP; scripts/loudness.sh
+lifts the final mix to -14.
 """
 import argparse
 import json
@@ -37,72 +33,60 @@ import os
 import sys
 
 import numpy as np
+from scipy.signal import butter, sosfilt, sosfilt_zi
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from make_sfx import (SR, bandpass, calibrate, highpass, integrated_loudness, lowpass,  # noqa: E402
-                      midi, schroeder, soft_clip, true_peak_db, wav_bytes)
+from make_sfx import (SR, _allpass, _comb, bandpass, calibrate, highpass, integrated_loudness,  # noqa: E402
+                      lowpass, soft_clip, true_peak_db, wav_bytes)
 
 BPM = 120
 BEAT = 60.0 / BPM          # 0.5 s = 15 frames at 30 fps
-S16 = BEAT / 4             # one 16th
+S16 = BEAT / 4
 BAR = 4 * BEAT
-FPS = 30
 MUSIC_LUFS = -19.0
 MUSIC_PEAK = -9.0
 SCORE_LOCK = 1.5           # seconds into the score beat when the number lands (ScoreCard.tsx: 45 frames)
-TAIL = 2.5                 # seconds of tail rendered past the end and folded onto the start (loop)
+TAIL = 3.0                 # rendered past the end and folded onto the start (loop)
 
-GROOVES = {
-    1: dict(name="nu-disco", kick=[0, 4, 8, 12], clap=[4, 12], stabs=[2, 6, 10, 14], swing=0.0,
-            openhat=[2, 6, 10, 14], lead="pulse", chords="disco", bass="octave"),
-    2: dict(name="electro-funk", kick=[0, 7, 10], clap=[4, 12], stabs=[0, 3, 6, 11], swing=0.10,
-            openhat=[14], lead="square", chords="funk", bass="funk"),
-    3: dict(name="French-house filter", kick=[0, 4, 8, 12], clap=[4, 12], stabs=[2, 5, 8, 11, 14], swing=0.05,
-            openhat=[2, 6, 10, 14], lead="saw", chords="filter", bass="octave"),
-    4: dict(name="UK-garage 2-step", kick=[0, 10], clap=[4, 12], stabs=[3, 6, 11], swing=0.18,
-            openhat=[6, 14], lead="bell", chords="garage", bass="sub"),
-    5: dict(name="synth-pop", kick=[0, 4, 8, 12], clap=[4, 12], stabs=[0, 4, 8, 12], swing=0.0,
-            openhat=[14], lead="pulse", chords="pop", bass="eighths"),
-    6: dict(name="boom-bap funk", kick=[0, 6, 10], clap=[4, 12], stabs=[2, 9, 14], swing=0.20,
-            openhat=[14], lead="whistle", chords="organ", bass="funk"),
+STYLES = {
+    1: dict(name="future house", kick=[0, 4, 8, 12], clap=[4, 12], hat="offbeat", swing=0.0, sc=0.62,
+            bass="bounce", chords="stab", lead="supersaw", arp=None, kick_hz=52),
+    2: dict(name="melodic house", kick=[0, 4, 8, 12], clap=[4, 12], hat="sixteenths", swing=0.04, sc=0.5,
+            bass="rolling", chords="pad", lead="bell", arp="up", kick_hz=50),
+    3: dict(name="synthwave pop", kick=[0, 8], clap=[4, 12], hat="eighths", swing=0.0, sc=0.35,
+            bass="octaves", chords="pad", lead="saw", arp="updown", kick_hz=56, gated=True),
+    4: dict(name="future garage", kick=[0, 7, 10], clap=[4, 12], hat="shuffle", swing=0.2, sc=0.45,
+            bass="sub", chords="keys", lead="bell", arp=None, kick_hz=54),
+    5: dict(name="electro pop", kick=[0, 4, 8, 12], clap=[4, 12], hat="eighths", swing=0.0, sc=0.55,
+            bass="pluck", chords="stab", lead="saw", arp="broken", kick_hz=53),
+    6: dict(name="chill house", kick=[0, 4, 8, 12], clap=[4, 12], hat="shaker", swing=0.08, sc=0.4,
+            bass="sub", chords="keys", lead="bell", arp="up", kick_hz=49),
 }
 
-# Four-bar progressions in A major / F# minor (bass root MIDI, stab voicing MIDI). Voicings keep the
-# motif's pitch classes (A, C#, E, F#) on top, so the hook always sits consonantly.
-PROGRESSIONS = {
-    "disco":  [(42, [57, 61, 64, 68]), (38, [57, 61, 64, 66]), (45, [56, 61, 64, 69]), (40, [56, 59, 61, 64])],
-    "funk":   [(42, [57, 61, 64]), (42, [57, 61, 64]), (38, [57, 62, 66]), (40, [56, 59, 64])],
-    "filter": [(45, [61, 64, 68, 73]), (42, [61, 64, 69, 73]), (38, [62, 66, 69, 73]), (40, [59, 64, 68, 71])],
-    "garage": [(42, [57, 61, 64, 68]), (47, [57, 62, 64, 66]), (38, [57, 61, 64, 66]), (40, [56, 59, 64, 66])],
-    "pop":    [(45, [57, 61, 64]), (40, [56, 59, 64]), (42, [57, 61, 66]), (38, [57, 62, 66])],
-    "organ":  [(42, [57, 61, 64]), (47, [59, 62, 66]), (38, [57, 62, 66]), (40, [56, 59, 64])],
-}
-# The verse uses a different progression from the chorus, so the chorus feels like arriving home.
-VERSE_PROG = [(38, [57, 62, 66, 69]), (40, [56, 59, 64, 68]), (42, [57, 61, 64, 69]), (37, [56, 61, 64, 68])]
-BUILD_PROG = [(38, [57, 62, 66]), (40, [56, 59, 64]), (42, [57, 61, 66]), (40, [56, 59, 64, 71])]
-
-# The hook: call (bars 1-2) and answer (bars 3-4), built from the SPECIMIND motif (A E C# F#).
-# (16th step within the 4-bar phrase, MIDI note, length in 16ths)
-HOOK_CALL = [(0, 69, 2), (3, 76, 1), (4, 73, 2), (7, 78, 3), (12, 76, 2), (14, 73, 2),
-             (16, 69, 1), (18, 73, 1), (19, 76, 2), (22, 78, 2), (26, 76, 1), (27, 78, 5)]
-HOOK_ANSWER = [(32, 81, 2), (35, 78, 1), (36, 76, 2), (39, 73, 3), (44, 76, 2), (46, 78, 2),
-               (48, 76, 1), (50, 73, 1), (51, 71, 2), (54, 73, 2), (58, 69, 6)]
-# Counter-melodies for the verses: a different shape every verse (arp offsets over the chord).
-ARPS = [
-    [0, 1, 2, 3, 2, 1, 0, 1],            # up and down
-    [0, 2, 1, 3, 0, 3, 1, 2],            # broken
-    [3, 3, 2, 3, 1, 3, 0, 3],            # pedal on the top note
-    [0, 1, 2, 3, 3, 2, 1, 0],            # rise and fall
+# Keys: semitones above A (the tag's home). Lead lines stay in a bright, phone-friendly register.
+KEYS = [0, 1, 3, 5, -2, -4, 2, -5]          # A, Bb, C, D, G, F, B, E
+# Diatonic progressions (scale degrees of a major key; 6 = the relative minor): catchy pop shapes.
+PROGRESSIONS = [
+    [6, 4, 1, 5],      # vi IV I V
+    [1, 5, 6, 4],      # I V vi IV
+    [4, 1, 5, 6],      # IV I V vi
+    [6, 5, 4, 5],      # vi V IV V
+    [1, 3, 6, 4],      # I iii vi IV
+    [2, 5, 1, 6],      # ii V I vi
 ]
+MAJOR = [0, 2, 4, 5, 7, 9, 11]
+TAG = [(0, 1, 3), (3, 5, 3), (6, 3, 2), (8, 6, 8)]   # (16th step, scale degree, length in 16ths)
 
 ROLE = {
-    "counter": "hook", "output": "hook", "stamp-open": "hook", "sketch": "hook", "split": "hook",
-    "drawer-open": "hook", "extinct": "flaw",
-    "observation": "verse", "triptych": "verse", "triptych-fill": "verse", "tray": "verse",
-    "details": "verse", "successors": "verse", "roll-call": "verse", "drawer": "verse",
-    "conditions": "build", "notes": "build", "price-math": "build", "tally": "build", "timeline": "build",
-    "flaw": "flaw", "countdown": "roll", "score": "roll",
-    "verdict": "drop", "reveal": "drop", "cta": "drop",
+    "intro": "explain", "conditions": "explain", "notes": "explain", "price-math": "explain",
+    "timeline": "explain", "tally": "explain", "details": "explain", "triptych": "explain",
+    "counter": "explain", "sketch": "explain", "stamp-open": "explain", "split": "explain",
+    "drawer-open": "explain",
+    "observation": "result", "output": "result", "triptych-fill": "result", "tray": "result",
+    "roll-call": "result", "successors": "result",
+    "flaw": "catch", "extinct": "catch",
+    "score": "build", "countdown": "build",
+    "verdict": "chorus", "reveal": "chorus", "cta": "chorus",
 }
 
 
@@ -110,204 +94,349 @@ def rng(name):
     return np.random.default_rng(sum((i + 1) * ord(c) for i, c in enumerate(name)) % (2 ** 32))
 
 
-def t_axis(sec):
+def taxis(sec):
     return np.arange(max(1, int(round(sec * SR)))) / SR
 
 
-# ---- instruments (mono unless noted) ----------------------------------------------------------
-
-def kick(g):
-    t = t_axis(0.34)
-    f = 46 + 120 * np.exp(-t * 30)
-    body = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 8.5)
-    click = highpass(g.standard_normal(t.size), 2500) * np.exp(-t * 400) * 0.35
-    return soft_clip(body + click, 2.2)          # harmonics: phone speakers rebuild the thump
+def hz(m):
+    return 440.0 * 2 ** ((m - 69) / 12)
 
 
-def clap(g):
-    t = t_axis(0.26)
-    n = g.standard_normal(t.size)
-    env = np.zeros(t.size)
-    for k, at in enumerate((0.0, 0.010, 0.021)):
-        s = int(at * SR)
-        env[s:] += np.exp(-(t[: t.size - s]) * (380 if k < 2 else 26)) * (0.8 if k < 2 else 1.0)
-    return bandpass(n * env, 850, 4200) * 1.4
+# ---- oscillators ------------------------------------------------------------------------------
 
-
-def snare(g, tone_hz=185):
-    t = t_axis(0.18)
-    tone = np.sin(2 * np.pi * tone_hz * t) * np.exp(-t * 30)
-    noise = bandpass(g.standard_normal(t.size), 1200, 9000) * np.exp(-t * 22)
-    return 0.6 * tone + noise
-
-
-def tom(g, f0):
-    t = t_axis(0.3)
-    f = f0 * (1 + 0.6 * np.exp(-t * 25))
-    return soft_clip(np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 9) + 0.15 * bandpass(g.standard_normal(t.size), 800, 4000) * np.exp(-t * 40), 1.6)
-
-
-def hat(g, open_=False):
-    t = t_axis(0.3 if open_ else 0.06)
-    metal = sum(np.sign(np.sin(2 * np.pi * f * t)) for f in (205.3, 304.4, 369.6, 522.7, 800.0, 540.0))
-    x = highpass(0.4 * metal + g.standard_normal(t.size), 7000, order=4)
-    return x * np.exp(-t * (11 if open_ else 70)) * 0.6
-
-
-def shaker(g):
-    t = t_axis(0.05)
-    return bandpass(g.standard_normal(t.size), 4000, 11000) * np.sin(np.pi * t / 0.05) ** 2 * 0.5
-
-
-def crash(g):
-    t = t_axis(1.8)
-    x = highpass(g.standard_normal(t.size), 3500) + 0.5 * bandpass(g.standard_normal(t.size), 2500, 6000)
-    return x * np.exp(-t * 2.4) * 0.5
-
-
-def additive(f, t, kind, duty=0.3, top=11000):
-    """Band-limited oscillator by additive synthesis (no aliasing on phone-band leads)."""
-    out = np.zeros(t.size)
-    for k in range(1, int(top / f) + 1):
-        if kind == "saw":
-            a = 1.0 / k
-        elif kind == "square":
-            a = (1.0 / k) if k % 2 else 0.0
-        elif kind == "pulse":
-            a = np.sin(np.pi * k * duty) / k
-        else:
-            a = 1.0 if k == 1 else 0.0
-        if a:
-            out += a * np.sin(2 * np.pi * f * k * t)
+def _blep(ph, dt):
+    out = np.zeros_like(ph)
+    a = ph < dt
+    x = ph[a] / dt[a]
+    out[a] = x + x - x * x - 1
+    b = ph > 1 - dt
+    x = (ph[b] - 1) / dt[b]
+    out[b] = x * x + x + x + 1
     return out
 
 
-def bass_note(note, dur, style, slide=0.0):
-    f = midi(note)
-    t = t_axis(dur + 0.03)
-    if slide:
-        ft = f * 2 ** (slide * np.clip(t / max(dur, 1e-3), 0, 1) / 12)
-        ph = np.cumsum(ft) / SR
-        saw = sum(np.sin(2 * np.pi * k * ph) / k for k in range(1, 14))
-        sub = np.sin(2 * np.pi * ph)
-    else:
-        saw = additive(f, t, "saw", top=6000)
-        sub = np.sin(2 * np.pi * f * t)
-    raw = 0.55 * saw + (0.9 if style == "sub" else 0.6) * sub
-    e = np.exp(-t / (0.2 if slide else 0.07))
-    x = lowpass(raw, 2600) * e + lowpass(raw, 420) * (1 - e)   # filter envelope (the "pluck"/"wah")
-    amp = np.minimum(1, t / 0.003) * (0.65 + 0.35 * np.exp(-t / 0.12))
-    amp *= np.clip((dur + 0.03 - t) / 0.02, 0, 1)
-    return soft_clip(x * amp, 1.8)
+def saw(freq, n, phase0=0.0):
+    """Band-limited (polyBLEP) sawtooth; freq is a scalar or a per-sample array."""
+    f = np.broadcast_to(np.asarray(freq, float), (n,))
+    dt = np.clip(f / SR, 1e-6, 0.45)
+    ph = (phase0 + np.cumsum(dt)) % 1.0
+    return 2 * ph - 1 - _blep(ph, dt)
 
 
-def stab(notes, dur, kind, g, bright=1.0):
-    t = t_axis(dur + 0.05)
-    out = np.zeros((t.size, 2))
-    for n in notes:
-        f = midi(n)
-        for ch, cents in ((0, -9), (1, 9)):
-            for det in (cents, -cents / 2):
-                if kind == "organ":
-                    w = additive(f * 2 ** (det / 1200), t, "square", top=4000) * 0.7
-                else:
-                    w = additive(f * 2 ** (det / 1200), t, "saw", top=7000)
-                out[:, ch] += w
-    hi = 1200 + 3000 * bright
-    out = bandpass(out, 260, hi)
-    decay = 0.5 if kind == "organ" else 0.16
-    env = np.minimum(1, t / 0.003) * np.exp(-t / decay) * np.clip((dur + 0.05 - t) / 0.03, 0, 1)
-    return out * env[:, None] / max(1, len(notes))
+def square(freq, n, phase0=0.0, duty=0.5):
+    return 0.5 * (saw(freq, n, phase0) - saw(freq, n, (phase0 + duty) % 1.0))
 
 
-def pluck(note, dur):
-    """A bright, short plucked synth for the verse counter-melodies."""
-    f = midi(note)
-    t = t_axis(dur + 0.15)
-    x = additive(f, t, "pulse", duty=0.22, top=9000)
-    e = np.exp(-t / 0.05)
-    x = lowpass(x, 5000) * e + lowpass(x, 1200) * (1 - e)
-    return x * np.minimum(1, t / 0.002) * np.exp(-t / 0.14)
+def sine(freq, n, phase0=0.0):
+    f = np.broadcast_to(np.asarray(freq, float), (n,))
+    return np.sin(2 * np.pi * (phase0 + np.cumsum(f) / SR))
 
 
-def chop(note, dur, vowel=0):
-    """A formant 'vocal chop' (ooh / aah / eh): the answer in the call-and-response."""
-    f = midi(note)
-    t = t_axis(dur + 0.05)
-    src = additive(f, t, "saw", top=6000)
-    formants = [((350, 800), (2300, 2800)), ((700, 1200), (1100, 1600)), ((450, 650), (1800, 2400))][vowel % 3]
-    x = sum(bandpass(src, lo, hi) for lo, hi in formants)
-    return x * np.minimum(1, t / 0.008) * np.exp(-t / 0.12) * 1.5
+def env_adsr(n, a, d, s, r, gate):
+    """Attack, decay, sustain level, release (seconds); gate = held length in seconds."""
+    t = np.arange(n) / SR
+    e = np.where(t < a, t / max(a, 1e-4), s + (1 - s) * np.exp(-(t - a) / max(d, 1e-4)))
+    rel = t > gate
+    e[rel] = e[rel] * np.exp(-(t[rel] - gate) / max(r, 1e-4))
+    return e
 
 
-def lead_note(note, dur, kind):
-    f = midi(note)
-    t = t_axis(dur + 0.08)
-    vib = 1 + (2 ** (14 / 1200) - 1) * np.sin(2 * np.pi * 5.5 * t) * np.clip((t - 0.12) / 0.1, 0, 1)
-    ph = np.cumsum(f * vib) / SR
-    if kind == "bell":
-        x = np.sin(2 * np.pi * ph) + 0.4 * np.sin(2 * np.pi * 2.76 * ph) * np.exp(-t * 9)
-    elif kind == "whistle":
-        x = np.sin(2 * np.pi * ph) + 0.08 * np.sin(4 * np.pi * ph)
-    else:
-        x = np.zeros(t.size)
-        duty = 0.3 if kind == "pulse" else 0.5
-        for k in range(1, int(9000 / f) + 1):
-            a = (np.sin(np.pi * k * duty) / k) if kind in ("pulse", "square") else 1.0 / k
-            if kind == "square" and k % 2 == 0:
-                a = 0
-            x += a * np.sin(2 * np.pi * k * ph)
-    amp = np.minimum(1, t / 0.004) * (0.55 + 0.45 * np.exp(-t / 0.18)) * np.clip((dur + 0.08 - t) / 0.06, 0, 1)
-    return x * amp
+def supersaw(f, n, g, voices=7, detune=0.16, width=1.0):
+    """Stereo supersaw: detuned band-limited saws spread across the field."""
+    out = np.zeros((n, 2))
+    spread = np.linspace(-1, 1, voices)
+    for k, sp in enumerate(spread):
+        cents = sp * detune * 100 * (0.6 + 0.4 * abs(sp))
+        v = saw(f * 2 ** (cents / 1200), n, g.random())
+        pan = 0.5 + 0.5 * sp * width
+        amp = 1.0 if k == voices // 2 else 0.75
+        out[:, 0] += v * amp * np.sqrt(1 - pan)
+        out[:, 1] += v * amp * np.sqrt(pan)
+    return out / voices * 1.6
+
+
+def fm_bell(f, n, ratio=3.5, index=2.4, decay=0.6):
+    t = np.arange(n) / SR
+    idx = index * np.exp(-t / (decay * 0.35))
+    return np.sin(2 * np.pi * f * t + idx * np.sin(2 * np.pi * f * ratio * t))
+
+
+def epiano(f, n):
+    """FM electric piano: soft tine + bell overtone."""
+    t = np.arange(n) / SR
+    tine = np.sin(2 * np.pi * f * t + 1.2 * np.exp(-t * 6) * np.sin(2 * np.pi * f * t))
+    bell = 0.25 * np.sin(2 * np.pi * f * 14 * t) * np.exp(-t * 18)
+    return tine + bell
+
+
+def lp_env(x, bright_hz, dark_hz, tau, n=None):
+    """Filter envelope by crossfade: bright at the attack, closing to dark with time constant tau."""
+    t = np.arange(x.shape[0]) / SR
+    e = np.exp(-t / tau)
+    if x.ndim == 2:
+        e = e[:, None]
+    return lowpass(x, bright_hz) * e + lowpass(x, dark_hz) * (1 - e)
+
+
+def mono_to_st(x, pan=0.0):
+    return np.stack([x * np.sqrt(0.5 * (1 - pan)), x * np.sqrt(0.5 * (1 + pan))], axis=1)
+
+
+# ---- drums ------------------------------------------------------------------------------------
+
+def kick(f0=52):
+    t = taxis(0.42)
+    f = f0 + 110 * np.exp(-t * 38) + 30 * np.exp(-t * 9)
+    body = sine(f, t.size) * np.exp(-t * 7.5)
+    click = highpass(np.random.default_rng(1).standard_normal(t.size), 3000) * np.exp(-t * 600) * 0.25
+    return soft_clip(1.1 * body + click, 1.8)
+
+
+def clap(g):
+    t = taxis(0.32)
+    n = g.standard_normal(t.size)
+    e = np.zeros(t.size)
+    for k, at in enumerate((0.0, 0.009, 0.018, 0.027)):
+        s = int(at * SR)
+        e[s:] += np.exp(-(t[: t.size - s]) * (300 if k < 3 else 22)) * (0.7 if k < 3 else 1.0)
+    return bandpass(n * e, 900, 5200) * 1.3
+
+
+def snare(g, gated=False):
+    t = taxis(0.4 if gated else 0.22)
+    tone = sine(190 * (1 + 0.3 * np.exp(-t * 40)), t.size) * np.exp(-t * 28)
+    nz = bandpass(g.standard_normal(t.size), 1500, 9000) * (np.exp(-t * 18) if not gated else (t < 0.28) * np.exp(-t * 3))
+    return 0.55 * tone + nz * 0.9
+
+
+def hat(g, open_=False):
+    t = taxis(0.28 if open_ else 0.05)
+    metal = sum(np.sign(np.sin(2 * np.pi * fr * t)) for fr in (317, 465, 567, 813, 1069, 1445))
+    x = highpass(0.35 * metal + g.standard_normal(t.size), 7500, order=4)
+    return x * np.exp(-t * (13 if open_ else 85)) * 0.5
+
+
+def shaker(g):
+    t = taxis(0.06)
+    return bandpass(g.standard_normal(t.size), 5000, 12000) * np.sin(np.pi * t / 0.06) ** 2 * 0.45
+
+
+def crash(g):
+    t = taxis(2.2)
+    x = highpass(g.standard_normal(t.size), 4000) + 0.4 * bandpass(g.standard_normal(t.size), 3000, 7000)
+    return x * np.exp(-t * 2.0) * 0.4
 
 
 def riser(dur, g):
-    t = t_axis(dur)
-    n = g.standard_normal(t.size)
+    t = taxis(dur)
     p = t / dur
-    x = sum(bandpass(n, lo, lo * 1.8) * np.clip(1 - np.abs(p - c) * 3, 0, 1)
-            for lo, c in ((800, 0.15), (1600, 0.45), (3200, 0.75), (6000, 1.0)))
-    sweep = np.sin(2 * np.pi * np.cumsum(300 + 900 * p ** 2) / SR) * 0.25
-    return (x + sweep) * p ** 2
+    nz = g.standard_normal(t.size)
+    out = np.zeros(t.size)
+    seg = int(0.05 * SR)
+    for s in range(0, t.size, seg):
+        fc = 600 + 9000 * (s / t.size) ** 2
+        out[s:s + seg] = bandpass(nz[s:s + seg], fc * 0.7, min(fc * 1.4, 20000))
+    tone = saw(200 + 1200 * p ** 2, t.size) * 0.08
+    return (out + lowpass(tone, 3000)) * p ** 1.8
 
 
-def reverse_cymbal(g, dur=BEAT):
-    c = crash(g)[: int(dur * SR)]
-    return c[::-1] * np.linspace(0, 1, c.size) ** 1.5
+def downlifter(g, dur=1.2):
+    t = taxis(dur)
+    p = t / dur
+    nz = highpass(g.standard_normal(t.size), 800)
+    return nz * (1 - p) ** 2 * 0.5 + sine(900 * (1 - 0.8 * p), t.size) * (1 - p) ** 3 * 0.15
 
 
 def impact(g):
-    t = t_axis(1.0)
-    boom = np.sin(2 * np.pi * np.cumsum(38 + 70 * np.exp(-t * 12)) / SR) * np.exp(-t * 4)
-    burst = lowpass(g.standard_normal(t.size), 2500) * np.exp(-t * 18) * 0.5
-    return soft_clip(boom + burst, 2.0)
+    t = taxis(1.4)
+    boom = sine(32 + 60 * np.exp(-t * 14), t.size) * np.exp(-t * 3.2)
+    burst = lowpass(g.standard_normal(t.size), 3000) * np.exp(-t * 20) * 0.4
+    return soft_clip(boom + burst, 1.6)
 
 
-def scratch(g):
+# ---- tonal instruments -----------------------------------------------------------------------
+
+def bass_note(m, dur, kind):
+    n = int((dur + 0.06) * SR)
+    f = hz(m)
+    t = np.arange(n) / SR
+    sub = sine(f, n)
+    if kind == "sub":
+        x = sub + 0.35 * np.tanh(4 * sub) + 0.18 * sine(2 * f, n)     # 2nd harmonic: audible on phones
+        e = env_adsr(n, 0.004, 0.25, 0.85, 0.05, dur)
+        return x * e
+    s = saw(f, n) * 0.6 + square(f * 0.5, n) * 0.0
+    if kind in ("bounce", "pluck"):
+        x = lp_env(s, 3200, 380, 0.06) + 0.9 * sub
+        e = env_adsr(n, 0.003, 0.12, 0.55, 0.04, dur)
+    elif kind == "octaves":
+        x = lp_env(s, 1800, 500, 0.12) + 0.7 * sub
+        e = env_adsr(n, 0.003, 0.2, 0.7, 0.04, dur)
+    else:  # rolling
+        x = lp_env(s, 1400, 420, 0.08) + 0.8 * sub
+        e = env_adsr(n, 0.004, 0.15, 0.6, 0.04, dur)
+    del t
+    return soft_clip(x * e, 1.4)
+
+
+def chord_stab(notes, dur, g, bright=1.0):
+    n = int((dur + 0.25) * SR)
+    out = np.zeros((n, 2))
+    for m in notes:
+        out += supersaw(hz(m), n, g, voices=5, detune=0.14)
+    out = lp_env(out, 2500 + 4500 * bright, 900, 0.09)
+    e = env_adsr(n, 0.003, 0.18, 0.25, 0.12, dur)
+    return out * e[:, None] / max(1, len(notes)) * 1.4
+
+
+def chord_pad(notes, dur, g, cutoff=3500):
+    n = int((dur + 0.6) * SR)
+    out = np.zeros((n, 2))
+    for m in notes:
+        out += supersaw(hz(m), n, g, voices=7, detune=0.2)
+    out = lowpass(out, cutoff)
+    e = env_adsr(n, 0.08, 0.6, 0.8, 0.45, dur)
+    return out * e[:, None] / max(1, len(notes)) * 1.1
+
+
+def keys_chord(notes, dur):
+    n = int((dur + 0.4) * SR)
+    x = sum(epiano(hz(m), n) for m in notes) / max(1, len(notes))
+    e = env_adsr(n, 0.004, 0.5, 0.35, 0.25, dur)
+    return mono_to_st(x * e * 1.3)
+
+
+def glass(m, dur):
+    """THE SPECIMIND tag voice: an FM bell an octave over a soft saw pluck. Same patch every video."""
+    n = int((dur + 0.9) * SR)
+    f = hz(m)
+    b = fm_bell(f, n, ratio=3.0, index=2.0, decay=0.7) * env_adsr(n, 0.002, 0.45, 0.0, 0.3, dur)
+    p = lp_env(saw(f, n) + 0.5 * saw(f * 2.003, n), 6000, 1200, 0.07) * env_adsr(n, 0.002, 0.25, 0.2, 0.2, dur)
+    sub8 = sine(f / 2, n) * env_adsr(n, 0.004, 0.3, 0.0, 0.2, dur) * 0.25
+    return 0.55 * b + 0.45 * p + sub8
+
+
+def lead_note(m, dur, kind, g):
+    n = int((dur + 0.3) * SR)
+    f = hz(m)
+    t = np.arange(n) / SR
+    vib = 1 + 0.004 * np.sin(2 * np.pi * 5.2 * t) * np.clip((t - 0.15) / 0.2, 0, 1)
+    if kind == "supersaw":
+        x = supersaw(f * vib, n, g, voices=7, detune=0.12, width=0.6)
+        x = lowpass(x, 7000)
+        e = env_adsr(n, 0.004, 0.2, 0.7, 0.1, dur)
+        return x * e[:, None] * 0.9
+    if kind == "bell":
+        x = glass(m, dur)[:n] * 0.9
+        return mono_to_st(x)
+    x = lp_env(saw(f * vib, n) + 0.6 * saw(f * vib * 1.004, n), 5500, 2400, 0.15)
+    e = env_adsr(n, 0.005, 0.2, 0.75, 0.1, dur)
+    return mono_to_st(x * e * 0.8)
+
+
+def arp_note(m, dur):
+    n = int((dur + 0.2) * SR)
+    x = lp_env(square(hz(m), n, duty=0.3), 5200, 900, 0.045)
+    return x * env_adsr(n, 0.002, 0.09, 0.0, 0.08, dur)
+
+
+# ---- harmony + melody -------------------------------------------------------------------------
+
+def degree_note(key, deg, octave=4):
+    """MIDI note of a major-scale degree (1-7, may exceed 7) in the key (semitones above A)."""
+    d = deg - 1
+    return 57 + key + 12 * (octave - 3) + MAJOR[d % 7] + 12 * (d // 7)
+
+
+def chord_tones(key, deg):
+    """Triad + 7th of a diatonic chord, as MIDI around the 4th octave."""
+    root = degree_note(key, deg, 3)
+    tones = [degree_note(key, deg + k, 3) for k in (0, 2, 4, 6)]
+    return root, tones
+
+
+def voicing(key, deg, top=72):
+    """Close voicing (3rd, 5th, 7th/9th, root) sitting under `top`, for chords that sit well together."""
+    _, tones = chord_tones(key, deg)
+    pcs = [tones[1], tones[2], tones[3], tones[0] + 12]
     out = []
-    for up, dur in ((True, 0.09), (False, 0.13)):
-        t = t_axis(dur)
-        f = (300 + 1400 * (t / dur)) if up else (1700 - 1500 * (t / dur))
-        buzz = np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * 0.6 + g.standard_normal(t.size) * 0.5
-        out.append(bandpass(buzz, 500, 3500) * np.sin(np.pi * t / dur))
-    return np.concatenate(out)
+    for p in pcs:
+        while p > top:
+            p -= 12
+        while p < top - 14:
+            p += 12
+        out.append(p)
+    return sorted(out)
 
 
-def tape_stop(x, seconds):
-    n = int(seconds * SR)
-    if n <= 0 or n >= x.shape[0]:
-        return x
-    seg = x[-n:].copy()
-    speed = np.linspace(1, 0, n) ** 1.3
-    pos = np.cumsum(speed)
-    pos = pos / pos[-1] * (n * 0.55)
-    out = np.stack([np.interp(np.clip(pos, 0, n - 1), np.arange(n), seg[:, c]) for c in range(2)], axis=1)
-    x = x.copy()
-    x[-n:] = out * np.linspace(1, 0.2, n)[:, None]
-    return x
+RHYTHMS = [   # catchy 2-bar topline rhythms: (16th step, length in 16ths)
+    [(0, 3), (3, 3), (6, 2), (8, 4), (14, 2), (16, 3), (19, 3), (22, 2), (24, 6)],
+    [(0, 2), (2, 2), (4, 3), (7, 3), (10, 6), (16, 2), (18, 2), (20, 3), (23, 3), (26, 6)],
+    [(2, 2), (4, 2), (6, 4), (10, 2), (12, 4), (18, 2), (20, 2), (22, 4), (26, 6)],
+    [(0, 4), (4, 2), (6, 2), (8, 6), (16, 4), (20, 2), (22, 2), (24, 2), (26, 6)],
+    [(0, 3), (3, 1), (4, 4), (10, 2), (12, 4), (16, 3), (19, 1), (20, 4), (26, 6)],
+    [(1, 2), (3, 3), (6, 3), (9, 7), (17, 2), (19, 3), (22, 3), (25, 7)],
+]
 
 
-# ---- arrangement --------------------------------------------------------------------------------
+def tonic_of(key):
+    """The tonic in the lead register (MIDI 64-75): the tag and toplines live around it."""
+    t = 69 + key
+    while t < 64:
+        t += 12
+    while t > 75:
+        t -= 12
+    return t
+
+
+def triad_pcs(key, deg):
+    t = tonic_of(key)
+    return [(t + MAJOR[(deg - 1 + j) % 7]) % 12 for j in (0, 2, 4)]
+
+
+def topline(key, prog, rhythm_id, g):
+    """A 4-bar hook (2-bar call + 2-bar answer): the tag's shape (1-5-3-6) over this episode's chords.
+    Strong beats and long notes land on chord tones; leaps stay under a sixth; the answer ends home."""
+    rhythm = RHYTHMS[rhythm_id % len(RHYTHMS)]
+    tonic = tonic_of(key)
+    lo, hi = tonic - 3, tonic + 14
+    contour = [1, 5, 3, 6, 5, 3, 2, 1, 3, 5, 6, 8, 6, 5, 3, 2]
+
+    def pc_of(d):
+        return (tonic + MAJOR[(d - 1) % 7]) % 12
+
+    def place(pc, near):
+        c = [m for m in range(lo, hi + 1) if m % 12 == pc]
+        return min(c, key=lambda m: abs(m - near))
+
+    notes, prev = [], tonic
+    for half in (0, 1):
+        for i, (st, ln) in enumerate(rhythm):
+            k = half * 32 + st
+            deg = prog[(k // 16) % 4]
+            triad = triad_pcs(key, deg)
+            want = place(pc_of(contour[(i + 5 * half) % len(contour)]), prev)
+            strong = st % 4 == 0 or ln >= 4
+            last = half == 1 and i == len(rhythm) - 1
+            if last:
+                pcs = [p for p in triad if p == tonic % 12] or triad
+                m = min((place(p, prev) for p in pcs), key=lambda o: abs(o - prev))
+            elif strong and want % 12 not in triad:
+                m = min((place(p, prev) for p in triad), key=lambda o: abs(o - want) + 0.4 * abs(o - prev))
+            else:
+                m = want
+                if ln >= 3 and any((m - p) % 12 == 1 for p in triad):     # no long minor-ninth rubs
+                    m = min((place(p, prev) for p in triad), key=lambda o: abs(o - m))
+            if abs(m - prev) > 9:
+                alt = m - 12 if m > prev else m + 12
+                if lo <= alt <= hi:
+                    m = alt
+            notes.append((k, m, ln))
+            prev = m
+    return notes
+
+
+# ---- arrangement ------------------------------------------------------------------------------
 
 class Bus:
     def __init__(self, n):
@@ -317,7 +446,7 @@ class Bus:
         s = int(round(at * SR))
         if s >= self.x.shape[0] or s < 0:
             return
-        sig = sig if sig.ndim == 2 else np.stack([sig * np.sqrt(0.5 * (1 - pan)), sig * np.sqrt(0.5 * (1 + pan))], axis=1)
+        sig = sig if sig.ndim == 2 else mono_to_st(sig, pan)
         e = min(self.x.shape[0], s + sig.shape[0])
         self.x[s:e] += gain * sig[: e - s]
 
@@ -330,13 +459,13 @@ def sections(script):
         d = float(b["seconds"])
         if abs(d / BEAT - round(d / BEAT)) > 1e-6:
             raise SystemExit(f"beat {i + 1} ({b['type']}) is {d} s; beats must be multiples of {BEAT} s (cuts on the 120 bpm grid)")
-        role = ROLE.get(b["type"], "verse")
+        role = ROLE.get(b["type"], "explain")
         if b["type"] == "notes" and ("flaw" in b or "flaw_row" in b):
-            role = "flaw"  # the notes card carries the circled flaw: the music dies with it
+            role = "catch"
         if i == 0:
             role = "hook"
         elif i == len(beats) - 1:
-            role = "drop"
+            role = "chorus"
         n = seen.get(role, 0)
         seen[role] = n + 1
         out.append((t, d, role, n))
@@ -344,29 +473,69 @@ def sections(script):
     return out, t
 
 
-def compose(script, groove):
-    G = GROOVES[groove]
-    chorus = PROGRESSIONS[G["chords"]]
+def sweep_lowpass(x, cut_at):
+    """Time-varying lowpass in 20 ms blocks; cut_at(t) gives the cutoff in Hz (>= 18 kHz: bypass)."""
+    out = x.copy()
+    blk = int(0.02 * SR)
+    zi = None
+    for s in range(0, x.shape[0], blk):
+        fc = cut_at(s / SR)
+        if fc >= 18000:
+            zi = None
+            continue
+        sos = butter(2, fc / (SR / 2), btype="low", output="sos")
+        seg = x[s:s + blk]
+        if zi is None:
+            zi = np.stack([sosfilt_zi(sos)[:, :, None] * seg[0][None, None, :]] * 1)[0]
+        y, zi = sosfilt(sos, seg, axis=0, zi=zi)
+        out[s:s + blk] = y
+    return out
+
+
+def reverb(x, rt60=1.6, pre=0.02, damp=0.3):
+    """Stereo reverb: 8 damped feedback combs into 2 allpasses per side (block-wise, fast),
+    left and right decorrelated by offsetting the delays."""
+    out = np.zeros_like(x)
+    pd = int(pre * SR)
+    for ch, off in ((0, 0), (1, 37)):
+        src = np.concatenate([np.zeros(pd), x[:, ch]])[: x.shape[0]]
+        acc = np.zeros(x.shape[0])
+        for ms in (25.3, 26.9, 28.9, 30.7, 32.2, 33.8, 35.3, 36.7):
+            d = int(ms * SR / 1000) + off
+            acc += _comb(src, d, 10 ** (-3 * d / (rt60 * SR)), damp)
+        acc /= 8
+        for ms, ga in ((5.0, 0.6), (1.7, 0.6)):
+            acc = _allpass(acc, int(ms * SR / 1000) + off // 3, ga)
+        out[:, ch] = acc
+    return out
+
+
+def compose(script, style_id, key):
+    S = STYLES[style_id]
     secs, total = sections(script)
     n_total = int(round(total * SR))
     n = n_total + int(TAIL * SR)
-    g = rng(f"{script.get('id', 'E000')}-{groove}")
-    drums, bass, chords, lead, fx = (Bus(n) for _ in range(5))
-    K, C, HC, HO, CR = kick(g), clap(g), hat(g), hat(g, True), crash(g)
-    SNs = [snare(g, f) for f in (185, 210, 240)]
-    TOMS = [tom(g, f) for f in (180, 140, 105)]
-    SHK = shaker(g)
+    g = rng(f"{script.get('id', 'E000')}-{style_id}-{key}")
+    prog = PROGRESSIONS[int(g.integers(len(PROGRESSIONS)))]
+    if S["chords"] == "keys" and prog == PROGRESSIONS[3]:
+        prog = PROGRESSIONS[5]
+    hook = topline(key, prog, int(g.integers(len(RHYTHMS))), g)
+    drums, bass, chords, lead, arp, fx, tag = (Bus(n) for _ in range(7))
+    K = kick(S["kick_hz"])
+    CL, SN = clap(g), snare(g, S.get("gated", False))
+    HC, HO, SH, CR = hat(g), hat(g, True), shaker(g), crash(g)
     sidechain = np.ones(n)
 
-    def duck(at, depth=0.55):
-        s = int(round(at * SR))
-        env = 1 - depth * np.exp(-np.arange(int(0.22 * SR)) / (0.06 * SR))
+    def duck(at, depth):
+        s = max(0, int(round(at * SR)))
+        env = 1 - depth * np.exp(-np.arange(int(0.3 * SR)) / (0.075 * SR))
         e = min(n, s + env.size)
         sidechain[s:e] = np.minimum(sidechain[s:e], env[: e - s])
 
     def at_step(k):
-        bar, step = divmod(k, 16)
-        return bar * BAR + step * S16 + (G["swing"] * S16 if step % 2 else 0.0)
+        step = k % 16
+        jitter = g.normal(0, 0.0025) if step % 4 else 0.0     # downbeats stay tight; the rest breathes
+        return max(0.0, k * S16 + (S["swing"] * S16 if step % 2 else 0.0) + jitter)
 
     def section_of(t):
         for idx, (s, d, role, nth) in enumerate(secs):
@@ -381,183 +550,192 @@ def compose(script, groove):
         bar, step = divmod(k, 16)
         at = at_step(k)
         idx, s0, d0, role, nth = section_of(t16 + 1e-6)
-        local = int(round((t16 - s0) / S16))            # 16ths since the section started
-        lbar = local // 16
-        next_start = s0 + d0
-        steps_to_next = int(round((next_start - t16) / S16))
-        prog = chorus if role in ("hook", "drop") else VERSE_PROG if role == "verse" else BUILD_PROG
-        root, voicing = prog[bar % 4]
-        nxt_root = prog[(bar + 1) % 4][0]
-        var = g.random()                                  # per-step variation dice (seeded)
-        in_fill = steps_to_next <= 4 and idx < len(secs) - 1 and secs[idx + 1][2] not in ("flaw",)
-        last_fill = steps_to_next <= 4 and idx == len(secs) - 1   # pickup back into bar 1 (loop)
-
-        if role == "flaw":
-            continue                                       # rendered as an event below
+        local = int(round((t16 - s0) / S16))
+        steps_to_next = int(round((s0 + d0 - t16) / S16))
+        deg = prog[bar % 4]
+        root, tones = chord_tones(key, deg)
+        root -= 24
+        while root < 33:          # bass fundamentals between A1 (55 Hz) and G#2 (104 Hz)
+            root += 12
+        while root > 44:
+            root -= 12
+        vel = 0.9 + 0.1 * g.random()
+        energy = {"hook": 3, "explain": 2, "result": 3, "catch": 0, "build": 1, "chorus": 4}[role]
 
         # ---- drums ----
-        if role == "roll":
-            if t16 >= s0 + SCORE_LOCK - 1e-6:
-                if step in (0, 8):
-                    drums.add(at, K, 1.0)
-                    duck(at)
-                if step in (4, 12):
-                    drums.add(at, C, 0.55)
-                drums.add(at, HC, 0.14 if step % 2 == 0 else 0.08, pan=0.25)
-        elif in_fill or last_fill:
-            fill = (idx + (1 if last_fill else 0)) % 4
-            j = 4 - steps_to_next                          # 0..3 inside the fill
-            if fill == 0:                                  # snare flam run
-                drums.add(at, SNs[j % 3], 0.25 + 0.12 * j, pan=-0.1)
-                drums.add(at + S16 / 2, SNs[(j + 1) % 3], 0.18 + 0.1 * j, pan=0.1)
-            elif fill == 1:                                # tom run, high to low
-                drums.add(at, TOMS[min(2, j)], 0.55, pan=-0.3 + 0.3 * min(2, j))
-            elif fill == 2:                                # clap stutter
-                drums.add(at, C, 0.3 + 0.1 * j)
-                drums.add(at + S16 / 2, C, 0.22 + 0.08 * j)
-            else:                                          # kick-clap push
-                drums.add(at, K if j % 2 == 0 else C, 0.8 if j % 2 == 0 else 0.5)
-            if j == 0:
-                pass
-        else:
-            energy = {"hook": 3, "verse": 2, "build": 1, "drop": 3}[role]
-            kicks = G["kick"] if energy >= 2 else [0, 8]
-            if role == "build":
-                kicks = [0, 4, 8, 12] if lbar % 2 else [0, 8]            # the build tightens
-            if step in kicks or (energy >= 2 and step == 14 and var < 0.18):   # occasional push
-                drums.add(at, K, 1.0)
-                duck(at)
-            if step in G["clap"]:
-                drums.add(at, C, 0.55 if energy >= 2 else 0.4, pan=0.05)
-            elif energy >= 2 and step in (7, 15) and var < 0.22:          # ghost claps
-                drums.add(at, C, 0.14, pan=-0.1)
-            if role == "verse" and step % 2 == 1:
-                drums.add(at, SHK, 0.35 if step % 4 == 3 else 0.22, pan=-0.35)
-            if energy >= 2 or step % 2 == 0:
-                acc = 1.0 if step % 4 == 2 else (0.7 if step % 2 == 0 else 0.45)
-                open_ = step in G["openhat"] and energy >= 2 and (role != "verse" or lbar % 2 == 1)
-                drums.add(at, HO if open_ else HC, 0.16 * acc, pan=0.25)
-            if role == "build":
-                rate = 4 if lbar == 0 else 2                               # snare build accelerates
-                if step % rate == 0 and t16 > s0 + BEAT:
-                    drums.add(at, SNs[0], 0.12 + 0.25 * (t16 - s0) / d0, pan=-0.1)
+        if role == "build":
+            lock = s0 + min(SCORE_LOCK, d0 - BEAT)
+            if t16 >= lock - 1e-6:
+                energy = 4
+        if energy >= 2 or (role == "build" and energy == 4):
+            if step in S["kick"]:
+                drums.add(at, K, (0.78 if energy >= 3 else 0.66) * vel)
+                duck(at, S["sc"])
+            if step in S["clap"]:
+                drums.add(at, SN if S.get("gated") else CL, (0.62 if energy >= 3 else 0.45) * vel)
+                if energy >= 4 and not S.get("gated"):
+                    drums.add(at + 0.004, SN, 0.18 * vel)
+            hp = S["hat"]
+            if hp == "offbeat" and step % 4 == 2:
+                drums.add(at, HO, 0.3 * vel, pan=0.2)
+            if hp in ("sixteenths", "offbeat") and energy >= 3:
+                drums.add(at, HC, (0.17 if step % 2 else 0.11) * vel, pan=0.25)
+            if hp == "eighths" and step % 2 == 0:
+                drums.add(at, HO if (step % 4 == 2 and energy >= 4) else HC, 0.2 * vel, pan=0.2)
+            if hp == "shuffle":
+                if step % 2 == 0 or (step % 4 == 3 and g.random() < 0.6):
+                    drums.add(at, HC, (0.15 if step % 4 == 2 else 0.09) * vel, pan=0.25)
+                if step in (6, 14) and energy >= 3:
+                    drums.add(at, HO, 0.15, pan=0.2)
+            if hp in ("shuffle", "shaker") and step % 2 == 0 and energy >= 3:
+                drums.add(at, HC, 0.1 * vel, pan=0.3)                      # air on top of the keys styles
+            if hp == "shaker" or energy >= 3:
+                drums.add(at, SH, (0.24 if step % 2 else 0.14) * vel, pan=-0.3)
+            if steps_to_next <= 2 and idx < len(secs) - 1 and step % 1 == 0 and energy >= 2:
+                drums.add(at, SN, 0.12 + 0.08 * (2 - steps_to_next), pan=-0.1)   # light fill into the cut
+        elif role == "build":
+            lock = s0 + min(SCORE_LOCK, d0 - BEAT)
+            if step % 4 == 0:
+                drums.add(at, K, 0.55)
+            rate = 2 if (lock - t16) > 0.75 else 1                               # roll tightens
+            if local % rate == 0:
+                drums.add(at, SN, 0.08 + 0.3 * np.clip((t16 - s0) / max(0.1, lock - s0), 0, 1), pan=-0.1)
+        elif role == "catch":
+            if step % 4 == 2:
+                drums.add(at, HC, 0.06, pan=0.3)
 
         # ---- bass ----
-        if role == "roll" and t16 < s0 + SCORE_LOCK - 1e-6:
-            pass
-        elif role == "build":
-            if step % 2 == 0:
-                bass.add(at, bass_note(root + (12 if step % 4 == 2 else 0), S16 * 1.6, "sub"), 0.4)
+        bk = S["bass"]
+        bar_left = min(BAR - step * S16, s0 + d0 - t16)
+        if role == "catch":
+            if step == 0 or local == 0:
+                bass.add(at, bass_note(root, bar_left * 0.95, "sub"), 0.2)
+        elif role == "build" and energy < 4:
+            if step % 4 == 0:
+                bass.add(at, bass_note(root, S16 * 3, "sub"), 0.24)
         else:
-            if role == "verse":
-                pattern = ([(0, 0, 2), (3, 12, 1), (6, 7, 1), (8, 0, 1), (10, 12, 1), (11, 10, 1), (14, 7, 1), (15, None, 1)]
-                           if lbar % 2 == 0 else
-                           [(0, 0, 3), (4, 12, 1), (6, 0, 1), (9, 7, 2), (12, 12, 1), (14, 10, 1), (15, None, 1)])
-            else:
-                pattern = {
-                    "octave": [(0, 0, 2), (2, 12, 1), (4, 0, 1), (6, 12, 1), (8, 0, 2), (10, 12, 1), (12, 0, 1), (14, 12, 1)],
-                    "funk": [(0, 0, 2), (3, 12, 1), (6, 0, 1), (8, 0, 1), (10, 7, 1), (11, 12, 1), (14, 10, 1), (15, None, 1)],
-                    "sub": [(0, 0, 3), (6, 0, 1), (10, 7, 2), (14, 12, 1)],
-                    "eighths": [(i, 0 if i % 4 else 12, 1) for i in range(0, 16, 2)],
-                }[G["bass"]]
-            for st, iv, ln in pattern:
-                if st == step and not (in_fill and st >= 12):
-                    note = (nxt_root - 1) if iv is None else root + iv
-                    bass.add(at, bass_note(note, ln * S16 * 0.92, G["bass"]), 0.5)
+            pat = {
+                "bounce": [(2, 0, 2), (6, 12, 2), (10, 0, 2), (14, 12, 2)],
+                "rolling": [(i, 0 if i % 4 else 12, 1) for i in range(0, 16, 1) if i % 4 != 0],
+                "octaves": [(i, 0 if (i // 2) % 2 == 0 else 12, 2) for i in range(0, 16, 2)],
+                "sub": [(0, 0, 5), (6, 0, 2), (10, 7, 3), (14, 12, 2)],
+                "pluck": [(0, 0, 2), (3, 0, 1), (6, 12, 2), (8, 0, 2), (11, 0, 1), (14, 7, 2)],
+            }[bk]
+            for st, iv, ln in pat:
+                if st == step:
+                    bass.add(at, bass_note(root + iv, ln * S16 * 0.9, bk), (0.3 if energy >= 3 else 0.26) * (0.85 if bk in ("bounce", "rolling") else 1.0) * vel)
 
         # ---- chords ----
-        if role == "build":
-            if step % 2 == 0:                                              # 8th pulses, filter opening
-                bright = 0.15 + 0.85 * (t16 - s0) / d0
-                chords.add(at, stab(voicing, S16 * 1.4, "filter", g, bright), 0.36)
-        elif role == "verse":
-            if step in (2, 7, 10) or (lbar % 2 and step == 15):
-                chords.add(at, stab(voicing, S16 * 1.4, G["chords"], g, 0.6), 0.3)
-        elif role in ("hook", "drop") or (role == "roll" and t16 >= s0 + SCORE_LOCK):
-            if step in G["stabs"]:
-                kind = G["chords"]
-                chords.add(at, stab(voicing, S16 * (3 if kind == "organ" else 1.6), kind, g), 0.42)
+        v = voicing(key, deg, 72)
+        ck = S["chords"]
+        if role == "catch":
+            if step == 0 or local == 0:
+                chords.add(at, chord_pad(v, bar_left, g, cutoff=2200), 0.5)
+        elif ck == "pad":
+            if step == 0 or local == 0:
+                chords.add(at, chord_pad(v, bar_left, g, cutoff=2600 if energy < 3 else 5200), 0.55 if energy >= 3 else 0.42)
+        elif ck == "stab":
+            hits = (2, 6, 10, 14) if energy >= 3 else (2, 10)
+            if step in hits:
+                chords.add(at, chord_stab(v, S16 * 1.5, g, 1.0 if energy >= 4 else 0.55), (0.55 if energy >= 3 else 0.42) * vel)
+            if energy >= 4 and (step == 0 or local == 0):
+                chords.add(at, chord_pad(v, bar_left, g, cutoff=3200), 0.24)
+        else:  # keys
+            hits = (0, 3, 6, 10, 12) if energy >= 3 else (0, 6, 10)
+            if step in hits:
+                chords.add(at, keys_chord(v, S16 * (2 if step != 12 else 3)), (0.62 if energy >= 3 else 0.5) * vel)
+            if energy >= 4 and (step == 0 or local == 0):
+                chords.add(at, chord_pad(v, bar_left, g, cutoff=2800), 0.22)
 
-        # ---- melody ----
-        if role in ("hook", "drop"):
-            phrase = HOOK_CALL if role == "hook" else HOOK_ANSWER
-            off = 0 if role == "hook" else 32
-            ph_step = (local % 32) + off
-            for st, note, ln in phrase:
-                if st == ph_step:
-                    lead.add(at, lead_note(note, ln * S16, G["lead"]), 0.34)
-                    if role == "drop":                                     # harmony a third below
-                        lead.add(at, lead_note(note - (3 if note in (69, 76, 81) else 4), ln * S16, G["lead"]), 0.18, pan=0.35)
-        elif role == "verse":
-            arp = ARPS[nth % len(ARPS)]
-            if step % 2 == 0:
-                tone = voicing[arp[(step // 2) % len(arp)] % len(voicing)] + 12
-                lead.add(at, pluck(tone, S16 * 1.5), 0.2, pan=0.3 * (1 if (step // 2) % 2 else -1))
-            if step == 14 and lbar % 2 == 0:                               # the chop answers
-                chords.add(at, chop(voicing[-1], S16 * 2, nth + lbar), 0.32, pan=-0.2)
+        # ---- arp ----
+        if S["arp"] and role in ("explain", "result", "chorus", "hook") and step % 2 == 0:
+            seq = {"up": [0, 1, 2, 3], "updown": [0, 1, 2, 3, 2, 1], "broken": [0, 2, 1, 3]}[S["arp"]]
+            nt = v[seq[(step // 2) % len(seq)] % len(v)] + 12
+            arp.add(at, arp_note(nt, S16 * 1.6), (0.2 if energy < 3 else 0.27) * vel, pan=0.35 if (step // 2) % 2 else -0.35)
 
-    # ---- section events ----
+        # ---- topline: arrives with the result, carries the chorus ----
+        if role in ("result", "chorus"):
+            ph = (local % 64)
+            for st, m, ln in hook:
+                if st == ph:
+                    kind = S["lead"] if role == "chorus" else ("bell" if S["lead"] != "bell" else "bell")
+                    lead.add(at, lead_note(m, ln * S16 * 0.95, kind, g), (0.55 if role == "chorus" else 0.42) * vel)
+                    if role == "chorus" and S["lead"] != "bell":
+                        lead.add(at, lead_note(m + 12, ln * S16 * 0.9, "bell", g), 0.16)
+
+    # ---- the tag (sound logo), story events ----
+    tonic = tonic_of(key)
+
+    def play_tag(at, gain):
+        for st, dg, ln in TAG:     # 1-5-3-6 laid out as the original A4 E5 C#5 F#5
+            m = tonic + {1: 0, 5: 7, 3: 4, 6: 9}[dg]
+            tag.add(at + st * S16, glass(m, ln * S16 * 0.95), gain)
+
+    play_tag(0.0, 0.62)
+    fx.add(0.0, impact(g), 0.28)
     for i, (s, d, role, nth) in enumerate(secs):
         if i == 0:
-            fx.add(0.0, impact(g), 0.4)
-            fx.add(0.0, CR, 0.3)
-        elif role in ("verse", "drop", "build"):
-            fx.add(max(0.0, s - BEAT), reverse_cymbal(g), 0.3)
-        if role == "verse":
-            # STINGER: three rising notes from the motif, a whole step higher every new result.
-            up = 2 * nth
-            for j, nn in enumerate((69, 73, 76)):
-                lead.add(s + j * S16, lead_note(nn + up, S16 * 1.2, "bell"), 0.28)
-            fx.add(s, CR, 0.18)
-        if role == "drop":
-            fx.add(s, impact(g), 0.4)
-            fx.add(s, CR, 0.5)
+            continue
+        if role in ("result", "chorus"):
+            fx.add(s, CR, 0.22 if role == "result" else 0.4)
+        if role == "catch":
+            fx.add(s, downlifter(g, min(1.2, d)), 0.3)
+            # a calm two-note phrase on the tag voice: thoughtful, not a joke
+            for j, dg in enumerate((6, 5)):
+                if s + 0.5 + j * 1.0 < s + d - 0.2:
+                    tag.add(s + 0.5 + j * 1.0, glass(tonic + {6: 9, 5: 7}[dg], 0.9), 0.32)
         if role == "build":
-            fx.add(s, riser(d, g), 0.3)
-        if role == "roll":
-            lock = s + (SCORE_LOCK if d > SCORE_LOCK else d - BEAT)
-            rolls = int((lock - s) / (S16 / 2))
-            for r in range(rolls):
-                tt = s + r * (S16 / 2)
-                drums.add(tt, SNs[r % 3], 0.16 + 0.42 * (tt - s) / max(0.1, lock - s), pan=-0.1)
-            fx.add(s, riser(lock - s, g), 0.3)
-            fx.add(lock, CR, 0.6)
+            lock = s + min(SCORE_LOCK, d - BEAT)
+            fx.add(s, riser(max(0.3, lock - s), g), 0.32)
             fx.add(lock, impact(g), 0.4)
-            # winner's fanfare: the motif as a quick major arpeggio on the lock
-            for j, nn in enumerate((69, 73, 76, 81)):
-                lead.add(lock + j * S16 * 0.75, lead_note(nn, S16 * (3 if j == 3 else 1), G["lead"]), 0.3)
-        if role == "flaw":
-            fx.add(s, scratch(g), 0.55)
-            # The joke: a sad, sliding "wah" bass, half-time drums, a deflated chop.
-            for j, (semis, slide) in enumerate(((0, -1), (-1, -1), (-2, -1), (-3, -5))):
-                at = s + 0.25 + j * BEAT
-                if at < s + d - 0.05:
-                    bass.add(at, bass_note(42 + semis, BEAT * 0.95, "sub", slide=slide), 0.55)
-                    drums.add(at, K if j % 2 == 0 else C, 0.8 if j % 2 == 0 else 0.35)
-            if d >= 2.0:
-                chords.add(s + d - BEAT * 1.5, chop(64, BEAT, 1), 0.25)
+            fx.add(lock, CR, 0.45)
+        if role == "chorus" and i == len(secs) - 1:
+            fx.add(s, impact(g), 0.3)
+            play_tag(s, 0.55)       # the stamp lands: the tag answers
 
     # ---- mix ----
-    duck_ = sidechain[:, None]
-    mix = drums.x + bass.x * duck_ + chords.x * duck_ * 0.9 + lead.x * (0.6 + 0.4 * duck_)
-    d8 = int(0.375 * SR)
-    echo = np.zeros_like(lead.x)
-    echo[d8:, 0] += lead.x[:-d8, 1] * 0.3
-    echo[2 * d8:, 1] += lead.x[:-2 * d8, 0] * 0.18
-    mix += echo * duck_
-    room = np.stack([schroeder(chords.x[:, 0] + 0.5 * lead.x[:, 0], rt60=0.9, spread=0),
-                     schroeder(chords.x[:, 1] + 0.5 * lead.x[:, 1], rt60=0.9, spread=19)], axis=1)
-    mix += 0.18 * room + fx.x
-    for s, d, role, nth in secs:
-        if role == "flaw" and s > 0.5:
-            cut = int(round(s * SR))
-            mix[:cut] = tape_stop(mix[:cut], 0.42)
-    mix = highpass(mix, 32)
-    # Seamless loop: fold everything that rings past the end back onto the start.
+    sc = sidechain[:, None]
+    lead_x = lead.x * (0.7 + 0.3 * sc)
+    d375 = int(0.375 * SR)
+    echo = np.zeros_like(lead_x)
+    echo[d375:, 0] += (lead_x[:-d375, 1] + tag.x[:-d375, 1]) * 0.28
+    echo[2 * d375:, 1] += (lead_x[:-2 * d375, 0] + tag.x[:-2 * d375, 0]) * 0.18
+    echo = highpass(lowpass(echo, 5000), 400)
+    music = bass.x * sc + chords.x * sc + arp.x * sc + lead_x + tag.x + echo * sc
+    # the catch: everything melodic goes dark (a filter, not a gag)
+    catch_spans = [(s, s + d) for s, d, role, _ in secs if role == "catch"]
+    build_spans = [(s, s + min(SCORE_LOCK, d - BEAT)) for s, d, role, _ in secs if role == "build"]
+
+    def cut_at(t):
+        for a, b in catch_spans:
+            if a <= t < b:
+                return 1700.0 + 500 * (t - a)
+        for a, b in build_spans:
+            if a <= t < b:
+                p = (t - a) / max(0.1, b - a)
+                return 800 + 17000 * p ** 2
+        return 20000.0
+
+    music = sweep_lowpass(music, cut_at)
+    send = highpass(chords.x * 0.6 + lead_x * 0.5 + tag.x * 0.8 + arp.x * 0.5 + drums.x * 0.08, 300)
+    wet = reverb(send, rt60=1.8 if style_id in (2, 3, 6) else 1.3)
+    mix = drums.x + music + 0.32 * wet + fx.x
+    mix = highpass(mix, 28)
+    mix = mix + 0.22 * bandpass(mix, 1800, 6000)            # presence: phones are a mid-range world
+    # energy contour: explaining beats sit back so the text reads; the chorus opens up
+    gain = np.ones(mix.shape[0])
+    for s0, d0, role, _ in secs:
+        a, b = int(s0 * SR), int((s0 + d0) * SR)
+        gain[a:b] = {"explain": 0.8, "catch": 0.75, "result": 0.92, "build": 0.95, "hook": 1.0, "chorus": 1.08}[role]
+    k = int(0.05 * SR)
+    gain = np.convolve(gain, np.ones(k) / k, mode="same")
+    mix = mix * gain[:, None]
+    # glue: gentle bus saturation
+    mix = soft_clip(mix * 0.9, 1.15)
     loop = mix[:n_total].copy()
     tail = mix[n_total:]
     loop[: tail.shape[0]] += tail[: min(tail.shape[0], n_total)]
-    return loop, total, secs
+    return loop, total, secs, prog
 
 
 def main():
@@ -565,17 +743,22 @@ def main():
     ap.add_argument("script")
     ap.add_argument("--out")
     ap.add_argument("--groove", type=int)
+    ap.add_argument("--key", type=int, help="index into KEYS (default: from the episode id)")
     a = ap.parse_args()
     script = json.load(open(a.script))
-    groove = a.groove or int(script.get("groove") or (int(script.get("id", "E1")[1:]) % 6) + 1)
-    if groove not in GROOVES:
-        raise SystemExit(f"groove must be 1-6, got {groove}")
-    mix, total, secs = compose(script, groove)
-    mix = calibrate(mix, MUSIC_LUFS, MUSIC_PEAK, integrated=True, max_drive=2.4)
+    style = a.groove or int(script.get("groove") or (int(script.get("id", "E1")[1:]) % 6) + 1)
+    if style not in STYLES:
+        raise SystemExit(f"groove must be 1-6, got {style}")
+    eid = script.get("id", "E000")
+    kidx = a.key if a.key is not None else (script.get("key") if isinstance(script.get("key"), int) else sum(map(ord, eid)) % len(KEYS))
+    key = KEYS[kidx % len(KEYS)]
+    mix, total, secs, prog = compose(script, style, key)
+    mix = calibrate(mix, MUSIC_LUFS, MUSIC_PEAK, integrated=True, max_drive=2.0)
     out = a.out or os.path.join(os.path.dirname(os.path.abspath(a.script)), "music.wav")
     with open(out, "wb") as f:
         f.write(wav_bytes(mix))
-    print(f"{out}: groove {groove} ({GROOVES[groove]['name']}), {total:.1f} s, "
+    names = ["A", "Bb", "B", "C", "C#", "D", "Eb", "E", "F", "F#", "G", "G#"]
+    print(f"{out}: {STYLES[style]['name']} in {names[key % 12]} major (progression {'-'.join(map(str, prog))}), {total:.1f} s, "
           f"{integrated_loudness(mix):.1f} LUFS, {true_peak_db(mix):.1f} dBTP; sections: "
           + " ".join(f"{role}{nth + 1}@{s:.1f}" for s, d, role, nth in secs))
 

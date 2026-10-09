@@ -24,6 +24,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 HUB = "https://specimindlab.github.io"
+# Plain names for the human's posting guide (prompts/voice.md v3); data keeps the internal ones.
+SERIES_SAYS = {"Field Specimen": "Full test", "Free Range": "Free plan test", "Rare Sighting": "Little-known tool",
+               "Plate": "Head to head", "Field Sketch": "Research only", "Mimicry": "AI or real?",
+               "Dissection": "Workflow", "The Drawer": "Roundup", "Extinction Watch": "Shut down"}
+MODE_SAYS = {"Live specimen": "Tested by us", "Field sketch": "Not tested (research only)"}
+DISC_SAYS = {"Unpaid": "Not sponsored", "Affiliate": "Affiliate link"}
 
 
 def g(d, *path, default=""):
@@ -59,7 +65,7 @@ def main():
         script = json.loads((src / "script.json").read_text(encoding="utf-8"))
         code = script.get("code", "")
         tool = script.get("tool", "")
-        series = script.get("series", "")
+        series = SERIES_SAYS.get(script.get("series", ""), script.get("series", ""))
         dest = out / f"{n:02d}-{src.name}"
         dest.mkdir()
         # One video per platform (render_batch.sh default): <id>-yt/-ig/-x.mp4 differ only in the
@@ -88,7 +94,7 @@ def main():
         altered = "ON" if g(yt, "altered_content", default=False) else "OFF"
         hub = f"{HUB}/{code}"
 
-        overview.append(f"| {n} | {when} | {eid} | {code} | {tool} | {series} | {script.get('mode', '')} | `{dest.name}/` |")
+        overview.append(f"| {n} | {when} | {eid} | {code} | {tool} | {series} | {MODE_SAYS.get(script.get('mode', ''), script.get('mode', ''))} | `{dest.name}/` |")
         rows.append({
             "order": n, "post_at_ist": when, "id": eid, "code": code, "tool": tool, "series": series,
             "mode": script.get("mode", ""), "disclosure": script.get("disclosure", ""),
@@ -103,8 +109,8 @@ def main():
         sections.append("\n".join([
             f"## {n}. {eid} · {code} · {tool}",
             "",
-            f"**Post:** {when} · **Series:** {series} · **Mode:** {script.get('mode', '')} · "
-            f"**Disclosure:** {script.get('disclosure', '')} · **Folder:** `{dest.name}/` · **Hub:** {hub}",
+            f"**Post:** {when} · **Type:** {series} · **Mode:** {MODE_SAYS.get(script.get('mode', ''), script.get('mode', ''))} · "
+            f"**Disclosure:** {DISC_SAYS.get(script.get('disclosure', ''), script.get('disclosure', ''))} · **Folder:** `{dest.name}/` · **Hub:** {hub}",
             "",
             "### YouTube Shorts",
             f"- [ ] Upload `{vid['yt']}`; custom thumbnail `cover.png`; subtitles `{eid}.srt` (English)",
@@ -158,14 +164,14 @@ def main():
     head = [
         f"# SPECIMIND {name}: posting guide",
         "",
-        f"{len(rows)} episode{'s' if len(rows) != 1 else ''}. Download `specimind-{name}.zip` from the Release `{name}` (or each MP4 on its own from the same Release) and unzip it; each folder holds one video "
+        f"{len(rows)} episode{'s' if len(rows) != 1 else ''}. Download `specimind-{name}.zip` from the Release `{name}` and unzip it; each folder holds one video "
         "per platform (`<id>-yt.mp4`, `<id>-ig.mp4`, `<id>-x.mp4`: the same edit, each ending on that platform's call to action), `cover.png`, the `.srt` captions and `meta/`. Every MP4 is 1080×1920, 30 fps, "
         "H.264, -14 LUFS, and was verified automatically before this Release was created.",
         "",
         "Schedule YouTube in YouTube Studio and Instagram in Meta Business Suite (both free). Post X by hand if scheduling is "
         "not offered on your account. Times are IST.",
         "",
-        "| # | Post (IST) | Episode | Code | Tool | Series | Mode | Folder |",
+        "| # | Suggested post (IST) | Episode | Code | Tool | Type | Mode | Folder |",
         "| --- | --- | --- | --- | --- | --- | --- | --- |",
         *overview,
         "",

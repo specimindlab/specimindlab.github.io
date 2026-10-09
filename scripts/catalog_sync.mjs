@@ -38,7 +38,7 @@ const flawCaption = (script) => {
   // "Honest flaw:" may stand alone on its line or start it ("Honest flaw: chrome" / "lamp shattered.").
   for (const b of script?.beats ?? []) {
     const text = (b.lines ?? []).join(" ").replace(/\s+/g, " ").trim();
-    const m = text.match(/^honest flaw:\s*(.+)$/i);
+    const m = text.match(/^(?:honest flaw|the catch):\s*(.+)$/i);
     if (m) return m[1];
   }
   return "";
@@ -75,7 +75,6 @@ const entryFor = (id) => {
     pillar: brief.pillar,
     series: brief.series,
     tested_on: facts.tested_on ?? facts.captured_on ?? brief.date,
-    posted_on: brief.date,
     hook_lines: firstLines(script),
     disclosure,
     cover: cover(folder, id),
@@ -94,7 +93,7 @@ const entryFor = (id) => {
       group: true,
       ...common,
       kind,
-      title: (brief.youtube_title_draft ?? brief.tools_raw ?? code).split(" | ")[0],
+      title: (brief.title ?? brief.youtube_title_draft ?? brief.tools_raw ?? code).split(" | ")[0],
       members: members.map((m) => Object.fromEntries(Object.entries(m).filter(([, v]) => v !== undefined && v !== ""))),
       flaw,
       verdict: kind === "Dissection" ? verdictOf(facts, script) ?? undefined : undefined,
@@ -106,13 +105,13 @@ const entryFor = (id) => {
   const notes = notesBeat?.rows?.length
     ? notesBeat.rows.map((r) => ({ key: r.key, value: r.value }))
     : [
-        { key: "Habitat", value: orNP(facts.habitat) },
-        { key: "Feeds on", value: orNP(facts.feeds_on) },
-        { key: "Free tier", value: orNP(facts.free_tier) },
-        { key: "Paid from", value: orNP(facts.paid_from) },
+        { key: "Works in", value: orNP(facts.habitat) },
+        { key: "You give it", value: orNP(facts.feeds_on) },
+        { key: "Free plan", value: orNP(facts.free_tier) },
+        { key: "Paid", value: orNP(facts.paid_from) },
         ...(facts.licence_note ? [{ key: "Licence", value: str(facts.licence_note) }] : []),
       ];
-  if (!notes.some((r) => r.key === "Weakness")) notes.push({ key: "Weakness", value: flaw });
+  if (!notes.some((r) => r.key === "Weakness" || r.key === "The catch")) notes.push({ key: "The catch", value: flaw });
   const seconds = facts.seconds_to_result ?? beat(script, "observation")?.seconds_to_result;
   const conditions = Array.isArray(facts.conditions) && facts.conditions.length
     ? facts.conditions.map((r) => ({ key: r.key, value: str(r.value) }))

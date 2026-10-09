@@ -8,7 +8,7 @@
   "last_scheduled": {
     "date": "2026-10-20",
     "slot": "B",
-    "episode": "E013"
+    "episode": "E004"
   },
   "note": "last_scheduled is the slot BEFORE the next post. The next batch starts at the slot after it: 2026-10-21 slot A (06:30 IST). Update this after each batch (prompt B, step 6)."
 }

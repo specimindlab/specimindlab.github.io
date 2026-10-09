@@ -44,98 +44,104 @@
   },
   "specimens": [
     {
-      "code": "002",
-      "episode": "E002",
+      "code": "001",
+      "episode": "E001",
       "pillar": "3D",
       "series": "Free Range",
       "tested_on": "2026-10-08",
-      "posted_on": "2026-10-19",
       "hook_lines": [
-        "This lamp",
-        "shattered.",
-        "Free 3D AI, no login."
+        "Free AI turned this lamp",
+        "into 6 broken pieces."
       ],
       "disclosure": "Unpaid",
-      "cover": "episodes/E002-hunyuan3d/cover.png",
+      "cover": "episodes/E001-hunyuan3d/cover.png",
       "links": {
         "youtube": "",
         "instagram": "",
         "x": ""
       },
       "tool": "Hunyuan3D",
-      "genus": "3D generator",
+      "genus": "Turns a photo into a 3D model",
       "mode": "Live specimen",
       "verdict": "Captured",
-      "verdict_reason": "Two of three lamps came back as usable, one-piece shapes in about 20 seconds each, free and without a login; the chrome lamp shattered, and textures need more GPU time than a logged-out visitor gets.",
-      "flaw": "Chrome lamp shattered",
+      "verdict_reason": "Two of three lamp photos came back as clean 3D shapes in about 20 seconds each, free and with no account. The shiny metal lamp fell apart into 6 pieces, and colours need an account.",
+      "flaw": "Shiny lamp fell apart",
       "flaw_caption": "",
       "flaw_source": "observed",
       "flaw_at": "",
-      "free_tier": "2 GPU min a day logged out (shapes only)",
-      "paid_from": "$9 a month (Hugging Face PRO)",
+      "free_tier": "About 6 models a day, no account (grey shapes only)",
+      "paid_from": "$9 a month (Hugging Face's paid plan)",
       "seconds_to_result": 20.4,
       "conditions": [
         {
-          "key": "Input",
-          "value": "3 desk-lamp photos (Unsplash License)"
+          "key": "What we gave it",
+          "value": "3 desk lamp photos (free stock photos from Unsplash)"
         },
         {
-          "key": "Plan",
-          "value": "Free, logged out (no account, no token)"
+          "key": "Where",
+          "value": "Hunyuan3D's official free demo page, in a web browser"
         },
         {
-          "key": "Attempts",
-          "value": "1 per lamp (3 runs)"
+          "key": "Account",
+          "value": "None"
         },
         {
-          "key": "Retries",
-          "value": "0"
+          "key": "Tries",
+          "value": "1 per lamp (3 in total), no retries"
         },
         {
           "key": "Settings",
-          "value": "Space defaults (30 steps, octree 256)"
+          "value": "Left as they were"
         },
         {
-          "key": "Edited",
+          "key": "Edited afterwards",
           "value": "No"
         },
         {
-          "key": "Seconds to result",
-          "value": "21 s, 18 s, 22 s"
+          "key": "Time to make each model",
+          "value": "21, 18 and 22 seconds"
         },
         {
-          "key": "Textured model",
-          "value": "Refused: needs more GPU time than logged out allows"
+          "key": "Colours",
+          "value": "Refused: the free demo only makes grey shapes without an account"
+        },
+        {
+          "key": "Recorded by",
+          "value": "Us, running the demo page automatically"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "20.4 s"
         },
         {
           "key": "Capture",
-          "value": "Auto-captured on the official Hugging Face Space"
+          "value": "Auto-captured on a public demo"
         }
       ],
       "field_notes": [
         {
-          "key": "Habitat",
+          "key": "Works in",
           "value": "Browser (Hugging Face Space), Open weights"
         },
         {
-          "key": "Feeds on",
+          "key": "You give it",
           "value": "Photo, up to 4 views of one object"
         },
         {
-          "key": "Free tier",
-          "value": "2 GPU min a day logged out (shapes only)"
+          "key": "Free plan",
+          "value": "About 6 models a day, no account (grey shapes only)"
         },
         {
-          "key": "Paid from",
-          "value": "$9 a month (Hugging Face PRO)"
+          "key": "Paid",
+          "value": "$9 a month (Hugging Face's paid plan)"
         },
         {
           "key": "Licence",
           "value": "Tencent Hunyuan 3D 2.1 Community License: excludes the EU, UK and South Korea; outputs may not train other models."
         },
         {
-          "key": "Weakness",
-          "value": "Chrome lamp shattered"
+          "key": "The catch",
+          "value": "Shiny lamp fell apart"
         }
       ],
       "homepage": "https://huggingface.co/spaces/tencent/Hunyuan3D-2.1",
@@ -181,7 +187,7 @@
         "total": 71,
         "parts": [
           {
-            "key": "Result",
+            "key": "Quality",
             "value": 28,
             "max": 50
           },
@@ -191,7 +197,7 @@
             "max": 15
           },
           {
-            "key": "Free tier",
+            "key": "Free plan",
             "value": 18,
             "max": 25
           },
@@ -202,99 +208,102 @@
           }
         ]
       },
-      "use_for": "Matte props, fast",
-      "skip_if": "It's shiny or chrome",
-      "lesson": "Chrome and other mirror-like surfaces confuse it: shoot matte objects on a plain background.",
+      "use_for": "Quick 3D shapes of matte things",
+      "skip_if": "It's shiny or metal",
+      "lesson": "Shiny and metal things confuse it. Photograph matte objects on a plain background.",
       "affiliate_url": "",
-      "updated_on": "2026-10-08"
+      "updated_on": "2026-10-09"
     },
     {
-      "code": "003",
-      "episode": "E003",
+      "code": "002",
+      "episode": "E002",
       "pillar": "3D",
       "series": "Rare Sighting",
       "tested_on": "2026-10-09",
-      "posted_on": "2026-10-19",
       "hook_lines": [
-        "One drawing, 41 seconds:",
-        "a 3D dragon."
+        "Free AI turned one drawing",
+        "into a 3D dragon."
       ],
       "disclosure": "Unpaid",
-      "cover": "episodes/E003-trellis-2/cover.png",
+      "cover": "episodes/E002-trellis-2/cover.png",
       "links": {
         "youtube": "",
         "instagram": "",
         "x": ""
       },
       "tool": "TRELLIS 2",
-      "genus": "3D generator",
+      "genus": "Turns a picture into a 3D model",
       "mode": "Live specimen",
       "verdict": "Captured",
-      "verdict_reason": "A flat, cel-shaded drawing became one coherent 3D creature in 41 seconds, free and without a login, with wings, horns and claws intact; the side the artist never drew is weaker (a flat paddle tail), and logged out you can look but not download.",
+      "verdict_reason": "One flat cartoon drawing became a full 3D dragon in 41 seconds, free and with no account, with the wings, horns and claws kept. Seen from the side, the tail is flat like a paddle, and without an account you can look at the model but not download it.",
       "flaw": "Tail flat as a paddle",
-      "flaw_caption": "the side nobody drew.",
+      "flaw_caption": "",
       "flaw_source": "observed",
       "flaw_at": "",
-      "free_tier": "1 generation a day logged out (120 GPU s); GLB download needs more quota",
-      "paid_from": "$9 a month (Hugging Face PRO)",
+      "free_tier": "1 try a day without an account; downloading the 3D file needs more",
+      "paid_from": "$9 a month (Hugging Face's paid plan)",
       "seconds_to_result": 41,
       "conditions": [
         {
-          "key": "Input",
-          "value": "1 dragon drawing (Unsplash License)"
+          "key": "What we gave it",
+          "value": "1 cartoon dragon drawing (free from Unsplash), with its background cut out"
         },
         {
-          "key": "Background",
-          "value": "Keyed out by us (the Space's remover refused)"
+          "key": "Why cut out",
+          "value": "The demo's own background remover was refusing visitors without an account; the demo asks for a cut-out anyway"
         },
         {
-          "key": "Plan",
-          "value": "Free, logged out (no account, no token)"
+          "key": "Where",
+          "value": "TRELLIS 2's official free demo page, in a web browser"
         },
         {
-          "key": "Attempts",
-          "value": "1"
+          "key": "Account",
+          "value": "None"
         },
         {
-          "key": "Retries",
-          "value": "0 (23 quota refusals before it ran)"
+          "key": "Tries",
+          "value": "1, no retries (the demo was busy 23 times before it let us in)"
         },
         {
           "key": "Settings",
-          "value": "Space defaults (1024, 12/12/12 steps)"
+          "value": "Left as they were"
         },
         {
-          "key": "Edited",
+          "key": "Edited afterwards",
           "value": "No"
+        },
+        {
+          "key": "Time to make it",
+          "value": "41 seconds"
+        },
+        {
+          "key": "Download",
+          "value": "Refused: the preview used up the free daily allowance"
+        },
+        {
+          "key": "Recorded by",
+          "value": "Us, running the demo page automatically"
         },
         {
           "key": "Seconds to result",
           "value": "41 s"
         },
         {
-          "key": "GLB download",
-          "value": "Refused: quota spent by the preview"
-        },
-        {
           "key": "Capture",
-          "value": "Auto-captured on the official Hugging Face Space"
+          "value": "Auto-captured on a public demo"
         }
       ],
       "field_notes": [
         {
-          "key": "Habitat",
-          "value": "Hugging Face Space"
+          "key": "Free",
+          "value": "1 try a day"
         },
         {
-          "key": "Free tier",
-          "value": "1 run a day, no download"
+          "key": "Paid",
+          "value": "$9 a month"
         },
         {
-          "key": "Paid from",
-          "value": "$9 a month (HF PRO)"
-        },
-        {
-          "key": "Weakness",
+          "key": "The catch",
           "value": "Tail flat as a paddle"
         }
       ],
@@ -341,7 +350,7 @@
         "total": 72,
         "parts": [
           {
-            "key": "Result",
+            "key": "Quality",
             "value": 35,
             "max": 50
           },
@@ -351,7 +360,7 @@
             "max": 15
           },
           {
-            "key": "Free tier",
+            "key": "Free plan",
             "value": 15,
             "max": 25
           },
@@ -362,64 +371,56 @@
           }
         ]
       },
-      "use_for": "Concept art to a 3D draft",
-      "skip_if": "You need the file, logged out",
-      "lesson": "Give it a clean cut-out: key out the background first, and expect to fix the sides the artist never drew.",
-      "affiliate_url": ""
+      "use_for": "Turning sketches into 3D drafts",
+      "skip_if": "You need to download it",
+      "lesson": "Give it a clean cut-out of your drawing, and expect to fix the sides the drawing never showed.",
+      "affiliate_url": "",
+      "updated_on": "2026-10-09"
     },
     {
-      "code": "006",
-      "episode": "E006",
+      "code": "003",
+      "episode": "E003",
       "pillar": "Image",
       "series": "Field Sketch",
       "tested_on": "2026-10-09",
-      "posted_on": "2026-10-20",
       "hook_lines": [
-        "$10 to start.",
-        "$60 to go private."
+        "Midjourney: $10 to start,",
+        "$60 to keep it private."
       ],
       "disclosure": "Unpaid",
-      "cover": "episodes/E006-midjourney/cover.png",
+      "cover": "episodes/E003-midjourney/cover.png",
       "links": {
         "youtube": "",
         "instagram": "",
         "x": ""
       },
       "tool": "Midjourney",
-      "genus": "Image generator",
+      "genus": "Makes images from your words",
       "mode": "Field sketch",
       "verdict": "Watch",
-      "verdict_reason": "No free tier to test, so no score: a Field sketch. On paper, $10 buys about 800 images, but everything made below the $60 Pro plan is public.",
+      "verdict_reason": "There's no free plan, so we didn't test it and give it no score. From their own pages: $10 a month buys about 800 images, but everything you make is public unless you pay $60 a month.",
       "flaw": "Public unless you pay $60",
-      "flaw_caption": "everyone sees them.",
+      "flaw_caption": "",
       "flaw_source": "research",
       "flaw_at": "",
-      "free_tier": "None on the web or Discord (niji・journey app: small trial for new app users)",
-      "paid_from": "$10 a month (Basic, 200 Fast GPU minutes)",
+      "free_tier": "None (no free plan on the website or Discord)",
+      "paid_from": "$10 a month (about 800 images)",
       "conditions": [],
       "field_notes": [
         {
-          "key": "Habitat",
-          "value": "Web app, Discord"
+          "key": "Works in",
+          "value": "Browser, Discord"
         },
         {
-          "key": "Feeds on",
-          "value": "Text, up to 4 images"
+          "key": "Latest",
+          "value": "V8.2 (July 2026)"
         },
         {
-          "key": "Model",
-          "value": "V8.2, since 24 Jul 2026"
+          "key": "Free plan",
+          "value": "None"
         },
         {
-          "key": "Free tier",
-          "value": "None on web or Discord"
-        },
-        {
-          "key": "Paid from",
-          "value": "$10 a month (Basic)"
-        },
-        {
-          "key": "Weakness",
+          "key": "The catch",
           "value": "Public unless you pay $60"
         }
       ],
@@ -479,43 +480,44 @@
       "credits": "No third-party images: the diagram is our own redrawing from Midjourney's public documentation.",
       "use_for": "Mood boards you don't mind sharing",
       "skip_if": "Client work must stay private",
-      "lesson": "Read the privacy line before the price line: the $10 plan publishes everything you make.",
-      "affiliate_url": ""
+      "lesson": "Check who can see your images before you pick a plan: the $10 plan makes everything public.",
+      "affiliate_url": "",
+      "updated_on": "2026-10-09"
     }
   ],
   "groups": [
     {
       "code": "W01",
-      "episode": "E013",
+      "episode": "E004",
       "pillar": "All",
       "series": "The Drawer",
       "tested_on": "2026-10-09",
-      "posted_on": "2026-10-20",
       "hook_lines": [
-        "Week 1:",
-        "72 beat 71."
+        "3 AI tools, ranked.",
+        "One we couldn't test."
       ],
       "disclosure": "Unpaid",
-      "cover": "episodes/E013-the-drawer/cover.png",
+      "cover": "episodes/E004-roundup-1/cover.png",
       "links": {
         "youtube": "",
         "instagram": "",
         "x": ""
       },
       "kind": "Drawer",
-      "title": "Week 1 ranked: TRELLIS 2 72, Hunyuan3D 71",
+      "title": "Roundup #1: our first 3 tests, ranked",
       "members": [
         {
           "code": "002"
         },
         {
-          "code": "003"
+          "code": "001"
         },
         {
-          "code": "006"
+          "code": "003"
         }
       ],
-      "flaw": "Field sketches carry no score"
+      "flaw": "only 2 of the 3 tools had a free plan we could test",
+      "updated_on": "2026-10-09"
     }
   ]
 }

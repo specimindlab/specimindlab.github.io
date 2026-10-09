@@ -3,6 +3,7 @@ import { z } from "zod";
 import { BANDS, COLORS } from "../brand";
 import { AXES, Card, cardLayout, Line, ScoreCard, scoreHeight, Stamp } from "../system";
 import { beat, caption, Caption, captionBox, CONTENT_TOP, hubUrl } from "./common";
+import { CARD, LABEL } from "../vocab";
 
 // Shared v2 endings for every series (prompts/voice.md):
 //  - scoreBeat: the SPECIMIND Score card (data/score.md), counting up and locking on the music's crash
@@ -14,7 +15,7 @@ import { beat, caption, Caption, captionBox, CONTENT_TOP, hubUrl } from "./commo
 export const scorePart = z.object({ key: z.string().min(1), value: z.number().int().min(0), max: z.number().int().positive() });
 // (seriesScript checks that the parts add up to the total)
 export const scoreBeat = beat("score", { lines: caption, total: z.number().int().min(0).max(100), parts: z.array(scorePart).min(1).max(4) });
-export const decision = { use_for: z.string().min(1).max(40).optional(), skip_if: z.string().min(1).max(40).optional() };
+export const decision = { use_for: z.string().min(1).max(48).optional(), skip_if: z.string().min(1).max(48).optional() };
 
 export const ScoreBeatView: React.FC<{ b: z.infer<typeof scoreBeat> }> = ({ b }) => {
   const box = captionBox(b.lines, 420);
@@ -60,10 +61,10 @@ export const EndCard: React.FC<{
   signature?: (top: number, bottom: number) => React.ReactNode;
 }> = ({ word, code, lines, score, useFor, skipIf, signature }) => {
   const box = ctaBox(lines);
-  const rows = [...(useFor ? [{ key: "Use it for", value: useFor }] : []), ...(skipIf ? [{ key: "Skip it if", value: skipIf }] : [])];
+  const rows = [...(useFor ? [{ key: CARD.goodFor, value: useFor }] : []), ...(skipIf ? [{ key: CARD.notFor, value: skipIf }] : [])];
   const stampY = CONTENT_TOP + 90;
   const cardY = CONTENT_TOP + 210;
-  const cardH = rows.length ? cardLayout({ title: "Field verdict", rows, y: cardY }).height : 0;
+  const cardH = rows.length ? cardLayout({ title: CARD.decide, rows, y: cardY }).height : 0;
   const sigTop = rows.length ? cardY + cardH + 28 : CONTENT_TOP + 230;
   return (
     <>
@@ -71,10 +72,10 @@ export const EndCard: React.FC<{
       {score !== undefined ? (
         <>
           <Line text={`${score}`} x={930} baseline={stampY + 58} maxWidth={250} size={150} axes={AXES.digits} color={COLORS.red} anchor="end" />
-          <Line text="/ 100 score" x={930} baseline={stampY + 104} maxWidth={250} size={34} axes={AXES.small} anchor="end" />
+          <Line text={LABEL.scoreOf} x={930} baseline={stampY + 104} maxWidth={250} size={34} axes={AXES.small} anchor="end" />
         </>
       ) : null}
-      {rows.length ? <Card title="Field verdict" rows={rows} y={cardY} start={4} /> : null}
+      {rows.length ? <Card title={CARD.decide} rows={rows} y={cardY} start={4} /> : null}
       {signature && box.contentBottom - sigTop > 120 ? signature(sigTop, box.contentBottom) : null}
       <CtaCaption lines={lines} code={code} />
     </>

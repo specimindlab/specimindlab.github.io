@@ -26,6 +26,8 @@ export const Media: React.FC<{ spec: MediaSpec; width: number; height: number; a
     objectFit: crop ? "cover" : fit,
     display: "block",
     transformOrigin: origin,
+    // pan the cover window to the crop's centre first, then zoom into it
+    objectPosition: crop ? origin : undefined,
     transform: crop ? `scale(${zoom})` : undefined,
   };
   let inner: React.ReactNode;

@@ -4,7 +4,6 @@ import { ThreeCanvas } from "@remotion/three";
 import React, { useMemo } from "react";
 import { useCurrentFrame, useVideoConfig } from "remotion";
 import * as THREE from "three";
-import { COLORS } from "../brand";
 
 // A 3D specimen on a turntable. Rotation is a pure function of the frame (never useFrame), so
 // every frame renders identically in parallel workers. Transparent background: the Plate's
@@ -24,7 +23,8 @@ const Model: React.FC<ModelProps> = ({ src, clay, angle, tilt, aspect }) => {
     root.position.set(-center.x, -box.min.y, -center.z); // centred, standing on the floor
     // Lit clay in pin steel: the light storyboard clay (DERIVED.clay) washes out on the archival
     // plate once it is shaded, so untextured meshes read as grey-on-white instead (E002 review).
-    const material = new THREE.MeshStandardMaterial({ color: COLORS.steel, roughness: 0.78, metalness: 0 });
+    // v4: a deeper steel so thin parts (lamp arms, wing edges) still read on a phone screen.
+    const material = new THREE.MeshStandardMaterial({ color: "#646A64", roughness: 0.72, metalness: 0 });
     root.traverse((o) => {
       const mesh = o as THREE.Mesh;
       if (!mesh.isMesh) return;

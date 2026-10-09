@@ -5,11 +5,13 @@ import { fitInline } from "./measure";
 import { pinDrop, pinPush, PIN } from "./motion";
 import { PinnedTag } from "./PinnedTag";
 import { Sfx } from "./Sfx";
+import { DISCLOSURE_WORD, MODE_WORD, tagText } from "../vocab";
 
 export type Disclosure = "Affiliate" | "Unpaid";
 export type Mode = "Live specimen" | "Field sketch";
 
-export const modeText = (mode: Mode) => (mode === "Field sketch" ? "Field sketch — not hands-on" : "Live specimen");
+export const modeText = (mode: Mode) => MODE_WORD[mode] ?? mode;
+export const disclosureText = (d: Disclosure) => DISCLOSURE_WORD[d] ?? d;
 
 // Reference geometry (brand/templates/storyboard-1.svg): tag 300 x 146 at (70, 177), -4 deg;
 // text column at x 410 with baselines 245 / 295 / 340. We add the mode line at 372.
@@ -48,7 +50,7 @@ export const SpecimenLabel: React.FC<SpecimenLabelProps> = ({
   const push = pinPush(frame, dropAt);
   const toolFit = fitInline(tool, COL_W, { wdth: 100, wght: 900 }, 60, 62);
   const genusFit = fitInline(genus, COL_W, { wdth: 85, wght: 700 }, 32, 60);
-  const discFit = fitInline(disclosure, COL_W, { wdth: 90, wght: 800 }, 27);
+  const discFit = fitInline(disclosureText(disclosure), COL_W, { wdth: 90, wght: 800 }, 27);
   const modeFit = fitInline(modeText(mode), COL_W, { wdth: 85, wght: modeEmphasis ? 800 : 650 }, modeEmphasis ? 38 : 27, 60);
   const line = (fit: ReturnType<typeof fitInline>, color: string, baseline: number, text: string) => (
     <text
@@ -64,11 +66,11 @@ export const SpecimenLabel: React.FC<SpecimenLabelProps> = ({
   );
   return (
     <>
-      <PinnedTag {...TAG} rotate={-4} tone="red" text={code} dy={dy} push={push} />
+      <PinnedTag {...TAG} rotate={-4} tone="red" text={tagText(code)} dy={dy} push={push} />
       <svg width={1} height={1} style={{ position: "absolute", left: 0, top: 0, overflow: "visible" }}>
         {line(toolFit, COLORS.ink, 245, tool)}
         {line(genusFit, COLORS.ink, 290, genus)}
-        {line(discFit, disclosure === "Affiliate" ? COLORS.red : COLORS.ink, 331, disclosure)}
+        {line(discFit, disclosure === "Affiliate" ? COLORS.red : COLORS.ink, 331, disclosureText(disclosure))}
         {line(modeFit, COLORS.ink, modeEmphasis ? 377 : 366, modeText(mode))}
       </svg>
       <Sfx name="pin-tick" at={dropAt + PIN.drop} />

@@ -3,6 +3,8 @@
 Source: the Series sheet of `data/specimind-90-day-calendar.xlsx` (purpose, mode, signature opening, episode count).
 The beat structures below are the house definition. Each Remotion composition in `video/src/series/` implements exactly one of them, and `script.json` must follow its series' structure.
 
+**On screen, never use these series names or the beat-type words below.** They are internal. Viewers see plain words (prompts/voice.md v3): Full test · Free plan test · Little-known tool · Head to head · Research only · AI or real? · Workflow · Roundup · Shut down; verdicts Worth it / Skip it / Not tested; modes "Tested by us" / "Not tested · research only". Every series now tells the v3 story (what it is, what we did, what happened, the catch, the price, the score, should you use it) inside its own beat order, 35–55 s, with an optional `intro` beat (Free Range, Rare Sighting) for "What it is" / "How we tested".
+
 **Why each series gets its own structure:** YouTube's July 2026 guidance on inauthentic or templated content targets channels whose uploads share one skeleton with only the nouns swapped. Our series share a visual language (paper, labels, pins, ink), but each one has a different **first beat**, a different **beat order**, a different **central device** and a different **ending**. CLAUDE.md forbids borrowing one series' structure for another.
 
 ## Shared vocabulary
