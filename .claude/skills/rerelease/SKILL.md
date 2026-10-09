@@ -9,9 +9,9 @@ disable-model-invocation: true
 
 Arguments: `$ARGUMENTS` (a batch name such as `batch-2026-10-19`; default: the newest file in `data/batches/`).
 
-1. `git pull origin main`; read `prompts/ops-notes.md`. Check `data/batches/<batch>.json` exists and every episode in it has script.json, cover.png, `<id>.srt` and meta/ (`python3 scripts/make_batch_file.py <ids> --keep-order --dry-run` lists anything missing).
+1. `git pull origin main`; read `prompts/ops-notes.md`. Check `data/batches/<batch>.json` exists and every episode in it has script.json, cover.png, `<id>.srt` and meta/ (`python3 scripts/make_batch_file.py --check <batch>` lists anything missing and checks neighbours in the batch's own slots).
 2. If any episode in the batch is already posted (`python3 scripts/channel_status.py`), say so: the new zip will contain videos that are already out, and the human should not upload those again.
 3. `python3 scripts/build_posting.py data/batches/<batch>.json`; commit and push if the package changed.
-4. If step 3 changed `data/batches/<batch>.json` itself, that push already started the render: watch that run instead of dispatching a second one. Otherwise dispatch: `gh api -X POST repos/specimindlab/specimindlab.github.io/actions/workflows/render.yml/dispatches -f ref=main -f inputs[batch]=<batch>`. Find the run (`actions/runs?per_page=3`) and watch it in the background until it finishes. On failure read the annotations and job log, fix the cause, push, dispatch again. Stop after 3 failed runs.
+4. Dispatch (pushing posting/ never starts a render; only a changed `data/batches/*.json` does): `gh api -X POST repos/specimindlab/specimindlab.github.io/actions/workflows/render.yml/dispatches -f ref=main -f inputs[batch]=<batch>`. Find the run (`actions/runs?per_page=3`) and watch it in the background until it finishes. On failure read the annotations and job log, fix the cause, push, dispatch again. Stop after 3 failed runs.
 5. Confirm the Release `<batch>` holds exactly one asset, `specimind-<batch>.zip`. Download it (REST asset download) and spot-check one video (frame grid + waveform) and the file list.
 6. Reply with the Release link, the run time, and anything that failed.

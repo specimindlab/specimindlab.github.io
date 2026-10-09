@@ -13,7 +13,7 @@ Read them as groups: an episode id (`E005`) or code (`005`, `W01`) followed by i
 
 1. `git pull origin main`. Validate each URL: https, the right domain, a post or Short URL (not a profile). Ask only if a URL is clearly wrong.
 2. For each episode, set `links` in its entry in `data/catalog.json` (specimens[] or groups[] by code). Keep links already there unless a new one is given. Never touch verdicts, scores or anything else: `catalog_sync.mjs` never overwrites `links`, so this is the only place they live.
-3. `python3 scripts/new_episode.py status Posted E### ...`.
+3. `python3 scripts/new_episode.py status Posted <ids or codes>` (it accepts E###, R### and codes such as 005 or W01).
 4. `node site/build.mjs` (must build without errors). Commit and push ("posted: E### ..."). pages.yml redeploys the hub.
 5. After the Pages run succeeds, check `https://specimindlab.github.io/<code>` returns 200 and contains the YouTube video id.
 6. Reply: what is live where, and a reminder of the follow-ups only the human can do:

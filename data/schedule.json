@@ -10,5 +10,5 @@
     "slot": "B",
     "episode": "E004"
   },
-  "note": "last_scheduled is the slot BEFORE the next post. The next batch starts at the slot after it: 2026-10-21 slot A (06:30 IST). Update this after each batch (prompt B, step 6)."
+  "note": "last_scheduled is the slot BEFORE the next post. scripts/make_batch_file.py gives a new batch the slots after it and moves it forward itself; never edit it by hand."
 }

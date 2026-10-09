@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
-"""Write data/batches/<batch>.json from the episodes' meta/*.md, with posting slots and order checks.
+"""Write data/batches/<batch>.json from the episodes' meta/*.md, with posting slots and checks.
 
-    python3 scripts/make_batch_file.py E005 E006 E007 [--batch batch-2026-10-21] [--note "..."] [--dry-run]
-    python3 scripts/make_batch_file.py --refresh batch-2026-10-19     # re-read meta/ into an existing
-                                                                      # batch file; slots and order stay
+    python3 scripts/make_batch_file.py E005 E006 E007 [--batch NAME] [--note "..."] [--dry-run]
+    python3 scripts/make_batch_file.py --check batch-2026-10-19      # check an existing batch, as posted
+    python3 scripts/make_batch_file.py --refresh batch-2026-10-19    # re-read meta/ into an existing
+                                                                     # batch file; slots and order stay
+    python3 scripts/make_batch_file.py E002 --batch batch-2026-10-25-fix --no-schedule   # re-upload
 
-- Order: the order given, adjusted so no two research-only videos (Field sketch) and no two of the
-  same series sit back to back where a swap fixes it; roundups (The Drawer) always go last, because
-  they recap the others.
+- Order: posting order = episode number order (numbers follow release order, CLAUDE.md). Give the
+  ids ascending; a roundup (The Drawer) is made last, so it is posted last.
 - Slots: continue after data/schedule.json `last_scheduled` (06:30 and 18:30 IST), then move
-  `last_scheduled` to this batch's last slot.
+  `last_scheduled` to this batch's last slot (not with --no-schedule or --dry-run).
 - Name: batch-<first post date> unless --batch is given; refuses a name whose file already exists.
-- Checks (printed; exit 1 on a FAIL): every episode has script.json, cover.png, <id>.srt and meta/;
-  titles under 60 characters (YouTube), X post under 200; neighbours (including the previous batch's
-  last episode) don't share an opening beat type, a first caption word or a music groove.
+- Checks (exit 1 on a FAIL): every episode has script.json, cover.png, <id>.srt and meta/; YouTube
+  title <= 60 characters; X post <= 200; Instagram comment code; and neighbours (including the
+  episode posted just before this batch) don't share an opening beat type, a first caption word or
+  a music groove. WARN for two research-only videos or two of the same series back to back.
 Then run: python3 scripts/build_posting.py data/batches/<batch>.json
 """
 import argparse
@@ -24,7 +26,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-HUB = "https://specimindlab.github.io"
+BATCHES = ROOT / "data/batches"
 
 
 def folder(eid):
@@ -57,25 +59,6 @@ def opening(s):
     return b.get("type", ""), first, s.get("groove")
 
 
-def reorder(ids):
-    scripts = {e: script(e) for e in ids}
-    roundups = [e for e in ids if scripts[e].get("composition") == "Drawer"]
-    rest = [e for e in ids if e not in roundups]
-
-    def clash(a, b):
-        sa, sb = scripts[a], scripts[b]
-        both_sketch = sa.get("mode") == sb.get("mode") == "Field sketch"
-        return both_sketch or sa.get("series") == sb.get("series")
-
-    out = []
-    pool = list(rest)
-    while pool:
-        pick = next((e for e in pool if not out or not clash(out[-1], e)), pool[0])
-        out.append(pick)
-        pool.remove(pick)
-    return out + roundups
-
-
 def slots(schedule, n):
     last = schedule.get("last_scheduled") or {}
     sl = schedule.get("slots", {"A": "06:30", "B": "18:30"})
@@ -93,16 +76,16 @@ def slots(schedule, n):
     return out
 
 
-def previous_episode(exclude):
-    """The last episode of the most recent other batch (its neighbour for the 'no repeat' checks)."""
+def posted_before(first_post_at, exclude):
+    """The episode scheduled just before `first_post_at` in any batch file (its neighbour)."""
     best = None
-    for p in (ROOT / "data/batches").glob("batch-*.json"):
-        b = json.loads(p.read_text(encoding="utf-8"))
-        for e in b.get("episodes", []):
-            if e["id"] in exclude:
+    for p in BATCHES.glob("batch-*.json"):
+        for e in json.loads(p.read_text(encoding="utf-8")).get("episodes", []):
+            at = e.get("post_at", "")
+            if e["id"] in exclude or not at or at >= first_post_at:
                 continue
-            if best is None or e.get("post_at", "") > best[0]:
-                best = (e.get("post_at", ""), e["id"])
+            if best is None or at > best[0]:
+                best = (at, e["id"])
     return best[1] if best else None
 
 
@@ -124,57 +107,28 @@ def entry(eid, post_at):
     }
 
 
-def main():
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("ids", nargs="*")
-    ap.add_argument("--refresh", metavar="BATCH", help="update an existing batch file's copy from meta/")
-    ap.add_argument("--batch")
-    ap.add_argument("--note", default="")
-    ap.add_argument("--keep-order", action="store_true", help="post in exactly the order given")
-    ap.add_argument("--dry-run", action="store_true")
-    a = ap.parse_args()
-    if a.refresh:
-        bp = ROOT / "data/batches" / f"{a.refresh.removesuffix('.json')}.json"
-        b = json.loads(bp.read_text(encoding="utf-8"))
-        b["episodes"] = [entry(e["id"], e["post_at"]) for e in b["episodes"]]
-        bp.write_text(json.dumps(b, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        for e in b["episodes"]:
-            print(f"{e['id']}  {e['post_at']}  {e['youtube']['title']}")
-        print(f"refreshed {bp.relative_to(ROOT)} (slots unchanged); now run build_posting.py on it")
-        return
-    if not a.ids:
-        ap.error("give episode ids, or --refresh <batch>")
-    ids = [i.upper() for i in a.ids]
+def check(eps):
+    """eps: list of batch entries in posting order. Returns (fails, warns)."""
     fails, warns = [], []
-    for eid in ids:
+    order = [e["id"] for e in eps]
+    for eid in order:
         f = folder(eid)
         for need in ("script.json", "cover.png", f"{eid}.srt", "meta/youtube.md", "meta/instagram.md", "meta/x.md"):
             if not (f / need).exists():
                 fails.append(f"{eid}: missing {need}")
     if fails:
-        print("\n".join("FAIL " + x for x in fails))
-        sys.exit(1)
-    order = ids if a.keep_order else reorder(ids)
-    sched_p = ROOT / "data/schedule.json"
-    schedule = json.loads(sched_p.read_text(encoding="utf-8"))
-    sl = slots(schedule, len(order))
-    name = a.batch or f"batch-{sl[0][0]}"
-    out_p = ROOT / "data/batches" / f"{name}.json"
-    if out_p.exists() and not a.dry_run:
-        sys.exit(f"FAIL {out_p.relative_to(ROOT)} already exists: pick another --batch name")
-    eps = [entry(eid, at) for eid, (_, _, at) in zip(order, sl)]
-    # checks
-    prev = previous_episode(set(order))
+        return fails, warns
+    prev = posted_before(eps[0]["post_at"], set(order))
     chain = ([prev] if prev else []) + order
     for a_id, b_id in zip(chain, chain[1:]):
-        oa, ob = opening(script(a_id)), opening(script(b_id))
+        sa, sb = script(a_id), script(b_id)
+        oa, ob = opening(sa), opening(sb)
         if oa[0] == ob[0]:
             fails.append(f"{a_id} -> {b_id}: both open with a '{oa[0]}' beat")
         if oa[1] and oa[1] == ob[1]:
             fails.append(f"{a_id} -> {b_id}: both hooks start with '{oa[1]}'")
         if oa[2] is not None and oa[2] == ob[2]:
             fails.append(f"{a_id} -> {b_id}: same music groove {oa[2]}")
-        sa, sb = script(a_id), script(b_id)
         if sa.get("mode") == sb.get("mode") == "Field sketch":
             warns.append(f"{a_id} -> {b_id}: two research-only videos back to back")
         if sa.get("series") == sb.get("series"):
@@ -187,12 +141,66 @@ def main():
             fails.append(f"{e['id']}: X post missing or over 200 characters ({len(e['x']['post'])})")
         if not e["instagram"]["comment_code"]:
             fails.append(f"{e['id']}: Instagram comment code missing")
+    return fails, warns
+
+
+def report(eps, fails, warns, prev_note=""):
     for e in eps:
         print(f"{e['id']}  {e['post_at']}  {e['youtube']['title']}")
+    if prev_note:
+        print(prev_note)
     for w in warns:
         print("WARN " + w)
-    for f_ in fails:
-        print("FAIL " + f_)
+    for f in fails:
+        print("FAIL " + f)
+
+
+def batch_path(name):
+    return BATCHES / f"{name.removesuffix('.json')}.json"
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("ids", nargs="*")
+    ap.add_argument("--batch")
+    ap.add_argument("--note", default="")
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--no-schedule", action="store_true", help="don't move data/schedule.json (re-uploads)")
+    ap.add_argument("--check", metavar="BATCH", help="check an existing batch file in its own order and slots")
+    ap.add_argument("--refresh", metavar="BATCH", help="update an existing batch file's copy from meta/")
+    a = ap.parse_args()
+
+    if a.check or a.refresh:
+        bp = batch_path(a.check or a.refresh)
+        b = json.loads(bp.read_text(encoding="utf-8"))
+        eps = [entry(e["id"], e["post_at"]) for e in b["episodes"]]
+        if a.refresh:
+            b["episodes"] = eps
+            bp.write_text(json.dumps(b, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        fails, warns = check(eps)
+        prev = posted_before(eps[0]["post_at"], {e["id"] for e in eps})
+        report(eps, fails, warns, f"(posted just before: {prev or 'nothing'})")
+        if a.refresh:
+            print(f"refreshed {bp.relative_to(ROOT)} (slots unchanged); now run build_posting.py on it")
+        sys.exit(1 if fails else 0)
+
+    if not a.ids:
+        ap.error("give episode ids, or --check / --refresh <batch>")
+    ids = [i.upper() for i in a.ids]
+    nums = [int(i[1:]) for i in ids]
+    if nums != sorted(nums):
+        sys.exit(f"FAIL ids must be in number order (release order): {' '.join(sorted(ids))}")
+    sched_p = ROOT / "data/schedule.json"
+    schedule = json.loads(sched_p.read_text(encoding="utf-8"))
+    sl = slots(schedule, len(ids))
+    name = a.batch or f"batch-{sl[0][0]}"
+    out_p = batch_path(name)
+    if out_p.exists() and not a.dry_run:
+        sys.exit(f"FAIL {out_p.relative_to(ROOT)} already exists: pick another --batch name")
+    eps = [entry(eid, at) for eid, (_, _, at) in zip(ids, sl)]
+    fails, warns = check(eps)
+    prev = posted_before(eps[0]["post_at"], set(ids))
+    report(eps, fails, warns, f"(posted just before: {prev or 'nothing'})")
     if fails:
         sys.exit(1)
     if a.dry_run:
@@ -201,9 +209,12 @@ def main():
     note = a.note or f"{len(eps)} episodes: " + ", ".join(f"{e['id']} {script(e['id']).get('tool', '')}" for e in eps) + "."
     out_p.write_text(json.dumps({"batch": name, "created": datetime.now().strftime("%Y-%m-%d"), "note": note,
                                  "episodes": eps}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    schedule["last_scheduled"] = {"date": sl[-1][0], "slot": sl[-1][1], "episode": order[-1]}
-    sched_p.write_text(json.dumps(schedule, indent=2) + "\n", encoding="utf-8")
-    print(f"wrote {out_p.relative_to(ROOT)}; data/schedule.json last_scheduled = {sl[-1][0]} {sl[-1][1]} ({order[-1]})")
+    msg = f"wrote {out_p.relative_to(ROOT)}"
+    if not a.no_schedule:
+        schedule["last_scheduled"] = {"date": sl[-1][0], "slot": sl[-1][1], "episode": ids[-1]}
+        sched_p.write_text(json.dumps(schedule, indent=2) + "\n", encoding="utf-8")
+        msg += f"; data/schedule.json last_scheduled = {sl[-1][0]} {sl[-1][1]} ({ids[-1]})"
+    print(msg)
 
 
 if __name__ == "__main__":

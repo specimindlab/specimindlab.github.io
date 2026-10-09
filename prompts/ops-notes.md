@@ -33,3 +33,7 @@ Every slash command in `.claude/skills/` relies on these. Add a line here whenev
 - Crop windows: `crop` needs `objectPosition` to pan; check that a cropped photo still shows the object.
 - Layout changes in `video/src/series/common.tsx` (caption box, chapter label reserve) affect all nine series: run `scripts/render_series_test.sh <scratch> ig` and `check_safe_zones.py` on its stills before committing.
 - Music: a new `groove` must differ from the previous upload's; `make_music.py` prints style, key and section times; check that the score lock and verdict land where the picture does.
+- Give a row its number (`new_episode.py make`) only once it is sure to become a video: run the pre-flight and any auto-capture into `captures/R###-<slug>/raw/auto/` first, or a failed demo leaves a gap in the numbers.
+- Posting order is number order. `make_batch_file.py` refuses ids out of order; a roundup is made last so it is posted last.
+- `make_batch_file.py` moves `data/schedule.json` itself; editing it by hand as well moves the schedule twice.
+- Two hooks in a row once both started "Free AI turned ..." (E001, E002) and nobody noticed until the neighbour check existed: always run `make_batch_file.py` (or `--check`) before a release.

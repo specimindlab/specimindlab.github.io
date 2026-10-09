@@ -284,12 +284,12 @@ def main():
     n.add_argument("count", type=int)
     st = sub.add_parser("status")
     st.add_argument("value", choices=["Planned", "Rendered", "Posted"])
-    st.add_argument("ids", nargs="+", help="R### rows or E### episode ids")
+    st.add_argument("ids", nargs="+", help="R### rows, E### episode ids or codes (005, #005, W01)")
     a = ap.parse_args()
     rows, fields = load_calendar()
     if a.cmd == "status":
-        for i in (x.upper() for x in a.ids):
-            hit = [r for r in rows if r["Row"] == i or (r.get("Episode") or "") == i]
+        for i in (x.upper().lstrip("#") for x in a.ids):
+            hit = [r for r in rows if i in (r["Row"], r.get("Episode") or "-", r.get("Code") or "-")]
             if not hit:
                 sys.exit(f"{i}: no calendar row with that Row or Episode")
             for r in hit:
@@ -303,7 +303,8 @@ def main():
             cap = sorted(CAPTURES.glob(f"{r['Row']}-*"))
             raw = cap[0] / "raw" if cap else None
             has = raw and any(f.is_file() and f.name != ".gitkeep" and f.relative_to(raw).parts[0] != "input" for f in raw.rglob("*"))
-            print(f"{r['Row']}  {r['Series']:<16} {r['Tool(s)'][:40]:<40} {'uploads waiting' if has else ''}")
+            note = "uploads waiting: make it first" if has else ("waiting for the human's recording: skip" if cap else "")
+            print(f"{r['Row']}  {r['Series']:<16} {r['Tool(s)'][:40]:<40} {note}")
         return
     if getattr(a, "slug", None) and len(a.rows) != 1:
         sys.exit("--slug needs exactly one row")

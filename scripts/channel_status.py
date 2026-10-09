@@ -133,7 +133,8 @@ def status():
 def advice(s):
     tips = []
     if s["unfinished_batch"]:
-        tips.append(f"`/batch` resumes the unfinished {s['last_batch']} first.")
+        name = s["last_batch"] if s["last_batch"] not in ("", "pending") else "batch (rows in data/batch-state.json)"
+        tips.append(f"`/batch` resumes the unfinished {name} first.")
     if s["captures_ready"]:
         tips.append(f"{len(s['captures_ready'])} recording(s) uploaded ({', '.join(c['row'] for c in s['captures_ready'])}): `/batch` makes them first.")
     if s["calendar_left"] < 14:
