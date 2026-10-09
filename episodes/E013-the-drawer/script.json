@@ -1,5 +1,5 @@
 {
-  "id": "E040",
+  "id": "E013",
   "code": "W01",
   "composition": "Drawer",
   "series": "The Drawer",
@@ -7,46 +7,49 @@
   "disclosure": "Unpaid",
   "tool": "Week 1",
   "genus": "Weekly recap",
+  "groove": 2,
+  "music": "music.wav",
   "cta": {
     "yt": "This week, ranked:\ntap our name.",
     "ig": "Comment W01\nfor the rankings.",
     "x": "Rankings in\nthe first reply."
   },
+  "cover": {
+    "lines": [
+      "Week 1:",
+      "72 beat 71."
+    ]
+  },
   "week": 1,
   "codes": [
-    "001",
     "002",
     "003",
-    "004",
-    "005",
-    "006",
-    "007"
+    "006"
   ],
   "beats": [
     {
       "type": "drawer-open",
-      "seconds": 2,
+      "seconds": 2.5,
       "lines": [
-        "Week 1.",
-        "Seven specimens."
+        "Week 1:",
+        "72 beat 71."
       ]
     },
     {
       "type": "roll-call",
-      "seconds": 16
+      "seconds": 10.5
     },
     {
       "type": "tally",
       "seconds": 3,
       "lines": [
-        "Five kept,",
-        "one let go."
+        "Two kept.",
+        "One on watch."
       ]
     },
     {
       "type": "cta",
-      "seconds": 3
+      "seconds": 3.5
     }
-  ],
-  "covers": false
+  ]
 }

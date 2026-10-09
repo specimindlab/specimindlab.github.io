@@ -1,9 +1,9 @@
 import React from "react";
-import { interpolate, Easing, useCurrentFrame } from "remotion";
+import { Img, interpolate, Easing, useCurrentFrame } from "remotion";
 import { z } from "zod";
 import { COLORS } from "../brand";
-import { CATALOG, CatalogEntry, Drawer, drawerSize, PinnedTag, Sfx, Stamp, AXES, Line } from "../system";
-import { Beat, beat, caption, Caption, CONTENT_TOP, ctaFor, framed, seriesProps, seriesScript, timeline } from "./common";
+import { CATALOG, CatalogEntry, Drawer, drawerSize, PinnedTag, Plate, Sfx, Stamp, AXES, Line, useAsset } from "../system";
+import { Beat, beat, caption, Caption, captionBox, CONTENT_TOP, ctaFor, framed, seriesProps, seriesScript, timeline } from "./common";
 import { ctaBox, CtaCaption } from "./endcard";
 
 // 8. The Drawer (DR): the Sunday recap, built only from data/catalog.json. The drawer slides open
@@ -18,7 +18,12 @@ const cta = beat("cta", {});
 
 export const drawerScript = seriesScript(
   "Drawer",
-  { week: z.number().int().positive(), codes: z.array(z.string().regex(/^\d{3}$/)).min(2).max(10) },
+  {
+    week: z.number().int().positive(),
+    codes: z.array(z.string().regex(/^\d{3}$/)).min(2).max(10),
+    /** Show each specimen's real cover (staged by scripts/stage_drawer_covers.py). Fixtures: false. */
+    covers: z.boolean().default(true),
+  },
   z.discriminatedUnion("type", [open, rollCall, tally, cta]),
   /^drawer-open roll-call tally cta$/,
   "drawer-open, roll-call, tally, cta",
@@ -49,11 +54,14 @@ const DrawerSeriesBody: React.FC<DrawerSeriesProps> = ({ script, platform, catal
   return (
     <>
       <ShutClip total={total} y={dy - 50} h={ds.height + 60}>
-        <Drawer highlight="" codes={script.codes} cols={5} rows={rows} x={dx} y={dy} start={0} catalog={catalog} lit={litAt} heading={`Week ${script.week}`} />
+        <Drawer highlight="" codes={script.codes} cols={5} rows={rows} x={dx} y={dy} start={script.covers ? (t[0]?.dur ?? 0) : -30} catalog={catalog} lit={litAt} heading={`Week ${script.week}`} />
       </ShutClip>
       {t.map((b) => (
         <Beat key={b.index} t={b}>
-          {b.type === "roll-call" ? <RollCall entries={entries} per={per} top={dy + ds.height + 70} /> : null}
+          {b.type === "drawer-open" && script.covers ? (
+            <CoverRow entries={entries} top={CONTENT_TOP} bottom={captionBox(b.lines, CAP).contentBottom - 20} />
+          ) : null}
+          {b.type === "roll-call" ? <RollCall entries={entries} per={per} top={dy + ds.height + 70} covers={script.covers} /> : null}
           {b.type === "tally" ? <Tally entries={entries} y={dy + ds.height + 70} /> : null}
           {b.type === "cta" ? <Teaser y={Math.min(dy + ds.height + 120, ctaBox(ctaLines, CAP).contentBottom - 200)} /> : null}
           {"lines" in b ? <Caption lines={b.lines} maxHeight={CAP} /> : null}
@@ -75,22 +83,62 @@ const ShutClip: React.FC<{ total: number; y: number; h: number; children: React.
   );
 };
 
-const RollCall: React.FC<{ entries: CatalogEntry[]; per: number; top: number }> = ({ entries, per, top }) => {
+/** Frame 0 of a Drawer: the week's real covers in a row, each with its score (or "Watch"). */
+export const CoverRow: React.FC<{ entries: CatalogEntry[]; top: number; bottom: number }> = ({ entries, top, bottom }) => {
+  const asset = useAsset();
+  const gap = 24;
+  const h = Math.max(160, bottom - top);
+  const w = Math.min((860 - gap * (entries.length - 1)) / entries.length, (h * 9) / 16);
+  const x0 = 70 + (860 - (w * entries.length + gap * (entries.length - 1))) / 2;
+  return (
+    <>
+      {entries.map((e, i) => {
+        const x = x0 + i * (w + gap);
+        const tag = e.score ? `${e.score.total}` : e.verdict;
+        return (
+          <React.Fragment key={e.code}>
+            <Plate x={x} y={top} w={w} h={(w * 16) / 9} crosses={false} border={3}>
+              <Img src={asset(`covers/${e.code}.png`)} style={{ width: w, height: (w * 16) / 9, display: "block" }} />
+            </Plate>
+            <div style={{ position: "absolute", left: x + w - 150, top: top + (w * 16) / 9 - 92, width: 136, height: 76, background: COLORS.label, border: `3px solid ${COLORS.ink}` }} />
+            <Line text={tag} x={x + w - 82} baseline={top + (w * 16) / 9 - 32} maxWidth={120} size={e.score ? 60 : 30} axes={AXES.digits} anchor="middle" color={e.score ? COLORS.red : COLORS.ink} />
+          </React.Fragment>
+        );
+      })}
+    </>
+  );
+};
+
+const RollCall: React.FC<{ entries: CatalogEntry[]; per: number; top: number; covers: boolean }> = ({ entries, per, top, covers }) => {
   const frame = useCurrentFrame();
+  const asset = useAsset();
   const i = Math.min(entries.length - 1, Math.floor(frame / per));
   const e = entries[i];
   const local = Math.round(i * per);
+  // With covers: the episode's real cover on the left (9:16), the facts on the right.
+  const cw = covers ? 380 : 0;
+  const tx = covers ? 70 + cw + 36 : 70;
+  const tw = 930 - tx;
+  const sx = tx + tw / 2;
   return (
     <>
-      <Line text={`${e.code} · ${e.tool}`} x={70} baseline={top + 50} maxWidth={640} size={56} axes={AXES.tool} />
-      <Stamp key={e.code} word={e.verdict} x={300} y={top + 170} width={420} start={local + 4} />
-      {e.score ? (
-        <Line text={`${e.score.total}/100`} x={930} baseline={top + 50} maxWidth={200} size={56} axes={AXES.digits} color={COLORS.red} anchor="end" />
+      {covers ? (
+        <Plate key={`c${e.code}`} x={70} y={top} w={cw} h={(cw * 16) / 9} border={3}>
+          <Img src={asset(`covers/${e.code}.png`)} style={{ width: cw, height: (cw * 16) / 9, display: "block" }} />
+        </Plate>
       ) : null}
+      <Line text={`Nº${e.code}`} x={tx} baseline={top + 50} maxWidth={tw} size={46} axes={AXES.digits} color={COLORS.steel} />
+      <Line text={e.tool} x={tx} baseline={top + 140} maxWidth={tw} size={80} axes={AXES.tool} />
+      {e.score ? (
+        <Line text={`${e.score.total}/100`} x={tx} baseline={top + 300} maxWidth={tw} size={130} axes={AXES.digits} color={COLORS.red} />
+      ) : (
+        <Line text="No score: not hands-on" x={tx} baseline={top + 260} maxWidth={tw} size={40} axes={AXES.key} color={COLORS.steel} />
+      )}
+      <Stamp key={e.code} word={e.verdict} x={covers ? sx : 300} y={top + 430} width={Math.min(440, tw - 20)} start={local + 4} />
       {frame >= local + 12 && e.flaw ? (
         <>
-          <Line text="Flaw" x={560} baseline={top + 150} maxWidth={360} size={26} axes={AXES.key} color={COLORS.steel} />
-          <Line text={e.flaw} x={560} baseline={top + 196} maxWidth={370} size={40} axes={AXES.note} color={COLORS.red} />
+          <Line text="Flaw" x={tx} baseline={top + 570} maxWidth={tw} size={30} axes={AXES.key} color={COLORS.steel} />
+          <Line text={e.flaw} x={tx} baseline={top + 626} maxWidth={tw} size={46} axes={AXES.note} color={COLORS.red} />
         </>
       ) : null}
     </>

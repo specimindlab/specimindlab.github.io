@@ -32,6 +32,8 @@ for id in "$@"; do
   fi
   (cd "$dir" && find . -path ./qa -prune -o -path ./render -prune -o -path ./meta -prune -o -type f -print0) \
     | (cd "$dir" && xargs -0 -r cp --parents -t "$ROOT/$STAGE/$id")
+  # The Drawer recaps other episodes: stage their covers next to its own assets.
+  python3 scripts/stage_drawer_covers.py "$dir/script.json" "$STAGE/$id" || FAILED=1
 done
 (cd video && npx --no-install remotion bundle src/index.ts --out-dir build --log=error) || exit 1
 

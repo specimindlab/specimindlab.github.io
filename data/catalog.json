@@ -483,5 +483,39 @@
       "affiliate_url": ""
     }
   ],
-  "groups": []
+  "groups": [
+    {
+      "code": "W01",
+      "episode": "E013",
+      "pillar": "All",
+      "series": "The Drawer",
+      "tested_on": "2026-10-09",
+      "posted_on": "2026-10-20",
+      "hook_lines": [
+        "Week 1:",
+        "72 beat 71."
+      ],
+      "disclosure": "Unpaid",
+      "cover": "episodes/E013-the-drawer/cover.png",
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "kind": "Drawer",
+      "title": "Week 1 ranked: TRELLIS 2 72, Hunyuan3D 71",
+      "members": [
+        {
+          "code": "002"
+        },
+        {
+          "code": "003"
+        },
+        {
+          "code": "006"
+        }
+      ],
+      "flaw": "Field sketches carry no score"
+    }
+  ]
 }

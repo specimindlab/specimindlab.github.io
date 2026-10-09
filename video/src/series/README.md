@@ -25,7 +25,7 @@ verdict beat renders the shared end card (`endcard.tsx`): stamp, score, the "Fie
 the series' signature if there is room, then the CTA.
 
 Media (`media`): `{ kind: "image" | "video" | "glb", src, fit?, clay?, start_at?, sound?, crop? }`.
-`src` is relative to the episode folder (staged to `public/episodes/<id>/` by the render scripts);
+`frames?` + `hold?` (image only: a stepped turntable from a tool's own preview views, one view every `hold` s, default 0.5 = one beat). `src` is relative to the episode folder (staged to `public/episodes/<id>/` by the render scripts);
 `@/...` means `video/public/...`. Regions (`region`) are 0..1 fractions of the media frame.
 
 | Composition | Beat order | Series-level fields | Ends on |
@@ -37,7 +37,7 @@ Media (`media`): `{ kind: "image" | "video" | "glb", src, fit?, clay?, start_at?
 | `FieldSketch` | sketch · notes · price-math · flaw · verdict | — (mode must be Field sketch) | Watch stamp over the sketch |
 | `Mimicry` | split · details · countdown · reveal · cta | `a`, `b`, `ai`, `flaw` | revealed split (loops) |
 | `Dissection` | output · tray · observation ×stages · flaw · verdict | `stages[2-3]` | full tray with totals |
-| `Drawer` | drawer-open · roll-call · tally · cta | `week`, `codes[]` (must exist in data/catalog.json) | drawer sliding shut |
+| `Drawer` | drawer-open · roll-call · tally · cta | `week`, `codes[]` (must exist in data/catalog.json), `covers` (default true: the episodes' real covers, staged by scripts/stage_drawer_covers.py) | drawer sliding shut |
 | `ExtinctionWatch` | extinct · timeline · successors · flaw · verdict | `extinct_name`, `extinct_note`, `successors[3]`, `pick` (mode must be Field sketch) | extinct label + successors |
 
 Beat payloads (beyond `type`, `seconds`, `lines`):
@@ -48,11 +48,11 @@ Beat payloads (beyond `type`, `seconds`, `lines`):
 - FreeRange: counter `total`, `unit`, `period`, `media?`, `before?`; observation `result`, `seconds_to_result`,
   `used_after` (cumulative); price-math `rows[]`, `result`; flaw `result_index`, `region`, `note`;
   verdict `verdict`.
-- RareSighting: stamp-open `launched`, `crop` (media with a crop); output `media`; observation `input`,
-  `result`, `seconds_to_result`; notes `rows[3]`, `flaw`; verdict `verdict`, `spotted`
+- RareSighting: stamp-open `launched`, `crop` (media with a crop), `before?` (input: frame 0 shows before -> after with the stamp as a sticker); output `media`; observation `input`,
+  `result`, `seconds_to_result`; notes `rows[3]`, `flaw` ("|" breaks the note), `flaw_media?` + `flaw_region?` (two acts: the card for 40 %, then the flaw view full size, circled); verdict `verdict`, `spotted`
   (Watch only, and always, in Field sketch mode).
 - Plate: `specimens[]` = `{ code, tool, media, seconds, flaw: { text, region }, rank }`, ranks 1-3 once each.
-- FieldSketch: sketch `inputs[]`, `process`, `outputs[]`; notes `rows[]`; price-math `rows[]`, `result`;
+- FieldSketch: sketch `inputs[]`, `process`, `outputs[]` (complete on frame 0; a red ink loop draws round the tool); notes `rows[]`; price-math `rows[]`, `result`;
   flaw `text`, `source`, `flaw_source: "research"`.
 - Mimicry: details `crops[]` = `{ a: region, b: region }`.
 - Dissection: `stages[]` = `{ tool, media, seconds, cost }`; flaw `stage`, `region`; verdict `verdict`,

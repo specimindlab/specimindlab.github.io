@@ -30,9 +30,11 @@
       "id": "E013",
       "folder": "episodes/E013-the-drawer",
       "mode": "The Drawer (built from catalog)",
-      "step": "pending",
+      "step": "ready",
       "code": "W01",
-      "tool": "Week 1"
+      "tool": "Week 1",
+      "verdict": null,
+      "post_at": "2026-10-20 18:30 IST"
     }
   ],
   "skipped": [

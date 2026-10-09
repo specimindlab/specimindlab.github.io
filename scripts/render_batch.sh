@@ -72,6 +72,8 @@ for id in $IDS; do
   # Everything the composition may reference via staticFile("episodes/<id>/..."), minus review output.
   (cd "$dir" && find . -path ./qa -prune -o -path ./render -prune -o -path ./meta -prune -o -type f -print0) \
     | (cd "$dir" && xargs -0 -r cp --parents -t "$ROOT/$STAGE/$id")
+  # The Drawer recaps other episodes: stage their covers next to its own assets.
+  python3 scripts/stage_drawer_covers.py "$dir/script.json" "$STAGE/$id" || annotate "$dir/script.json" "$id: Drawer covers missing"
 done
 
 echo "Bundling Remotion project"

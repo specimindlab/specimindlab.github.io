@@ -1,8 +1,9 @@
 import React from "react";
 import { z } from "zod";
 import { BANDS, SAFE } from "../brand";
-import { BeforeAfter, EpisodeAssets, FitStack, FontGate, layoutStack, media, Media, Paper, Plate, Sketch, SpecimenLabel } from "../system";
+import { BeforeAfter, CATALOG, CatalogEntry, EpisodeAssets, FitStack, FontGate, layoutStack, media, Media, Paper, Plate, Sketch, SpecimenLabel } from "../system";
 import { caption, header } from "./common";
+import { CoverRow } from "./Drawer";
 
 // The episode cover (brand/templates/shorts-cover-template.svg): pinned label lowered into the
 // cover-safe band (y 240-1680), one output plate with corner crosses, and the hook fitted edge to
@@ -47,6 +48,7 @@ const CAPTION_MAX_H = 1640 - CAPTION_TOP;
 const CoverBody: React.FC<CoverProps> = ({ script }) => {
   const spec = script.cover?.media ?? firstMedia(script.beats);
   const lines = script.cover?.lines ?? firstLines(script.beats);
+  const drawerCodes = script.composition === "Drawer" && Array.isArray(script.codes) ? (script.codes as string[]) : null;
   const sk = script.beats.find((b) => b.type === "sketch") as { inputs?: string[]; process?: string; outputs?: string[] } | undefined;
   const sketch = sk?.inputs && sk.process && sk.outputs ? { inputs: sk.inputs, process: sk.process, outputs: sk.outputs } : null;
   const layout = layoutStack(lines, { maxHeight: CAPTION_MAX_H });
@@ -58,11 +60,15 @@ const CoverBody: React.FC<CoverProps> = ({ script }) => {
       </div>
       {spec && script.cover?.before ? (
         <BeforeAfter before={script.cover.before} after={spec} x={PLATE.x} y={PLATE.y} w={PLATE.w} h={PLATE.h} angle={script.cover?.angle} />
-      ) : (
+      ) : drawerCodes ? null : (
         <Plate x={PLATE.x} y={PLATE.y} w={PLATE.w} h={PLATE.h}>
           {spec ? <Media spec={spec} width={PLATE.w} height={PLATE.h} angleOffset={script.cover?.angle} /> : null}
         </Plate>
       )}
+      {!spec && drawerCodes ? (
+        // The Drawer has no single output: the cover is the week's real covers with their scores.
+        <CoverRow entries={drawerCodes.map((c) => CATALOG.find((e) => e.code === c)).filter((e): e is CatalogEntry => Boolean(e))} top={PLATE.y + 20} bottom={PLATE.y + PLATE.h - 20} />
+      ) : null}
       {!spec && sketch ? (
         // Field sketches have no output to show: the cover carries our redrawn diagram instead.
         <Sketch inputs={sketch.inputs} tool={sketch.process} outputs={sketch.outputs} x={PLATE.x} y={PLATE.y} w={PLATE.w} h={PLATE.h} start={-1000} step={1} />
