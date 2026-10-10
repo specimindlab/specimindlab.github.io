@@ -1,0 +1,89 @@
+{
+  "tool": "Goblin Tools Magic ToDo",
+  "url": "https://goblin.tools/ToDo",
+  "task": "Clean the garage",
+  "account": "none",
+  "started_utc": "2026-10-10T11:47:05Z",
+  "runs": [
+    {
+      "spiciness": 1,
+      "seconds_to_result": 1.1,
+      "items": [
+        "Clean the garage",
+        "Collect all trash and unnecessary items from the garage",
+        "Organize similar items into designated boxes or storage containers",
+        "Sweep the garage floor to remove dirt and debris",
+        "Wipe down surfaces, shelves, and workbenches",
+        "Mop the garage floor if needed",
+        "Replace or reorganize items in their proper places"
+      ],
+      "steps": 6,
+      "frames": 37,
+      "attempts": 1
+    },
+    {
+      "spiciness": 3,
+      "seconds_to_result": 1.7,
+      "items": [
+        "Clean the garage",
+        "Clear all items from the garage floor and surfaces",
+        "Sort items into categories such as keep, donate, sell, or trash",
+        "Discard any trash or broken items",
+        "Organize items to be kept into various groups, such as tools, gardening supplies, holiday decorations, etc.",
+        "Clean the garage floor by sweeping or mopping",
+        "Wipe down shelves, cabinets, and other surfaces to remove dust and dirt",
+        "Repair or replace any damaged shelving or storage units",
+        "Decide on and set up storage solutions like shelves, hooks, or bins for better organization",
+        "Return the kept items to their designated storage areas in an orderly manner",
+        "Dispose of or donate items that are no longer needed or wanted",
+        "Finalize the organization and ensure everything is tidy and accessible"
+      ],
+      "steps": 11,
+      "frames": 40,
+      "attempts": 1
+    },
+    {
+      "spiciness": 5,
+      "seconds_to_result": 2.5,
+      "items": [
+        "Clean the garage",
+        "Move all items out of the garage to a designated area outside the garage",
+        "Sort items into categories such as tools, sports equipment, holiday decorations, and miscellaneous",
+        "Place all small items into labeled storage bins or containers",
+        "Identify items that are broken, unwanted, or no longer needed",
+        "Set aside broken items for disposal or repair",
+        "Bag or box items to donate or sell",
+        "Organize items that are to stay in the garage into logical groups",
+        "Remove any clutter or debris from the floor and surfaces",
+        "Sweep the entire garage floor to remove dust, dirt, and loose debris",
+        "Pick up any trash or discarded items found during the sweep",
+        "Vacuum or wipe down surfaces, shelves, and corners as needed",
+        "Clean windows and window frames using appropriate cleaning supplies",
+        "Dust off shelves, cabinets, and storage units",
+        "Wipe down walls to remove cobwebs, dirt, or stains",
+        "Inspect the garage for any damage to walls, doors, or flooring",
+        "Repair minor damages such as holes, cracks, or broken fixtures",
+        "Apply a fresh coat of paint or touch-up paint if necessary",
+        "Check the functionality of garage doors and openers; repair if needed",
+        "Lubricate garage door moving parts to ensure smooth operation",
+        "Install or replace shelving or storage units for better organization",
+        "Arrange items back into the garage in a systematic manner",
+        "Place frequently used items in easily accessible locations",
+        "Store seasonal items separately for easy access when needed",
+        "Label storage bins and containers for easy identification",
+        "Secure heavy or hazardous items out of reach of children or pets",
+        "Ensure the garage door and locks are functioning properly and securely",
+        "Sweep or mop the garage floor again if any spills or dust remain after organizing",
+        "Inspect the entire garage to ensure cleanliness and organization",
+        "Remove any remaining trash or debris",
+        "Disassemble or break down large boxes or packaging materials for recycling",
+        "Gather all used cleaning supplies and dispose of or store them properly",
+        "Arrange for disposal or recycling of waste, broken items, or unusable materials",
+        "Perform a final walkthrough to confirm the space is clean, organized, and ready for regular use"
+      ],
+      "steps": 33,
+      "frames": 43,
+      "attempts": 1
+    }
+  ]
+}

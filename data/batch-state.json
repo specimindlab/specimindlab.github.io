@@ -7,13 +7,13 @@
   "rows": [
     "R030",
     "R014",
+    "R066",
     "R058",
-    "R020",
+    "R042",
     "R059",
-    "R114",
     "R027"
   ],
-  "note": "Provisional plan after pre-flight; rows that need the human's login become capture requests and are replaced here.",
+  "note": "Posting order = number order. Pre-flight: R015-R019, R021-R026, R028, R029 and R114 need the human (capture requests, data/needs-capture.md). R020 (Veo, research only) stays Planned: the batch already has two research-only videos and three video topics would crowd it; R042 is taken instead because its change happened on 9 Oct. Auto-captures: R030 Goblin Tools (Playwright), R066 Quick Draw in Liquid AI's System One Arcade (Playwright, our own line drawings), R058 Wan text-to-video (official demo), R059 LightOnOCR-3 (official demo).",
   "episodes": [],
   "previous_batch": {
     "batch": "batch-2026-10-19",

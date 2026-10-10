@@ -1,0 +1,106 @@
+{
+  "tool": "Liquid AI System One Arcade \u00b7 Quick Draw (d1-3B)",
+  "url": "https://liquidai-system-one-arcade.hf.space/",
+  "account": "none",
+  "attempts": 1,
+  "started_utc": "2026-10-10T11:53:00Z",
+  "words": [
+    {
+      "word": "fish",
+      "result": "Got it: a fish",
+      "strokes_drawn": 3,
+      "wall_seconds": 7.28
+    },
+    {
+      "word": "apple",
+      "result": "It was an apple",
+      "strokes_drawn": 3,
+      "wall_seconds": 18.25
+    },
+    {
+      "word": "clock",
+      "result": "Got it: a clock",
+      "strokes_drawn": 7,
+      "wall_seconds": 6.32
+    },
+    {
+      "word": "snowman",
+      "result": "Got it: a snowman",
+      "strokes_drawn": 7,
+      "wall_seconds": 9.5
+    },
+    {
+      "word": "guitar",
+      "result": "Got it: a guitar",
+      "strokes_drawn": 5,
+      "wall_seconds": 11.06
+    },
+    {
+      "word": "bicycle",
+      "result": "Got it: a bicycle",
+      "strokes_drawn": 7,
+      "wall_seconds": 8.78
+    }
+  ],
+  "events": [
+    {
+      "t": 0.02,
+      "event": "word fish"
+    },
+    {
+      "t": 10.19,
+      "event": "word apple"
+    },
+    {
+      "t": 30.89,
+      "event": "word clock"
+    },
+    {
+      "t": 39.62,
+      "event": "word snowman"
+    },
+    {
+      "t": 51.56,
+      "event": "word guitar"
+    },
+    {
+      "t": 65.17,
+      "event": "word bicycle"
+    }
+  ],
+  "final_text": "\u2190 All demos\nQuick Draw\n16-WAY CHOICE\nd1-3B\n5 / 6 guessed, 9.3 s each\nROUND\n\u2013\nWORD\n10\nTIME\n5\nGUESSED\nStart a round\nClear\nSkip word\nTHE MODEL'S TOP GUESSES, OF 16\nbicycle\n98%\ncat\n0%\ncar\n0%\nhouse\n0%\nfish\n0%\ntree\n0%\nRESULTS\n1. fish\n6.8 s\n2. apple\nmissed\n3. clock\n7.1 s\n4. snowman\n10.6 s\n5. guitar\n12.1 s\n6. bicycle\n9.9 s",
+  "game_log": [
+    {
+      "n": 1,
+      "word": "fish",
+      "result": "6.8 s"
+    },
+    {
+      "n": 2,
+      "word": "apple",
+      "result": "missed"
+    },
+    {
+      "n": 3,
+      "word": "clock",
+      "result": "7.1 s"
+    },
+    {
+      "n": 4,
+      "word": "snowman",
+      "result": "10.6 s"
+    },
+    {
+      "n": 5,
+      "word": "guitar",
+      "result": "12.1 s"
+    },
+    {
+      "n": 6,
+      "word": "bicycle",
+      "result": "9.9 s"
+    }
+  ],
+  "summary": "5 / 6 guessed, 9.3 s each",
+  "frames": 157
+}
