@@ -14,9 +14,19 @@ import { CARD, LABEL } from "../vocab";
 // card with the flaw circled inside -> SPECIMIND Score (Live only) -> end card ending on the
 // "spotted" date line and the platform CTA.
 
-const stampOpen = beat("stamp-open", { lines: caption, launched: z.string().min(3), crop: media, before: media.optional() });
+/** Picture labels when "What we gave it" / "What it made" would be wrong (e.g. a guessing game). */
+const labels = z.tuple([z.string().min(2).max(24), z.string().min(2).max(24)]).optional();
+const stampOpen = beat("stamp-open", { lines: caption, launched: z.string().min(3), crop: media, before: media.optional(), labels });
 const output = beat("output", { lines: caption, media });
-const observation = beat("observation", { lines: caption, input: media, result: media, seconds_to_result: z.number().positive() });
+const observation = beat("observation", {
+  lines: caption,
+  input: media,
+  result: media,
+  seconds_to_result: z.number().positive(),
+  /** The scale bar's words after the number (default "seconds to make it"), e.g. "seconds to guess it". */
+  seconds_label: z.string().min(3).max(28).optional(),
+  labels,
+});
 const notes = beat("notes", {
   lines: caption,
   rows: z
@@ -61,7 +71,7 @@ const StampOpen: React.FC<{ b: Bt<"stamp-open"> }> = ({ b }) => {
     const pw = (936 - 56) / 2;
     return (
       <>
-        <BeforeAfter before={b.before} after={b.crop} y={CONTENT_TOP} h={h} />
+        <BeforeAfter before={b.before} after={b.crop} y={CONTENT_TOP} h={h} labels={b.labels} />
         <div style={{ position: "absolute", left: 84, top: CONTENT_TOP + 14, width: pw - 28, height: 200, background: COLORS.label, opacity: 0.92, border: `3px solid ${COLORS.ink}` }} />
         <Stamp word="Rare sighting" x={84 + (pw - 28) / 2} y={CONTENT_TOP + 70} width={pw - 170} start={0} />
         <Line text={LABEL.launched(b.launched)} x={84 + (pw - 28) / 2} baseline={CONTENT_TOP + 194} maxWidth={pw - 70} size={34} axes={AXES.digits} anchor="middle" color={COLORS.red} />
@@ -156,8 +166,8 @@ const RareSightingBody: React.FC<RareSightingProps> = ({ script, platform }) => 
             ) : null}
             {b.type === "observation" && box ? (
               <>
-                <ObservationPlate input={b.input} result={b.result} y={CONTENT_TOP} h={box.contentBottom - CONTENT_TOP - 120} resultAt={14} />
-                <ScaleBar seconds={b.seconds_to_result} x={PLATE_X} y={box.contentBottom - 64} width={832} start={14} duration={40} />
+                <ObservationPlate input={b.input} result={b.result} y={CONTENT_TOP} h={box.contentBottom - CONTENT_TOP - 120} resultAt={14} labels={b.labels} />
+                <ScaleBar seconds={b.seconds_to_result} suffix={b.seconds_label} x={PLATE_X} y={box.contentBottom - 64} width={832} start={14} duration={40} />
                 <Caption lines={b.lines} maxHeight={420} />
               </>
             ) : null}

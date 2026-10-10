@@ -1,0 +1,211 @@
+{
+  "id": "E007",
+  "code": "005",
+  "composition": "RareSighting",
+  "series": "Rare Sighting",
+  "mode": "Live specimen",
+  "disclosure": "Unpaid",
+  "tool": "Liquid AI d1",
+  "genus": "Guesses what you draw",
+  "groove": 5,
+  "music": "music.wav",
+  "cta": {
+    "yt": "Tap our name\nto play it free.",
+    "ig": "Comment 005\nto play it free.",
+    "x": "Play it free:\nlink in the first reply."
+  },
+  "cover": {
+    "before": {
+      "kind": "image",
+      "src": "raw/auto/derived/0088.jpg",
+      "crop": {
+        "x": 0.12,
+        "y": 0.0,
+        "w": 0.76,
+        "h": 0.9
+      }
+    },
+    "media": {
+      "kind": "image",
+      "src": "raw/auto/derived/0095.jpg",
+      "crop": {
+        "x": 0.12,
+        "y": 0.0,
+        "w": 0.76,
+        "h": 0.9
+      }
+    },
+    "lines": [
+      "It guessed 5 of",
+      "our 6 drawings."
+    ]
+  },
+  "beats": [
+    {
+      "type": "stamp-open",
+      "seconds": 3.5,
+      "lines": [
+        "It guessed 5 of",
+        "our 6 drawings."
+      ],
+      "launched": "Oct 2026",
+      "crop": {
+        "kind": "image",
+        "src": "raw/auto/derived/0095.jpg",
+        "crop": {
+          "x": 0.12,
+          "y": 0.0,
+          "w": 0.76,
+          "h": 0.9
+        }
+      },
+      "before": {
+        "kind": "image",
+        "src": "raw/auto/derived/0088.jpg",
+        "crop": {
+          "x": 0.12,
+          "y": 0.0,
+          "w": 0.76,
+          "h": 0.9
+        }
+      },
+      "labels": [
+        "While we drew",
+        "Its guess: snowman"
+      ]
+    },
+    {
+      "type": "intro",
+      "seconds": 5.5,
+      "lines": [
+        "Liquid AI's d1 is a small,",
+        "free AI that answers",
+        "questions about pictures."
+      ],
+      "media": {
+        "kind": "image",
+        "src": "raw/auto/derived/arcade.jpg"
+      }
+    },
+    {
+      "type": "output",
+      "seconds": 4.5,
+      "kicker": "The results",
+      "lines": [
+        "Fish, clock, snowman,",
+        "guitar, bicycle: got them."
+      ],
+      "media": {
+        "kind": "image",
+        "src": "raw/auto/derived/0012.jpg",
+        "frames": [
+          "raw/auto/derived/0012.jpg",
+          "raw/auto/derived/0071.jpg",
+          "raw/auto/derived/0094.jpg",
+          "raw/auto/derived/0120.jpg",
+          "raw/auto/derived/0141.jpg"
+        ],
+        "hold": 0.9,
+        "fit": "contain"
+      }
+    },
+    {
+      "type": "observation",
+      "seconds": 4.5,
+      "kicker": "How we tested",
+      "lines": [
+        "We drew each word, stroke",
+        "by stroke. One round."
+      ],
+      "input": {
+        "kind": "image",
+        "src": "raw/auto/derived/0006.jpg",
+        "fit": "contain"
+      },
+      "result": {
+        "kind": "image",
+        "src": "raw/auto/derived/0012.jpg",
+        "fit": "contain"
+      },
+      "seconds_to_result": 6.8,
+      "seconds_label": "seconds to guess it",
+      "labels": [
+        "While we drew",
+        "Its guess: fish"
+      ]
+    },
+    {
+      "type": "notes",
+      "seconds": 9.5,
+      "lines": [
+        "Free to play,",
+        "no account."
+      ],
+      "rows": [
+        {
+          "key": "Free",
+          "value": "Demo, no account"
+        },
+        {
+          "key": "Paid",
+          "value": "Not published"
+        }
+      ],
+      "flaw": "Apple: 75%|it needs 85%",
+      "flaw_media": {
+        "kind": "image",
+        "src": "raw/auto/derived/0050.jpg",
+        "fit": "contain"
+      },
+      "flaw_region": {
+        "x": 0.05,
+        "y": 0.86,
+        "w": 0.9,
+        "h": 0.12
+      },
+      "lines2": [
+        "It knew the apple,",
+        "but wasn't sure enough."
+      ]
+    },
+    {
+      "type": "score",
+      "seconds": 4,
+      "lines": [
+        "81 out of 100.",
+        "Fast, and free."
+      ],
+      "total": 81,
+      "parts": [
+        {
+          "key": "Quality",
+          "value": 47,
+          "max": 50
+        },
+        {
+          "key": "Speed",
+          "value": 15,
+          "max": 15
+        },
+        {
+          "key": "Free plan",
+          "value": 16,
+          "max": 25
+        },
+        {
+          "key": "Price",
+          "value": 3,
+          "max": 10
+        }
+      ]
+    },
+    {
+      "type": "verdict",
+      "seconds": 7,
+      "verdict": "Captured",
+      "spotted": "10 Oct 2026",
+      "use_for": "Seeing how fast small AI has got",
+      "skip_if": "You want an everyday app"
+    }
+  ]
+}

@@ -38,7 +38,7 @@ export const ScaleBar: React.FC<ScaleBarProps> = ({
   width,
   start = 0,
   duration = 36,
-  suffix = "seconds to make it",
+  suffix: suffixIn,
   labelSize = 40,
   scale = 1,
 }) => {
@@ -48,6 +48,7 @@ export const ScaleBar: React.FC<ScaleBarProps> = ({
   const value = seconds * p;
   const shown = p >= 1 ? seconds : Math.floor(value);
   const fmt = (v: number) => (Number.isInteger(v) ? String(v) : v.toFixed(1));
+  const suffix = suffixIn ?? "seconds to make it";
   const label = `${fmt(shown)} ${suffix}`;
   const fit = fitInline(`${fmt(seconds)} ${suffix}`, width, { wdth: 100, wght: 800 }, labelSize);
   const ticks = Array.from({ length: 11 }, (_, i) => i);

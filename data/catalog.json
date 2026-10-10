@@ -634,6 +634,145 @@
       "skip_if": "Level 5 (it pads the list)",
       "lesson": "Start at level 2 or 3. Level 5 breaks things down so far that it starts adding jobs you never asked for.",
       "affiliate_url": ""
+    },
+    {
+      "code": "005",
+      "episode": "E007",
+      "pillar": "Any",
+      "series": "Rare Sighting",
+      "tested_on": "2026-10-10",
+      "hook_lines": [
+        "It guessed 5 of",
+        "our 6 drawings."
+      ],
+      "disclosure": "Unpaid",
+      "cover": "episodes/E007-quick-draw/cover.png",
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "tool": "Liquid AI d1",
+      "genus": "Guesses what you draw",
+      "mode": "Live specimen",
+      "verdict": "Captured",
+      "verdict_reason": "Free, no account, and it read 5 of our 6 simple drawings while we were still drawing them. It missed the apple even though apple was its top guess: it stayed at 75%, under the 85% the game needs.",
+      "flaw": "Knew the apple, too unsure",
+      "flaw_caption": "",
+      "flaw_source": "observed",
+      "flaw_at": "",
+      "free_tier": "Free demo, no account; model free to download",
+      "paid_from": "Not published (hosted version for developers)",
+      "seconds_to_result": 9.3,
+      "conditions": [
+        {
+          "key": "What we gave it",
+          "value": "Our own line drawings of the 6 words it asked for"
+        },
+        {
+          "key": "How we drew",
+          "value": "Stroke by stroke with a scripted mouse, at about human speed"
+        },
+        {
+          "key": "Where",
+          "value": "Liquid AI's free demo page, in a web browser"
+        },
+        {
+          "key": "Account",
+          "value": "None"
+        },
+        {
+          "key": "Tries",
+          "value": "1 round (6 words), no retries"
+        },
+        {
+          "key": "Settings",
+          "value": "None to set"
+        },
+        {
+          "key": "Edited afterwards",
+          "value": "No"
+        },
+        {
+          "key": "Recorded by",
+          "value": "Us, running the page automatically"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "9.3 s"
+        },
+        {
+          "key": "Recording",
+          "value": "Screen-recorded by us on the free demo page"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Free",
+          "value": "Demo, no account"
+        },
+        {
+          "key": "Paid",
+          "value": "Not published"
+        },
+        {
+          "key": "The catch",
+          "value": "Knew the apple, too unsure"
+        }
+      ],
+      "homepage": "https://huggingface.co/spaces/LiquidAI/system-one-arcade",
+      "sources": [
+        {
+          "url": "https://huggingface.co/LiquidAI/d1-3B",
+          "label": "d1-3B model page",
+          "accessed": "2026-10-10"
+        },
+        {
+          "url": "https://huggingface.co/spaces/LiquidAI/system-one-arcade",
+          "label": "System One Arcade (the test)",
+          "accessed": "2026-10-10"
+        },
+        {
+          "url": "https://liquidai-system-one-arcade.hf.space/draw.js",
+          "label": "Quick Draw rules (demo code)",
+          "accessed": "2026-10-10"
+        },
+        {
+          "url": "https://runtimewire.com/article/liquid-ai-open-d1-decision-models-edge",
+          "label": "RuntimeWire: open d1 release",
+          "accessed": "2026-10-10"
+        }
+      ],
+      "credits": "Drawings: our own simple line drawings (scripts/quickdraw_strokes.py).",
+      "score": {
+        "total": 81,
+        "parts": [
+          {
+            "key": "Quality",
+            "value": 47,
+            "max": 50
+          },
+          {
+            "key": "Speed",
+            "value": 15,
+            "max": 15
+          },
+          {
+            "key": "Free plan",
+            "value": 16,
+            "max": 25
+          },
+          {
+            "key": "Price",
+            "value": 3,
+            "max": 10
+          }
+        ]
+      },
+      "use_for": "Seeing how fast small AI has got",
+      "skip_if": "You want an everyday app",
+      "lesson": "Small AI can be fast and good at picking from a short list. It is a demo of what is coming to apps, not an app you will use every day.",
+      "affiliate_url": ""
     }
   ],
   "groups": [

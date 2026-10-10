@@ -59,7 +59,7 @@ const CoverBody: React.FC<CoverProps> = ({ script }) => {
         <SpecimenLabel code={script.code} tool={script.tool} genus={script.genus} disclosure={script.disclosure} mode={script.mode} dropAt={-120} />
       </div>
       {spec && script.cover?.before ? (
-        <BeforeAfter before={script.cover.before} after={spec} x={PLATE.x} y={PLATE.y} w={PLATE.w} h={PLATE.h} angle={script.cover?.angle} />
+        <BeforeAfter before={script.cover.before} after={spec} x={PLATE.x} y={PLATE.y} w={PLATE.w} h={PLATE.h} angle={script.cover?.angle} labels={(script.beats?.[0] as { labels?: [string, string] } | undefined)?.labels} />
       ) : drawerCodes ? null : (
         <Plate x={PLATE.x} y={PLATE.y} w={PLATE.w} h={PLATE.h}>
           {spec ? <Media spec={spec} width={PLATE.w} height={PLATE.h} angleOffset={script.cover?.angle} /> : null}

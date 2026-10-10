@@ -31,6 +31,15 @@
       "tool": "Sora (shut down)",
       "step": "ready",
       "verdict": "Watch"
+    },
+    {
+      "id": "E007",
+      "row": "R066",
+      "code": "005",
+      "tool": "Liquid AI d1 (Quick Draw)",
+      "step": "ready",
+      "verdict": "Captured",
+      "score": 81
     }
   ],
   "previous_batch": {

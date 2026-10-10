@@ -1,0 +1,185 @@
+{
+  "tool": "Liquid AI d1",
+  "version": "d1-3B in Liquid AI's System One Arcade, Quick Draw demo (no account)",
+  "genus": "Guesses what you draw",
+  "homepage": "https://huggingface.co/spaces/LiquidAI/system-one-arcade",
+  "habitat": [
+    "Browser (free demo page)",
+    "Open weights"
+  ],
+  "feeds_on": [
+    "A drawing, a camera frame or text, plus typed questions"
+  ],
+  "free_tier": "Free demo, no account; model free to download",
+  "paid_from": "Not published (hosted version for developers)",
+  "licence_note": "Model licence: lfm1.0 (LFM Open License).",
+  "launched": "2026-10-07",
+  "launched_note": "Open weights released 7 Oct 2026; model page created 5 Oct 2026.",
+  "tested_on": "2026-10-10",
+  "plan": "Free demo, no account",
+  "attempts": 1,
+  "auto_captured": true,
+  "test": "One round of Quick Draw (6 random words of 16, 20 seconds each). We drew each word with our own simple line drawing, stroke by stroke with a scripted mouse, prepared before the test and never tried on the model beforehand.",
+  "conditions": [
+    {
+      "key": "What we gave it",
+      "value": "Our own line drawings of the 6 words it asked for"
+    },
+    {
+      "key": "How we drew",
+      "value": "Stroke by stroke with a scripted mouse, at about human speed"
+    },
+    {
+      "key": "Where",
+      "value": "Liquid AI's free demo page, in a web browser"
+    },
+    {
+      "key": "Account",
+      "value": "None"
+    },
+    {
+      "key": "Tries",
+      "value": "1 round (6 words), no retries"
+    },
+    {
+      "key": "Settings",
+      "value": "None to set"
+    },
+    {
+      "key": "Edited afterwards",
+      "value": "No"
+    },
+    {
+      "key": "Recorded by",
+      "value": "Us, running the page automatically"
+    }
+  ],
+  "runs": [
+    {
+      "word": "fish",
+      "result": "guessed",
+      "seconds_to_result": 6.8
+    },
+    {
+      "word": "apple",
+      "result": "missed: top guess apple at 75%, below the 85% it needs",
+      "seconds_to_result": null
+    },
+    {
+      "word": "clock",
+      "result": "guessed",
+      "seconds_to_result": 7.1
+    },
+    {
+      "word": "snowman",
+      "result": "guessed",
+      "seconds_to_result": 10.6
+    },
+    {
+      "word": "guitar",
+      "result": "guessed",
+      "seconds_to_result": 12.1
+    },
+    {
+      "word": "bicycle",
+      "result": "guessed",
+      "seconds_to_result": 9.9
+    }
+  ],
+  "seconds_to_result": 9.3,
+  "seconds_note": "The game's own timer: average of the 5 guessed words (6.8, 7.1, 10.6, 12.1, 9.9 s) from the word appearing to the guess; includes our drawing time.",
+  "flaw": {
+    "text": "Knew the apple, too unsure",
+    "source": "observed",
+    "image": "raw/auto/derived/0050.jpg"
+  },
+  "flaw_source": "observed",
+  "verdict": "Captured",
+  "verdict_reason": "Free, no account, and it read 5 of our 6 simple drawings while we were still drawing them. It missed the apple even though apple was its top guess: it stayed at 75%, under the 85% the game needs.",
+  "lesson": "Small AI can be fast and good at picking from a short list. It is a demo of what is coming to apps, not an app you will use every day.",
+  "use_for": "Seeing how fast small AI has got",
+  "skip_if": "You want an everyday app",
+  "score": {
+    "total": 81,
+    "parts": [
+      {
+        "key": "Quality",
+        "value": 47,
+        "max": 50
+      },
+      {
+        "key": "Speed",
+        "value": 15,
+        "max": 15
+      },
+      {
+        "key": "Free plan",
+        "value": 16,
+        "max": 25
+      },
+      {
+        "key": "Price",
+        "value": 3,
+        "max": 10
+      }
+    ],
+    "result_runs": [
+      {
+        "run": "fish",
+        "value": 50,
+        "deductions": []
+      },
+      {
+        "run": "apple",
+        "value": 30,
+        "deductions": [
+          "wrong subject (no guess made in 20 s) -20"
+        ]
+      },
+      {
+        "run": "clock",
+        "value": 50,
+        "deductions": []
+      },
+      {
+        "run": "snowman",
+        "value": 50,
+        "deductions": []
+      },
+      {
+        "run": "guitar",
+        "value": 50,
+        "deductions": []
+      },
+      {
+        "run": "bicycle",
+        "value": 50,
+        "deductions": []
+      }
+    ],
+    "notes": "Image drawer. Quality (5 x 50 + 30) / 6 = 46.7, rounded 47. Speed: 9.3 s average, under 30 s = 15. Free plan: no login 5, no published limit 10, demo only 1 = 16. Price: not published = 3."
+  },
+  "sources": [
+    {
+      "url": "https://huggingface.co/LiquidAI/d1-3B",
+      "label": "d1-3B model page",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://huggingface.co/spaces/LiquidAI/system-one-arcade",
+      "label": "System One Arcade (the test)",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://liquidai-system-one-arcade.hf.space/draw.js",
+      "label": "Quick Draw rules (demo code)",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://runtimewire.com/article/liquid-ai-open-d1-decision-models-edge",
+      "label": "RuntimeWire: open d1 release",
+      "accessed": "2026-10-10"
+    }
+  ],
+  "credits": "Drawings: our own simple line drawings (scripts/quickdraw_strokes.py)."
+}

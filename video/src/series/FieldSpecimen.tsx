@@ -92,12 +92,13 @@ const ConditionsBeat: React.FC<{ b: B<"conditions"> }> = ({ b }) => {
   );
 };
 
-export const ObservationPlate: React.FC<{ input: z.input<typeof media>; result: z.input<typeof media>; y: number; h: number; resultAt: number }> = ({
+export const ObservationPlate: React.FC<{ input: z.input<typeof media>; result: z.input<typeof media>; y: number; h: number; resultAt: number; labels?: [string, string] }> = ({
   input,
   result,
   y,
   h,
   resultAt,
+  labels = [LABEL.input, LABEL.output],
 }) => {
   // storyboard-3: the input on a rounded inset at the left, a red ink arrow, the result right.
   const inset = { w: Math.round(PLATE_W * 0.37), h: h - 60 };
@@ -111,12 +112,12 @@ export const ObservationPlate: React.FC<{ input: z.input<typeof media>; result: 
         </div>
       </Plate>
       <InkMark shape="arrow" from={{ x: PLATE_X + 30 + inset.w + 18, y: y + h / 2 }} to={{ x: PLATE_X + resX - 14, y: y + h / 2 }} start={resultAt - 12} seed="obs-arrow" />
-      <PlateTag text={LABEL.input} x={PLATE_X + 40} y={y + h - 96} size={28} maxWidth={inset.w - 20} />
+      <PlateTag text={labels[0]} x={PLATE_X + 40} y={y + h - 96} size={28} maxWidth={inset.w - 20} />
       <Sequencer at={resultAt}>
         <div style={{ position: "absolute", left: PLATE_X + resX, top: y + 20, width: resW, height: h - 40, overflow: "hidden" }}>
           <Media spec={result} width={resW} height={h - 40} />
         </div>
-        <PlateTag text={LABEL.output} x={PLATE_X + resX + 10} y={y + h - 96} size={28} maxWidth={resW - 20} tone="red" />
+        <PlateTag text={labels[1]} x={PLATE_X + resX + 10} y={y + h - 96} size={28} maxWidth={resW - 20} tone="red" />
       </Sequencer>
     </>
   );
