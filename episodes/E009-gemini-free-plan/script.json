@@ -1,0 +1,95 @@
+{
+  "id": "E009",
+  "code": "X02",
+  "composition": "ExtinctionWatch",
+  "series": "Extinction Watch",
+  "mode": "Field sketch",
+  "disclosure": "Unpaid",
+  "tool": "Gemini free plan",
+  "genus": "Google's AI chat app, free plan",
+  "groove": 2,
+  "music": "music.wav",
+  "cta": {
+    "yt": "Tap our name\nfor every plan.",
+    "ig": "Comment X02\nfor every plan.",
+    "x": "Every plan in\nthe first reply."
+  },
+  "extinct_name": "Pick Pro for free",
+  "extinct_note": "Ended for free accounts, 9 Oct 2026",
+  "pick": 0,
+  "successors": [
+    {
+      "tool": "Stay free",
+      "free_tier": "Auto: mostly the small model",
+      "line": "Hard questions may still get Pro"
+    },
+    {
+      "tool": "Google AI Plus",
+      "free_tier": "$4.99 a month (US)",
+      "line": "The middle model, no Pro"
+    },
+    {
+      "tool": "Google AI Pro",
+      "free_tier": "$19.99 a month (US)",
+      "line": "Every model, plus Deep Think"
+    }
+  ],
+  "cover": {
+    "lines": [
+      "Free Gemini changed Oct 9.",
+      "Here's what you lost."
+    ]
+  },
+  "beats": [
+    {
+      "type": "extinct",
+      "seconds": 4,
+      "lines": [
+        "Free Gemini changed Oct 9.",
+        "Here's what you lost."
+      ]
+    },
+    {
+      "type": "timeline",
+      "seconds": 9,
+      "lines": [
+        "What changed, and when."
+      ],
+      "rows": [
+        {
+          "key": "17 May 2026",
+          "value": "New usage limits"
+        },
+        {
+          "key": "3 Oct 2026",
+          "value": "Change reported"
+        },
+        {
+          "key": "9 Oct 2026",
+          "value": "Auto picks for you"
+        }
+      ]
+    },
+    {
+      "type": "successors",
+      "seconds": 11.5,
+      "lines": [
+        "Your three choices now:"
+      ]
+    },
+    {
+      "type": "flaw",
+      "seconds": 5,
+      "lines": [
+        "Most answers now come from",
+        "the smallest model."
+      ],
+      "key": "Free plan",
+      "text": "You can't choose Pro yourself"
+    },
+    {
+      "type": "verdict",
+      "seconds": 6
+    }
+  ]
+}

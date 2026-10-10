@@ -1,0 +1,30 @@
+{
+  "id": "E009",
+  "row": "R042",
+  "slug": "gemini-free-plan",
+  "code": "X02",
+  "series": "Extinction Watch",
+  "series_code": "EX",
+  "composition": "ExtinctionWatch",
+  "mode": "Field sketch",
+  "tools": [
+    "Gemini"
+  ],
+  "tools_raw": "See test",
+  "pillar": "Work",
+  "phase": "1 Collect",
+  "draft_hook": "Free Gemini just got smaller",
+  "the_test": "From 9 Oct 2026 free users move to Flash-Lite; what still works free",
+  "free_path": "Desk study",
+  "free_path_note": "From the calendar; re-verify in research.md before filming.",
+  "affiliate_status": "n/a",
+  "on_screen_label": "Unpaid",
+  "disclosure": "Unpaid",
+  "hashtags": [
+    "#ainews",
+    "#aitools",
+    "#specimindlab"
+  ],
+  "hub_url": "https://specimindlab.github.io/X02",
+  "capture": "not needed"
+}

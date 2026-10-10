@@ -49,6 +49,14 @@
       "step": "ready",
       "verdict": "Captured",
       "score": 77
+    },
+    {
+      "id": "E009",
+      "row": "R042",
+      "code": "X02",
+      "tool": "Gemini free plan",
+      "step": "ready",
+      "verdict": "Watch"
     }
   ],
   "previous_batch": {

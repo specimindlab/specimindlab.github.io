@@ -1,0 +1,63 @@
+{
+  "tool": "Gemini free plan",
+  "version": "Gemini app, personal accounts without a Google AI plan",
+  "genus": "Google's AI chat app, free plan",
+  "homepage": "https://support.google.com/gemini/answer/17004136?hl=en",
+  "habitat": [
+    "Browser",
+    "Android and iOS apps"
+  ],
+  "feeds_on": [
+    "Text, images, files"
+  ],
+  "free_tier": "Auto picks the model: mostly Flash-Lite; choosing yourself gives Flash-Lite only",
+  "paid_from": "$4.99 a month (Google AI Plus, US)",
+  "launched": null,
+  "mode": "Field sketch",
+  "tested_on": "2026-10-10",
+  "tested_on_note": "Research date (desk study).",
+  "attempts": 0,
+  "test": "Desk study: Google's help article on the 9 Oct 2026 change, compared with press reports.",
+  "flaw": {
+    "text": "You can't choose Pro yourself",
+    "source": "research"
+  },
+  "flaw_source": "research",
+  "verdict": "Watch",
+  "verdict_reason": "Free Gemini still works, and Auto may still hand a hard question to Pro, but you can no longer pick Pro or Flash yourself. Most people can stay free; heavy users who want Pro need the $19.99 plan, because the $4.99 plan loses Pro too.",
+  "lesson": "Read the company's own page before the headlines: free Gemini didn't lose Pro completely, it lost your choice of model.",
+  "successors": [
+    {
+      "tool": "Stay free",
+      "free_tier": "Auto: mostly the small model",
+      "line": "Hard questions may still get Pro"
+    },
+    {
+      "tool": "Google AI Plus",
+      "free_tier": "$4.99 a month (US)",
+      "line": "The middle model, no Pro"
+    },
+    {
+      "tool": "Google AI Pro",
+      "free_tier": "$19.99 a month (US)",
+      "line": "Every model, plus Deep Think"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://support.google.com/gemini/answer/17004136?hl=en",
+      "label": "Google: Changes to Gemini model access and limits",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://9to5google.com/2026/10/03/gemini-model-limits-oct-26/",
+      "label": "9to5Google: Gemini model limits (3 Oct 2026)",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://www.notebookcheck.net/Google-Gemini-drops-Flash-and-Pro-for-free-users-on-October-9.1415964.0.html",
+      "label": "Notebookcheck summary",
+      "accessed": "2026-10-10"
+    }
+  ]
+}
