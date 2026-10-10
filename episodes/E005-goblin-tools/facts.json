@@ -1,0 +1,165 @@
+{
+  "tool": "Goblin Tools",
+  "version": "Magic ToDo on goblin.tools (web, v3.14.1 shown in the page footer), no account",
+  "genus": "Breaks a chore into small steps",
+  "homepage": "https://goblin.tools/ToDo",
+  "habitat": [
+    "Browser",
+    "Android and iOS apps"
+  ],
+  "feeds_on": [
+    "One line of text (a task)"
+  ],
+  "free_tier": "Everything on the website, no account, no published limit",
+  "paid_from": "$3 a month (Goblin Tools Pro: saved and synced lists, sharing)",
+  "licence_note": "No licence terms for the generated lists are published.",
+  "launched": null,
+  "launched_note": "Not published; described in a 2023 blog post.",
+  "tested_on": "2026-10-10",
+  "plan": "Free website, no account",
+  "attempts": 1,
+  "auto_captured": true,
+  "test": "Typed 'Clean the garage' into Magic ToDo and clicked Break down once at spiciness 1, 3 (the default) and 5, each in a fresh browser.",
+  "conditions": [
+    {
+      "key": "What we gave it",
+      "value": "The words: Clean the garage"
+    },
+    {
+      "key": "Where",
+      "value": "goblin.tools in a web browser"
+    },
+    {
+      "key": "Account",
+      "value": "None"
+    },
+    {
+      "key": "Tries",
+      "value": "1 at each of 3 spice levels (1, 3, 5), no retries"
+    },
+    {
+      "key": "Settings",
+      "value": "Only the spice level changed"
+    },
+    {
+      "key": "Edited afterwards",
+      "value": "No"
+    },
+    {
+      "key": "Time to make it",
+      "value": "1 to 2.5 seconds"
+    },
+    {
+      "key": "Recorded by",
+      "value": "Us, running the page automatically"
+    }
+  ],
+  "runs": [
+    {
+      "input": "Clean the garage",
+      "spiciness": 1,
+      "steps": 6,
+      "seconds_to_result": 1.1,
+      "result": "raw/auto/spice1-result.jpg",
+      "observed": "6 sensible steps: trash out, sort into boxes, sweep, wipe surfaces, mop, put things back."
+    },
+    {
+      "input": "Clean the garage",
+      "spiciness": 3,
+      "steps": 11,
+      "seconds_to_result": 1.7,
+      "result": "raw/auto/spice3-result.jpg",
+      "observed": "11 steps; adds sorting into keep, donate, sell or trash, and setting up shelves and hooks. Useful."
+    },
+    {
+      "input": "Clean the garage",
+      "spiciness": 5,
+      "steps": 33,
+      "seconds_to_result": 2.5,
+      "result": "raw/auto/spice5-result.jpg",
+      "observed": "33 steps. Drifts from cleaning into repairs: patch holes and cracks, repaint, fix and oil the garage door. Repeats itself (sweep twice, remove trash three times)."
+    }
+  ],
+  "seconds_to_result": 2.5,
+  "seconds_note": "From clicking Break down until the last step appeared on the page (our script's clock); 1.1 s at level 1, 1.7 s at level 3, 2.5 s at level 5.",
+  "flaw": {
+    "text": "Level 5 adds painting",
+    "source": "observed",
+    "run": 3,
+    "image": "raw/auto/derived/flaw.jpg"
+  },
+  "flaw_source": "observed",
+  "verdict": "Captured",
+  "verdict_reason": "Free, no account and instant: levels 1 and 3 turned one vague chore into a useful plan in under 2 seconds. Level 5 pads the list with repairs and repeats, so pick a middle level.",
+  "lesson": "Start at level 2 or 3. Level 5 breaks things down so far that it starts adding jobs you never asked for.",
+  "use_for": "Chores you keep putting off",
+  "skip_if": "Level 5 (it pads the list)",
+  "score": {
+    "total": 94,
+    "parts": [
+      {
+        "key": "Quality",
+        "value": 44,
+        "max": 50
+      },
+      {
+        "key": "Speed",
+        "value": 15,
+        "max": 15
+      },
+      {
+        "key": "Free plan",
+        "value": 25,
+        "max": 25
+      },
+      {
+        "key": "Price",
+        "value": 10,
+        "max": 10
+      }
+    ],
+    "result_runs": [
+      {
+        "run": "Level 1 (6 steps)",
+        "value": 50,
+        "deductions": []
+      },
+      {
+        "run": "Level 3 (11 steps)",
+        "value": 50,
+        "deductions": []
+      },
+      {
+        "run": "Level 5 (33 steps)",
+        "value": 32,
+        "deductions": [
+          "needs manual fixes to be usable (repeats: sweep twice, trash three times) -8",
+          "adds work outside the task (repairs, repainting, oiling the door), counted as a factual error -10"
+        ]
+      }
+    ],
+    "notes": "Work drawer. Quality (50 + 50 + 32) / 3 = 44. Speed: 2.5 s, under 60 s = 15. Free plan: no login 5, no published limit (more than 20 a day) 10, the full feature free 10 = 25. Price: $3 a month = 10."
+  },
+  "sources": [
+    {
+      "url": "https://goblin.tools/About",
+      "label": "Goblin Tools: About",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://goblin.tools/pro/about",
+      "label": "Goblin Tools Pro",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://goblin.tools/ToDo",
+      "label": "Magic ToDo (the test)",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://blog.saner.ai/goblin-tools-review/",
+      "label": "Saner.ai review (nothing saved without an account)",
+      "accessed": "2026-10-10"
+    }
+  ]
+}

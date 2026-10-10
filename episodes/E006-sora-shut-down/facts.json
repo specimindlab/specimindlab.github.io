@@ -1,0 +1,34 @@
+{
+  "tool": "Sora",
+  "version": "OpenAI Sora app and Sora 2 API (both shut down)",
+  "genus": "OpenAI's video app, now shut down",
+  "homepage": "https://developers.openai.com/api/docs/deprecations",
+  "habitat": ["iOS app (closed)", "Web (closed)", "API (closed)"],
+  "feeds_on": ["Text prompts"],
+  "free_tier": "None: shut down",
+  "paid_from": "None: shut down",
+  "launched": "2025-09-30",
+  "launched_note": "The Sora app with Sora 2 launched 30 Sep 2025; app closed 26 Apr 2026; API closed 24 Sep 2026.",
+  "mode": "Field sketch",
+  "tested_on": null,
+  "attempts": 0,
+  "test": "Desk study: OpenAI's deprecation notice and press coverage, plus the free plans of three places to make AI videos now.",
+  "flaw": {"text": "Old Sora videos are deleted", "source": "research"},
+  "flaw_source": "research",
+  "verdict": "Watch",
+  "verdict_reason": "Sora is gone. If you made videos there, the export window has passed; for new videos, start with Wan's free demo (no account), or Kling's free credits with an account.",
+  "lesson": "Keep your own copies of anything you make on a hosted AI tool: when it shuts down, the files can go with it.",
+  "successors": [
+    {"tool": "Wan (Alibaba)", "free_tier": "Free demo, no account", "line": "Open source"},
+    {"tool": "Kling (Kuaishou)", "free_tier": "Free credits, with an account", "line": "Allowance not published"},
+    {"tool": "Gemini Omni (Google)", "free_tier": "Paid plans only", "line": "Replaced Veo 3.1"}
+  ],
+  "sources": [
+    {"url": "https://developers.openai.com/api/docs/deprecations", "label": "OpenAI deprecations: Sora 2 and Videos API", "accessed": "2026-10-10"},
+    {"url": "https://the-decoder.com/openai-sets-two-stage-sora-shutdown-with-app-closing-april-2026-and-api-following-in-september/", "label": "The Decoder: two-stage Sora shutdown", "accessed": "2026-10-10"},
+    {"url": "https://www.axios.com/2025/09/30/openai-sora-app-social-ai", "label": "Axios: Sora app launch", "accessed": "2026-10-10"},
+    {"url": "https://huggingface.co/spaces/Wan-AI/Wan2.1", "label": "Wan official demo", "accessed": "2026-10-10"},
+    {"url": "https://kling.ai/docs/point-policy", "label": "Kling credits policy", "accessed": "2026-10-10"},
+    {"url": "https://gemini.google/overview/video-generation/", "label": "Gemini video generation (Gemini Omni)", "accessed": "2026-10-10"}
+  ]
+}

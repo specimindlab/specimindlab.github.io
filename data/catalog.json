@@ -483,6 +483,157 @@
       "lesson": "Check who can see your images before you pick a plan: the $10 plan makes everything public.",
       "affiliate_url": "",
       "updated_on": "2026-10-09"
+    },
+    {
+      "code": "004",
+      "episode": "E005",
+      "pillar": "Work",
+      "series": "Free Range",
+      "tested_on": "2026-10-10",
+      "hook_lines": [
+        "One chore became",
+        "33 steps."
+      ],
+      "disclosure": "Unpaid",
+      "cover": "episodes/E005-goblin-tools/cover.png",
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "tool": "Goblin Tools",
+      "genus": "Breaks a chore into small steps",
+      "mode": "Live specimen",
+      "verdict": "Captured",
+      "verdict_reason": "Free, no account and instant: levels 1 and 3 turned one vague chore into a useful plan in under 2 seconds. Level 5 pads the list with repairs and repeats, so pick a middle level.",
+      "flaw": "Level 5 adds painting",
+      "flaw_caption": "",
+      "flaw_source": "observed",
+      "flaw_at": "",
+      "free_tier": "Everything on the website, no account, no published limit",
+      "paid_from": "$3 a month (Goblin Tools Pro: saved and synced lists, sharing)",
+      "seconds_to_result": 2.5,
+      "conditions": [
+        {
+          "key": "What we gave it",
+          "value": "The words: Clean the garage"
+        },
+        {
+          "key": "Where",
+          "value": "goblin.tools in a web browser"
+        },
+        {
+          "key": "Account",
+          "value": "None"
+        },
+        {
+          "key": "Tries",
+          "value": "1 at each of 3 spice levels (1, 3, 5), no retries"
+        },
+        {
+          "key": "Settings",
+          "value": "Only the spice level changed"
+        },
+        {
+          "key": "Edited afterwards",
+          "value": "No"
+        },
+        {
+          "key": "Time to make it",
+          "value": "1 to 2.5 seconds"
+        },
+        {
+          "key": "Recorded by",
+          "value": "Us, running the page automatically"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "2.5 s"
+        },
+        {
+          "key": "Recording",
+          "value": "Screen-recorded by us on the free demo page"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Works in",
+          "value": "Browser, Android and iOS apps"
+        },
+        {
+          "key": "You give it",
+          "value": "One line of text (a task)"
+        },
+        {
+          "key": "Free plan",
+          "value": "Everything on the website, no account, no published limit"
+        },
+        {
+          "key": "Paid",
+          "value": "$3 a month (Goblin Tools Pro: saved and synced lists, sharing)"
+        },
+        {
+          "key": "Licence",
+          "value": "No licence terms for the generated lists are published."
+        },
+        {
+          "key": "The catch",
+          "value": "Level 5 adds painting"
+        }
+      ],
+      "homepage": "https://goblin.tools/ToDo",
+      "sources": [
+        {
+          "url": "https://goblin.tools/About",
+          "label": "Goblin Tools: About",
+          "accessed": "2026-10-10"
+        },
+        {
+          "url": "https://goblin.tools/pro/about",
+          "label": "Goblin Tools Pro",
+          "accessed": "2026-10-10"
+        },
+        {
+          "url": "https://goblin.tools/ToDo",
+          "label": "Magic ToDo (the test)",
+          "accessed": "2026-10-10"
+        },
+        {
+          "url": "https://blog.saner.ai/goblin-tools-review/",
+          "label": "Saner.ai review (nothing saved without an account)",
+          "accessed": "2026-10-10"
+        }
+      ],
+      "credits": "",
+      "score": {
+        "total": 94,
+        "parts": [
+          {
+            "key": "Quality",
+            "value": 44,
+            "max": 50
+          },
+          {
+            "key": "Speed",
+            "value": 15,
+            "max": 15
+          },
+          {
+            "key": "Free plan",
+            "value": 25,
+            "max": 25
+          },
+          {
+            "key": "Price",
+            "value": 10,
+            "max": 10
+          }
+        ]
+      },
+      "use_for": "Chores you keep putting off",
+      "skip_if": "Level 5 (it pads the list)",
+      "lesson": "Start at level 2 or 3. Level 5 breaks things down so far that it starts adding jobs you never asked for.",
+      "affiliate_url": ""
     }
   ],
   "groups": [

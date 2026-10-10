@@ -24,6 +24,8 @@ export type CreditCounterProps = {
   compact?: boolean;
   /** Freeze look (final beat): heavier border. */
   frozen?: boolean;
+  /** No allowance (the free plan has no limit): count the tries we used up instead of down. */
+  unlimited?: boolean;
 };
 
 export const counterHeight = (compact = false) => (compact ? 190 : 330);
@@ -40,6 +42,7 @@ export const CreditCounter: React.FC<CreditCounterProps> = ({
   w = 860,
   compact = false,
   frozen = false,
+  unlimited = false,
 }) => {
   const frame = useCurrentFrame();
   const h = counterHeight(compact);
@@ -50,7 +53,7 @@ export const CreditCounter: React.FC<CreditCounterProps> = ({
   const cells = Math.ceil(total / perCell);
   const pad = 36;
   const numSize = compact ? 100 : 200;
-  const number = String(left);
+  const number = String(unlimited ? shownUsed : left);
   const numW = measureEm(number, AXES.digits) * numSize;
   const textX = x + pad + numW + 28;
   const textW = x + w - pad - textX;
@@ -86,9 +89,9 @@ export const CreditCounter: React.FC<CreditCounterProps> = ({
           );
         })}
       </svg>
-      <Line text={number} x={x + pad} baseline={y + (compact ? 106 : 214)} maxWidth={w * 0.55} size={numSize} axes={AXES.digits} color={left === 0 ? COLORS.red : COLORS.ink} />
-      <Line text={`${unit} left`} x={textX} baseline={y + (compact ? 62 : 120)} maxWidth={textW} size={compact ? 38 : 52} axes={AXES.tool} />
-      <Line text={`of ${total} ${period}`} x={textX} baseline={y + (compact ? 100 : 176)} maxWidth={textW} size={compact ? 28 : 36} axes={AXES.small} color={COLORS.steel} />
+      <Line text={number} x={x + pad} baseline={y + (compact ? 106 : 214)} maxWidth={w * 0.55} size={numSize} axes={AXES.digits} color={!unlimited && left === 0 ? COLORS.red : COLORS.ink} />
+      <Line text={unlimited ? `${unit} used` : `${unit} left`} x={textX} baseline={y + (compact ? 62 : 120)} maxWidth={textW} size={compact ? 38 : 52} axes={AXES.tool} />
+      <Line text={unlimited ? period : `of ${total} ${period}`} x={textX} baseline={y + (compact ? 100 : 176)} maxWidth={textW} size={compact ? 28 : 36} axes={AXES.small} color={COLORS.steel} />
       {perCell > 1 ? (
         <Line text={`1 cell = ${perCell}`} x={x + w - pad} baseline={stripY - cellH - 12} maxWidth={200} size={20} axes={AXES.key} color={COLORS.steel} anchor="end" />
       ) : null}

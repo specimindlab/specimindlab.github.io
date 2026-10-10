@@ -1,0 +1,30 @@
+{
+  "id": "E006",
+  "row": "R014",
+  "slug": "sora-shut-down",
+  "code": "X01",
+  "series": "Extinction Watch",
+  "series_code": "EX",
+  "composition": "ExtinctionWatch",
+  "mode": "Field sketch",
+  "tools": [
+    "Sora"
+  ],
+  "tools_raw": "See test",
+  "pillar": "Video",
+  "phase": "1 Collect",
+  "draft_hook": "Sora is gone. What replaced it?",
+  "the_test": "OpenAI closed the Sora app in Apr 2026 and the API on 24 Sep 2026; compare 3 free successors",
+  "free_path": "Desk study",
+  "free_path_note": "From the calendar; re-verify in research.md before filming.",
+  "affiliate_status": "n/a",
+  "on_screen_label": "Unpaid",
+  "disclosure": "Unpaid",
+  "hashtags": [
+    "#ainews",
+    "#aitools",
+    "#specimindlab"
+  ],
+  "hub_url": "https://specimindlab.github.io/X01",
+  "capture": "not needed"
+}

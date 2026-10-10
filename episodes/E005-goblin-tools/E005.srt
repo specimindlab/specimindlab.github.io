@@ -1,0 +1,46 @@
+1
+00:00:00,000 --> 00:00:03,500
+One chore became
+33 steps.
+
+2
+00:00:03,500 --> 00:00:08,500
+Goblin Tools is a free site
+that breaks a chore
+into small steps.
+
+3
+00:00:08,500 --> 00:00:13,000
+We typed: clean the garage.
+Then tried 3 spice levels.
+
+4
+00:00:13,000 --> 00:00:16,500
+Level 1: 6 steps.
+
+5
+00:00:16,500 --> 00:00:20,000
+Level 3: 11 steps.
+
+6
+00:00:20,000 --> 00:00:24,000
+And at level 5: 33 steps.
+
+7
+00:00:24,000 --> 00:00:28,500
+Then it stopped cleaning
+and started painting.
+
+8
+00:00:28,500 --> 00:00:35,500
+All of this was free.
+
+9
+00:00:35,500 --> 00:00:39,500
+94 out of 100.
+Our best score yet.
+
+10
+00:00:39,500 --> 00:00:47,000
+Tap our name
+for every score.

@@ -33,6 +33,8 @@ const counter = beat("counter", {
   total: z.number().int().positive(),
   unit: z.string().min(1), // "Credits", "Generations", "GPU seconds"
   period: z.string().min(1), // "per day", "a day, logged out"
+  /** The free plan has no limit: `total` is the tries in our test and the counter counts up. */
+  unlimited: z.boolean().optional(),
   /** The hook's hero: the most dramatic real result, on screen from frame 0. */
   media: media.optional(),
   /** With `before` (the input), the hook shows before -> after. */
@@ -164,7 +166,7 @@ const FreeRangeBody: React.FC<FreeRangeProps> = ({ script, platform }) => {
             {b.type === "counter" && box ? (
               b.media ? (
                 <>
-                  <CreditCounter total={b.total} used={0} unit={b.unit} period={b.period} y={CONTENT_TOP} compact />
+                  <CreditCounter total={b.total} used={0} unit={b.unit} period={b.period} unlimited={b.unlimited} y={CONTENT_TOP} compact />
                   {b.before ? (
                     <BeforeAfter before={b.before} after={b.media} y={rowY} h={box.contentBottom - rowY} />
                   ) : (
@@ -174,14 +176,14 @@ const FreeRangeBody: React.FC<FreeRangeProps> = ({ script, platform }) => {
                 </>
               ) : (
                 <>
-                  <CreditCounter total={b.total} used={0} unit={b.unit} period={b.period} y={Math.max(CONTENT_TOP, (CONTENT_TOP + box.contentBottom - counterHeight(false)) / 2)} />
+                  <CreditCounter total={b.total} used={0} unit={b.unit} period={b.period} unlimited={b.unlimited} y={Math.max(CONTENT_TOP, (CONTENT_TOP + box.contentBottom - counterHeight(false)) / 2)} />
                   <Caption lines={b.lines} maxHeight={420} />
                 </>
               )
             ) : null}
             {b.type === "observation" && box ? (
               <>
-                <CreditCounter total={ctr.total} used={b.used_after} prevUsed={i === 0 ? 0 : obs[i - 1].used_after} changeAt={8} unit={ctr.unit} period={ctr.period} y={CONTENT_TOP} compact />
+                <CreditCounter unlimited={ctr.unlimited} total={ctr.total} used={b.used_after} prevUsed={i === 0 ? 0 : obs[i - 1].used_after} changeAt={8} unit={ctr.unit} period={ctr.period} y={CONTENT_TOP} compact />
                 <Hero spec={b.result} tag={`#${i + 1}`} seconds={b.seconds_to_result} thumbs={revealed.slice(0, i)} y={rowY} bottom={box.contentBottom} live input={b.input} />
                 <Caption lines={b.lines} maxHeight={420} />
               </>
@@ -235,7 +237,7 @@ const FreeRangeBody: React.FC<FreeRangeProps> = ({ script, platform }) => {
 /** Free Range ends on its counter, frozen at what the test spent. */
 const FrozenCounter: React.FC<{ ctr: Ctr; used: number; y: number }> = ({ ctr, used, y }) => {
   const frame = useCurrentFrame();
-  return <CreditCounter total={ctr.total} used={used} unit={ctr.unit} period={ctr.period} y={y} compact frozen={frame >= 14} />;
+  return <CreditCounter unlimited={ctr.unlimited} total={ctr.total} used={used} unit={ctr.unit} period={ctr.period} y={y} compact frozen={frame >= 14} />;
 };
 
 export const FreeRange = framed(FreeRangeBody);

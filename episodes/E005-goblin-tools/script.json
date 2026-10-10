@@ -1,0 +1,308 @@
+{
+  "id": "E005",
+  "code": "004",
+  "composition": "FreeRange",
+  "series": "Free Range",
+  "mode": "Live specimen",
+  "disclosure": "Unpaid",
+  "tool": "Goblin Tools",
+  "genus": "Breaks a chore into small steps",
+  "groove": 3,
+  "music": "music.wav",
+  "cta": {
+    "yt": "Tap our name\nfor every score.",
+    "ig": "Comment 004\nfor the link.",
+    "x": "The link is in\nthe first reply."
+  },
+  "cover": {
+    "before": {
+      "kind": "image",
+      "src": "raw/auto/derived/before.jpg"
+    },
+    "media": {
+      "kind": "image",
+      "src": "raw/auto/derived/after.jpg"
+    },
+    "lines": [
+      "One chore became",
+      "33 steps."
+    ]
+  },
+  "beats": [
+    {
+      "type": "counter",
+      "seconds": 3.5,
+      "lines": [
+        "One chore became",
+        "33 steps."
+      ],
+      "total": 3,
+      "unit": "tries",
+      "period": "free, no account, no limit",
+      "unlimited": true,
+      "before": {
+        "kind": "image",
+        "src": "raw/auto/derived/before.jpg"
+      },
+      "media": {
+        "kind": "image",
+        "src": "raw/auto/derived/after.jpg"
+      }
+    },
+    {
+      "type": "intro",
+      "seconds": 5,
+      "lines": [
+        "Goblin Tools is a free site",
+        "that breaks a chore",
+        "into small steps."
+      ],
+      "media": {
+        "kind": "image",
+        "src": "raw/auto/derived/intro.jpg"
+      }
+    },
+    {
+      "type": "intro",
+      "seconds": 4.5,
+      "kicker": "How we tested",
+      "lines": [
+        "We typed: clean the garage.",
+        "Then tried 3 spice levels."
+      ],
+      "items": [
+        {
+          "media": {
+            "kind": "image",
+            "src": "raw/auto/derived/spice1-control.jpg"
+          },
+          "label": "Level 1"
+        },
+        {
+          "media": {
+            "kind": "image",
+            "src": "raw/auto/derived/spice3-control.jpg"
+          },
+          "label": "Level 3 (normal)"
+        },
+        {
+          "media": {
+            "kind": "image",
+            "src": "raw/auto/derived/spice5-control.jpg"
+          },
+          "label": "Level 5 (most)"
+        }
+      ]
+    },
+    {
+      "type": "observation",
+      "seconds": 3.5,
+      "lines": [
+        "Level 1: 6 steps."
+      ],
+      "result": {
+        "kind": "image",
+        "src": "raw/auto/derived/s1-00.jpg",
+        "frames": [
+          "raw/auto/derived/s1-00.jpg",
+          "raw/auto/derived/s1-01.jpg",
+          "raw/auto/derived/s1-02.jpg",
+          "raw/auto/derived/s1-03.jpg",
+          "raw/auto/derived/s1-04.jpg",
+          "raw/auto/derived/s1-05.jpg",
+          "raw/auto/derived/s1-06.jpg",
+          "raw/auto/derived/s1-07.jpg",
+          "raw/auto/derived/s1-08.jpg",
+          "raw/auto/derived/s1-09.jpg",
+          "raw/auto/derived/s1-10.jpg",
+          "raw/auto/derived/s1-11.jpg",
+          "raw/auto/derived/s1-12.jpg",
+          "raw/auto/derived/s1-13.jpg",
+          "raw/auto/derived/s1-14.jpg",
+          "raw/auto/derived/s1-15.jpg",
+          "raw/auto/derived/s1-16.jpg",
+          "raw/auto/derived/s1-17.jpg",
+          "raw/auto/derived/s1-18.jpg",
+          "raw/auto/derived/s1-19.jpg",
+          "raw/auto/derived/s1-20.jpg",
+          "raw/auto/derived/s1-21.jpg",
+          "raw/auto/derived/s1-22.jpg"
+        ],
+        "hold": 0.13
+      },
+      "seconds_to_result": 1.1,
+      "used_after": 1
+    },
+    {
+      "type": "observation",
+      "seconds": 3.5,
+      "lines": [
+        "Level 3: 11 steps."
+      ],
+      "result": {
+        "kind": "image",
+        "src": "raw/auto/derived/s3-00.jpg",
+        "frames": [
+          "raw/auto/derived/s3-00.jpg",
+          "raw/auto/derived/s3-01.jpg",
+          "raw/auto/derived/s3-02.jpg",
+          "raw/auto/derived/s3-03.jpg",
+          "raw/auto/derived/s3-04.jpg",
+          "raw/auto/derived/s3-05.jpg",
+          "raw/auto/derived/s3-06.jpg",
+          "raw/auto/derived/s3-07.jpg",
+          "raw/auto/derived/s3-08.jpg",
+          "raw/auto/derived/s3-09.jpg",
+          "raw/auto/derived/s3-10.jpg",
+          "raw/auto/derived/s3-11.jpg",
+          "raw/auto/derived/s3-12.jpg",
+          "raw/auto/derived/s3-13.jpg",
+          "raw/auto/derived/s3-14.jpg",
+          "raw/auto/derived/s3-15.jpg",
+          "raw/auto/derived/s3-16.jpg",
+          "raw/auto/derived/s3-17.jpg",
+          "raw/auto/derived/s3-18.jpg",
+          "raw/auto/derived/s3-19.jpg",
+          "raw/auto/derived/s3-20.jpg",
+          "raw/auto/derived/s3-21.jpg",
+          "raw/auto/derived/s3-22.jpg",
+          "raw/auto/derived/s3-23.jpg",
+          "raw/auto/derived/s3-24.jpg",
+          "raw/auto/derived/s3-25.jpg",
+          "raw/auto/derived/s3-26.jpg"
+        ],
+        "hold": 0.11
+      },
+      "seconds_to_result": 1.7,
+      "used_after": 2
+    },
+    {
+      "type": "observation",
+      "seconds": 4,
+      "lines": [
+        "And at level 5: 33 steps."
+      ],
+      "result": {
+        "kind": "image",
+        "src": "raw/auto/derived/s5-00.jpg",
+        "frames": [
+          "raw/auto/derived/s5-00.jpg",
+          "raw/auto/derived/s5-01.jpg",
+          "raw/auto/derived/s5-02.jpg",
+          "raw/auto/derived/s5-03.jpg",
+          "raw/auto/derived/s5-04.jpg",
+          "raw/auto/derived/s5-05.jpg",
+          "raw/auto/derived/s5-06.jpg",
+          "raw/auto/derived/s5-07.jpg",
+          "raw/auto/derived/s5-08.jpg",
+          "raw/auto/derived/s5-09.jpg",
+          "raw/auto/derived/s5-10.jpg",
+          "raw/auto/derived/s5-11.jpg",
+          "raw/auto/derived/s5-12.jpg",
+          "raw/auto/derived/s5-13.jpg",
+          "raw/auto/derived/s5-14.jpg",
+          "raw/auto/derived/s5-15.jpg",
+          "raw/auto/derived/s5-16.jpg",
+          "raw/auto/derived/s5-17.jpg",
+          "raw/auto/derived/s5-18.jpg",
+          "raw/auto/derived/s5-19.jpg",
+          "raw/auto/derived/s5-20.jpg",
+          "raw/auto/derived/s5-21.jpg",
+          "raw/auto/derived/s5-22.jpg",
+          "raw/auto/derived/s5-23.jpg",
+          "raw/auto/derived/s5-24.jpg",
+          "raw/auto/derived/s5-25.jpg",
+          "raw/auto/derived/s5-26.jpg",
+          "raw/auto/derived/s5-27.jpg",
+          "raw/auto/derived/s5-28.jpg",
+          "raw/auto/derived/s5-29.jpg",
+          "raw/auto/derived/s5-30.jpg",
+          "raw/auto/derived/s5-31.jpg",
+          "raw/auto/derived/s5-32.jpg"
+        ],
+        "hold": 0.11
+      },
+      "seconds_to_result": 2.5,
+      "used_after": 3
+    },
+    {
+      "type": "flaw",
+      "seconds": 4.5,
+      "lines": [
+        "Then it stopped cleaning",
+        "and started painting."
+      ],
+      "result_index": 2,
+      "result": {
+        "kind": "image",
+        "src": "raw/auto/derived/flaw.jpg"
+      },
+      "region": {
+        "x": 0.02,
+        "y": 0.08,
+        "w": 0.8,
+        "h": 0.86
+      },
+      "note": "Repairs and paint, not cleaning"
+    },
+    {
+      "type": "price-math",
+      "seconds": 7,
+      "lines": [
+        "All of this was free."
+      ],
+      "rows": [
+        {
+          "key": "Free",
+          "value": "Everything, no account"
+        },
+        {
+          "key": "Pro adds",
+          "value": "Saved lists, sharing"
+        }
+      ],
+      "result": {
+        "key": "Pro",
+        "value": "$3 a month"
+      }
+    },
+    {
+      "type": "score",
+      "seconds": 4,
+      "lines": [
+        "94 out of 100.",
+        "Our best score yet."
+      ],
+      "total": 94,
+      "parts": [
+        {
+          "key": "Quality",
+          "value": 44,
+          "max": 50
+        },
+        {
+          "key": "Speed",
+          "value": 15,
+          "max": 15
+        },
+        {
+          "key": "Free plan",
+          "value": 25,
+          "max": 25
+        },
+        {
+          "key": "Price",
+          "value": 10,
+          "max": 10
+        }
+      ]
+    },
+    {
+      "type": "verdict",
+      "seconds": 7.5,
+      "verdict": "Captured",
+      "use_for": "Chores you keep putting off",
+      "skip_if": "Level 5 (it pads the list)"
+    }
+  ]
+}

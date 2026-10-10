@@ -14,7 +14,24 @@
     "R027"
   ],
   "note": "Posting order = number order. Pre-flight: R015-R019, R021-R026, R028, R029 and R114 need the human (capture requests, data/needs-capture.md). R020 (Veo, research only) stays Planned: the batch already has two research-only videos and three video topics would crowd it; R042 is taken instead because its change happened on 9 Oct. Auto-captures: R030 Goblin Tools (Playwright), R066 Quick Draw in Liquid AI's System One Arcade (Playwright, our own line drawings), R058 Wan text-to-video (official demo), R059 LightOnOCR-3 (official demo).",
-  "episodes": [],
+  "episodes": [
+    {
+      "id": "E005",
+      "row": "R030",
+      "code": "004",
+      "tool": "Goblin Tools",
+      "step": "ready",
+      "verdict": "Captured",
+      "score": 94
+    },
+    {
+      "id": "E006",
+      "row": "R014",
+      "code": "X01",
+      "tool": "Sora (shut down)",
+      "step": "script"
+    }
+  ],
   "previous_batch": {
     "batch": "batch-2026-10-19",
     "release": "https://github.com/specimindlab/specimindlab.github.io/releases/tag/batch-2026-10-19",

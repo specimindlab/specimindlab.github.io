@@ -1,0 +1,31 @@
+{
+  "tool": "LightOnOCR-3 demo",
+  "url": "https://huggingface.co/spaces/lightonai/LightOnOCR-3-Demo",
+  "account": "none",
+  "attempts": 1,
+  "input": "captures/R059-lightonocr-3/raw/input/handwritten-note.jpg (shown by the demo as 1536x2048 px)",
+  "settings": "defaults: LightOnOCR-3-4B, Grounding, T 0.2, 6,144 tokens, 2048 px",
+  "started_utc": "2026-10-10T12:05Z (approx.)",
+  "seconds_to_result": 4.1,
+  "seconds_note": "Our capture script stopped on a later step (a page header covered the Raw tab), so run.json was rebuilt by hand from the saved files: seconds = file time of the first screenshot after the result appeared minus the screenshot taken just before clicking Run OCR (frames 0001 to 0005). Not re-run: one attempt.",
+  "output_text": "Butch Left him with B Boaze, when I went home Nevada St, with Jimmy could only take the one cat. My own dearly loved Jimmy Butel was knocked down in Richmond St and killed He was a very pretty thing. Love",
+  "answer_key": "Butch / Left him with B Boase, when / I went home Nevada St / with Jimmy could only / take the one cat. Mum / dearly loved Jimmy. Butch / was knocked down in / Richmond St and killed / He was a very pretty / Ginger Tom.",
+  "comparison": {
+    "words_in_key": 46,
+    "wrong": [
+      "Mum -> My own",
+      "Butch -> Butel",
+      "Ginger -> thing.",
+      "Tom -> Love"
+    ],
+    "not_counted": [
+      "Boase -> Boaze (uncertain in the key)"
+    ],
+    "right": 42
+  },
+  "evidence": [
+    "result-blocks.png",
+    "result-document.png",
+    "frames/"
+  ]
+}

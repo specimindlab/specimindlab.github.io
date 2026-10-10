@@ -1,0 +1,99 @@
+{
+  "id": "E006",
+  "code": "X01",
+  "composition": "ExtinctionWatch",
+  "series": "Extinction Watch",
+  "mode": "Field sketch",
+  "disclosure": "Unpaid",
+  "tool": "Sora",
+  "genus": "OpenAI's video app, now shut down",
+  "groove": 6,
+  "music": "music.wav",
+  "cta": {
+    "yt": "Tap our name\nfor all 3 links.",
+    "ig": "Comment X01\nfor all 3 links.",
+    "x": "All 3 links in\nthe first reply."
+  },
+  "extinct_name": "Sora",
+  "extinct_note": "Shut down for good, 24 Sep 2026",
+  "pick": 0,
+  "successors": [
+    {
+      "tool": "Wan (Alibaba)",
+      "free_tier": "Free demo, no account",
+      "line": "Open source"
+    },
+    {
+      "tool": "Kling (Kuaishou)",
+      "free_tier": "Free credits, with an account",
+      "line": "Allowance not published"
+    },
+    {
+      "tool": "Gemini Omni (Google)",
+      "free_tier": "Paid plans only",
+      "line": "Replaced Veo 3.1"
+    }
+  ],
+  "cover": {
+    "lines": [
+      "OpenAI's Sora app",
+      "lasted 7 months."
+    ]
+  },
+  "beats": [
+    {
+      "type": "extinct",
+      "seconds": 4,
+      "lines": [
+        "OpenAI's Sora app",
+        "lasted 7 months."
+      ]
+    },
+    {
+      "type": "timeline",
+      "seconds": 9.5,
+      "lines": [
+        "How it ended."
+      ],
+      "rows": [
+        {
+          "key": "30 Sep 2025",
+          "value": "App launched"
+        },
+        {
+          "key": "24 Mar 2026",
+          "value": "Shutdown announced"
+        },
+        {
+          "key": "26 Apr 2026",
+          "value": "App closed"
+        },
+        {
+          "key": "24 Sep 2026",
+          "value": "Last access closed"
+        }
+      ]
+    },
+    {
+      "type": "successors",
+      "seconds": 11,
+      "lines": [
+        "Three places to make",
+        "AI videos now."
+      ]
+    },
+    {
+      "type": "flaw",
+      "seconds": 5,
+      "lines": [
+        "Didn't save your videos?",
+        "They're gone."
+      ],
+      "text": "OpenAI deletes all Sora data"
+    },
+    {
+      "type": "verdict",
+      "seconds": 6
+    }
+  ]
+}

@@ -37,3 +37,5 @@ Every slash command in `.claude/skills/` relies on these. Add a line here whenev
 - Posting order is number order. `make_batch_file.py` refuses ids out of order; a roundup is made last so it is posted last.
 - `make_batch_file.py` moves `data/schedule.json` itself; editing it by hand as well moves the schedule twice.
 - Two hooks in a row once both started "Free AI turned ..." (E001, E002) and nobody noticed until the neighbour check existed: always run `make_batch_file.py` (or `--check`) before a release.
+- Capture scripts: write run.json (timing, result) the moment the result appears, before optional steps like switching tabs; a later failure must never cost the attempt's record. Click page tabs with `evaluate("e => e.click()")` when the Hugging Face Space header overlaps them.
+- Image sources: Unsplash pages and downloads are bot-walled for scripts, but WebFetch on a photo page returns its `images.unsplash.com/photo-…` address, and that downloads with curl. Wikimedia's API rate-limits fast (429).

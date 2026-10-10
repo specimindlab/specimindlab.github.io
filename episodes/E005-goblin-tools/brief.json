@@ -1,0 +1,31 @@
+{
+  "id": "E005",
+  "row": "R030",
+  "slug": "goblin-tools",
+  "code": "004",
+  "series": "Free Range",
+  "series_code": "FR",
+  "composition": "FreeRange",
+  "mode": "Live specimen",
+  "tools": [
+    "Goblin Tools"
+  ],
+  "tools_raw": "Goblin Tools",
+  "pillar": "Work",
+  "phase": "1 Collect",
+  "draft_hook": "The free tool that breaks scary tasks into steps.",
+  "the_test": "'Clean the garage' into steps, spiciness slider",
+  "free_path": "Free",
+  "free_path_note": "From the calendar; re-verify in research.md before filming.",
+  "affiliate_status": "No program known (Unpaid)",
+  "on_screen_label": "Unpaid",
+  "disclosure": "Unpaid",
+  "hashtags": [
+    "#productivity",
+    "#studytips",
+    "#worktools",
+    "#specimindlab"
+  ],
+  "hub_url": "https://specimindlab.github.io/004",
+  "capture": "pending"
+}
