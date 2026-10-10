@@ -1,0 +1,46 @@
+1
+00:00:00,000 --> 00:00:04,000
+We asked AI for 5 hooks.
+Only 2 were usable.
+
+2
+00:00:04,000 --> 00:00:09,000
+Hookest writes the first
+line of a short video.
+Free, no signup.
+
+3
+00:00:09,000 --> 00:00:13,500
+We described our Goblin
+Tools video. One try.
+
+4
+00:00:13,500 --> 00:00:17,000
+Hook 1 used our real number.
+
+5
+00:00:17,000 --> 00:00:20,500
+Another was clickbait.
+
+6
+00:00:20,500 --> 00:00:24,000
+One said nothing at all.
+
+7
+00:00:24,000 --> 00:00:28,500
+Its best hook failed
+its own 3-second check.
+
+8
+00:00:28,500 --> 00:00:34,500
+The generator is free.
+
+9
+00:00:34,500 --> 00:00:38,500
+77 out of 100.
+Fast, free, hit and miss.
+
+10
+00:00:38,500 --> 00:00:45,000
+Tap our name
+for the link.

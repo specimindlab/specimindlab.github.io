@@ -1,0 +1,35 @@
+1
+00:00:00,000 --> 00:00:03,500
+It guessed 5 of
+our 6 drawings.
+
+2
+00:00:03,500 --> 00:00:09,000
+Liquid AI's d1 is a small,
+free AI that answers
+questions about pictures.
+
+3
+00:00:09,000 --> 00:00:13,500
+Fish, clock, snowman,
+guitar, bicycle: got them.
+
+4
+00:00:13,500 --> 00:00:18,000
+We drew each word, stroke
+by stroke. One round.
+
+5
+00:00:18,000 --> 00:00:27,500
+Free to play,
+no account.
+
+6
+00:00:27,500 --> 00:00:31,500
+81 out of 100.
+Fast, and free.
+
+7
+00:00:31,500 --> 00:00:38,500
+Tap our name
+to play it free.
