@@ -13,7 +13,7 @@ const successor = z.object({ tool: z.string().min(1), free_tier: z.string().min(
 const extinct = beat("extinct", { lines: caption });
 const timelineBeat = beat("timeline", { lines: caption, rows: z.array(row).min(2).max(4) });
 const successors = beat("successors", { lines: caption });
-const flaw = beat("flaw", { lines: caption, text: z.string().min(1) });
+const flaw = beat("flaw", { lines: caption, text: z.string().min(1), /** Row label on the catch card (default "All three": a catch the successors share). */ key: z.string().min(1).max(24).optional() });
 const verdict = beat("verdict", {});
 
 export const extinctionScript = seriesScript(
@@ -61,7 +61,7 @@ const ExtinctionWatchBody: React.FC<ExtinctionWatchProps> = ({ script, platform 
             {b.type === "successors" ? label(-100, [10, 10 + Math.round(b.dur / 4), 10 + Math.round(b.dur / 2)]) : null}
             {b.type === "flaw" ? (
               (() => {
-                const rows = [{ key: "All three", value: b.text }];
+                const rows = [{ key: b.key ?? "All three", value: b.text }];
                 const l = cardLayout({ title: "The catch", rows, y: CONTENT_TOP });
                 return (
                   <>
@@ -74,7 +74,7 @@ const ExtinctionWatchBody: React.FC<ExtinctionWatchProps> = ({ script, platform 
             {b.type === "verdict" ? (
               <>
                 {label(-100, [-100, -100, -100], { index: script.pick, at: 4 })}
-                <Stamp word="Watch" x={745} y={CONTENT_TOP + 110} width={250} start={10} rotate={-9} />
+                <Stamp word="Watch" x={745} y={CONTENT_TOP + 70} width={250} start={10} rotate={-9} />
               </>
             ) : null}
             {"lines" in b ? <Caption lines={lines} maxHeight={CAP} /> : <CtaCaption lines={lines} code={script.code} maxHeight={CAP} />}

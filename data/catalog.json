@@ -669,6 +669,40 @@
       ],
       "flaw": "only 2 of the 3 tools had a free plan we could test",
       "updated_on": "2026-10-09"
+    },
+    {
+      "code": "X01",
+      "episode": "E006",
+      "pillar": "Video",
+      "series": "Extinction Watch",
+      "hook_lines": [
+        "OpenAI's Sora app",
+        "lasted 7 months."
+      ],
+      "disclosure": "Unpaid",
+      "cover": "episodes/E006-sora-shut-down/cover.png",
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "kind": "Extinction Watch",
+      "title": "See test",
+      "members": [
+        {
+          "tool": "Wan (Alibaba)",
+          "note": "Open source; its demo was down"
+        },
+        {
+          "tool": "Kling (Kuaishou)",
+          "note": "An app, like Sora was"
+        },
+        {
+          "tool": "Gemini Omni (Google)",
+          "note": "Replaced Veo 3.1"
+        }
+      ],
+      "flaw": "Old Sora videos are deleted"
     }
   ]
 }

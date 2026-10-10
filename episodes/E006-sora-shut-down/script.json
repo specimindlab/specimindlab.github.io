@@ -16,17 +16,17 @@
   },
   "extinct_name": "Sora",
   "extinct_note": "Shut down for good, 24 Sep 2026",
-  "pick": 0,
+  "pick": 1,
   "successors": [
     {
       "tool": "Wan (Alibaba)",
-      "free_tier": "Free demo, no account",
-      "line": "Open source"
+      "free_tier": "Free to download",
+      "line": "Open source; its demo was down"
     },
     {
       "tool": "Kling (Kuaishou)",
-      "free_tier": "Free credits, with an account",
-      "line": "Allowance not published"
+      "free_tier": "Free credits with an account",
+      "line": "An app, like Sora was"
     },
     {
       "tool": "Gemini Omni (Google)",
@@ -78,8 +78,7 @@
       "type": "successors",
       "seconds": 11,
       "lines": [
-        "Three places to make",
-        "AI videos now."
+        "Where to go now:"
       ]
     },
     {
@@ -89,7 +88,8 @@
         "Didn't save your videos?",
         "They're gone."
       ],
-      "text": "OpenAI deletes all Sora data"
+      "text": "Deleted by OpenAI",
+      "key": "Your videos"
     },
     {
       "type": "verdict",

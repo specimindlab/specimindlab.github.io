@@ -3,8 +3,14 @@
   "version": "OpenAI Sora app and Sora 2 API (both shut down)",
   "genus": "OpenAI's video app, now shut down",
   "homepage": "https://developers.openai.com/api/docs/deprecations",
-  "habitat": ["iOS app (closed)", "Web (closed)", "API (closed)"],
-  "feeds_on": ["Text prompts"],
+  "habitat": [
+    "iOS app (closed)",
+    "Web (closed)",
+    "API (closed)"
+  ],
+  "feeds_on": [
+    "Text prompts"
+  ],
   "free_tier": "None: shut down",
   "paid_from": "None: shut down",
   "launched": "2025-09-30",
@@ -13,22 +19,61 @@
   "tested_on": null,
   "attempts": 0,
   "test": "Desk study: OpenAI's deprecation notice and press coverage, plus the free plans of three places to make AI videos now.",
-  "flaw": {"text": "Old Sora videos are deleted", "source": "research"},
+  "flaw": {
+    "text": "Old Sora videos are deleted",
+    "source": "research"
+  },
   "flaw_source": "research",
   "verdict": "Watch",
-  "verdict_reason": "Sora is gone. If you made videos there, the export window has passed; for new videos, start with Wan's free demo (no account), or Kling's free credits with an account.",
+  "verdict_reason": "Sora is gone, and so are the videos people didn't export. For new videos: Kling's app has free credits with an account; Wan is free and open source, but its free demo page was not working when we checked.",
   "lesson": "Keep your own copies of anything you make on a hosted AI tool: when it shuts down, the files can go with it.",
   "successors": [
-    {"tool": "Wan (Alibaba)", "free_tier": "Free demo, no account", "line": "Open source"},
-    {"tool": "Kling (Kuaishou)", "free_tier": "Free credits, with an account", "line": "Allowance not published"},
-    {"tool": "Gemini Omni (Google)", "free_tier": "Paid plans only", "line": "Replaced Veo 3.1"}
+    {
+      "tool": "Wan (Alibaba)",
+      "free_tier": "Free to download",
+      "line": "Open source; its demo was down"
+    },
+    {
+      "tool": "Kling (Kuaishou)",
+      "free_tier": "Free credits with an account",
+      "line": "An app, like Sora was"
+    },
+    {
+      "tool": "Gemini Omni (Google)",
+      "free_tier": "Paid plans only",
+      "line": "Replaced Veo 3.1"
+    }
   ],
   "sources": [
-    {"url": "https://developers.openai.com/api/docs/deprecations", "label": "OpenAI deprecations: Sora 2 and Videos API", "accessed": "2026-10-10"},
-    {"url": "https://the-decoder.com/openai-sets-two-stage-sora-shutdown-with-app-closing-april-2026-and-api-following-in-september/", "label": "The Decoder: two-stage Sora shutdown", "accessed": "2026-10-10"},
-    {"url": "https://www.axios.com/2025/09/30/openai-sora-app-social-ai", "label": "Axios: Sora app launch", "accessed": "2026-10-10"},
-    {"url": "https://huggingface.co/spaces/Wan-AI/Wan2.1", "label": "Wan official demo", "accessed": "2026-10-10"},
-    {"url": "https://kling.ai/docs/point-policy", "label": "Kling credits policy", "accessed": "2026-10-10"},
-    {"url": "https://gemini.google/overview/video-generation/", "label": "Gemini video generation (Gemini Omni)", "accessed": "2026-10-10"}
+    {
+      "url": "https://developers.openai.com/api/docs/deprecations",
+      "label": "OpenAI deprecations: Sora 2 and Videos API",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://the-decoder.com/openai-sets-two-stage-sora-shutdown-with-app-closing-april-2026-and-api-following-in-september/",
+      "label": "The Decoder: two-stage Sora shutdown",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://www.axios.com/2025/09/30/openai-sora-app-social-ai",
+      "label": "Axios: Sora app launch",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://huggingface.co/spaces/Wan-AI/Wan2.1",
+      "label": "Wan official demo",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://kling.ai/docs/point-policy",
+      "label": "Kling credits policy",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://gemini.google/overview/video-generation/",
+      "label": "Gemini video generation (Gemini Omni)",
+      "accessed": "2026-10-10"
+    }
   ]
 }

@@ -8,12 +8,12 @@
     "R030",
     "R014",
     "R066",
-    "R058",
+    "R024",
     "R042",
     "R059",
     "R027"
   ],
-  "note": "Posting order = number order. Pre-flight: R015-R019, R021-R026, R028, R029 and R114 need the human (capture requests, data/needs-capture.md). R020 (Veo, research only) stays Planned: the batch already has two research-only videos and three video topics would crowd it; R042 is taken instead because its change happened on 9 Oct. Auto-captures: R030 Goblin Tools (Playwright), R066 Quick Draw in Liquid AI's System One Arcade (Playwright, our own line drawings), R058 Wan text-to-video (official demo), R059 LightOnOCR-3 (official demo).",
+  "note": "Posting order = number order. Pre-flight: R015-R019, R021-R026, R028, R029 and R114 need the human (capture requests, data/needs-capture.md). R020 (Veo, research only) stays Planned: the batch already has two research-only videos and three video topics would crowd it; R042 is taken instead because its change happened on 9 Oct. Auto-captures: R030 Goblin Tools (Playwright), R066 Quick Draw in Liquid AI's System One Arcade (Playwright, our own line drawings), R058 Wan text-to-video (official demo), R059 LightOnOCR-3 (official demo). Update: R058 (Wan) dropped: its official demo returned no video in 30 minutes (stuck job, evidence in episodes/E006-sora-shut-down/raw/wan-demo-check.json); it stays Planned, not a capture request. R024 (Hookest) replaces it: its generator says 'No signup' and worked without an account; moved from Rare Sighting to Free Range so two little-known-tool videos never sit back to back.",
   "episodes": [
     {
       "id": "E005",
@@ -29,7 +29,8 @@
       "row": "R014",
       "code": "X01",
       "tool": "Sora (shut down)",
-      "step": "script"
+      "step": "ready",
+      "verdict": "Watch"
     }
   ],
   "previous_batch": {

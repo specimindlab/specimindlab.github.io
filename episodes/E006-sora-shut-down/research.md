@@ -13,7 +13,7 @@ Research only (desk study): there is nothing left to test. Calendar row R014 mat
 - OpenAI says it will permanently delete data associated with Sora after the deadlines; exports went through sora.chatgpt.com/sunset. [OpenAI help article above, via search results 2026-10-10; https://the-decoder.com/... above]
 
 ## Three places to make AI videos now
-1. **Wan (Alibaba)**: open-source video model with an official free demo page on Hugging Face, no account. [https://huggingface.co/spaces/Wan-AI/Wan2.1, accessed 2026-10-10] We test it in a later episode.
+1. **Wan (Alibaba)**: open-source video model (free to download). Its official free demo page on Hugging Face did not work on 2026-10-10: our text-to-video request got no video in 30 minutes, and every status reply showed a stale job about 11 days old. [https://huggingface.co/spaces/Wan-AI/Wan2.1, accessed 2026-10-10; episodes/E006-sora-shut-down/raw/wan-demo-check.json]
 2. **Kling (Kuaishou)**: credits "can only be obtained and used by logged-in users"; Kling's credits policy does not publish a free allowance. [https://kling.ai/docs/point-policy, accessed 2026-10-10] Third-party guides report 66 free credits (monthly or daily, they disagree). [https://www.atlascloud.ai/blog/guides/kling-ai-free, accessed 2026-10-10] On screen we say only "free credits, with an account".
 3. **Gemini Omni (Google)**: replaces Veo 3.1 for video in the Gemini app; "Google AI subscription required". [https://gemini.google/overview/video-generation/, accessed 2026-10-10]
 
