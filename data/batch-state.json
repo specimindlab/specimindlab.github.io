@@ -1,6 +1,6 @@
 {
   "batch": "batch-2026-10-21",
-  "status": "in_progress",
+  "status": "complete",
   "started": "2026-10-10",
   "updated": "2026-10-10",
   "requested": 7,
@@ -85,5 +85,6 @@
       "E003",
       "E004"
     ]
-  }
+  },
+  "release": "https://github.com/specimindlab/specimindlab.github.io/releases/tag/batch-2026-10-21"
 }
