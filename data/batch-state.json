@@ -66,6 +66,14 @@
       "step": "ready",
       "verdict": "Released",
       "score": 54
+    },
+    {
+      "id": "E011",
+      "row": "R027",
+      "code": "W02",
+      "tool": "Roundup #2",
+      "step": "ready",
+      "verdict": null
     }
   ],
   "previous_batch": {

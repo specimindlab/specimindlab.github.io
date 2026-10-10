@@ -1087,7 +1087,42 @@
         }
       ],
       "flaw": "only 2 of the 3 tools had a free plan we could test",
-      "updated_on": "2026-10-09"
+      "updated_on": "2026-10-10"
+    },
+    {
+      "code": "W02",
+      "episode": "E011",
+      "pillar": "All",
+      "series": "The Drawer",
+      "tested_on": "2026-10-10",
+      "hook_lines": [
+        "4 AI tools, ranked.",
+        "The top one scored 94."
+      ],
+      "disclosure": "Unpaid",
+      "cover": "episodes/E011-roundup-2/cover.png",
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "kind": "Drawer",
+      "title": "This week's specimens",
+      "members": [
+        {
+          "code": "004"
+        },
+        {
+          "code": "005"
+        },
+        {
+          "code": "006"
+        },
+        {
+          "code": "007"
+        }
+      ],
+      "flaw": "the best free tool here is a to-do list, not a model"
     },
     {
       "code": "X01",

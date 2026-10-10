@@ -1,0 +1,41 @@
+{
+  "tool": "Roundup #2",
+  "genus": "Every AI tool we've tested since #1",
+  "tested_on": "2026-10-10",
+  "mode": "Built from our own tests",
+  "built_from": [
+    "episodes/E005-goblin-tools/facts.json",
+    "episodes/E007-quick-draw/facts.json",
+    "episodes/E008-hookest/facts.json",
+    "episodes/E010-lightonocr-3/facts.json",
+    "data/catalog.json"
+  ],
+  "week_note": "Roundup #2 recaps the four tools tested since Roundup #1, by score: #004 Goblin Tools (94, worth it), #005 Liquid AI d1 (81, worth it), #006 Hookest (77, worth it), #007 LightOnOCR-3 (54, skip it). The two shut-down videos (X01 Sora, X02 Gemini's free plan) are research only and not single-tool tests, so they are not in the drawer.",
+  "flaw": {
+    "text": "the best free tool here is a to-do list, not a model"
+  },
+  "verdict": null,
+  "sources": [
+    {
+      "url": "https://specimindlab.github.io/004",
+      "label": "#004 Goblin Tools",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://specimindlab.github.io/005",
+      "label": "#005 Liquid AI d1",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://specimindlab.github.io/006",
+      "label": "#006 Hookest",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://specimindlab.github.io/007",
+      "label": "#007 LightOnOCR-3",
+      "accessed": "2026-10-10"
+    }
+  ],
+  "credits": "Built only from SPECIMIND's own catalog."
+}

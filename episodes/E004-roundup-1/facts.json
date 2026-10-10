@@ -9,25 +9,25 @@
     "episodes/E003-midjourney/facts.json",
     "data/catalog.json"
   ],
-  "week_note": "Week 1 of the channel (posts from 19 Oct 2026). Posted 20 Oct 18:30 IST, after the three specimens it recaps: 002 Hunyuan3D (71, Captured), 003 TRELLIS 2 (72, Captured), 006 Midjourney (Field sketch, Watch).",
+  "week_note": "Roundup #1 recaps the first three videos: #001 Hunyuan3D (71, worth it), #002 TRELLIS 2 (72, worth it), #003 Midjourney (research only, not tested).",
   "flaw": {
     "text": "only 2 of the 3 tools had a free plan we could test"
   },
   "verdict": null,
   "sources": [
     {
+      "url": "https://specimindlab.github.io/001",
+      "label": "#001 Hunyuan3D",
+      "accessed": "2026-10-09"
+    },
+    {
       "url": "https://specimindlab.github.io/002",
-      "label": "Specimen Nº002 Hunyuan3D",
+      "label": "#002 TRELLIS 2",
       "accessed": "2026-10-09"
     },
     {
       "url": "https://specimindlab.github.io/003",
-      "label": "Specimen Nº003 TRELLIS 2",
-      "accessed": "2026-10-09"
-    },
-    {
-      "url": "https://specimindlab.github.io/006",
-      "label": "Specimen Nº006 Midjourney",
+      "label": "#003 Midjourney",
       "accessed": "2026-10-09"
     }
   ],
