@@ -1,76 +1,28 @@
 {
-  "batch": "batch-2026-10-19",
-  "status": "complete",
-  "started": "2026-10-09",
-  "updated": "2026-10-09",
-  "requested": 4,
-  "note": "v4 re-release (plain words, chapter labels, new music, release-order numbers, zip-only release). Replaces batch-2026-10-08 and batch-2026-10-09. Rows waiting for a capture live in captures/ and data/needs-capture.md; they get the next free E### when made.",
-  "episodes": [
-    {
-      "id": "E001",
-      "row": "R002",
-      "folder": "episodes/E001-hunyuan3d",
-      "mode": "Live specimen",
-      "step": "ready",
-      "code": "001",
-      "tool": "Hunyuan3D",
-      "verdict": "Captured",
-      "score": 71,
-      "post_at": "2026-10-19 06:30 IST"
-    },
-    {
-      "id": "E002",
-      "row": "R003",
-      "folder": "episodes/E002-trellis-2",
-      "mode": "Live specimen (auto-captured)",
-      "step": "ready",
-      "code": "002",
-      "tool": "TRELLIS 2",
-      "verdict": "Captured",
-      "score": 72,
-      "post_at": "2026-10-19 18:30 IST"
-    },
-    {
-      "id": "E003",
-      "row": "R006",
-      "folder": "episodes/E003-midjourney",
-      "mode": "Field sketch",
-      "step": "ready",
-      "code": "003",
-      "tool": "Midjourney",
-      "verdict": "Watch",
-      "post_at": "2026-10-20 06:30 IST"
-    },
-    {
-      "id": "E004",
-      "row": "R013",
-      "folder": "episodes/E004-roundup-1",
-      "mode": "The Drawer (built from catalog)",
-      "step": "ready",
-      "code": "W01",
-      "tool": "Roundup #1",
-      "verdict": null,
-      "post_at": "2026-10-20 18:30 IST"
-    }
+  "batch": "pending",
+  "status": "in_progress",
+  "started": "2026-10-10",
+  "updated": "2026-10-10",
+  "requested": 7,
+  "rows": [
+    "R030",
+    "R014",
+    "R058",
+    "R020",
+    "R059",
+    "R114",
+    "R027"
   ],
-  "waiting_for_capture": [
-    "R001 Tripo",
-    "R004 Kling 3.0",
-    "R005 Tripo vs Meshy vs Hunyuan3D",
-    "R007 ElevenLabs",
-    "R008 Photoroom",
-    "R009 Tripo",
-    "R010 Hitem3D",
-    "R011 Gamma",
-    "R012 Gemini image"
-  ],
-  "next_episode_id": "E005",
-  "release": "https://github.com/specimindlab/specimindlab.github.io/releases/tag/batch-2026-10-19",
-  "release_assets": [
-    "specimind-batch-2026-10-19.zip"
-  ],
-  "render_runs": {
-    "37973560502": "failure (verify_delivery still capped at 40 s; fixed)",
-    "37977176864": "success"
+  "note": "Provisional plan after pre-flight; rows that need the human's login become capture requests and are replaced here.",
+  "episodes": [],
+  "previous_batch": {
+    "batch": "batch-2026-10-19",
+    "release": "https://github.com/specimindlab/specimindlab.github.io/releases/tag/batch-2026-10-19",
+    "episodes": [
+      "E001",
+      "E002",
+      "E003",
+      "E004"
+    ]
   }
 }
