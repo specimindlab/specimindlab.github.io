@@ -1,5 +1,9 @@
+Model: open the model menu and pick Flash (not Auto, not Flash-Lite). Since 9 Oct 2026 free accounts default to Auto, which mostly uses Flash-Lite, and its image model "isn't designed for multiple edits" (Google help 14286560). If Flash can't be picked on your free account, keep the default and write which model the menu showed in notes.txt. Effort: default.
+
 Message 1 (attach beach.jpg):
 Remove the person walking on the beach, and her reflection in the wet sand. Keep everything else exactly the same.
 
 Message 2 (same chat, after the first result):
 Now relight this photo as golden hour, with warm low sunlight. Keep the rocks, waves and sand exactly the same.
+
+Download both results (1K is the free size): result-1-removed.png, result-2-golden.png.
