@@ -1,0 +1,35 @@
+1
+00:00:00,000 --> 00:00:03,500
+It read 42 of 46
+handwritten words.
+
+2
+00:00:03,500 --> 00:00:08,500
+LightOnOCR-3 is a free AI
+that turns photos of pages
+into text.
+
+3
+00:00:08,500 --> 00:00:13,000
+Most of it, word for word.
+In about 4 seconds.
+
+4
+00:00:13,000 --> 00:00:17,500
+We gave it this note.
+One try, no account.
+
+5
+00:00:17,500 --> 00:00:27,000
+Free to use,
+no account.
+
+6
+00:00:27,000 --> 00:00:31,000
+54 out of 100.
+Close, but it changed the story.
+
+7
+00:00:31,000 --> 00:00:38,000
+Tap our name
+for the full test.

@@ -57,6 +57,15 @@
       "tool": "Gemini free plan",
       "step": "ready",
       "verdict": "Watch"
+    },
+    {
+      "id": "E010",
+      "row": "R059",
+      "code": "007",
+      "tool": "LightOnOCR-3",
+      "step": "ready",
+      "verdict": "Released",
+      "score": 54
     }
   ],
   "previous_batch": {

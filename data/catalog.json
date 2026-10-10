@@ -919,6 +919,140 @@
       "skip_if": "Copying hooks without editing",
       "lesson": "Give it real numbers from your video and treat the hooks as drafts: keep the one with a number, cut it to under 3 seconds.",
       "affiliate_url": ""
+    },
+    {
+      "code": "007",
+      "episode": "E010",
+      "pillar": "Any",
+      "series": "Rare Sighting",
+      "tested_on": "2026-10-10",
+      "hook_lines": [
+        "It read 42 of 46",
+        "handwritten words."
+      ],
+      "disclosure": "Unpaid",
+      "cover": "episodes/E010-lightonocr-3/cover.png",
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "tool": "LightOnOCR-3",
+      "genus": "Turns photos of pages into text",
+      "mode": "Live specimen",
+      "verdict": "Released",
+      "verdict_reason": "Free, fast and 42 of 46 words right on hard handwriting, but three misreads change what the note says: the cat's name, who loved him, and the last line. For handwriting you would still have to check every line, so we'd skip it for that job.",
+      "flaw": "Ginger Tom became thing. Love",
+      "flaw_caption": "",
+      "flaw_source": "observed",
+      "flaw_at": "",
+      "free_tier": "Free demo, no account; model free to download",
+      "paid_from": "Not published",
+      "seconds_to_result": 4.1,
+      "conditions": [
+        {
+          "key": "What we gave it",
+          "value": "A photo of a handwritten note, 46 words (free from Unsplash)"
+        },
+        {
+          "key": "Where",
+          "value": "LightOn's free demo page, in a web browser"
+        },
+        {
+          "key": "Account",
+          "value": "None"
+        },
+        {
+          "key": "Tries",
+          "value": "1, no retries"
+        },
+        {
+          "key": "Settings",
+          "value": "Left as they were (4B model, Grounding)"
+        },
+        {
+          "key": "Edited afterwards",
+          "value": "No"
+        },
+        {
+          "key": "Time to read it",
+          "value": "About 4 seconds"
+        },
+        {
+          "key": "Recorded by",
+          "value": "Us, running the page automatically"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "4.1 s"
+        },
+        {
+          "key": "Recording",
+          "value": "Screen-recorded by us on the free demo page"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Free",
+          "value": "Demo, no account"
+        },
+        {
+          "key": "Paid",
+          "value": "Not published"
+        },
+        {
+          "key": "The catch",
+          "value": "Ginger Tom became thing. Love"
+        }
+      ],
+      "homepage": "https://huggingface.co/spaces/lightonai/LightOnOCR-3-Demo",
+      "sources": [
+        {
+          "url": "https://huggingface.co/spaces/lightonai/LightOnOCR-3-Demo",
+          "label": "LightOnOCR-3 demo (the test)",
+          "accessed": "2026-10-10"
+        },
+        {
+          "url": "https://huggingface.co/lightonai/LightOnOCR-3-4B",
+          "label": "LightOnOCR-3-4B model card",
+          "accessed": "2026-10-10"
+        },
+        {
+          "url": "https://unsplash.com/photos/a-piece-of-paper-with-writing-on-it-4L_6-dU8BEQ",
+          "label": "Input photo (Annie Spratt, Unsplash)",
+          "accessed": "2026-10-10"
+        }
+      ],
+      "credits": "Input photo: Annie Spratt on Unsplash (Unsplash License).",
+      "score": {
+        "total": 54,
+        "parts": [
+          {
+            "key": "Quality",
+            "value": 20,
+            "max": 50
+          },
+          {
+            "key": "Speed",
+            "value": 15,
+            "max": 15
+          },
+          {
+            "key": "Free plan",
+            "value": 16,
+            "max": 25
+          },
+          {
+            "key": "Price",
+            "value": 3,
+            "max": 10
+          }
+        ]
+      },
+      "use_for": "A quick first draft you'll check",
+      "skip_if": "You need every word right",
+      "lesson": "OCR on handwriting is a first draft: always read it against the original, especially names and the last line.",
+      "affiliate_url": ""
     }
   ],
   "groups": [

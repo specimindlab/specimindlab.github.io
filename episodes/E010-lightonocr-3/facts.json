@@ -1,0 +1,143 @@
+{
+  "tool": "LightOnOCR-3",
+  "version": "LightOnOCR-3-4B on LightOn's official demo page (no account)",
+  "genus": "Turns photos of pages into text",
+  "homepage": "https://huggingface.co/spaces/lightonai/LightOnOCR-3-Demo",
+  "habitat": [
+    "Browser (free demo page)",
+    "Open weights (Apache 2.0)"
+  ],
+  "feeds_on": [
+    "A photo of a page, or a PDF"
+  ],
+  "free_tier": "Free demo, no account; model free to download",
+  "paid_from": "Not published",
+  "licence_note": "Apache License 2.0 (research and commercial use).",
+  "launched": "2026-10-07",
+  "launched_note": "Model pages 6-7 Oct 2026; demo 8 Oct 2026.",
+  "tested_on": "2026-10-10",
+  "plan": "Free demo, no account",
+  "attempts": 1,
+  "auto_captured": true,
+  "test": "One photo of a handwritten note (licensed, Unsplash) on the official demo with its defaults; compared word by word with our own transcription written before the test.",
+  "conditions": [
+    {
+      "key": "What we gave it",
+      "value": "A photo of a handwritten note, 46 words (free from Unsplash)"
+    },
+    {
+      "key": "Where",
+      "value": "LightOn's free demo page, in a web browser"
+    },
+    {
+      "key": "Account",
+      "value": "None"
+    },
+    {
+      "key": "Tries",
+      "value": "1, no retries"
+    },
+    {
+      "key": "Settings",
+      "value": "Left as they were (4B model, Grounding)"
+    },
+    {
+      "key": "Edited afterwards",
+      "value": "No"
+    },
+    {
+      "key": "Time to read it",
+      "value": "About 4 seconds"
+    },
+    {
+      "key": "Recorded by",
+      "value": "Us, running the page automatically"
+    }
+  ],
+  "runs": [
+    {
+      "input": "raw/input/handwritten-note.jpg",
+      "result": "raw/auto/result-document.jpg",
+      "seconds_to_result": 4.1,
+      "output_text": "Butch Left him with B Boaze, when I went home Nevada St, with Jimmy could only take the one cat. My own dearly loved Jimmy Butel was knocked down in Richmond St and killed He was a very pretty thing. Love",
+      "words_right": 42,
+      "words_total": 46,
+      "errors": [
+        "Mum -> My own",
+        "Butch -> Butel",
+        "Ginger Tom. -> thing. Love"
+      ],
+      "not_counted": [
+        "Boase -> Boaze (uncertain in our key)"
+      ]
+    }
+  ],
+  "seconds_to_result": 4.1,
+  "seconds_note": "From clicking Run OCR to the result, rebuilt from screenshot file times (our script stopped on a later step; see raw/auto/run.json). Not re-run.",
+  "flaw": {
+    "text": "Ginger Tom became thing. Love",
+    "source": "observed",
+    "image": "raw/auto/derived/note-end.jpg"
+  },
+  "flaw_source": "observed",
+  "verdict": "Released",
+  "verdict_reason": "Free, fast and 42 of 46 words right on hard handwriting, but three misreads change what the note says: the cat's name, who loved him, and the last line. For handwriting you would still have to check every line, so we'd skip it for that job.",
+  "lesson": "OCR on handwriting is a first draft: always read it against the original, especially names and the last line.",
+  "use_for": "A quick first draft you'll check",
+  "skip_if": "You need every word right",
+  "score": {
+    "total": 54,
+    "parts": [
+      {
+        "key": "Quality",
+        "value": 20,
+        "max": 50
+      },
+      {
+        "key": "Speed",
+        "value": 15,
+        "max": 15
+      },
+      {
+        "key": "Free plan",
+        "value": 16,
+        "max": 25
+      },
+      {
+        "key": "Price",
+        "value": 3,
+        "max": 10
+      }
+    ],
+    "result_runs": [
+      {
+        "run": "handwritten note",
+        "value": 20,
+        "deductions": [
+          "factual error: Mum read as 'My own' -10",
+          "factual error: Butch read as 'Butel' -10",
+          "factual error: 'Ginger Tom.' read as 'thing. Love' -10"
+        ]
+      }
+    ],
+    "notes": "Work drawer. Quality 50 - 30 = 20. Speed: about 4 s, under 60 s = 15. Free plan: no login 5, no published limit 10, demo only 1 = 16. Price: not published = 3. 54 is between 45 and 60, so the catch decides: it changed the note's meaning, which matters most for handwriting, hence Released."
+  },
+  "credits": "Input photo: Annie Spratt on Unsplash (Unsplash License).",
+  "sources": [
+    {
+      "url": "https://huggingface.co/spaces/lightonai/LightOnOCR-3-Demo",
+      "label": "LightOnOCR-3 demo (the test)",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://huggingface.co/lightonai/LightOnOCR-3-4B",
+      "label": "LightOnOCR-3-4B model card",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://unsplash.com/photos/a-piece-of-paper-with-writing-on-it-4L_6-dU8BEQ",
+      "label": "Input photo (Annie Spratt, Unsplash)",
+      "accessed": "2026-10-10"
+    }
+  ]
+}

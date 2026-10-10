@@ -1,0 +1,28 @@
+{
+  "id": "E010",
+  "row": "R059",
+  "slug": "lightonocr-3",
+  "code": "007",
+  "series": "Rare Sighting",
+  "series_code": "RS",
+  "composition": "RareSighting",
+  "mode": "Live specimen",
+  "tools": [],
+  "tools_raw": "Pick from that week's Product Hunt / Exploding Topics",
+  "pillar": "Any",
+  "phase": "1 Collect",
+  "draft_hook": "Spotted this week, before it trends.",
+  "the_test": "Find a launch < 7 days old with a free tier; one try",
+  "free_path": "Must have a free tier",
+  "free_path_note": "From the calendar; re-verify in research.md before filming.",
+  "affiliate_status": "Check for program",
+  "on_screen_label": "Unpaid unless approved",
+  "disclosure": "Unpaid",
+  "hashtags": [
+    "#aitools",
+    "#newai",
+    "#specimindlab"
+  ],
+  "hub_url": "https://specimindlab.github.io/007",
+  "capture": "pending"
+}
