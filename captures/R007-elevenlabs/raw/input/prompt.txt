@@ -1,0 +1,4 @@
+Tool: Sound Effects. Duration: automatic. Prompt influence: default.
+
+Prompt:
+A heavy wooden museum drawer slides shut and clicks into place, in a quiet stone hall with a soft echo.

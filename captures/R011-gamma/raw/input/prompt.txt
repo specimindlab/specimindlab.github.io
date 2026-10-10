@@ -1,0 +1,4 @@
+Create new > Generate > Presentation. Cards: 10. Language: English. Theme, text amount and image source: leave the defaults.
+
+Prompt:
+A 10-slide presentation for high school students: how to start composting at home. Cover what can and can't go in the bin, the mix of green and brown waste, how long it takes, and the most common mistakes.

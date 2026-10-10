@@ -1,0 +1,7 @@
+Record this yourself in a small bathroom with the door closed (hard tiles = lots of echo).
+Phone voice recorder, held about 30 cm from your mouth, normal speaking voice. One take is fine; stumbles are fine.
+
+Read this (about 20 seconds):
+Hi. This is a test of a free tool that says it can make a phone recording sound like a studio. I'm standing in a small bathroom with hard tiles, so you can hear the echo. Peter picked six crisp apples, and Sally sells sea shells by the sea shore. Let's see what it can do.
+
+Upload your untouched recording as before.<ext> (keep the phone's format, e.g. before.m4a).

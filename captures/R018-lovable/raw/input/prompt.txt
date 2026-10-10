@@ -1,0 +1,3 @@
+Paste this as the first and only build message:
+
+Build a simple habit tracker web app. I can add a habit by typing its name. Each habit shows the last 7 days as boxes I can tick. Each habit shows my current streak in days. I can delete a habit. My habits and ticks are still there after I refresh the page. Clean, simple design that works on a phone.

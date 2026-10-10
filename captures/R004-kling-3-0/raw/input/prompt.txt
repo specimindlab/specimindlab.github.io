@@ -1,0 +1,4 @@
+Mode: Image to Video. Image: still-life.jpg. Length: 5 s. Everything else default.
+
+Prompt:
+A hand reaches in from the right, picks up one red apple and lifts it out of the frame. Slow, steady camera. Everything else on the table stays still.

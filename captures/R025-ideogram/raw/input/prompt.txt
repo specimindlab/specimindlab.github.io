@@ -1,0 +1,4 @@
+Model: the default. Magic Prompt: OFF (so the prompt is not rewritten). Aspect ratio: 4:5. Everything else default.
+
+Prompt:
+A cheerful printed poster for a school bake sale, illustrated cakes and cookies, with exactly these three lines of text and nothing else: "SATURDAY BAKE SALE" / "Cookies, cakes and fresh bread" / "10 am to 2 pm · Room 204"

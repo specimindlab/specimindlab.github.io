@@ -1,0 +1,7 @@
+After the build finishes, test exactly these three things in the preview, in this order, while still recording:
+
+1. Add a habit called "Drink water". Does it appear with 7 day boxes?
+2. Tick today and yesterday. Does the streak say 2?
+3. Refresh the preview page. Are the habit and both ticks still there?
+
+Write in notes.txt: pass or fail for each, and anything else that broke. Do not send any fix messages (one attempt).
