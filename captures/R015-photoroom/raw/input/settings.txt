@@ -1,0 +1,3 @@
+app.photoroom.com > log in > Explore (or AI Tools) > AI Backgrounds > upload bottle-on-desk.jpg.
+Don't type a prompt and don't change the model: Photoroom removes the background and makes 2 AI backgrounds by itself.
+Download both (Download > PNG): result-1.png, result-2.png. If it only lets you download one, take the first and say so in notes.txt.

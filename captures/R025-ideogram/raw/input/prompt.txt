@@ -1,4 +1,7 @@
-Model: the default. Magic Prompt: OFF (so the prompt is not rewritten). Aspect ratio: 4:5. Everything else default.
+Sign in with Google, Apple or Microsoft (email sign-ups get no free credits).
+Image > Model: Ideogram 4.5 (pick it; don't leave Auto). Magic Prompt: OFF (it is on by default and rewrites the prompt). Quality, number of images (Auto = 4) and aspect ratio: leave the free defaults.
 
 Prompt:
 A cheerful printed poster for a school bake sale, illustrated cakes and cookies, with exactly these three lines of text and nothing else: "SATURDAY BAKE SALE" / "Cookies, cakes and fresh bread" / "10 am to 2 pm · Room 204"
+
+Download all 4 images (JPEG is the free format): result-1.jpg ... result-4.jpg.

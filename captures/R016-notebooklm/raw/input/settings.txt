@@ -1,0 +1,5 @@
+NotebookLM is now called Gemini Notebook: notebook.google.com (the old address redirects).
+Create new notebook > upload faraday-candle-lecture-1.pdf > Studio panel > Audio Overview.
+Format: Deep Dive (default). Length: Default. Language: English. No custom instructions.
+If an audio overview starts by itself when the PDF is added, use that one and say so in notes.txt.
+When it's ready, press play for 10 seconds on screen, then the three-dot menu > Download: result.<ext> (keep whatever format it gives).

@@ -21,3 +21,20 @@ gives it the next free number, so episodes are always numbered in the order they
 
 Drag them onto **[captures/R004-kling-3-0/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R004-kling-3-0/raw)** and click *Commit changes* (25 MB per file):
 `screen.mp4` (the OBS recording), `result.<ext>` (the download; several tools: `result-<tool>.<ext>`), `notes.txt`.
+
+<!-- checked-this-week -->
+## Checked this week (2026-10-10)
+
+**Login:** Free Kling account.
+
+**Exact input and settings:** [`prompt.txt`](raw/input/prompt.txt), [`still-life.jpg`](raw/input/still-life.jpg) (credits in [`SOURCES.md`](raw/input/SOURCES.md)). Follow them word for word.
+
+**Free plan, checked today:**
+- Kling's own pages disagree on free credits: the pricing guide says the free plan has 0 monthly credits, the image-to-video page promises daily credits. No amount is published. [https://kling.ai/blog/kling-video-3-0-credit-cost-guide and https://kling.ai/feature/image-to-video, accessed 2026-10-10]
+- Free videos carry a watermark; free users get one video at a time and may wait in a queue. [https://kling.ai/feature/image-to-video and https://kling.ai/app/membership/membership-plan, accessed 2026-10-10]
+- The terms forbid commercial use of output without written permission and ask that output is labelled as made by Kling. [https://kling.ai/docs/user-policy, accessed 2026-10-10]
+- Cheapest paid plan: Standard, $6.99 for the first month ($10 list). [https://kling.ai/blog/kling-video-3-0-credit-cost-guide, accessed 2026-10-10]
+
+**What this test costs:** Not published. Check the balance first; if it's 0, stop (no buying).
+
+**Upload:** `screen.mp4` (split parts are fine), `result.mp4`, `notes.txt` (model name, credits, queue time).

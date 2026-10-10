@@ -2,6 +2,8 @@
 
 Tools whose free plan needs **your** login, so only you can record the test. Never faked, never turned into a research-only video.
 
+**Next capture session:** [capture-session-2026-10-10.md](capture-session-2026-10-10.md) (10 tests, 9 logins, about 2 hours: R016, R012, R026, R007, R025, R015, R011, R018, R001, R004). The other 12 below come later.
+
 Each request has a folder in `captures/` named by its calendar row. **It holds no episode number**: videos are numbered in the order they come out, so the next batch never waits for a recording. When your files are in a request's `raw/` folder, the next batch makes that video and gives it the next free number (#004, #005 ...).
 
 Every folder's README.md has the full checklist. Short version: put the input in `raw/input/`, record with OBS from before you click Generate, one attempt, download the result unedited, write `raw/notes.txt`, upload (25 MB per file).
@@ -11,7 +13,8 @@ Every folder's README.md has the full checklist. Short version: put the input in
 Tripo's free plan needs your login (tripo3d.ai is also behind a Cloudflare bot check, so it can't be auto-captured).
 
 - [ ] The test: One phone photo of a real mug to a textured 3D model, one try
-- [ ] Free plan to use (check on the day): Free: 200 credits/mo, models public + non-commercial
+- [ ] Free plan (checked 2026-10-10): about 200 credits a month (third-party; Tripo pricing blocks scripts), public and non-commercial models
+- [ ] In the [2026-10-10 capture session](capture-session-2026-10-10.md); input and settings ready in `raw/input/`
 - [ ] Input in [captures/R001-tripo/raw/input](https://github.com/specimindlab/specimindlab.github.io/tree/main/captures/R001-tripo/raw/input), then upload `screen.mp4`, `result.<ext>`, `notes.txt` to [captures/R001-tripo/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R001-tripo/raw)
 
 ## R004 · Kling 3.0 (Field Specimen)
@@ -19,7 +22,8 @@ Tripo's free plan needs your login (tripo3d.ai is also behind a Cloudflare bot c
 Kling's free daily credits need a Kling login.
 
 - [ ] The test: Image-to-video of a still-life photo, 5 s, one try
-- [ ] Free plan to use (check on the day): Free: 66 credits/day, 720p, 5 s
+- [ ] Free plan (checked 2026-10-10): Kling publishes no free credit amount (its pages disagree); watermark; one video at a time
+- [ ] In the [2026-10-10 capture session](capture-session-2026-10-10.md); input and settings ready in `raw/input/`
 - [ ] Input in [captures/R004-kling-3-0/raw/input](https://github.com/specimindlab/specimindlab.github.io/tree/main/captures/R004-kling-3-0/raw/input), then upload `screen.mp4`, `result.<ext>`, `notes.txt` to [captures/R004-kling-3-0/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R004-kling-3-0/raw)
 
 ## R005 · Tripo vs Meshy vs Hunyuan3D (Plate)
@@ -35,7 +39,8 @@ Tripo and Meshy free plans both need a login (only Hunyuan3D can be auto-capture
 ElevenLabs' free plan needs a login.
 
 - [ ] The test: Generate 'drawer sliding shut in a museum' SFX
-- [ ] Free plan to use (check on the day): Free: monthly characters, attribution required
+- [ ] Free plan (checked 2026-10-10): 10,000 credits a month, 200 per sound effect (4 versions), personal use only, "elevenlabs.io" in titles
+- [ ] In the [2026-10-10 capture session](capture-session-2026-10-10.md); input and settings ready in `raw/input/`
 - [ ] Input in [captures/R007-elevenlabs/raw/input](https://github.com/specimindlab/specimindlab.github.io/tree/main/captures/R007-elevenlabs/raw/input), then upload `screen.mp4`, `result.<ext>`, `notes.txt` to [captures/R007-elevenlabs/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R007-elevenlabs/raw)
 
 ## R008 · Photoroom (Mimicry)
@@ -67,7 +72,8 @@ Hitem3D's free plan needs a login.
 Gamma's free credits need a login.
 
 - [ ] The test: 10-slide deck on composting; count fixes needed
-- [ ] Free plan to use (check on the day): Free credits
+- [ ] Free plan (checked 2026-10-10): 400 credits once, never refill; up to 10 slides with the classic generator; badge on exports
+- [ ] In the [2026-10-10 capture session](capture-session-2026-10-10.md); input and settings ready in `raw/input/`
 - [ ] Input in [captures/R011-gamma/raw/input](https://github.com/specimindlab/specimindlab.github.io/tree/main/captures/R011-gamma/raw/input), then upload `screen.mp4`, `result.<ext>`, `notes.txt` to [captures/R011-gamma/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R011-gamma/raw)
 
 ## R012 · Gemini image (Free Range)
@@ -75,7 +81,8 @@ Gamma's free credits need a login.
 Gemini image editing runs in the Gemini app, which needs a Google login.
 
 - [ ] The test: Remove a person from a beach photo, then relight it
-- [ ] Free plan to use (check on the day): Free in Gemini app
+- [ ] Free plan (checked 2026-10-10): compute-based limits (5-hour refresh, weekly cap); pick Flash; 1K downloads with a visible watermark
+- [ ] In the [2026-10-10 capture session](capture-session-2026-10-10.md); input and settings ready in `raw/input/`
 - [ ] Input in [captures/R012-gemini-image/raw/input](https://github.com/specimindlab/specimindlab.github.io/tree/main/captures/R012-gemini-image/raw/input), then upload `screen.mp4`, `result.<ext>`, `notes.txt` to [captures/R012-gemini-image/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R012-gemini-image/raw)
 
 
@@ -84,7 +91,8 @@ Gemini image editing runs in the Gemini app, which needs a Google login.
 Photoroom's AI backgrounds and HD export need a free account (check on the day).
 
 - [ ] The test: Messy-table product photo to clean studio background
-- [ ] Free plan to use (check on the day): Free tier
+- [ ] Free plan (checked 2026-10-10): 25 exports a week at 2000 px; free AI-credit allowance not published; no commercial use
+- [ ] In the [2026-10-10 capture session](capture-session-2026-10-10.md); input and settings ready in `raw/input/`
 - [ ] Input in [captures/R015-photoroom/raw/input](https://github.com/specimindlab/specimindlab.github.io/tree/main/captures/R015-photoroom/raw/input), then upload `screen.mp4`, `result.<ext>`, `notes.txt` to [captures/R015-photoroom/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R015-photoroom/raw)
 
 ## R016 · NotebookLM (Free Range)
@@ -92,7 +100,8 @@ Photoroom's AI backgrounds and HD export need a free account (check on the day).
 NotebookLM needs a Google login.
 
 - [ ] The test: Chapter PDF to audio overview; check accuracy
-- [ ] Free plan to use (check on the day): Free
+- [ ] Free plan (checked 2026-10-10): now Gemini Notebook; 100 notebooks, 50 sources; compute-based limits since 2 Sep 2026
+- [ ] In the [2026-10-10 capture session](capture-session-2026-10-10.md); input and settings ready in `raw/input/`
 - [ ] Input in [captures/R016-notebooklm/raw/input](https://github.com/specimindlab/specimindlab.github.io/tree/main/captures/R016-notebooklm/raw/input), then upload `screen.mp4`, `result.<ext>`, `notes.txt` to [captures/R016-notebooklm/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R016-notebooklm/raw)
 
 ## R017 · Happy Shrimp (Rare Sighting)
@@ -108,7 +117,8 @@ Happy Shrimp gives its free credits only to logged-in users.
 Lovable's free daily credits need an account.
 
 - [ ] The test: Habit tracker from one paragraph; test 3 features
-- [ ] Free plan to use (check on the day): Free daily credits
+- [ ] Free plan (checked 2026-10-10): 5 credits a day, 30 a month; private projects; publishing free
+- [ ] In the [2026-10-10 capture session](capture-session-2026-10-10.md); input and settings ready in `raw/input/`
 - [ ] Input in [captures/R018-lovable/raw/input](https://github.com/specimindlab/specimindlab.github.io/tree/main/captures/R018-lovable/raw/input), then upload `screen.mp4`, `result.<ext>`, `notes.txt` to [captures/R018-lovable/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R018-lovable/raw)
 
 ## R019 · Kling 3.0 vs Hailuo (MiniMax) vs Seedance (Dreamina) (Plate)
@@ -148,7 +158,8 @@ Tripo and Hitem3D free plans need a login; slicing runs in Bambu Studio on your 
 Ideogram's free daily credits need an account.
 
 - [ ] The test: Poster with 3 lines of exact text
-- [ ] Free plan to use (check on the day): Free daily credits
+- [ ] Free plan (checked 2026-10-10): 30 credits a week (Google/Apple/Microsoft sign-in only); all free images public; JPEG downloads
+- [ ] In the [2026-10-10 capture session](capture-session-2026-10-10.md); input and settings ready in `raw/input/`
 - [ ] Input in [captures/R025-ideogram/raw/input](https://github.com/specimindlab/specimindlab.github.io/tree/main/captures/R025-ideogram/raw/input), then upload `screen.mp4`, `result.<ext>`, `notes.txt` to [captures/R025-ideogram/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R025-ideogram/raw)
 
 ## R026 · Adobe Podcast Enhance (Free Range)
@@ -156,7 +167,8 @@ Ideogram's free daily credits need an account.
 Adobe Podcast Enhance needs an Adobe login, and the echo recording is yours to make.
 
 - [ ] The test: Bathroom-echo recording, enhance, A/B
-- [ ] Free plan to use (check on the day): Free tier
+- [ ] Free plan (checked 2026-10-10): files up to 30 min, 1 hour a day, audio only (search snippet of Adobe FAQ)
+- [ ] In the [2026-10-10 capture session](capture-session-2026-10-10.md); input and settings ready in `raw/input/`
 - [ ] Input in [captures/R026-adobe-podcast-enhance/raw/input](https://github.com/specimindlab/specimindlab.github.io/tree/main/captures/R026-adobe-podcast-enhance/raw/input), then upload `screen.mp4`, `result.<ext>`, `notes.txt` to [captures/R026-adobe-podcast-enhance/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R026-adobe-podcast-enhance/raw)
 
 ## R028 · Chit (Rare Sighting)

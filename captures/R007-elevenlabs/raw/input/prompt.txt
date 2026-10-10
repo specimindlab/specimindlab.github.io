@@ -1,4 +1,7 @@
-Tool: Sound Effects. Duration: automatic. Prompt influence: default.
+elevenlabs.io > log in > Playground > Sound Effects.
+Duration: Auto. Looping: off. Prompt influence: 30% (default). It makes 4 versions.
 
 Prompt:
 A heavy wooden museum drawer slides shut and clicks into place, in a quiet stone hall with a soft echo.
+
+Download all 4 from History (MP3 is the free format): result-1.mp3 ... result-4.mp3.

@@ -5,3 +5,6 @@ Read this (about 20 seconds):
 Hi. This is a test of a free tool that says it can make a phone recording sound like a studio. I'm standing in a small bathroom with hard tiles, so you can hear the echo. Peter picked six crisp apples, and Sally sells sea shells by the sea shore. Let's see what it can do.
 
 Upload your untouched recording as before.<ext> (keep the phone's format, e.g. before.m4a).
+
+Then: podcast.adobe.com/enhance > sign in with a free Adobe account (don't start the Premium trial) > upload before.<ext> > keep the default setting, don't touch any slider > Download: result.wav (keep whatever format it gives).
+Write in notes.txt which version the page shows (v1 or v2), if it says.

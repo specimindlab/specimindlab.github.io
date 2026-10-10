@@ -21,3 +21,18 @@ gives it the next free number, so episodes are always numbered in the order they
 
 Drag them onto **[captures/R026-adobe-podcast-enhance/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R026-adobe-podcast-enhance/raw)** and click *Commit changes* (25 MB per file):
 `screen.mp4` (the OBS recording), `result.<ext>` (the download; several tools: `result-<tool>.<ext>`), `notes.txt`.
+
+<!-- checked-this-week -->
+## Checked this week (2026-10-10)
+
+**Login:** Free Adobe account. Don't start the Premium trial.
+
+**Exact input and settings:** [`script.txt`](raw/input/script.txt). Follow them word for word.
+
+**Free plan, checked today:**
+- Free: files up to 30 minutes, 1 hour of enhanced speech per day, audio only (video is Premium). From a search snippet of Adobe's FAQ; the page blocks scripts. [https://helpx.adobe.com/firefly/web/work-with-audio-and-video/work-with-audio/frequently-asked-questions-about-enhance-speech.html, accessed 2026-10-10]
+- Premium (4 hours a day, 1 GB files, sliders) now comes with Adobe Firefly Pro, $19.99 a month. [https://podcast.adobe.com/en/plans and https://www.adobe.com/products/firefly/plans.html, accessed 2026-10-10]
+
+**What this test costs:** About 20 s of the 1-hour daily allowance.
+
+**Upload:** `before.<ext>` (your untouched bathroom recording), `screen.mp4`, `result.<ext>`, `notes.txt`.

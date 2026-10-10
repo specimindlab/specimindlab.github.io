@@ -1,0 +1,4 @@
+studio.tripo3d.ai > log in > Generate > Image to 3D > upload mug.jpg.
+Leave the model on its default (write its name in notes.txt, e.g. P1 or v3.1) with texture on. Don't touch quality, PBR, quad or low-poly options (they cost extra credits).
+After it finishes: rotate the model once all the way round in the viewer, then Download/Export > GLB: result.glb.
+Write the credits shown before and after.

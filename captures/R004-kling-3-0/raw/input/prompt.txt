@@ -1,4 +1,8 @@
-Mode: Image to Video. Image: still-life.jpg. Length: 5 s. Everything else default.
+kling.ai > sign in > Create > Video > Image to Video > upload still-life.jpg.
+Model: leave the default and write its name in notes.txt. Length: 5 s. Resolution: whatever the free plan allows. Everything else default.
+Before clicking Generate, look at the credit balance (top right) and the cost on the Generate button; write both in notes.txt. If the balance is 0, stop: don't buy credits, write "no free credits" in notes.txt and upload just that.
 
 Prompt:
 A hand reaches in from the right, picks up one red apple and lifts it out of the frame. Slow, steady camera. Everything else on the table stays still.
+
+Download (the free download has a watermark; that's fine): result.mp4.

@@ -21,3 +21,18 @@ gives it the next free number, so episodes are always numbered in the order they
 
 Drag them onto **[captures/R001-tripo/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R001-tripo/raw)** and click *Commit changes* (25 MB per file):
 `screen.mp4` (the OBS recording), `result.<ext>` (the download; several tools: `result-<tool>.<ext>`), `notes.txt`.
+
+<!-- checked-this-week -->
+## Checked this week (2026-10-10)
+
+**Login:** Free Tripo account (Tripo Studio).
+
+**Exact input and settings:** [`mug.jpg`](raw/input/mug.jpg), [`settings.txt`](raw/input/settings.txt) (credits in [`SOURCES.md`](raw/input/SOURCES.md)). Follow them word for word.
+
+**Free plan, checked today:**
+- Tripo's pricing pages block scripts, so the free numbers come from third-party listings: 200 credits a month, about 13 models, one task at a time, free models public and non-commercial. Check on the pricing page while logged in. [https://skipthecad.com/generators/tripo-ai/, accessed 2026-10-10]
+- Tripo Studio and the API use the same models (P1, H3 v3.1 and others). [https://docs.tripo3d.ai/other/support-faq.html, accessed 2026-10-10]
+
+**What this test costs:** Not published by Tripo. Write the credits before and after.
+
+**Upload:** `screen.mp4`, `result.glb`, `notes.txt` (model name, credits, the free plan numbers you saw).

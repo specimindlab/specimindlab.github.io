@@ -21,3 +21,19 @@ gives it the next free number, so episodes are always numbered in the order they
 
 Drag them onto **[captures/R007-elevenlabs/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R007-elevenlabs/raw)** and click *Commit changes* (25 MB per file):
 `screen.mp4` (the OBS recording), `result.<ext>` (the download; several tools: `result-<tool>.<ext>`), `notes.txt`.
+
+<!-- checked-this-week -->
+## Checked this week (2026-10-10)
+
+**Login:** Free ElevenLabs account.
+
+**Exact input and settings:** [`prompt.txt`](raw/input/prompt.txt). Follow them word for word.
+
+**Free plan, checked today:**
+- Free: 10,000 credits a month; a sound effect with Auto length costs 200 credits and makes 4 versions; 50 sound generations a month; MP3 only; max 30 s. [https://elevenlabs.io/pricing, https://elevenlabs.io/sound-effects and https://elevenlabs.io/docs/eleven-creative/playground/sound-effects, accessed 2026-10-10]
+- Free output is personal use only and anything published must have "elevenlabs.io" or "11.ai" in its title. [https://elevenlabs.io/docs/help-center/legal/can-i-publish-the-content-i-generate-on-the-platform, accessed 2026-10-10]
+- Cheapest paid plan: Starter, $6 a month (commercial licence). [https://elevenlabs.io/pricing, accessed 2026-10-10]
+
+**What this test costs:** 200 of 10,000 free credits.
+
+**Upload:** `screen.mp4`, `result-1.mp3` to `result-4.mp3`, `notes.txt`.
