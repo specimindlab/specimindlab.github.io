@@ -773,6 +773,152 @@
       "skip_if": "You want an everyday app",
       "lesson": "Small AI can be fast and good at picking from a short list. It is a demo of what is coming to apps, not an app you will use every day.",
       "affiliate_url": ""
+    },
+    {
+      "code": "006",
+      "episode": "E008",
+      "pillar": "Creator",
+      "series": "Free Range",
+      "tested_on": "2026-10-10",
+      "hook_lines": [
+        "We asked AI for 5 hooks.",
+        "Only 2 were usable."
+      ],
+      "disclosure": "Unpaid",
+      "cover": "episodes/E008-hookest/cover.png",
+      "links": {
+        "youtube": "",
+        "instagram": "",
+        "x": ""
+      },
+      "tool": "Hookest",
+      "genus": "Writes the first line of a short video",
+      "mode": "Live specimen",
+      "verdict": "Captured",
+      "verdict_reason": "Free, no signup and fast: 2 of its 5 hooks were usable as a first draft, including one with the real number from our test. But 3 were vague or clickbait, and its best hook ran past its own 3-second limit.",
+      "flaw": "Best hook fails its own check",
+      "flaw_caption": "",
+      "flaw_source": "observed",
+      "flaw_at": "",
+      "free_tier": "Hook generator free, no signup, no published limit",
+      "paid_from": "$9 a month (Hookest Pro)",
+      "seconds_to_result": 4.2,
+      "conditions": [
+        {
+          "key": "What we gave it",
+          "value": "A 145-character description of our Goblin Tools test"
+        },
+        {
+          "key": "Where",
+          "value": "hookest.com in a web browser"
+        },
+        {
+          "key": "Account",
+          "value": "None (the page says no signup)"
+        },
+        {
+          "key": "Tries",
+          "value": "1, no retries"
+        },
+        {
+          "key": "Settings",
+          "value": "Defaults, 5 hooks"
+        },
+        {
+          "key": "Edited afterwards",
+          "value": "No"
+        },
+        {
+          "key": "Time to make it",
+          "value": "4.2 seconds"
+        },
+        {
+          "key": "Recorded by",
+          "value": "Us, running the page automatically"
+        },
+        {
+          "key": "Seconds to result",
+          "value": "4.2 s"
+        },
+        {
+          "key": "Recording",
+          "value": "Screen-recorded by us on the free demo page"
+        }
+      ],
+      "field_notes": [
+        {
+          "key": "Works in",
+          "value": "Browser"
+        },
+        {
+          "key": "You give it",
+          "value": "A short description of your video (up to 200 characters)"
+        },
+        {
+          "key": "Free plan",
+          "value": "Hook generator free, no signup, no published limit"
+        },
+        {
+          "key": "Paid",
+          "value": "$9 a month (Hookest Pro)"
+        },
+        {
+          "key": "Licence",
+          "value": "Not published for generated hooks."
+        },
+        {
+          "key": "The catch",
+          "value": "Best hook fails its own check"
+        }
+      ],
+      "homepage": "https://hookest.com/free-youtube-shorts-hook-generator",
+      "sources": [
+        {
+          "url": "https://hookest.com/free-youtube-shorts-hook-generator",
+          "label": "Hookest free YouTube Shorts hook generator (the test)",
+          "accessed": "2026-10-10"
+        },
+        {
+          "url": "https://hookest.com/pricing",
+          "label": "Hookest pricing",
+          "accessed": "2026-10-10"
+        },
+        {
+          "url": "https://hookest.com/",
+          "label": "Hookest home",
+          "accessed": "2026-10-10"
+        }
+      ],
+      "credits": "",
+      "score": {
+        "total": 77,
+        "parts": [
+          {
+            "key": "Quality",
+            "value": 27,
+            "max": 50
+          },
+          {
+            "key": "Speed",
+            "value": 15,
+            "max": 15
+          },
+          {
+            "key": "Free plan",
+            "value": 25,
+            "max": 25
+          },
+          {
+            "key": "Price",
+            "value": 10,
+            "max": 10
+          }
+        ]
+      },
+      "use_for": "A first draft of your hook",
+      "skip_if": "Copying hooks without editing",
+      "lesson": "Give it real numbers from your video and treat the hooks as drafts: keep the one with a number, cut it to under 3 seconds.",
+      "affiliate_url": ""
     }
   ],
   "groups": [

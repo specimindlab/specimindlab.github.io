@@ -1,0 +1,185 @@
+{
+  "id": "E008",
+  "code": "006",
+  "composition": "FreeRange",
+  "series": "Free Range",
+  "mode": "Live specimen",
+  "disclosure": "Unpaid",
+  "tool": "Hookest",
+  "genus": "Writes the first line of a short video",
+  "groove": 4,
+  "music": "music.wav",
+  "cta": {
+    "yt": "Tap our name\nfor the link.",
+    "ig": "Comment 006\nfor the link.",
+    "x": "The link is in\nthe first reply."
+  },
+  "cover": {
+    "media": {
+      "kind": "image",
+      "src": "raw/auto/derived/hooks-top3.jpg"
+    },
+    "lines": [
+      "We asked AI for 5 hooks.",
+      "Only 2 were usable."
+    ]
+  },
+  "beats": [
+    {
+      "type": "counter",
+      "seconds": 4,
+      "lines": [
+        "We asked AI for 5 hooks.",
+        "Only 2 were usable."
+      ],
+      "total": 1,
+      "unit": "try",
+      "period": "free, no signup, no limit",
+      "unlimited": true,
+      "media": {
+        "kind": "image",
+        "src": "raw/auto/derived/hooks-top3.jpg"
+      }
+    },
+    {
+      "type": "intro",
+      "seconds": 5,
+      "lines": [
+        "Hookest writes the first",
+        "line of a short video.",
+        "Free, no signup."
+      ],
+      "media": {
+        "kind": "image",
+        "src": "raw/auto/derived/header.jpg"
+      }
+    },
+    {
+      "type": "intro",
+      "seconds": 4.5,
+      "kicker": "How we tested",
+      "lines": [
+        "We described our Goblin",
+        "Tools video. One try."
+      ],
+      "media": {
+        "kind": "image",
+        "src": "raw/auto/derived/topic.jpg"
+      }
+    },
+    {
+      "type": "observation",
+      "seconds": 3.5,
+      "lines": [
+        "Hook 1 used our real number."
+      ],
+      "result": {
+        "kind": "image",
+        "src": "raw/auto/derived/hook1.jpg"
+      },
+      "seconds_to_result": 4.2,
+      "used_after": 1
+    },
+    {
+      "type": "observation",
+      "seconds": 3.5,
+      "lines": [
+        "Another was clickbait."
+      ],
+      "result": {
+        "kind": "image",
+        "src": "raw/auto/derived/hook3.jpg"
+      },
+      "seconds_to_result": 4.2,
+      "used_after": 1
+    },
+    {
+      "type": "observation",
+      "seconds": 3.5,
+      "lines": [
+        "One said nothing at all."
+      ],
+      "result": {
+        "kind": "image",
+        "src": "raw/auto/derived/hook4.jpg"
+      },
+      "seconds_to_result": 4.2,
+      "used_after": 1
+    },
+    {
+      "type": "flaw",
+      "seconds": 4.5,
+      "lines": [
+        "Its best hook failed",
+        "its own 3-second check."
+      ],
+      "result_index": 0,
+      "result": {
+        "kind": "image",
+        "src": "raw/auto/derived/hook1.jpg"
+      },
+      "region": {
+        "x": 0.0,
+        "y": 0.5,
+        "w": 0.42,
+        "h": 0.16
+      },
+      "note": "4.2 seconds: too long"
+    },
+    {
+      "type": "price-math",
+      "seconds": 6,
+      "lines": [
+        "The generator is free."
+      ],
+      "rows": [
+        {
+          "key": "Free",
+          "value": "Generator, no signup"
+        }
+      ],
+      "result": {
+        "key": "Pro",
+        "value": "$9 a month"
+      }
+    },
+    {
+      "type": "score",
+      "seconds": 4,
+      "lines": [
+        "77 out of 100.",
+        "Fast, free, hit and miss."
+      ],
+      "total": 77,
+      "parts": [
+        {
+          "key": "Quality",
+          "value": 27,
+          "max": 50
+        },
+        {
+          "key": "Speed",
+          "value": 15,
+          "max": 15
+        },
+        {
+          "key": "Free plan",
+          "value": 25,
+          "max": 25
+        },
+        {
+          "key": "Price",
+          "value": 10,
+          "max": 10
+        }
+      ]
+    },
+    {
+      "type": "verdict",
+      "seconds": 6.5,
+      "verdict": "Captured",
+      "use_for": "A first draft of your hook",
+      "skip_if": "Copying hooks without editing"
+    }
+  ]
+}

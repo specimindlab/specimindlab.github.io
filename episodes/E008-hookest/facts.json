@@ -1,0 +1,168 @@
+{
+  "tool": "Hookest",
+  "version": "Free YouTube Shorts Hook Generator on hookest.com, no signup",
+  "genus": "Writes the first line of a short video",
+  "homepage": "https://hookest.com/free-youtube-shorts-hook-generator",
+  "habitat": [
+    "Browser"
+  ],
+  "feeds_on": [
+    "A short description of your video (up to 200 characters)"
+  ],
+  "free_tier": "Hook generator free, no signup, no published limit",
+  "paid_from": "$9 a month (Hookest Pro)",
+  "licence_note": "Not published for generated hooks.",
+  "launched": null,
+  "launched_note": "Not published.",
+  "tested_on": "2026-10-10",
+  "plan": "Free, no account",
+  "attempts": 1,
+  "auto_captured": true,
+  "test": "Described our own Goblin Tools test (E005) and generated 5 hooks once with the page defaults (Curiosity, Casual, English). Rated each hook by our hook rules: a number or concrete outcome, true, no hype.",
+  "conditions": [
+    {
+      "key": "What we gave it",
+      "value": "A 145-character description of our Goblin Tools test"
+    },
+    {
+      "key": "Where",
+      "value": "hookest.com in a web browser"
+    },
+    {
+      "key": "Account",
+      "value": "None (the page says no signup)"
+    },
+    {
+      "key": "Tries",
+      "value": "1, no retries"
+    },
+    {
+      "key": "Settings",
+      "value": "Defaults, 5 hooks"
+    },
+    {
+      "key": "Edited afterwards",
+      "value": "No"
+    },
+    {
+      "key": "Time to make it",
+      "value": "4.2 seconds"
+    },
+    {
+      "key": "Recorded by",
+      "value": "Us, running the page automatically"
+    }
+  ],
+  "runs": [
+    {
+      "input": "raw/auto/derived/topic.jpg",
+      "result": "raw/auto/result.jpg",
+      "seconds_to_result": 4.2,
+      "hooks": [
+        "What if cleaning your garage had 33 steps instead of one?",
+        "This AI broke down a simple chore into way more than expected.",
+        "You won't believe how this AI planned repainting the garage.",
+        "How detailed can a free AI to-do app get?",
+        "This AI turned one task into dozens, here's how."
+      ],
+      "rated": [
+        {
+          "hook": 1,
+          "usable": true,
+          "why": "a real number from the test (33 steps)",
+          "tool_check": "runs long: 11 words, 4.2 s"
+        },
+        {
+          "hook": 2,
+          "usable": false,
+          "why": "vague, no outcome",
+          "tool_check": "runs long: 12 words, 4.6 s"
+        },
+        {
+          "hook": 3,
+          "usable": false,
+          "why": "'You won't believe' is clickbait",
+          "tool_check": "fits: 10 words, 3.8 s"
+        },
+        {
+          "hook": 4,
+          "usable": false,
+          "why": "vague question, no outcome",
+          "tool_check": "fits: 9 words, 3.5 s"
+        },
+        {
+          "hook": 5,
+          "usable": true,
+          "why": "concrete outcome (one task into dozens)",
+          "tool_check": "fits: 8 words, 3.1 s"
+        }
+      ]
+    }
+  ],
+  "seconds_to_result": 4.2,
+  "seconds_note": "From clicking Generate until the hooks appeared (our script's clock).",
+  "flaw": {
+    "text": "Best hook fails its own check",
+    "source": "observed",
+    "image": "raw/auto/derived/hook1.jpg"
+  },
+  "flaw_source": "observed",
+  "verdict": "Captured",
+  "verdict_reason": "Free, no signup and fast: 2 of its 5 hooks were usable as a first draft, including one with the real number from our test. But 3 were vague or clickbait, and its best hook ran past its own 3-second limit.",
+  "lesson": "Give it real numbers from your video and treat the hooks as drafts: keep the one with a number, cut it to under 3 seconds.",
+  "use_for": "A first draft of your hook",
+  "skip_if": "Copying hooks without editing",
+  "score": {
+    "total": 77,
+    "parts": [
+      {
+        "key": "Quality",
+        "value": 27,
+        "max": 50
+      },
+      {
+        "key": "Speed",
+        "value": 15,
+        "max": 15
+      },
+      {
+        "key": "Free plan",
+        "value": 25,
+        "max": 25
+      },
+      {
+        "key": "Price",
+        "value": 10,
+        "max": 10
+      }
+    ],
+    "result_runs": [
+      {
+        "run": "5 hooks, one generation",
+        "value": 27,
+        "deductions": [
+          "a requested feature that does not fully work: hooks for the 3-second window, but 2 of 5 run long by its own measure, including the best -15",
+          "needs manual fixes to be usable: 3 of 5 vague or clickbait -8"
+        ]
+      }
+    ],
+    "notes": "Work drawer (Creator). Quality 50 - 15 - 8 = 27. Speed 4.2 s, under 60 s = 15. Free plan: no login 5, no published limit 10, the full feature free 10 = 25. Price: $9 a month = 10."
+  },
+  "sources": [
+    {
+      "url": "https://hookest.com/free-youtube-shorts-hook-generator",
+      "label": "Hookest free YouTube Shorts hook generator (the test)",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://hookest.com/pricing",
+      "label": "Hookest pricing",
+      "accessed": "2026-10-10"
+    },
+    {
+      "url": "https://hookest.com/",
+      "label": "Hookest home",
+      "accessed": "2026-10-10"
+    }
+  ]
+}

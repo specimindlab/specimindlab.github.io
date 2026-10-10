@@ -143,14 +143,6 @@ Tripo and Hitem3D free plans need a login; slicing runs in Bambu Studio on your 
 - [ ] Free plan to use (check on the day): Free tiers only
 - [ ] Input in [captures/R023-tripo-hitem3d/raw/input](https://github.com/specimindlab/specimindlab.github.io/tree/main/captures/R023-tripo-hitem3d/raw/input), then upload `screen.mp4`, `result.<ext>`, `notes.txt` to [captures/R023-tripo-hitem3d/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R023-tripo-hitem3d/raw)
 
-## R024 · Hookest (Rare Sighting)
-
-Hookest asks you to sign up before the generator runs (check on the day).
-
-- [ ] The test: Find 5 hooks for an AI-tool video; rate them
-- [ ] Free plan to use (check on the day): Free tier (verify)
-- [ ] Input in [captures/R024-hookest/raw/input](https://github.com/specimindlab/specimindlab.github.io/tree/main/captures/R024-hookest/raw/input), then upload `screen.mp4`, `result.<ext>`, `notes.txt` to [captures/R024-hookest/raw](https://github.com/specimindlab/specimindlab.github.io/upload/main/captures/R024-hookest/raw)
-
 ## R025 · Ideogram (Field Specimen)
 
 Ideogram's free daily credits need an account.

@@ -1,0 +1,31 @@
+{
+  "id": "E008",
+  "row": "R024",
+  "slug": "hookest",
+  "code": "006",
+  "series": "Free Range",
+  "series_code": "FR",
+  "composition": "FreeRange",
+  "mode": "Live specimen",
+  "tools": [
+    "Hookest"
+  ],
+  "tools_raw": "Hookest",
+  "pillar": "Creator",
+  "phase": "1 Collect",
+  "draft_hook": "A swipe file of viral video hooks.",
+  "the_test": "Find 5 hooks for an AI-tool video; rate them",
+  "free_path": "Free hook generator, no signup (checked 2026-10-10)",
+  "free_path_note": "From the calendar; re-verify in research.md before filming.",
+  "affiliate_status": "Check for program",
+  "on_screen_label": "Affiliate if approved, else Unpaid",
+  "disclosure": "pending",
+  "hashtags": [
+    "#contentcreator",
+    "#videoediting",
+    "#shortsediting",
+    "#specimindlab"
+  ],
+  "hub_url": "https://specimindlab.github.io/006",
+  "capture": "pending"
+}

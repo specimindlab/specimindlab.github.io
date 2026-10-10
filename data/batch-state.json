@@ -40,6 +40,15 @@
       "step": "ready",
       "verdict": "Captured",
       "score": 81
+    },
+    {
+      "id": "E008",
+      "row": "R024",
+      "code": "006",
+      "tool": "Hookest",
+      "step": "ready",
+      "verdict": "Captured",
+      "score": 77
     }
   ],
   "previous_batch": {
