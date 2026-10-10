@@ -16,7 +16,7 @@
   "launched": "2025-09-30",
   "launched_note": "The Sora app with Sora 2 launched 30 Sep 2025; app closed 26 Apr 2026; API closed 24 Sep 2026.",
   "mode": "Field sketch",
-  "tested_on": null,
+  "tested_on": "2026-10-10",
   "attempts": 0,
   "test": "Desk study: OpenAI's deprecation notice and press coverage, plus the free plans of three places to make AI videos now.",
   "flaw": {
@@ -75,5 +75,6 @@
       "label": "Gemini video generation (Gemini Omni)",
       "accessed": "2026-10-10"
     }
-  ]
+  ],
+  "tested_on_note": "Research date (desk study; nothing left to test)."
 }

@@ -675,6 +675,7 @@
       "episode": "E006",
       "pillar": "Video",
       "series": "Extinction Watch",
+      "tested_on": "2026-10-10",
       "hook_lines": [
         "OpenAI's Sora app",
         "lasted 7 months."
@@ -702,7 +703,8 @@
           "note": "Replaced Veo 3.1"
         }
       ],
-      "flaw": "Old Sora videos are deleted"
+      "flaw": "Old Sora videos are deleted",
+      "updated_on": "2026-10-10"
     }
   ]
 }
