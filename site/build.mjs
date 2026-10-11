@@ -21,6 +21,7 @@ const catalogPath = arg("--catalog", join(root, "data/catalog.json"));
 const out = arg("--out", join(here, "_site"));
 const SITE = "https://specimindlab.github.io";
 const HANDLE = "specimindlab";
+const CONTACT = "specimindlab@gmail.com";
 const PROFILES = {
   YouTube: `https://www.youtube.com/@${HANDLE}`,
   Instagram: `https://www.instagram.com/${HANDLE}/`,
@@ -234,7 +235,7 @@ ${FIXTURE ? '<div class="fixture-banner">Design fixture: placeholder data, not r
 ${body}
 </main>
 <footer class="wrap foot">
-<ul><li><a href="/">All tests</a></li><li><a href="/about/">How we test</a></li><li><a href="/about/#disclosure">Disclosure</a></li><li><a href="/llms.txt">llms.txt</a></li>${Object.entries(PROFILES).map(([k, v]) => `<li><a href="${v}" rel="me noopener">${k}</a></li>`).join("")}</ul>
+<ul><li><a href="/">All tests</a></li><li><a href="/about/">How we test</a></li><li><a href="/about/#disclosure">Disclosure</a></li><li><a href="/about/#contact">Contact</a></li><li><a href="/llms.txt">llms.txt</a></li>${Object.entries(PROFILES).map(([k, v]) => `<li><a href="${v}" rel="me noopener">${k}</a></li>`).join("")}</ul>
 <p>SPECIMIND tests new AI tools: one real try each, the catch circled, the price, a plain verdict. No cookies, no tracking, no third-party scripts on this site.</p>
 </footer>
 ${js ? `<script>${js}</script>` : ""}
@@ -362,7 +363,7 @@ const videoLd = (s, name, description) => {
     uploadDate: s.posted_on || s.tested_on,
     ...(id ? { embedUrl: `https://www.youtube-nocookie.com/embed/${id}`, url: s.links.youtube } : { url: `${SITE}/${s.code}/` }),
     inLanguage: "en",
-    publisher: { "@type": "Organization", name: "SPECIMIND", url: `${SITE}/`, logo: { "@type": "ImageObject", url: `${SITE}/brand/avatar-400.png` } },
+    publisher: { "@type": "Organization", name: "SPECIMIND", url: `${SITE}/`, email: CONTACT, logo: { "@type": "ImageObject", url: `${SITE}/brand/avatar-400.png` } },
   };
 };
 
@@ -627,6 +628,12 @@ ${tag("#", "red", "-4")}
 <p><b>Where the disclosure appears.</b> On screen for the whole video, at the top of every page, next to every affiliate button, and in each post's caption. We follow India's ASCI guidelines for influencer advertising and the US FTC's Endorsement Guides.</p>
 <h2 id="privacy">Privacy</h2>
 <p>This site sets no cookies, runs no analytics, loads no tracking pixels and no third-party scripts. The font is served from this site. The only outside content is the YouTube player on a test's page, which loads from youtube-nocookie.com only after you press play. Once you follow a “Try” link you are on the tool's or the affiliate network's site, under their privacy policy.</p>
+<h2 id="contact">Contact</h2>
+<p>Email <a href="mailto:${CONTACT}">${CONTACT}</a>. We read everything.</p>
+<ul>
+<li><b>Spotted a mistake?</b> Tell us the number (for example #004) and what's wrong. Corrections go on the page with a date.</li>
+<li><b>Make an AI tool?</b> Suggestions are welcome, and so are affiliate programmes. We test on the plan we name, once, and publish what happened. Joining a programme never changes a verdict, a score or a catch, and we don't take payment for reviews.</li>
+</ul>
 <h2>Find a test</h2>
 <p>Type the number after the slash: <a href="/001/">specimindlab.github.io/001</a>. Head-to-heads, workflows, AI-or-real videos and roundups use P, D, M and W: <code>/P01</code>, <code>/D01</code>, <code>/M01</code>, <code>/W01</code>. Machines can read the whole list at <a href="/llms.txt">/llms.txt</a>.</p>
 <p>Follow <b>@${HANDLE}</b> on ${Object.entries(PROFILES).map(([k, v]) => `<a href="${v}" rel="me noopener">${k}</a>`).join(", ").replace(/, ([^,]*)$/, " and $1")}.</p>

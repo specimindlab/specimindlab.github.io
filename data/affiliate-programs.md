@@ -6,13 +6,13 @@ Researched 2026-10-10/11 from each tool's own affiliate page and terms first (th
 
 - **Of the 65 calendar tools we checked, about 40 run an open affiliate program.** The best for us pay a share of every payment for 12 months or more (Fliki, Taskade, Postiz, Murf, ElevenLabs, Tripo, Meshy, Synthesia, Colossyan, OpusClip, Gamma). Some pay once (Adobe 85% of the first month, Lovable up to $100, Descript $25).
 - **About 15 programs let us in the same day** (automatic or self-serve sign-up). Most others review by hand in **1 to 10 business days**. A few want followers first (HeyGen 5K, Pictory's ambassador track 10K, Luma's creator program 5K).
-- **Nothing guarantees approval**, but four things remove almost every rejection reason: a live site with real reviews (we have it), a contact email on that site (**we don't, yet**), the same name and verified socials everywhere, and saying plainly we promote only with organic video and our review site.
+- **Nothing guarantees approval**, but four things remove almost every rejection reason: a live site with real reviews (we have it), a contact email on that site (done: specimindlab@gmail.com), the same name and verified socials everywhere, and saying plainly we promote only with organic video and our review site.
 - **Apply before we film a tool, not after.** The "Not sponsored" or "Affiliate link" label is burned into the video. If a tool approves us after its video is out, that video stays "Not sponsored" forever.
 - Verdicts, scores and catches never change for a partner. That is in every application below, because it is why viewers will trust the "Worth it" links.
 
 ## Do these first (one evening)
 
-1. **Contact email on the hub.** Almost every reviewer checks for one. Make one address just for SPECIMIND (e.g. a new Gmail, or hello@ a custom domain later) and give it to Claude: it goes on the About page and every application. *A custom domain with a matching email (specimindlab.com + hello@specimindlab.com, about $10/year) is the strongest version: PartnerStack and Dub both flag an email that doesn't match the site.*
+1. ~~Contact email on the hub.~~ **Done 2026-10-11:** specimindlab@gmail.com is on the About page (#contact), in every page footer and in the site metadata. Use it for every network account and application. A custom domain (specimindlab.com + hello@specimindlab.com, about $10/year) is the upgrade for when the first commission arrives; GitHub Pages then redirects the old github.io links, so videos already out keep working.
 2. **Same name everywhere:** SPECIMIND / @specimindlab on YouTube, Instagram, X, the hub and each network profile. A small SPECIMIND LinkedIn page helps PartnerStack match the account. Don't use a VPN while applying (a country mismatch is a fraud flag).
 3. **Get paid in India:** a PayPal India account (verified PAN, Indian bank account; PayPal asks for a purpose code on each payment) and a Payoneer or Wise account as backup. Keep every FIRA/FIRC (proof of foreign payment).
 4. **W-8BEN** (the US form for a non-US person; use your PAN as the foreign tax ID). Impact won't release money until it's approved. It doesn't mean you owe US tax.
@@ -62,7 +62,7 @@ The common rejection reasons, and our fix for each:
 | Rejection reason | Our fix |
 |---|---|
 | Thin or dead website | Hub with 11 review pages (6 tested and scored), a ranking page and "How we test" with our disclosure policy. Point every application at the most similar review. |
-| No contact / identity mismatch | Contact email on the hub (to do); same name everywhere; no VPN; one account per network |
+| No contact / identity mismatch | Contact email on the hub (done); same name everywhere; no VPN; one account per network |
 | Social accounts not verified | Connect and verify YouTube, Instagram and X in every network profile (Dub says verified profiles are reviewed faster) |
 | Few followers | Lead with the site and the testing method; start with the same-day programs; reapply after 60-90 days of posting |
 | Vague description | Use the blurb below |
