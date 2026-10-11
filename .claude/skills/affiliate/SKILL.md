@@ -11,7 +11,7 @@ Arguments: `$ARGUMENTS` (the code or episode id, then the tracking URL or `remov
 
 Rules that never bend: the link never changes a verdict, score, catch or ranking. A tool rated "Skip it" can carry a link, but the hub won't show a Try button for it and points to the best "Worth it" alternatives instead (`site/build.mjs` does this). The disclosure must be clear wherever the link appears.
 
-1. `git pull origin main`; `python3 scripts/channel_status.py`; read the "Money" lines in `CLAUDE.md` and the `affiliate_url` and `affiliate_subid_param` fields in `data/catalog.json` `fields`.
+1. `git pull origin main`; `python3 scripts/channel_status.py`; read `data/affiliate-programs.md` (every program we found, terms, networks) and the "Money" lines in `CLAUDE.md` and the `affiliate_url` and `affiliate_subid_param` fields in `data/catalog.json` `fields`.
 2. Check the URL: https, and the network's domain or the tool's own domain with a referral parameter. If a sub-ID parameter is given, store it in `affiliate_subid_param` (the hub adds `p-<platform>-e###` per click source). Otherwise the hub detects it for known networks.
 3. In `data/catalog.json`, set the entry's `affiliate_url` (or clear it for `remove`) and `disclosure` (`Affiliate`, or back to `Unpaid` for `remove`). Set the same `disclosure` in the episode's `facts.json`, so `catalog_sync.mjs` keeps it (facts.disclosure is "the relationship today").
 4. Then depends on whether the video is out yet:
