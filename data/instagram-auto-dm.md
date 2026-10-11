@@ -16,8 +16,8 @@ Checked 2026-10-10/11. Every Reel ends with "Comment {code} for…"; this is how
 ## Set it up once (15 minutes)
 
 1. **Professional account** (Instagram app): Profile → ☰ → Settings and activity → *For professionals*: Account type and tools → **Switch to professional account** → pick a category → **Business** (keeps every option open) → connecting a Facebook Page is optional, tap Skip. [help.instagram.com/502981923235522]
-2. **Let tools send DMs:** Settings and activity → Messages and story replies → Message controls → Connected tools → **Allow access to messages: on**. [help.instagram.com/791161338412168]
-3. **Connect Zorcha:** zorcha.com → sign in with Meta/Instagram → allow the permissions it asks for.
+2. **Connect Zorcha:** zorcha.com → sign in with Meta/Instagram → allow the permissions it asks for.
+3. **Let tools send DMs:** Profile → ☰ → Messages and story replies → **Message requests** → *Connected tools* → **Allow access to messages: on**. If it isn't there: the account must be Professional, and the option often appears only after a tool is connected (step 2). Still missing → update the app, log out and in, check again; if the test DM arrives anyway, you don't need it. [help.instagram.com/791161338412168; creatorflow.so/blog/instagram-dm-automation-permissions-checklist, accessed 2026-10-11]
 4. **Hidden words:** Settings → Hidden words: never add numbers; "Hide unwanted comments" can swallow short comments like "004", so check "View hidden comments" on the first Reel.
 
 ## For every Reel (2 minutes, before you post)
